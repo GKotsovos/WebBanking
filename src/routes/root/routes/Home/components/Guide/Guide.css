@@ -1,0 +1,10 @@
+#guidePanel {
+  margin-left: 2%;
+  height: 200px;
+}
+
+@media (max-width: 767px) {
+  #guidePanel {
+    margin: 0 0 0 0.5%;
+  }
+}
