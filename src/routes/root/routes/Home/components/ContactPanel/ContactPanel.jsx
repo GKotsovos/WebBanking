@@ -1,8 +1,8 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
-import './Contact.css'
+import './ContactPanel.css'
 
-export const Contact = () => (
+export const ContactPanel = () => (
   <div id="contactPanel" className="panel panel-default verticalCenter">
     <div className="panel-body text-center">
 
@@ -31,4 +31,4 @@ export const Contact = () => (
   </div>
 )
 
-export default Contact
+export default ContactPanel

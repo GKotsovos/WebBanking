@@ -3,38 +3,3 @@
   justify-content: center;
   align-items: center;
 }
-
-#infoPanel {
-  margin: 0 1% 0 0;
-  height: 200px;
-}
-
-#infoText {
-  margin-left: 1.5%;
-  font-size: 15px;
-}
-
-#infoIcon {
-  margin-left: 20%;
-}
-
-#panelRow {
-  margin: 0;
-}
-
-@media (max-width: 991px) {
-  #infoIcon {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 767px) {
-  #infoPanel {
-    margin: 0 0 0.5% 0;
-    height: 100px;
-  }
-
-  #infoIcon {
-    margin-left: 15%;
-  }
-}

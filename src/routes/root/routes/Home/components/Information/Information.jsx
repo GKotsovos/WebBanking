@@ -3,17 +3,19 @@ import FontAwesome from 'react-fontawesome'
 import './Information.css'
 
 export const Information = () => (
-  <div id="infoPanel" className="panel panel-default verticalCenter">
-    <div className="panel-body">
-      <div id="panelRow" className="row verticalCenter">
-        <div className="col-sm-3 col-xs-2">
-          <FontAwesome id="infoIcon" name="info-circle" size="3x" />
-        </div>
-        <div id="infoText" className="col-sm-9 col-xs-10">
-          <span >Σημαντικές πληροφορίες και συμβουλές ασφαλείας</span>
-        </div>
-      </div>
-    </div>
+  <div id="" className="">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi quae fuga cum, earum iure, neque eos assumenda minima perferendis, quo repudiandae porro ad harum! At assumenda eos, distinctio excepturi harum!
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa nisi, deleniti, aut reprehenderit nam perferendis blanditiis, voluptate minus voluptatem, expedita aspernatur dolores corrupti vitae tempore. Nobis animi, a provident nam.
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia tenetur aliquam magnam laboriosam inventore quis eos sint nihil, amet explicabo nostrum, perspiciatis rerum quae rem, vel quasi nesciunt doloremque atque?
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi quae fuga cum, earum iure, neque eos assumenda minima perferendis, quo repudiandae porro ad harum! At assumenda eos, distinctio excepturi harum!
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa nisi, deleniti, aut reprehenderit nam perferendis blanditiis, voluptate minus voluptatem, expedita aspernatur dolores corrupti vitae tempore. Nobis animi, a provident nam.
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia tenetur aliquam magnam laboriosam inventore quis eos sint nihil, amet explicabo nostrum, perspiciatis rerum quae rem, vel quasi nesciunt doloremque atque?
+    </p>
   </div>
 )
 

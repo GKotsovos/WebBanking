@@ -1,3 +1,12 @@
 .navbar-fixed-top {
   margin: 0;
+  background-color: #003cb3;
+}
+
+#brand {
+  color: #EEEEEE;
+}
+
+#changeLang {
+  color: #EEEEEE;
 }

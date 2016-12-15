@@ -3,14 +3,14 @@ import FontAwesome from 'react-fontawesome'
 import './Login.css'
 
 export const Login = () => (
-  <div className="panel panel-default">
-    <div className="panel-heading ">
+  <div id="loginPanel" className="panel panel-default">
+    <div id="loginHead" className="panel-heading">
       <h3 className="panel-title verticalCenterLogin">
         <FontAwesome id="lockIcon" name="unlock-alt" />
         <span id="panelTitle">Είσοδος Χρήστη</span>
       </h3>
     </div>
-    <div className="panel-body">
+    <div id="loginPanelBody" className="panel-body">
       <form>
         <div className="form-group">
           <input type="text" className="form-control" id="username" placeholder="Όνομα Χρήστη"/>
@@ -32,7 +32,7 @@ export const Login = () => (
           <FontAwesome id="userIcon" name="user" />
           <span>Νέος Χρήστης</span>
         </h3>
-        <button className="btn btn-default" type="submit">Αίτηση Εγγραφής</button>
+        <button id="newUserButton" className="btn btn-default" type="submit">Αίτηση Εγγραφής</button>
       </li>
     </ul>
   </div>

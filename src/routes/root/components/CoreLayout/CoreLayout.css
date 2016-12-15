@@ -1,3 +1,7 @@
 .core-layout__viewport {
   padding-top: 50px;
 }
+
+#coreLayout {
+  background-color: #e9effc;
+}

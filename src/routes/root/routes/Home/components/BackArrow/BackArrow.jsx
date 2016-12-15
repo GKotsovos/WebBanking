@@ -1,11 +1,11 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
-import './Guide.css'
+import './BackArrow.css'
 
-export const Guide = () => (
+export const BackArrow = () => (
   <div id="" className="">
-    
+
   </div>
 )
 
-export default Guide
+export default BackArrow

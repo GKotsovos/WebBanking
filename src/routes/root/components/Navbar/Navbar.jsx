@@ -13,14 +13,13 @@ export const Navbar = () => (
           <span className="icon-bar"></span>
         </button>
         <a className="navbar-brand" href="#">
-          <span aria-hidden="true"></span>
-           Aegean Bank
+          <span id="brand" aria-hidden="true">Aegean Bank</span>
          </a>
       </div>
 
       <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul className="nav navbar-nav navbar-right">
-          <li id="changeLang"><a href="#">English</a></li>
+          <li ><a id="changeLang" href="#">English</a></li>
         </ul>
       </div>
     </div>

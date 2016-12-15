@@ -1,0 +1,52 @@
+.verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#infoPanel {
+  margin: 0 1% 0 0;
+  height: 200px;
+  background-color: #b0c6f2;
+  border: none;
+}
+
+#infoPanel:hover {
+  cursor: pointer;
+}
+
+#infoText {
+  font-size: 15px;
+  margin-bottom: 5%;
+  user-select : none;
+}
+
+#infoIcon {
+  margin-bottom: 5%;
+}
+
+#panelRow {
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  #infoIcon {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  #infoPanel {
+    margin: 0 0 0.5% 0;
+    height: 100px;
+  }
+
+  #infoIcon {
+    margin-bottom: 0;
+  }
+
+  #infoText {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}

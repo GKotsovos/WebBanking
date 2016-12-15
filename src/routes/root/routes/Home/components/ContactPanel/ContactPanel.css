@@ -3,6 +3,8 @@
   padding: 5%;
   min-width: 145px;
   min-height: 200px;
+  background-color: #b0c6f2;
+  border: none;
 }
 
 .verticalCenter {
@@ -48,10 +50,6 @@
   #contactPanel{font-size: 15px;}
  }
 
-@media (min-width: 992px) and (max-width: 1449px) {
+@media (min-width: 992px){
   #contactPanel{font-size: 20px;}
  }
-
-@media (min-width: 1450) {
-  #contactPanel{font-size: 30px;}
-}
