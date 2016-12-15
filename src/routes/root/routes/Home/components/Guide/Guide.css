@@ -1,10 +1,40 @@
+.verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #guidePanel {
   margin-left: 2%;
-  height: 200px;
+  min-width: 145px;
+  min-height: 200px;
+}
+
+#bookIcon {
+  font-size: 40px;
+}
+
+#guideText{
+  font-size: 15px;
+  margin-bottom: 15%;
+  margin-top: 5%;
 }
 
 @media (max-width: 767px) {
   #guidePanel {
+    font-size: 13px;
     margin: 0 0 0 0.5%;
+    min-height: 100px;
   }
+
+  #bookIcon {
+    font-size: 35px;
+    margin-top: 5%;
+  }
+
+  #guideText{
+    margin-bottom: 10%;
+    margin-top: 5%;
+  }
+
 }

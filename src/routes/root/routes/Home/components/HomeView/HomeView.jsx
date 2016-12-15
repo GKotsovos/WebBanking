@@ -19,10 +19,10 @@ export const HomeView = () => (
             <div className="col-sm-4 col-xs-12">
               <Information id="info"/>
             </div>
-            <div className="col-sm-4 col-xs-6">
+            <div className="col-sm-4 col-xs-12">
               <Contact />
             </div>
-            <div className="col-sm-4 col-xs-6">
+            <div className="col-sm-4 col-xs-12">
               <Guide />
             </div>
           </div>

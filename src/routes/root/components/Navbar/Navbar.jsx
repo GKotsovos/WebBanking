@@ -14,7 +14,7 @@ export const Navbar = () => (
         </button>
         <a className="navbar-brand" href="#">
           <span aria-hidden="true"></span>
-           Bank
+           Aegean Bank
          </a>
       </div>
 
