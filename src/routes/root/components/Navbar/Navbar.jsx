@@ -2,7 +2,7 @@ import React from 'react'
 import './Navbar.css'
 
 export const Navbar = () => (
-  <nav className="navbar navbar-default navbar-fixed-top">
+  <nav id="navbar" className="navbar navbar-default navbar-fixed-top">
     <div className="container">
 
       <div className="navbar-header">

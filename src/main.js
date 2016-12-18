@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import Application from './Application'
 global.jQuery = require('jquery')
-require('styles/css/bootstrap.min.css')
-require('styles/js/bootstrap.min.js')
+require('styles/bootstrap/css/bootstrap.min.css')
+require('styles/bootstrap/js/bootstrap.min.js')
+require('styles/font-awesome/css/font-awesome.min.css')
 // ========================================================
 // Store Instantiation
 // ========================================================

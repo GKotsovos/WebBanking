@@ -30,7 +30,7 @@
 }
 
 form {
-  padding: 8% 13.5% 10% 13.5%;
+  padding: 8% 13.5% 5% 13.5%;
 }
 
 #loginHead {
@@ -90,7 +90,7 @@ form {
 
 @media (max-width: 992px) {
   form {
-    padding: 5% 10% 10% 10%;
+    padding: 5% 10% 5% 10%;
   }
 
   #newUser {

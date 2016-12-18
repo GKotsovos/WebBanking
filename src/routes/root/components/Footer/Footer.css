@@ -1,0 +1,19 @@
+#footer {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  min-height: 30px;
+  height: 30px;
+  background-color: #003399;
+}
+
+#copyright {
+  color: #EEEEEE;
+  font-size: 13px;
+}
+
+.verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

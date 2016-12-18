@@ -1,6 +1,7 @@
-.navbar-fixed-top {
+#navbar {
   margin: 0;
-  background-color: #003cb3;
+  background-color: #003399;
+  border-radius: 0;
 }
 
 #brand {
