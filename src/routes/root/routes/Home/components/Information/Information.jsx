@@ -3,19 +3,17 @@ import FontAwesome from 'react-fontawesome'
 import './Information.css'
 
 export const Information = () => (
-  <div id="" className="">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi quae fuga cum, earum iure, neque eos assumenda minima perferendis, quo repudiandae porro ad harum! At assumenda eos, distinctio excepturi harum!
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa nisi, deleniti, aut reprehenderit nam perferendis blanditiis, voluptate minus voluptatem, expedita aspernatur dolores corrupti vitae tempore. Nobis animi, a provident nam.
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia tenetur aliquam magnam laboriosam inventore quis eos sint nihil, amet explicabo nostrum, perspiciatis rerum quae rem, vel quasi nesciunt doloremque atque?
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi quae fuga cum, earum iure, neque eos assumenda minima perferendis, quo repudiandae porro ad harum! At assumenda eos, distinctio excepturi harum!
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa nisi, deleniti, aut reprehenderit nam perferendis blanditiis, voluptate minus voluptatem, expedita aspernatur dolores corrupti vitae tempore. Nobis animi, a provident nam.
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia tenetur aliquam magnam laboriosam inventore quis eos sint nihil, amet explicabo nostrum, perspiciatis rerum quae rem, vel quasi nesciunt doloremque atque?
-    </p>
+  <div id="information" className="">
+    <h3 id="infoTittle">ΣΗΜΑΝΤΙΚΕΣ ΠΛΗΡΟΦΟΡΙΕΣ ΑΣΦΑΛΕΙΑΣ</h3>
+
+    <p>H Aegean Bank δεν προτίθεται ποτέ να ζητήσει οποιαδήποτε προσωπικά σας στοιχεία μέσω ηλεκτρονικού ταχυδρομείου, pop up windows και banners. Μην αποκαλύπτετε ποτέ μέσω διαδικτύου ή ηλεκτρονικού ταχυδρομείου (email), ή μέσω οποιασδήποτε ηλεκτρονικής συναλλαγής προσωπικά σας στοιχεία όπως Όνομα Χρήστη, Kωδικούς, αριθμούς καρτών, αριθμούς τραπεζικών λογαριασμών κλπ.</p>
+
+    <p>Αν τυχόν παραλάβετε ηλεκτρονικό μήνυμα που σας ζητά να καταχωρήσετε ή να επιβεβαιώσετε προσωπικά στοιχεία που αφορούν την Aegean Bank μην το απαντήσετε αφού πρόκειται για απάτη. Παρακαλούμε προωθήστε οποιαδήποτε ύποπτα μηνύματα στο:<br/>
+    <a href="">contact@aegeanbank.gr</a></p>
+
+    <p id="lastPInfo">Αν νομίζετε ότι υπάρχει η πιθανότητα να δώσατε προσωπικά σας στοιχεία με οποιοδήποτε τρόπο, τηλεφωνήστε μας αμέσως στο:<br/>
+    14587 ή +302115456981 αν καλείτε από το εξωτερικό<br/></p>
+
   </div>
 )
 

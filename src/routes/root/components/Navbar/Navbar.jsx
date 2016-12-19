@@ -19,7 +19,12 @@ export const Navbar = () => (
 
       <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul className="nav navbar-nav navbar-right">
-          <li ><a id="changeLang" href="#">English</a></li>
+          <li>
+            <a id="changeLang" href="#">EN</a>
+          </li>
+          <li id="aa" className="active">
+            <a id="changeLang" href="#">GR</a>
+          </li>
         </ul>
       </div>
     </div>

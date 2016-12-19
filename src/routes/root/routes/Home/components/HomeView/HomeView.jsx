@@ -16,7 +16,7 @@ export const HomeView = () => (
           <Login />
         </div>
         <div id="news" className="col-sm-8">
-          <News />
+          <Information />
           <div id="helpPanels">
             <div className="col-sm-4 col-xs-12">
               <InformationPanel id="info"/>
