@@ -13,7 +13,7 @@ import './HomeView.css';
 export const HomeView = () => (
   <div>
     <div id="homeContainer" className="container">
-      <div className="row">
+      <div id="homeRow" className="row">
         <div id="login" className="col-sm-4">
           <Login />
         </div>

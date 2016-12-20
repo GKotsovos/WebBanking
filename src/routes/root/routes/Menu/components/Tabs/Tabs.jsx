@@ -1,31 +1,26 @@
 import React from 'react'
-import { IndexLink, Link } from 'react-router'
 import './Tabs.css'
 
 export const Tabs = () => (
   <div className="verticalCenter">
-    <ul id="tabs" className="nav nav-tabs">
-      <li className="active tab text-center"><a href="#">Accounts</a></li>
-      <li className="tab text-center"><a className="tab" href="#">Cards</a></li>
-      <li className="tab text-center"><a className="tab" href="#">Loans</a></li>
-      <li className="tab text-center"><a className="tab" href="#">Transfers</a></li>
-      <li className="tab text-center"><a className="tab" href="#">Payments</a></li>
+    <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
+      <li role="presentation" className="tab active">
+        <a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">Λογαριασμοί</a>
+      </li>
+      <li role="presentation" className="tab">
+        <a href="#cards" aria-controls="cards" role="tab" data-toggle="tab">Κάρτες</a>
+      </li>
+      <li role="presentation" className="tab">
+        <a href="#loans" aria-controls="loans" role="tab" data-toggle="tab">Δάνεια</a>
+      </li>
+      <li role="presentation" className="tab">
+        <a href="#transfers" aria-controls="transfers" role="tab" data-toggle="tab">Μεταφορές</a>
+      </li>
+      <li role="presentation" className="tab">
+        <a href="#payments" aria-controls="payments" role="tab" data-toggle="tab">Πληρωμές</a>
+      </li>
     </ul>
   </div>
 )
 
 export default Tabs
-
-
-{/*export const Tabs = () => (
-  <div>
-    <IndexLink to='/menu/accounts' activeClassName='route--active'>
-      Accounts
-    </IndexLink>
-    {' · '}
-    <Link to='/menu/loans' activeClassName='route--active'>
-      Loans
-    </Link>
-  </div>
-)
- */}

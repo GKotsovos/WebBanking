@@ -2,7 +2,7 @@
   border: 1px solid black;
 }
 
-[class*='col-'] {
+[className*='col-'] {
   padding: 0;
 }
 
@@ -13,7 +13,7 @@
   background-color: #e9effc;
 }
 
-#homeRow {
+.row {
   min-height: inherit;
 }
 
