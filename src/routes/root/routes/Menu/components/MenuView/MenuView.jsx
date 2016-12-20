@@ -1,13 +1,12 @@
 import React from 'react';
 import Tabs from '../Tabs'
+import TabPanels from '../TabPanels'
 import './MenuView.css';
 
-export const MenuView = ({ children }) => (
+export const MenuView = () => (
   <div id="menuContainer" className="container">
     <Tabs />
-    <div className='menu-layout__viewport'>
-      {children}
-    </div>
+    <TabPanels />
   </div>
 )
 

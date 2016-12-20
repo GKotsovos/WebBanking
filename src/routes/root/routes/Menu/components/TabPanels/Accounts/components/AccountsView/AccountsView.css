@@ -1,4 +1,5 @@
 @media (max-width: 767px) {
+  #accountsContainer {
     max-width: 478px;
     margin: 0 auto;
   }
