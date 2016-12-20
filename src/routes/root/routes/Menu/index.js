@@ -1,16 +1,25 @@
 // We only need to import the modules necessary for initial render
-import CoreLayout from './components/CoreLayout'
-import { HomeRoute, MenuRoute } from './routes'
+import MenuView from './components/MenuView'
+import
+  { AccountsRoute,
+    CardsRoute,
+    LoansRoute,
+    PaymentsRoute,
+    TransfersRoute,
+  } from './routes'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
-export const rootRoute = (store) => ({
-  path        : '/',
-  component   : CoreLayout,
-  indexRoute  : HomeRoute(store),
+export const MenuRoute = (store) => ({
+  path        : '/menu',
+  component   : MenuView,
+  indexRoute  : AccountsRoute(store),
   childRoutes : [
-    MenuRoute(store)
+    CardsRoute(store),
+    LoansRoute(store),
+    PaymentsRoute(store),
+    TransfersRoute(store)
   ]
 })
 
@@ -32,4 +41,4 @@ export const rootRoute = (store) => ({
     when the route exists and matches.
 */
 
-export default rootRoute
+export default MenuRoute

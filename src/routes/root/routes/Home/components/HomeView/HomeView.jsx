@@ -1,5 +1,7 @@
 import React from 'react';
 import Login from '../Login';
+import ForgotPassword from '../ForgotPassword';
+import NewApplication from '../NewApplication';
 import News from '../News';
 import InformationPanel from '../InformationPanel';
 import Information from '../Information';
@@ -16,7 +18,7 @@ export const HomeView = () => (
           <Login />
         </div>
         <div id="news" className="col-sm-8">
-          <Information />
+          <NewApplication />
           <div id="helpPanels">
             <div className="col-sm-4 col-xs-12">
               <InformationPanel id="info"/>

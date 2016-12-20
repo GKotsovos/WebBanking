@@ -1,0 +1,23 @@
+.tab {
+  width: 95px;
+  background-color: #b0c6f2;
+  color: #111111;
+}
+
+#tabs {
+  max-width: 475px;
+  margin-bottom: 5%;
+}
+
+.verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:visited {
+  background-color: #e9effc;
+  color: #111111;
+}

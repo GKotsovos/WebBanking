@@ -1,3 +1,7 @@
 import HomeRoute from './Home'
+import MenuRoute from './Menu'
 
-export default HomeRoute
+module.exports = {
+  HomeRoute,
+  MenuRoute
+};
