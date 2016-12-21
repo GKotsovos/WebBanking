@@ -1,7 +1,3 @@
-import MovementsHistory from './MovementsHistory'
-import Transfer from './Transfer'
+import ServicesPanels from './ServicesPanelsView'
 
-module.exports = {
-  MovementsHistory,
-  Transfer
-};
+export default ServicesPanels

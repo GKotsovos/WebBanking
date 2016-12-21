@@ -1,5 +1,6 @@
 .detailedAccountContainer {
   border: none;
+  margin-bottom: 10%;
 }
 
 .panel > .panel-body + .list-group .list-group-item {

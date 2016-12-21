@@ -1,0 +1,16 @@
+#movementsTable {
+  margin-bottom: 10%;
+}
+
+#tableHead {
+  background-color: #003cb3;
+  color: #EEEEEE;
+}
+
+th {
+  font-weight: normal;
+}
+
+.cell {
+  background-color: white;
+}

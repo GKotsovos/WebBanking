@@ -4,7 +4,7 @@ import Transfer from '../Transfer';
 import './ServicesPanels.css';
 
 export const ServicesPanels = () => (
-  <div>
+  <div id="servicesPanels" className="tab-content">
     <MovementsHistory />
     <Transfer />
   </div>

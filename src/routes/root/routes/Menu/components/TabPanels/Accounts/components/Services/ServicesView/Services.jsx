@@ -1,14 +1,12 @@
 import React from 'react';
 import ServicesTabs from '../ServicesTabs';
-import { MovementsHistory } from '../ServicesPanels';
-import { Transfer } from '../ServicesPanels'
+import ServicesPanels from '../ServicesPanels';
 import './Services.css';
 
 export const Services = () => (
   <div className="servicesContainer">
     <ServicesTabs />
-    <MovementsHistory />
-    <Transfer />
+    <ServicesPanels />
   </div>
 )
 
