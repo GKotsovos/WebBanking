@@ -1,8 +1,16 @@
 .detailedAccountContainer {
+  min-width: 300px;
+  max-width: 568px;
   border: none;
   margin-bottom: 10%;
 }
 
 .panel > .panel-body + .list-group .list-group-item {
   border-top: 4px solid #e9effc;
+}
+
+@media (max-width: 767px) {
+  .detailedAccountContainer {
+    margin: 0 auto 10% auto;
+  }
 }

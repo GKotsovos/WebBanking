@@ -16,12 +16,18 @@
   align-items: center;
 }
 
+.nav-tabs>li>a {
+  border-radius: 0;
+}
+
 .nav-tabs>li>a:hover,
 .nav-tabs>li.active>a,
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:visited,
 .nav-tabs>li.active>a:focus {
   background-color: #e9effc;
+  border-color: #b0c6f2;
+  border-bottom-color: transparent;
 }
 
 .nav-tabs>li>a {

@@ -13,9 +13,9 @@ export const AccountView = () => (
     </div>
     <div className="panel-body">
       <span className="row">
-        <span className="col-sm-offset-1 col-xs-2 col-sm-3 text-right">500.25</span>
-        <span className="col-xs-offset-1 col-xs-4 col-sm-3 text-right">100</span>
-        <span className="col-sm-offset-1 col-sm-3 col-xs-5 text-right">600.25</span>
+        <span className="col-sm-offset-1 col-xs-2 col-sm-3 text-right">500.25€</span>
+        <span className="col-xs-offset-1 col-xs-4 col-sm-3 text-right">100€</span>
+        <span className="col-sm-offset-1 col-sm-3 col-xs-5 text-right">600.25€</span>
       </span>
       <span id="summary" className="row">
         <span className="col-sm-offset-1 col-xs-2 col-sm-3 text-right">Λογιστικό Υπόλοιπο</span>

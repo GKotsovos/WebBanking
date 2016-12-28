@@ -1,9 +1,4 @@
 .core-layout__viewport {
   padding-top: 50px;
-}
-
-#coreLayout {
-  background-color: #b0c6f2;
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
+  padding-bottom: 30px;
 }

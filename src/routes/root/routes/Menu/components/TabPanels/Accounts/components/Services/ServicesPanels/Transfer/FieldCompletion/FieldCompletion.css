@@ -1,0 +1,76 @@
+#completionForm {
+  max-width: 400px;
+  margin: 0 auto 7% auto;
+}
+
+#IBANInput {
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+#ownerInput {
+  max-width: 400px;
+}
+
+#ammountInput {
+  max-width: 150px;
+}
+
+.bootstrap-select.form-control:not([class*=col-]) {
+  max-width: 185px;
+}
+
+#chooseDate, #now, #later, #save, #saveMovement {
+  display: flex;
+  align-items: center;
+}
+
+input[type=radio],
+input[type=checkbox] {
+  margin-top: 0;
+}
+
+#now {
+  margin-right: 15px;
+}
+
+#stis {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+#amesa {
+  margin-left: 2px;
+}
+
+#datePicker_group {
+  max-width: 170px;
+}
+
+#saveMovement {
+  display: flex;
+  align-items: center;
+}
+
+#saveCheckBox {
+  margin-right: 5px;
+}
+
+#completionFormButtons {
+  margin: 5% auto 0 auto;
+  max-width: 210px;
+}
+
+#clearCompletionForm {
+  width: 102px;
+  margin-right: 3px;
+  background-color: #a6a6a6;
+  color: #EEEEEE;
+}
+
+#nextForm {
+  width: 102px;
+  margin-left: 3px;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

@@ -1,5 +1,11 @@
+#history {
+  max-height: 242px;
+  overflow-y: auto;
+}
+
 #movementsTable {
-  margin-bottom: 10%;
+  margin-bottom: 0;
+  width: 100%
 }
 
 #tableHead {
@@ -13,4 +19,8 @@ th {
 
 .cell {
   background-color: white;
+}
+
+.table>thead>tr>th {
+  vertical-align: middle;
 }

@@ -38,18 +38,6 @@ export const DetailedAccount = () => (
           <span className="col-sm-offset-1 col-sm-3 col-xs-5 text-right">Συχνότητα Εκτοκισμού</span>
         </span>
       </li>
-      <li className="cellRow list-group-item">
-        <span className="row">
-          <span className="col-sm-offset-1 col-xs-2 col-sm-3 text-right">0,00€</span>
-          <span className="col-xs-offset-1 col-xs-4 col-sm-3 text-right">0,00€</span>
-          <span className="col-sm-offset-1 col-sm-3 col-xs-5 text-right">0,00€</span>
-        </span>
-        <span id="summary" className="row">
-          <span className="col-sm-offset-1 col-xs-2 col-sm-3 text-right">Δεσμ. από επιταγές</span>
-          <span className="col-xs-5 col-sm-4 text-right">Άλλες δεσμεύσεις</span>
-          <span className="col-sm-offset-1 col-sm-3 col-xs-5 text-right">Ευχέρεια από επιταγές</span>
-        </span>
-      </li>
     </ul>
   </div>
 )

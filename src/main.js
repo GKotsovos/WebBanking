@@ -6,6 +6,10 @@ global.jQuery = require('jquery')
 require('styles/bootstrap/css/bootstrap.min.css')
 require('styles/bootstrap/js/bootstrap.min.js')
 require('styles/font-awesome/css/font-awesome.min.css')
+require('styles/bootstrap-select/boostrap-select.css')
+require('styles/bootstrap-select/boostrap-select.js')
+require('styles/google-fonts/Roboto/roboto.css')
+
 // ========================================================
 // Store Instantiation
 // ========================================================

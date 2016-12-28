@@ -1,3 +1,3 @@
-import Transfer from './Transfer.jsx';
+import Transfer from './TransferView';
 
 export default Transfer
