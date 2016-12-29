@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
 import './FieldCompletion.css';
 
@@ -14,12 +14,17 @@ export const FieldCompletion = () => (
     <div className="form-group">
       <label htmlFor="bankSelect">Τράπεζα</label>
       <div>
-        <select id="bankSelect" className="form-control selectpicker">
+        <select id="bankSelect" className="form-control">
           <option>Aegean Bank</option>
           <option>Τράπεζα Εσωτερικού</option>
           <option>Τράπεζα Εξωτερικού</option>
         </select>
       </div>
+    </div>
+
+    <div className="form-group">
+      <label htmlFor="BICinput">BIC Τράπεζας</label>
+      <input className="form-control" id="BIC" placeholder="BIC" />
     </div>
 
     <div className="form-group">
@@ -42,7 +47,7 @@ export const FieldCompletion = () => (
         <span id="later">
           <input type="radio" name="chooseDate" id="transferLaterRadio" value="later" />
           <span id="stis">Στις</span>
-          <DatePicker id="datePicker" weekStartsOnMonday calendarPlacement="top" />
+          <DatePicker id="datePicker" weekStartsOnMonday calendarPlacement="top" placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"/>
         </span>
       </div>
     </div>

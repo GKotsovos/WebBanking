@@ -3,6 +3,10 @@
   margin: 0 auto 7% auto;
 }
 
+label {
+  font-weight: 500;
+}
+
 #IBANInput {
   max-width: 400px;
   margin-bottom: 10px;
@@ -19,6 +23,16 @@
 .bootstrap-select.form-control:not([class*=col-]) {
   max-width: 185px;
 }
+
+#bankSelect:hover {
+  cursor: pointer;
+}
+
+#bankSelect, #BIC {
+  max-width: 185px;
+}
+
+
 
 #chooseDate, #now, #later, #save, #saveMovement {
   display: flex;
