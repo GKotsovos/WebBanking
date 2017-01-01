@@ -1,22 +1,38 @@
-#completionForm {
+#orderCompletionForm {
   max-width: 400px;
   margin: 0 auto 7% auto;
 }
 
-label {
-  font-weight: 500;
+#orderSelect {
+  max-width: 300px;
 }
 
-#IBANInput {
+#newOrderChoice {
+  display: flex;
+  align-items: center;
+}
+
+#orderSelect, #newOrderButton {
+  display: inline;
+}
+
+#newOrderButton {
+  width: 100px;
+  margin-left: 5%;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}
+
+#orderIBAN {
   max-width: 400px;
   margin-bottom: 10px;
 }
 
-#ownerInput {
+#orderOwner {
   max-width: 400px;
 }
 
-#ammountInput {
+#orderAmount {
   max-width: 150px;
 }
 
@@ -24,17 +40,17 @@ label {
   max-width: 185px;
 }
 
-#bankSelect:hover {
+#orderBankSelect:hover {
   cursor: pointer;
 }
 
-#bankSelect, #BIC {
+#orderBankSelect, #orderBIC {
   max-width: 185px;
 }
 
 
 
-#chooseDate, #now, #later, #save, #saveMovement {
+#startDatePicker, #saveOrder {
   display: flex;
   align-items: center;
 }
@@ -44,45 +60,45 @@ input[type=checkbox] {
   margin-top: 0;
 }
 
-#now {
-  margin-right: 15px;
-}
-
-#stis {
-  margin-left: 2px;
-  margin-right: 10px;
-}
-
-#amesa {
-  margin-left: 2px;
-}
-
-#datePicker_group {
+#startDatePicker_group {
   max-width: 170px;
 }
 
-#saveMovement {
+#periodSelect, #timesInput {
+  max-width: 95%;
+}
+
+#times {
+  margin-left: 5%;
+}
+
+#timesInput {
+  float: right;
+}
+
+
+#saveOrder {
   display: flex;
   align-items: center;
 }
 
-#saveCheckBox {
+#saveOrderCheckBox {
   margin-right: 5px;
 }
 
-#completionFormButtons {
+#completionOrderButtons {
   margin: 5% auto 0 auto;
   max-width: 210px;
 }
 
-#clearCompletionForm {
+#clearOrderForm {
   width: 102px;
   margin-right: 3px;
   background-color: #a6a6a6;
   color: #EEEEEE;
 }
 
-#nextForm {
+#nextOrderForm {
   width: 102px;
   margin-left: 3px;
   background-color: #0044cc;

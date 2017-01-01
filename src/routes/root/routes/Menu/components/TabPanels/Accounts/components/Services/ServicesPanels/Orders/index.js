@@ -1,3 +1,3 @@
-import Orders from './Orders.jsx';
+import Orders from './OrdersView'
 
 export default Orders

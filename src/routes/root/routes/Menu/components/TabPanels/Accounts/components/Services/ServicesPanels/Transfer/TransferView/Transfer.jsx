@@ -1,12 +1,12 @@
 import React from 'react';
-import FieldCompletion from '../FieldCompletion'
+import TransferInput from '../TransferInput'
 import Approval from '../Approval'
 import TransferResult from '../TransferResult'
 import './Transfer.css';
 
 export const Transfer = () => (
-  <div role="tabpanel" className="tab-pane active" id="transfer">
-    <FieldCompletion />
+  <div role="tabpanel" className="tab-pane" id="transfer">
+    <TransferInput />
     {/* <Approval /> */}
     {/* <TransferResult /> */}
   </div>
