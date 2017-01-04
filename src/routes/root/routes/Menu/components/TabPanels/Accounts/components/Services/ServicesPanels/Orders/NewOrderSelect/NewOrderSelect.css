@@ -1,0 +1,24 @@
+#newOrderSelectContainer{
+  max-width: 400px;
+  margin: 0 auto 5% auto;
+}
+
+#orderSelect {
+  max-width: 300px;
+}
+
+#newOrderChoice {
+  display: flex;
+  align-items: center;
+}
+
+#orderSelect, #newOrderButton {
+  display: inline;
+}
+
+#newOrderButton {
+  width: 100px;
+  margin-left: 5%;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

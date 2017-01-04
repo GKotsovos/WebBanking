@@ -1,9 +1,9 @@
-#approvalForm {
+#orderApprovalForm {
   margin: 0 auto 5% auto;
   width: 100%;
 }
 
-#approvalTable {
+#orderApprovalTable {
   max-width: 500px;
   margin: 0 auto;
 }
@@ -13,19 +13,19 @@
   background-color: white;
 }
 
-#approvalFormButtons {
+#orderApprovalFormButtons {
   width: 226px;
   margin: 0 auto;
 }
 
-#previousForm {
+#previousOrderForm {
   width: 110px;
   margin-right: 3px;
   background-color: #990000;
   color: #EEEEEE;
 }
 
-#submitApprovalForm {
+#submitOrderApprovalForm {
   width: 110px;
   margin-left: 3px;
   background-color: #0044cc;

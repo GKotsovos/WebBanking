@@ -15,7 +15,7 @@ export const TransferInput = () => (
       <label htmlFor="transferBankSelect">Τράπεζα</label>
       <div>
         <select id="transferBankSelect" className="form-control">
-          <option>Aegean Bank</option>
+          <option>Agile Bank</option>
           <option>Τράπεζα Εσωτερικού</option>
           <option>Τράπεζα Εξωτερικού</option>
         </select>

@@ -13,7 +13,7 @@ export const Navbar = () => (
           <span className="icon-bar"></span>
         </button>
         <a className="navbar-brand" href="#">
-          <span id="brand" aria-hidden="true">Aegean Bank</span>
+          <span id="brand" aria-hidden="true">Agile Bank</span>
          </a>
       </div>
 

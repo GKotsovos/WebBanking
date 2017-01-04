@@ -1,10 +1,10 @@
 import React from 'react';
-import './Approval.css';
+import './TransferApproval.css';
 
-export const Approval = () => (
-  <form id="approvalForm" className="col-sm-offset-2 col-sm-8">
+export const TransferApproval = () => (
+  <form id="transferApprovalForm" className="col-sm-offset-2 col-sm-8">
 
-    <div id="approvalTable" className="form-group">
+    <div id="transferApprovalTable" className="form-group">
       <table className="table table-bordered">
         <thead>
           <tr id="tableHead" className="titles">
@@ -26,7 +26,7 @@ export const Approval = () => (
           </tr>
           <tr>
             <td className="titleCell col-sm-5 text-right">Τράπεζα</td>
-            <td className="cell col-sm-4 text-center">Aegean Bank</td>
+            <td className="cell col-sm-4 text-center">Agile Bank</td>
           </tr>
           <tr>
             <td className="titleCell col-sm-5 text-right">Καθαρό ποσό εμβάσματος</td>
@@ -56,12 +56,12 @@ export const Approval = () => (
       </table>
     </div>
 
-    <div id="approvalFormButtons">
-      <button id="previousForm" type="button" className="btn btn-default">Επιστροφή</button>
-      <button id="submitApprovalForm" type="submit" className="btn btn-default">Επιβεβαίωση</button>
+    <div id="transferApprovalFormButtons">
+      <button id="previousTransferForm" type="button" className="btn btn-default">Επιστροφή</button>
+      <button id="submitTransferApprovalForm" type="submit" className="btn btn-default">Επιβεβαίωση</button>
     </div>
 
   </form>
 )
 
-export default Approval
+export default TransferApproval

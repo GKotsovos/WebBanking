@@ -1,0 +1,32 @@
+#orderCompletionForm {
+  max-width: 400px;
+  margin: 0 auto 7% auto;
+}
+
+#saveOrder {
+  display: flex;
+  align-items: center;
+}
+
+#saveOrderCheckBox {
+  margin-right: 5px;
+}
+
+#completionOrderButtons {
+  margin: 5% auto 0 auto;
+  max-width: 210px;
+}
+
+#clearOrderForm {
+  width: 102px;
+  margin-right: 3px;
+  background-color: #a6a6a6;
+  color: #EEEEEE;
+}
+
+#nextOrderForm {
+  width: 102px;
+  margin-left: 3px;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

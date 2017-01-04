@@ -6,7 +6,7 @@ export const Footer = () => (
   <nav id="footer" className="navbar navbar-default navbar-fixed-bottom verticalCenter">
     <div className="container-fluid ">
       <span id="copyright">
-        Copyright <FontAwesome className="fa-fw" name="copyright" /> Aegean Bank
+        Copyright <FontAwesome className="fa-fw" name="copyright" /> Agile Bank
       </span>
     </div>
   </nav>
