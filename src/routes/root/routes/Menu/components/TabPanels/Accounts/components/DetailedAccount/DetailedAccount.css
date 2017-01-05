@@ -1,8 +1,9 @@
 .detailedAccountContainer {
   min-width: 300px;
-  max-width: 568px;
+  max-width: 500px;
   border: none;
-  margin-bottom: 10%;
+  margin: 0 auto 10% auto;
+
 }
 
 .panel > .panel-body + .list-group .list-group-item {

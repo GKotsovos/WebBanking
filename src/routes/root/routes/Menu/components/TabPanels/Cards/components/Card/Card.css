@@ -1,19 +1,19 @@
-.accountContainer {
+.cardContainer {
   min-width: 300px;
   max-width: 500px;
   margin: 0 auto 7.5% auto;
 }
 
-.accountContainer:hover {
+.cardContainer:hover {
   cursor: pointer;
 }
 
-#accountTitle {
+#cardTitle {
   background-color: #003cb3;
   color: #EEEEEE;
 }
 
-#IBAN {
+#cardNumber {
   float: right;
 }
 
@@ -30,14 +30,20 @@
   font-size: 11px;
 }
 
+#cardBody {
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+
 @media (min-width: 768px) {
-  #IBAN {
+  #cardNumber {
     margin-top: 2px;
   }
 }
 
 @media (max-width: 767px) {
-  .accountContainer {
+  .cardContainer {
     margin: 0 auto 7.5% auto;
   }
 
@@ -51,7 +57,7 @@
     font-size: 11px;
   }
 
-  #IBAN {
+  #cardNumber {
     margin-top: 5px;
   }
 }
