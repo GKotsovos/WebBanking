@@ -8,7 +8,7 @@ export const Orders = () => (
   <div role="tabpanel" className="tab-pane active" id="orders">
     <NewOrderSelect />
 
-    {/*<NewOrder />*/}
+    <NewOrder />
 
     {/*   or        */}
 

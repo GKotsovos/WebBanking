@@ -1,0 +1,26 @@
+#history {
+  max-height: 242px;
+  overflow-y: auto;
+}
+
+#movementsTable {
+  margin-bottom: 0;
+  width: 100%
+}
+
+#tableHead {
+  background-color: #003cb3;
+  color: #EEEEEE;
+}
+
+th {
+  font-weight: normal;
+}
+
+.cell {
+  background-color: white;
+}
+
+.table>thead>tr>th {
+  vertical-align: middle;
+}

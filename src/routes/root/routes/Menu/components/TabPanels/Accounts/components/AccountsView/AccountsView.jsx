@@ -7,19 +7,13 @@ import './AccountsView.css';
 export const AccountsView = () => (
   <div id="accounts" role="tabpanel" className="tab-pane">
 
-    {/*<div className="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
-      <Account />
-      <Account />
-      <Account />
-    </div>*/}
+    {/* <Account />
+    <Account />
+    <Account /> */}
 
-    <div className="col-md-offset-3 col-sm-offset-2 col-md-6 col-sm-8">
-      <DetailedAccount />
-    </div>
+    <DetailedAccount />
 
-    <div className="col-sm-offset-2 col-sm-8">
-      <Services />
-    </div>
+    <Services />
   </div>
 )
 

@@ -17,7 +17,7 @@ export const Card = () => (
         <span className="col-xs-4 col-sm-5 text-right">800,00€</span>
         <span className="col-xs-offset-1 col-xs-4 text-right">500,25€</span>
       </span>
-      <span id="summary" className="row">
+      <span className="row cardSummary">
         <span className="col-xs-3 col-sm-2 text-right">Ημερήσιο Όριο</span>
         <span className="col-xs-4 col-sm-5 text-right">Διαθέσιμο Όριο</span>
         <span className="col-xs-offset-1 col-xs-4 text-right">Λογιστικό Υπόλοιπο</span>

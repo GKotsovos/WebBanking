@@ -6,7 +6,7 @@ import './NewOrder.css';
 export const NewOrder = () => (
   <form id="orderCompletionForm">
 
-    <NewAccountOrder />
+    <NewOrganizationOrder />
 
     <div className="form-group">
       <label id="saveOrder">

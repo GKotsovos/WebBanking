@@ -1,11 +1,7 @@
-.cardContainer {
+.detailedCardContainer {
   min-width: 300px;
   max-width: 500px;
   margin: 0 auto 7.5% auto;
-}
-
-.cardContainer:hover {
-  cursor: pointer;
 }
 
 #cardTitle {
