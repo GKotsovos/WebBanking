@@ -15,17 +15,17 @@ export const Tabs = () => (
       </li>
       <li role="presentation" className="tab">
         <a href="#loans" className="mainTab" aria-controls="loans" role="tab" data-toggle="tab">
-          <FontAwesome name="briefcase"/><br/>Δάνεια</a>
+          <FontAwesome name="handshake-o"/><br/>Δάνεια</a>
       </li>
       <li role="presentation" className="tab">
         <a href="#transfers" className="mainTab" aria-controls="transfers" role="tab" data-toggle="tab">
           <FontAwesome name="exchange"/>Μεταφορές</a>
       </li>
-      <li role="presentation" className="tab">
-        <a href="#payments" className="mainTab" aria-controls="payments" role="tab" data-toggle="tab">
-          <FontAwesome name="handshake-o"/>Πληρωμές</a>
-      </li>
       <li role="presentation" className="tab active">
+        <a href="#payments" className="mainTab" aria-controls="payments" role="tab" data-toggle="tab">
+          <FontAwesome name="briefcase"/>Πληρωμές</a>
+      </li>
+      <li role="presentation" className="tab">
         <a href="#orders" className="mainTab" aria-controls="orders" role="tab" data-toggle="tab">
           <FontAwesome name="calendar-check-o"/><br/>Πάγιες</a>
       </li>

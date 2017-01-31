@@ -8,7 +8,7 @@ import Orders from '../Orders'
 import './TabPanelsView.css';
 
 export const TabPanelsView = () => (
-  <div id="tabPanels" className="tab-content">
+  <div id="tabPanels" className="tabPanelContainer tab-content">
     <Accounts />
     <Cards />
     <Loans />

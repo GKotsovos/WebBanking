@@ -7,14 +7,14 @@ import OrderResult from '../OrderResult'
 import './Orders.css';
 
 export const Orders = () => (
-  <div role="tabpanel" className="tab-pane active" id="orders">
+  <div role="tabpanel" className="tab-pane" id="orders">
     <NewOrderSelect />
 
-    {/* <NewOrder /> */}
+    <NewOrder />
 
     {/* <OrderApproval /> */}
 
-    <Order />
+    {/* <Order /> /*}
 
     {/* <OrderResult /> */}
   </div>

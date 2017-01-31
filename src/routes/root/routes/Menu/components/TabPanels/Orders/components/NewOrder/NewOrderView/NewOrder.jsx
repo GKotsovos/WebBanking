@@ -6,6 +6,17 @@ import './NewOrder.css';
 export const NewOrder = () => (
   <form id="orderCompletionForm">
 
+    <div className="form-group">
+      <label htmlFor="orderSelectAccount">Λογαριασμός Χρέωσης</label>
+      <div>
+        <select id="orderSelectAccount" className="form-control">
+          <option>GR2201100470000009237465820</option>
+          <option>GR2201100470000009237465350</option>
+          <option>GR2201100470000009237465700</option>
+        </select>
+      </div>
+    </div>
+
     <NewOrganizationOrder />
     {/* <NewAccountOrder /> */}
 

@@ -1,16 +1,16 @@
-#orderOrganizationSelect {
+#organizationSelect {
   max-width: 200px;
   margin-bottom: 10px;
 }
 
-#orderOrganizationSelect:hover {
+#organizationSelect:hover {
   cursor: pointer;
 }
 
-#maxAmount {
+#amount {
   max-width: 150px;
 }
 
-#startDatePicker_group {
+#paymentDatePicker_group {
   max-width: 170px;
 }

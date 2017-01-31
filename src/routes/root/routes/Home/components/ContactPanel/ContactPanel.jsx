@@ -24,7 +24,7 @@ export const ContactPanel = () => (
 
       <div className="verticalCenter">
         <FontAwesome id="envelope" name="envelope" size="2x" />
-         <span className="email">contact@Agilebank.gr</span>
+         <span className="email">contact@agilebank.gr</span>
       </div>
 
     </div>
