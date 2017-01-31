@@ -4,6 +4,7 @@ import Cards from '../Cards'
 import Loans from '../Loans'
 import Transfers from '../Transfers'
 import Payments from '../Payments'
+import Orders from '../Orders'
 import './TabPanelsView.css';
 
 export const TabPanelsView = () => (
@@ -13,6 +14,7 @@ export const TabPanelsView = () => (
     <Loans />
     <Transfers />
     <Payments />
+    <Orders />
   </div>
 )
 

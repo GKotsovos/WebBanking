@@ -2,7 +2,7 @@ import React from 'react';
 import './MovementsHistory.css';
 
 export const MovementsHistory = () => (
-  <div role="tabpanel" className="tab-pane" id="cardHistory">
+  <div role="tabpanel" className="movementsContainer tab-pane active" id="cardHistory">
     <table id="movementsTable" className="table">
       <thead>
         <tr id="tableHead" className="titles">

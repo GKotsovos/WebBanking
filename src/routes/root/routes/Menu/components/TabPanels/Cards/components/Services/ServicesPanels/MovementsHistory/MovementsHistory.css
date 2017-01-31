@@ -1,3 +1,9 @@
+.movementsContainer {
+  max-width: 760px;
+  margin: 0 auto 7% auto;
+  display: block;
+}
+
 #cardHistory {
   max-height: 242px;
   overflow-y: auto;

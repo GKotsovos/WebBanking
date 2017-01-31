@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome'
 import './LinkedProducts.css';
 
 export const LinkedProducts = () => (
-  <div role="tabpanel" className="tab-pane active" id="cardProducts">
+  <div role="tabpanel" className="tab-pane" id="cardProducts">
     <table id="linkedProductsTable" className="table">
       <thead>
         <tr id="tableHead" className="titles">

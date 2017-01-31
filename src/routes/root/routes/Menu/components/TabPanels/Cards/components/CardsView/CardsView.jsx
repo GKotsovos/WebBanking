@@ -5,9 +5,12 @@ import Services from '../Services'
 import './CardsView.css';
 
 export const CardsView = () => (
-  <div role="tabpanel" className="tab-pane active" id="cards">
-    <DetailedCard />
-    <Services />
+  <div role="tabpanel" className="tab-pane" id="cards">
+    <Card />
+    <Card />
+    <Card />
+    {/* <DetailedCard /> */}
+    {/* <Services /> */}
   </div>
 )
 

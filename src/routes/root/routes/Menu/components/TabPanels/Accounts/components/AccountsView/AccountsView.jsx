@@ -1,19 +1,19 @@
 import React from 'react';
 import Account from '../Account';
 import DetailedAccount from '../DetailedAccount';
-import Services from '../Services';
+import MovementsHistory from '../MovementsHistory';
 import './AccountsView.css';
 
 export const AccountsView = () => (
   <div id="accounts" role="tabpanel" className="tab-pane">
 
-    {/* <Account />
     <Account />
-    <Account /> */}
-
+    <Account />
+    <Account />
+{/*
     <DetailedAccount />
 
-    <Services />
+    <MovementsHistory /> */}
   </div>
 )
 

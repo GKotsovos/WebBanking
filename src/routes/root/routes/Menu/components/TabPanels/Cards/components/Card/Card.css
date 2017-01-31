@@ -1,7 +1,7 @@
 .cardContainer {
   min-width: 300px;
   max-width: 500px;
-  margin: 0 auto 7.5% auto;
+  margin: 0 auto 4% auto;
 }
 
 .cardContainer:hover {

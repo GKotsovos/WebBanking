@@ -1,3 +1,3 @@
-import TransfersView from './components/TransfersView';
+import Transfers from './components/TransfersView';
 
-export default TransfersView
+export default Transfers

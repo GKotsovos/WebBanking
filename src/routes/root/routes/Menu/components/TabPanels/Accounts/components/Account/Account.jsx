@@ -1,7 +1,7 @@
 import React from 'react';
 import './Account.css';
 
-export const AccountView = () => (
+export const Account = () => (
   <div className="panel panel-default accountContainer">
     <div id="accountTitle" className="panel-heading">
       <h3 className="panel-title">
@@ -13,18 +13,20 @@ export const AccountView = () => (
     </div>
 
     <div className="panel-body">
-      <span className="row">
-        <span className="col-xs-3 text-right">500,25€</span>
-        <span className="col-xs-offset-1 col-xs-4 text-right">100,00€</span>
-        <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">600,25€</span>
-      </span>
-      <span id="summary" className="row">
-        <span className="col-xs-3 text-right">Λογιστικό Υπόλοιπο</span>
-        <span className="col-xs-offset-1 col-xs-4 text-right">Ευχέρια Υπερανάλληψης</span>
-        <span className="col-xs-offset-1 col-xs-3 text-right">Συνολικό Υπόλοιπο</span>
-      </span>
+      <div className="row">
+        <span>
+          <span className="col-xs-3 text-right">500,25€</span>
+          <span className="col-xs-offset-1 col-xs-4 text-right">100,00€</span>
+          <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">600,25€</span>
+        </span>
+        <span className="summary">
+          <span className="col-xs-3 text-right">Λογιστικό Υπόλοιπο</span>
+          <span className="col-xs-offset-1 col-xs-4 text-right">Ευχέρια Υπερανάλληψης</span>
+          <span className="col-xs-offset-1 col-xs-3 text-right">Συνολικό Υπόλοιπο</span>
+        </span>
+      </div>
     </div>
   </div>
 )
 
-export default AccountView
+export default Account
