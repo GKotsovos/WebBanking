@@ -1,3 +1,3 @@
-import CardsView from './components/CardsView';
+import Cards from './components/CardsView';
 
-export default CardsView
+export default Cards

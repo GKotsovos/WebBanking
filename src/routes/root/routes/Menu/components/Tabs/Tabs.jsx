@@ -9,7 +9,7 @@ export const Tabs = () => (
         <a href="#accounts" className="mainTab" aria-controls="accounts" role="tab" data-toggle="tab">
           <FontAwesome name="money"/><br/>Λογαριασμοί</a>
       </li>
-      <li role="presentation" className="tab">
+      <li role="presentation" className="tab active">
         <a href="#cards" className="mainTab" aria-controls="cards" role="tab" data-toggle="tab">
           <FontAwesome name="credit-card"/><br/>Κάρτες</a>
       </li>
@@ -21,7 +21,7 @@ export const Tabs = () => (
         <a href="#transfers" className="mainTab" aria-controls="transfers" role="tab" data-toggle="tab">
           <FontAwesome name="exchange"/>Μεταφορές</a>
       </li>
-      <li role="presentation" className="tab active">
+      <li role="presentation" className="tab">
         <a href="#payments" className="mainTab" aria-controls="payments" role="tab" data-toggle="tab">
           <FontAwesome name="briefcase"/>Πληρωμές</a>
       </li>

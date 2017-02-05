@@ -4,7 +4,7 @@ import Failure from '../Failure'
 import './Result.css';
 
 export const Result = () => (
-  <div className="" id="Result">
+  <div className="transfersContainer" id="Result">
     <Success />
     {/* <Failure /> */}
   </div>

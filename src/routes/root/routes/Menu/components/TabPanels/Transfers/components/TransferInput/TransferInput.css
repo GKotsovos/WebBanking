@@ -1,5 +1,4 @@
 #transferCompletionForm {
-  max-width: 400px;
   margin: 0 auto 7% auto;
 }
 
@@ -8,19 +7,14 @@ label {
 }
 
 #transferIBAN {
-  max-width: 400px;
   margin-bottom: 10px;
-}
-
-#transferOwner {
-  max-width: 400px;
 }
 
 .bootstrap-select.form-control:not([class*=col-]) {
   max-width: 185px;
 }
 
-#transferBankSelect:hover {
+#transferSelectAccount:hover, #transferBankSelect:hover {
   cursor: pointer;
 }
 

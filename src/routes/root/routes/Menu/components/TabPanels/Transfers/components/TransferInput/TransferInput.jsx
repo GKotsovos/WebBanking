@@ -3,7 +3,7 @@ import DatePicker from 'react-bootstrap-date-picker'
 import './TransferInput.css';
 
 export const TransferInput = () => (
-  <form id="transferCompletionForm">
+  <form className="transfersContainer" id="transferCompletionForm">
 
     <div className="form-group">
       <label htmlFor="transferSelectAccount">Από</label>

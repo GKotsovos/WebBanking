@@ -15,7 +15,7 @@ export const OrganizationApproval = () => (
           <td className="cell col-sm-4 text-center">GR2201100470000009237465820</td>
         </tr>
         <tr>
-          <td className="titleCell col-sm-5 text-right">Όνομα Οργανισμού</td>
+          <td className="titleCell col-sm-5 text-right">Όνομα οργανισμού</td>
           <td className="cell col-sm-4 text-center">Cosmote</td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@ export const OrganizationApproval = () => (
           <td className="cell col-sm-4 text-center">0,00€</td>
         </tr>
         <tr>
-          <td className="titleCell col-sm-5 text-right">Ημερομηνία Λήξης</td>
+          <td className="titleCell col-sm-5 text-right">Ημερομηνία λήξης</td>
           <td className="cell col-sm-4 text-center">29/12/2018</td>
         </tr>
       </tbody>

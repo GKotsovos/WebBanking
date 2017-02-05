@@ -3,7 +3,7 @@ import DatePicker from 'react-bootstrap-date-picker'
 import './Payment.css';
 
 export const Payment = () => (
-  <div>
+  <div className="paymentContainer">
 
     <div className="form-group">
       <label htmlFor="paymentAccount">Λογαριασμός Χρέωσης</label>
@@ -40,6 +40,18 @@ export const Payment = () => (
     <div className="form-group">
       <label htmlFor="paymentDatePicker">Ημερομηνία Εκτέλεσης</label>
       <DatePicker id="paymentDatePicker" weekStartsOnMonday calendarPlacement="top" placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"/>
+    </div>
+
+    <div className="form-group">
+      <label id="savePayment">
+        <input id="savePaymentCheckBox" type="checkbox" />
+        <span>Αποθήκευση ως πρότυπο</span>
+      </label>
+    </div>
+
+    <div id="completionPaymentButtons" className="form-group">
+      <button id="clearPaymentForm" type="button" className="btn btn-default">Καθαρισμός</button>
+      <button id="nextPaymentForm" type="button" className="btn btn-default">Συνέχεια</button>
     </div>
 
   </div>

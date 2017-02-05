@@ -1,3 +1,3 @@
-import CardsView from './CardsView.jsx';
+import Cards from './Cards.jsx';
 
-export default CardsView
+export default Cards
