@@ -1,3 +1,7 @@
 import HomeRoute from './Home'
+import BankingRoute from './Banking'
 
-export default HomeRoute
+module.exports = {
+  HomeRoute,
+  BankingRoute
+};

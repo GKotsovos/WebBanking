@@ -1,3 +1,22 @@
-.navbar-fixed-top {
+#navbar {
   margin: 0;
+  background-color: #003399;
+  border-radius: 0;
+  color: #EEEEEE;
+}
+
+#brand {
+  color: #EEEEEE;
+}
+
+#changeLang {
+  color: #EEEEEE;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:visited {
+  background-color: #003cb3;
 }

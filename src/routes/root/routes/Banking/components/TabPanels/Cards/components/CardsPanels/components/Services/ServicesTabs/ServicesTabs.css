@@ -1,0 +1,12 @@
+#cardServicesTabs {
+  min-width: 226px;
+  max-width: 452px;
+  margin-bottom: 5%;
+}
+
+#cardProductsTab {
+  padding: 0;
+  font-size: 13px;
+  height: 42px;
+  padding-top: 2%;
+}

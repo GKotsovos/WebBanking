@@ -1,0 +1,33 @@
+#loadApprovalForm {
+  margin: 0 auto 5% auto;
+  width: 100%;
+}
+
+#loadApprovalTable {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.titleCell {
+  font-weight: 500;
+  background-color: white;
+}
+
+#loadApprovalFormButtons {
+  width: 226px;
+  margin: 0 auto;
+}
+
+#previousPaymentForm {
+  width: 110px;
+  margin-right: 3px;
+  background-color: #990000;
+  color: #EEEEEE;
+}
+
+#submitCardPaymentApprovalForm {
+  width: 110px;
+  margin-left: 3px;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

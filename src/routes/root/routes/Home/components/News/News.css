@@ -1,11 +1,4 @@
 #myCarousel {
-  margin-bottom: 3%
-}
-
-.carousel-indicators li {
-    /*background: #66ccff;*/
-}
-
-.carousel-indicators .active {
-    /*background: #0066ff;*/
+  margin-bottom: 3%;
+  max-height: 300px;
 }

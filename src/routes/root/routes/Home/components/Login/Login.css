@@ -1,5 +1,20 @@
-.panel-title {
+.titles {
   margin: 2%;
+  color: #EEEEEE;
+  text-shadow: 1px 1px 4px #000000;
+  border:none;
+  font-size: 17px;
+}
+
+#loginPanel {
+  border:none;
+  box-shadow: none;
+}
+
+#loginPanelBody {
+  padding: 0;
+  background-color: #b0c6f2;
+  border: none;
 }
 
 .verticalCenterLogin {
@@ -7,41 +22,49 @@
   align-items: center;
 }
 
-.btn {
+.buttons {
   width: 100%;
   height: 40px;
 }
 
-.form-control {
+.formControls {
   height: 40px;
 }
 
-form {
-  padding: 8% 13.5% 10% 13.5%;
+#loginForm {
+  padding: 8% 13.5% 5% 13.5%;
+}
+
+#loginHead {
+  background-color: #003cb3;
+  border: none;
 }
 
 #lockIcon {
   margin-left:0;
   font-size: 35px;
   margin-right: 5%;
+  color: #EEEEEE;
+  text-shadow: 1px 1px 4px #000000;
 }
 
 #loginButton {
   margin-top: 4%;
+  background-color: #0044cc;
+  color: #EEEEEE;
 }
 
 #forgotP {
   font-size: 1.2rem;
   text-align: center;
   margin: 0 0 10% 0;
-}
-
-.panel-body, .list-group-item {
-  padding: 0;
+  color: #002b80;
 }
 
 #newUser {
   padding: 4% 13.5% 10% 13.5%;
+  background-color: #3764bf;
+  border: none;
 }
 
 #newUserTitle {
@@ -54,16 +77,23 @@ form {
   margin-right: 5%;
 }
 
+#newUserButton {
+  background-color: #ffc266;
+  color: #262626;
+  text-shadow: 1px 1px 3px #d1d1d1;
+  font-weight: bold;
+}
+
 @media (max-width: 992px) {
-  form {
-    padding: 5% 10% 10% 10%;
+  #loginForm {
+    padding: 5% 10% 5% 10%;
   }
 
   #newUser {
     padding: 5% 10% 10% 10%;
   }
 
-  .panel-title {
+  .titles {
     margin: 1%;
   }
 }
