@@ -1,0 +1,57 @@
+.cardContainer {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
+}
+
+.cardContainer:hover {
+  cursor: pointer;
+}
+
+.panel-default> .cardTitle {
+  background-color: #003cb3;
+  color: #EEEEEE;
+}
+
+.cardNumber {
+  float: right;
+  margin-top: 2px;
+}
+
+.titles {
+  font-size: 14px;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+}
+
+.cardSummary {
+  font-size: 11px;
+}
+
+#cardBody {
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+@media (max-width: 767px) {
+  .cardContainer {
+    margin: 0 auto 7.5% auto;
+  }
+
+  .titles {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 359px) {
+  .titles {
+    font-size: 11px;
+  }
+
+  #cardNumber {
+    margin-top: 5px;
+  }
+}

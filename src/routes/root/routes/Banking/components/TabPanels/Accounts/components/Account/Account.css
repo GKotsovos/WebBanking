@@ -1,0 +1,52 @@
+.accountContainer {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
+}
+
+.accountContainer:hover {
+  cursor: pointer;
+}
+
+.panel-default> .accountTitle {
+  background-color: #003cb3;
+  color: #EEEEEE;
+}
+
+.IBAN {
+  float: right;
+  margin-top: 2px;
+}
+
+.titles {
+  font-size: 14px;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
+}
+
+.summary {
+  font-size: 11px;
+}
+
+@media (max-width: 767px) {
+  .accountContainer {
+    margin: 0 auto 7.5% auto;
+  }
+
+  .titles {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 359px) {
+  .titles {
+    font-size: 11px;
+  }
+
+  .IBAN {
+    margin-top: 5px;
+  }
+}

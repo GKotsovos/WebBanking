@@ -1,0 +1,18 @@
+#successPanelBody {
+  padding-bottom: 20px;
+}
+
+#successIcon {
+  color: #00cc00;
+}
+
+#successText {
+  margin: 10px 0 25px 0;
+  font-weight: 500;
+}
+
+#finishTransfer {
+  min-width: 100px;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

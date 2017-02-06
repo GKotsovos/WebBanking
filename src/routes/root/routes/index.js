@@ -1,7 +1,7 @@
 import HomeRoute from './Home'
-import MenuRoute from './Menu'
+import BankingRoute from './Banking'
 
 module.exports = {
   HomeRoute,
-  MenuRoute
+  BankingRoute
 };
