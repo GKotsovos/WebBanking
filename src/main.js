@@ -2,12 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import Application from './Application'
-global.jQuery = require('jquery')
-require('styles/bootstrap/css/bootstrap.min.css')
-require('styles/bootstrap/js/bootstrap.min.js')
-require('styles/font-awesome/css/font-awesome.min.css')
-require('styles/bootstrap-select/boostrap-select.css')
-require('styles/bootstrap-select/boostrap-select.js')
+const $ = require('jquery')
+window.jQuery = $
+window.$ = $
+require('bootstrap/dist/css/bootstrap.min.css')
+require('bootstrap/dist/js/bootstrap.min.js')
+require('font-awesome/css/font-awesome.min.css')
+require('bootstrap-select/dist/css/bootstrap-select.min.css')
+require('bootstrap-select/dist/js/bootstrap-select.min')
 require('styles/google-fonts/Roboto/roboto.css')
 
 // ========================================================

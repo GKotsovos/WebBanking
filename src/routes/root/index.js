@@ -1,6 +1,6 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from './components/CoreLayout'
-import { HomeRoute, BankingRoute } from './routes'
+import { HomeRoute, BankingRoute, RouteNotFound } from './routes'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
@@ -10,7 +10,8 @@ export const rootRoute = (store) => ({
   component   : CoreLayout,
   indexRoute  : HomeRoute(store),
   childRoutes : [
-    BankingRoute(store)
+    BankingRoute(store),
+    RouteNotFound(store)
   ]
 })
 

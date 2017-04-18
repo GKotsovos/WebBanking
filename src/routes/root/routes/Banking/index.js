@@ -1,5 +1,6 @@
 import { injectReducer } from 'store/reducers'
-import Banking from './components/BankingView'
+import Banking from './containers/BankingContainer'
+import cookie from 'react-cookie'
 
 export default (store) => ({
   path: 'banking',
@@ -9,5 +10,10 @@ export default (store) => ({
       injectReducer(store, { key: 'banking', reducer })
       cb(null, Banking)
     })
+  },
+  onEnter(nextState, replace) {
+    if (!cookie.load('access_token')) {
+      replace("/")
+    }
   }
 })

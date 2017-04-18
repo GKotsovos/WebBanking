@@ -6,7 +6,7 @@ import './LoansView.css';
 
 export const LoansView = () => (
   <div role="tabpanel" className="tab-pane" id="loans">
-    {/* <Loan /> */}
+    <Loan />
     <DetailedLoan />
     <Services />
   </div>

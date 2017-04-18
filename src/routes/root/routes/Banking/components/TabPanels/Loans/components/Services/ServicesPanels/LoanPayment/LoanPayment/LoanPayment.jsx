@@ -2,17 +2,22 @@ import React from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
 import './LoanPayment.css';
 
+const callJquery = () => {
+  $(document).ready( () => $('.selectpicker').selectpicker() )
+}
+
 export const LoanPayment = () => (
   <div className="loanPaymentContainer">
 
+    {callJquery()}
     <div className="form-group">
       <label htmlFor="paymentAccount">Λογαριασμός Χρέωσης</label>
       <div>
-        <select id="paymentAccount" className="form-control">
-          <option>GR2201100470000009237465820</option>
-          <option>GR2201100470000009237465350</option>
-          <option>GR2201100470000009237465700</option>
-        </select>
+      <select id="paymentAccount" className="selectpicker paymentAccount form-control" data-show-subtext="true">
+        <option data-subtext="Μισθοδοσία 525,00€">GR2201100470000009237465820</option>
+        <option data-subtext="Αποταμίευση 1525,00€">GR2201100470000009237465350</option>
+        <option data-subtext="Αποταμίευση 5425,00€">GR2201100470000009237465700</option>
+      </select>
       </div>
     </div>
 

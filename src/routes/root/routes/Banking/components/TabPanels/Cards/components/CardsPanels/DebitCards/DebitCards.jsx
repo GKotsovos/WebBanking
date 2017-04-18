@@ -6,11 +6,11 @@ import './DebitCards.css';
 
 export const DebitCards = () => (
   <div role="tabpanel" className="tab-pane active" id="debit">
-    {/* <Card />
     <Card />
-    <Card /> */}
-    <DetailedCard />
-    <Services />
+    <Card />
+    <Card />
+    {/* <DetailedCard />
+    <Services /> */}
   </div>
 )
 

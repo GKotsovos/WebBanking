@@ -4,10 +4,10 @@ import './ServicesTabs.css';
 export const ServicesTabs = () => (
   <div className="">
     <ul id="loanServicesTabs" className="nav nav-tabs text-center">
-      <li className="tab active">
+      <li className="serviceTab active">
         <a href="#loanHistory" aria-controls="history" role="tab" data-toggle="tab">Κινήσεις</a>
       </li>
-      <li className="tab">
+      <li className="serviceTab">
         <a id="loanPaymentTab" href="#loanPayment" aria-controls="payment" role="tab" data-toggle="tab">Πληρωμή</a>
       </li>
     </ul>

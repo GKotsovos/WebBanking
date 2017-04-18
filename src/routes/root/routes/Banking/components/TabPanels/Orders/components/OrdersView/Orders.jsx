@@ -12,7 +12,7 @@ export const Orders = () => (
 
     <Order />
 
-    {/* <NewOrder /> */}
+    <NewOrder />
 
     {/* <OrderApproval /> */}
 

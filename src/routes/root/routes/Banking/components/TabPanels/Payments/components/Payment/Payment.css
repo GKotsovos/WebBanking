@@ -1,3 +1,7 @@
+.btn-group.bootstrap-select.paymentAccount.form-control{
+  max-width: 500px;
+}
+
 #organizationSelect {
   max-width: 200px;
   margin-bottom: 10px;

@@ -10,12 +10,13 @@ label {
   margin-bottom: 10px;
 }
 
-.bootstrap-select.form-control:not([class*=col-]) {
-  max-width: 185px;
+.btn-group.bootstrap-select.transferSelectAccount.form-control{
+  max-width: 500px;
 }
 
-#transferSelectAccount:hover, #transferBankSelect:hover {
-  cursor: pointer;
+
+.bootstrap-select.btn-group .dropdown-menu li.active:not(.disabled) a small, .bootstrap-select.btn-group .dropdown-menu li:not(.disabled) a:focus small, .bootstrap-select.btn-group .dropdown-menu li:not(.disabled) a:hover small {
+  color: black;
 }
 
 #transferBankSelect, #transferBIC {
@@ -79,4 +80,16 @@ input[type=checkbox] {
   margin-left: 3px;
   background-color: #0044cc;
   color: #EEEEEE;
+}
+
+@media (max-width: 767px) {
+
+  .fromIBANText {
+    font-size: 12px;
+  }
+
+  .chargesText {
+    font-size: 12px;
+  }
+  
 }

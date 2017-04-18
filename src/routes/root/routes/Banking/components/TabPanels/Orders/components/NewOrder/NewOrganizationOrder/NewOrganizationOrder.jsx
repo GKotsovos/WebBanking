@@ -8,7 +8,7 @@ export const NewOrganizationOrder = () => (
     <div className="form-group">
       <label htmlFor="orderOrganizationSelect">Οργανισμός</label>
       <div>
-        <select id="orderOrganizationSelect" className="form-control">
+        <select id="orderOrganizationSelect" className="selectpicker orderOrganizationSelect form-control">
           <option>Cosmote</option>
           <option>Vodafone</option>
           <option>ΔΕΗ</option>

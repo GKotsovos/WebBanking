@@ -3,7 +3,7 @@
   margin: 0 auto 4% auto;
 }
 
-#orderSelect {
+.btn-group.bootstrap-select.orderSelect.form-control{
   max-width: 300px;
 }
 

@@ -5,18 +5,52 @@
   color: #EEEEEE;
 }
 
+.navbar-brand {
+  line-height: inherit;
+  height: 100%;
+}
+
+.btn-sample:hover,
+.btn-sample:active:focus,
+.btn-sample:active:active {
+  background-color: #003399 !important;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #EEEEEE;
+}
+
 #brand {
   color: #EEEEEE;
+  display: flex;
+  align-items: center;
 }
 
 #changeLang {
   color: #EEEEEE;
   padding-left: 10px;
   padding-right: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:visited {
+  background-color: #003399;
+}
+
+
+.navbar-default .navbar-nav>.active>a:hover {
   background-color: #003cb3;
+}
+
+.logoff {
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+.user {
+  font-size: 25px;
+  margin-right: 5px;
 }

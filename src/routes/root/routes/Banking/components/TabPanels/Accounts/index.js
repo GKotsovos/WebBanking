@@ -1,3 +1,3 @@
-import AccountsView from './components/AccountsView';
+import AccountsView from './containers/AccountsViewContainer';
 
 export default AccountsView

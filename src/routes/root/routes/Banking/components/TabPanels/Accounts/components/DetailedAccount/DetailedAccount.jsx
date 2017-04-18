@@ -1,13 +1,17 @@
 import React from 'react';
+import dateformat from 'dateformat';
+import currencyFormatter from 'currency-formatter';
 import './DetailedAccount.css';
 
-export const DetailedAccount = () => (
+export const DetailedAccount = ({ activeAccount }) => (
   <div className="panel panel-default detailedAccountContainer">
     <div className="panel-heading accountTitle">
       <h3 className="panel-title">
-        <span className="titles">(€) Καταθετικός</span>
+        <span className="titles">
+          ({currencyFormatter.findCurrency(activeAccount.currency).symbol}) {activeAccount.type}
+        </span>
         <span className="titles IBAN">
-          GR2201100470000009237465820
+          {activeAccount.iban}
         </span>
       </h3>
     </div>
@@ -15,9 +19,15 @@ export const DetailedAccount = () => (
     <div className="panel-body">
       <div className="row">
         <span>
-          <span className="col-xs-3 text-right">500,25€</span>
-          <span className="col-xs-offset-1 col-xs-4 text-right">100,00€</span>
-          <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">600,25€</span>
+          <span className="col-xs-3 text-right">
+            {activeAccount.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          </span>
+          <span className="col-xs-offset-1 col-xs-4 text-right">
+            {activeAccount.overdraft.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          </span>
+          <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
+            {activeAccount.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          </span>
         </span>
         <span className="summary">
           <span className="col-xs-3 text-right">Λογιστικό Υπόλοιπο</span>
@@ -31,9 +41,15 @@ export const DetailedAccount = () => (
       <li className="cellRow list-group-item">
         <div className="row">
           <span>
-            <span className="col-xs-3 text-right">12/12/2012</span>
-            <span className="col-xs-offset-1 col-xs-4 text-right">20/12/2016</span>
-            <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">Ενεργός</span>
+            <span className="col-xs-3 text-right">
+              {dateformat(activeAccount.dateCreated, 'dd/mm/yyyy')}
+            </span>
+            <span className="col-xs-offset-1 col-xs-4 text-right">
+              {dateformat(activeAccount.lastMovementDate, 'dd/mm/yyyy')}
+            </span>
+            <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
+              {activeAccount.state ? 'Ενεργός' : 'Ανενεργός'}
+            </span>
           </span>
           <span className="summary">
             <span className="col-xs-3 text-right">Ημ/νία Ανοίγματος</span>

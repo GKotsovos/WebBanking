@@ -1,13 +1,19 @@
 import React from 'react';
+import currencyFormatter from 'currency-formatter';
 import './Account.css';
 
-export const Account = () => (
-  <div className="panel panel-default accountContainer">
+export const Account = ({ account, getProductTransactionHistory, setActiveAccount }) => (
+  <div className="panel panel-default accountContainer" onClick={() => {
+    getProductTransactionHistory(account.iban);
+    setActiveAccount(account);
+  }}>
     <div className="panel-heading accountTitle">
       <h3 className="panel-title">
-        <span className="titles">(€) Καταθετικός</span>
+        <span className="titles">
+          ({currencyFormatter.findCurrency(account.currency).symbol}) {account.type}
+        </span>
         <span className="titles IBAN">
-          GR2201100470000009237465820
+          {account.iban}
         </span>
       </h3>
     </div>
@@ -15,14 +21,20 @@ export const Account = () => (
     <div className="panel-body">
       <div className="row">
         <span>
-          <span className="col-xs-3 text-right">500,25€</span>
-          <span className="col-xs-offset-1 col-xs-4 text-right">100,00€</span>
-          <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">600,25€</span>
+          <span className="col-xs-3 text-right">
+            {account.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          </span>
+          <span className="col-xs-offset-1 col-xs-4 text-right">
+            {account.overdraft.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          </span>
+          <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
+            {account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          </span>
         </span>
         <span className="summary">
           <span className="col-xs-3 text-right">Λογιστικό Υπόλοιπο</span>
           <span className="col-xs-offset-1 col-xs-4 text-right">Ευχέρια Υπερανάλληψης</span>
-          <span className="col-xs-offset-1 col-xs-3 text-right">Συνολικό Υπόλοιπο</span>
+          <span className="col-xs-offset-1 col-xs-3 text-right">Διαθέσιμο Υπόλοιπο</span>
         </span>
       </div>
     </div>

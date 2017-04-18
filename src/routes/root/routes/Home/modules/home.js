@@ -1,55 +1,138 @@
-// // ------------------------------------
-// // Constants
-// // ------------------------------------
-// export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-//
-// // ------------------------------------
-// // Actions
-// // ------------------------------------
-// export function increment (value = 1) {
-//   return {
-//     type    : COUNTER_INCREMENT,
-//     payload : value
-//   }
-// }
-//
-// /*  This is a thunk, meaning it is a function that immediately
-//     returns a function for lazy evaluation. It is incredibly useful for
-//     creating async actions, especially when combined with redux-thunk!
-//
-//     NOTE: This is solely for demonstration purposes. In a real application,
-//     you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-//     reducer take care of this logic.  */
-//
-// export const doubleAsync = () => {
-//   return (dispatch, getState) => {
-//     return new Promise((resolve) => {
-//       setTimeout(() => {
-//         dispatch(increment(getState().counter))
-//         resolve()
-//       }, 200)
-//     })
-//   }
-// }
-//
-// export const actions = {
-//   increment,
-//   doubleAsync
-// }
-//
-// // ------------------------------------
-// // Action Handlers
-// // ------------------------------------
-// const ACTION_HANDLERS = {
-//   [COUNTER_INCREMENT] : (state, action) => state + action.payload
-// }
-//
-// // ------------------------------------
-// // Reducer
-// // ------------------------------------
-// const initialState = 0
-// export default function counterReducer (state = initialState, action) {
-//   const handler = ACTION_HANDLERS[action.type]
-//
-//   return handler ? handler(state, action) : state
-// }
+import cookie from 'react-cookie';
+import axios from 'axios';
+import querystring from 'querystring';
+import { browserHistory } from 'react-router'
+import _ from 'underscore'
+
+const INITIAL_STATE = 'INITIAL_STATE';
+const AUTHENTICATE = 'AUTHENTICATE';
+const AUTHENTICATED = 'AUTHENTICATED';
+const UNAUTHENTICATED = 'UNAUTHENTICATED';
+const CHANGE_PANEL = 'CHANGE_PANEL'
+
+export function initialState(){
+  return{
+    type: INITIAL_STATE
+  }
+}
+
+export const authenticate = (userId, password) => {
+  return (dispatch, getState) => {
+    return axios.post('http://localhost:26353/api/authenticate',
+        querystring.stringify({
+          userId: userId,
+          password: password
+        })
+      )
+      .then((response) => {
+        dispatch({
+          type    : AUTHENTICATED,
+          payload : response.data
+        })
+      })
+      .then(() => browserHistory.push('/banking'))
+      .catch(({ response })  => {
+        dispatch({
+          type    : UNAUTHENTICATED,
+          payload : response.data
+        })
+      })
+  }
+}
+
+export function authenticated(response){
+  return {
+    type: AUTHENTICATED,
+    payload: response
+  }
+}
+
+export function unauthenticate(response){
+  return {
+    type: UNAUTHENTICATED,
+    payload: response
+  }
+}
+
+export function changePanel(panel){
+  return{
+    type: CHANGE_PANEL,
+    payload: panel
+  }
+}
+
+export const actions = {
+  initialState,
+  authenticate,
+  changePanel
+}
+
+const initState = () => {
+  return {
+    activePanel: 'NEWS',
+    returnedError: 'none'
+  }
+}
+
+const ACTION_HANDLERS = {
+  INITIAL_STATE: (state, action) => {
+    return initState();
+  },
+
+  // AUTHENTICATE: (state, action) => {
+  //   let returnedError = ''
+  //
+  //   axios.post('http://localhost:26353/api/authenticate',
+  //     querystring.stringify({
+  //       userId: state.credentials.userId.value,
+  //       password: state.credentials.password.value
+  //     })
+  //   )
+  //   .then((response) => {
+  //     cookie.save('access_token',
+  //       response.data.access_token,
+  //       {
+  //         path: '/',
+  //         maxAge: response.data.expires_in
+  //       }
+  //     );
+  //     browserHistory.push('/banking')
+  //   })
+  //   .catch(({ response }) => returnedError = response.data);
+  //
+  //   return {
+  //     ...state,
+  //     returnedError
+  //   }
+  // },
+
+  AUTHENTICATED: (state, action) => {
+    cookie.save('access_token',
+      action.payload.access_token,
+      {
+        path: '/',
+        maxAge: action.payload.expires_in
+      }
+    );
+    return state;
+  },
+
+  UNAUTHENTICATED: (state, action) => {
+    return {
+      ...state,
+      returnedError: action.payload
+    }
+  },
+
+  CHANGE_PANEL: (state, action) => {
+    return {
+      ...state,
+      activePanel: action.payload
+    }
+  },
+}
+
+export default function homeReducer (state = initState(), action) {
+   const handler = ACTION_HANDLERS[action.type]
+   return handler ? handler(state, action) : state
+}

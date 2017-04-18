@@ -4,7 +4,7 @@ import './NewAccountOrder.css';
 
 export const NewAccountOrder = () => (
   <div>
-    
+
     <div className="form-group">
       <label htmlFor="orderIBAN">Προς</label>
       <input className="form-control" id="orderIBAN" placeholder="IBAN" />
@@ -14,7 +14,7 @@ export const NewAccountOrder = () => (
     <div className="form-group">
       <label htmlFor="orderBankSelect">Τράπεζα</label>
       <div>
-        <select id="orderBankSelect" className="form-control">
+        <select id="orderBankSelect" className="selectpicker orderBankSelect form-control">
           <option>Agile Bank</option>
           <option>Τράπεζα Εσωτερικού</option>
           <option>Τράπεζα Εξωτερικού</option>

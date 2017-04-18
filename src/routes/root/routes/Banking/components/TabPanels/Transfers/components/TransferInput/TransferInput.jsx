@@ -2,17 +2,28 @@ import React from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
 import './TransferInput.css';
 
+const callJquery = () => {
+  $(document).ready( () => $('.selectpicker').selectpicker() )
+}
+
 export const TransferInput = () => (
   <form className="transfersContainer" id="transferCompletionForm">
 
+    {callJquery()}
     <div className="form-group">
       <label htmlFor="transferSelectAccount">Από</label>
       <div>
-        <select id="transferSelectAccount" className="form-control">
-          <option>GR2201100470000009237465820</option>
-          <option>GR2201100470000009237465350</option>
-          <option>GR2201100470000009237465700</option>
-        </select>
+      <select className="selectpicker transferSelectAccount form-control" data-show-subtext="true">
+        <option data-subtext="Μισθοδοσία 525,00€">
+          <span className="fromIBANText">GR2201100470000009237465820</span>
+        </option>
+        <option data-subtext="Αποταμίευση 1525,00€">
+          <span className="fromIBANText">GR2201100470000009237465350</span>
+        </option>
+        <option data-subtext="Αποταμίευση 5425,00€">
+          <span className="fromIBANText">GR2201100470000009237465700</span>
+        </option>
+      </select>
       </div>
     </div>
 
@@ -25,7 +36,7 @@ export const TransferInput = () => (
     <div className="form-group">
       <label htmlFor="transferBankSelect">Τράπεζα</label>
       <div>
-        <select id="transferBankSelect" className="form-control">
+        <select id="transferBankSelect" className="selectpicker transferBankSelect form-control">
           <option>Agile Bank</option>
           <option>Τράπεζα Εσωτερικού</option>
           <option>Τράπεζα Εξωτερικού</option>
@@ -41,6 +52,23 @@ export const TransferInput = () => (
     <div className="form-group">
       <label htmlFor="transferAmount">Ποσό</label>
       <input className="form-control text-right" id="transferAmount" placeholder="€" />
+    </div>
+
+    <div className="form-group">
+      <label htmlFor="transferSelectCharges">Επιβάρυνση Εξόδων</label>
+      <div>
+      <select className="selectpicker transferSelectCharges form-control" data-show-subtext="true">
+        <option data-subtext="3,00€">
+          <span className="chargesText">Να επιβαρυνθώ μόνο με τα έξοδα της τράπεζας μου</span>
+        </option>
+        <option data-subtext="6,00€">
+          <span className="chargesText">Να επιβαρυνθώ με όλα τα έξοδα</span>
+        </option>
+        <option data-subtext="0,00€">
+          <span className="chargesText">Να επιβαρυνθεί ο δικαιούχος με όλα τα έξοδα</span>
+        </option>
+      </select>
+      </div>
     </div>
 
     <div className="form-group">

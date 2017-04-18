@@ -1,4 +1,5 @@
 import React from 'react'
+import FontAwesome from 'react-fontawesome'
 import './Navbar.css'
 
 export const Navbar = () => (
@@ -6,7 +7,7 @@ export const Navbar = () => (
     <div className="container">
 
       <div className="navbar-header">
-        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <button type="button" className="btn-sample navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
           <span className="sr-only">Toggle navigation</span>
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
@@ -14,17 +15,28 @@ export const Navbar = () => (
         </button>
         <a className="navbar-brand" href="#">
           <span id="brand" aria-hidden="true">Agile Bank</span>
-         </a>
+        </a>
       </div>
 
-      <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
           <li>
-            <a id="changeLang" href="#">EN</a>
+            <a id="changeLang" href="javascript:;">EN</a>
           </li>
           <li id="aa" className="active">
-            <a id="changeLang" href="#">GR</a>
+            <a id="changeLang" href="javascript:;">GR</a>
           </li>
+          {/* <li>
+            <a id="changeLang" href="javascript:;">
+              <FontAwesome className="user" name="user-circle"/>Γεράσιμος Κοτσοβός
+            </a>
+          </li>
+          <li id="aa" className="active">
+            <a id="changeLang" href="javascript:;">
+              <FontAwesome className="logoff" name="sign-out"/>Αποσύνδεση
+            </a>
+          </li> */}
+
         </ul>
       </div>
     </div>
