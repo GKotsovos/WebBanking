@@ -1,0 +1,14 @@
+.transfersContainer {
+  max-width: 400px;
+  margin: 0 auto 4% auto;
+}
+
+#transfers {
+  margin-top: 100px;
+}
+
+@media (max-width: 767px) {
+  #transfers {
+    margin-top: 0;
+  }
+}

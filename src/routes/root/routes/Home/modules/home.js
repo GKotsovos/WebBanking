@@ -31,26 +31,12 @@ export const authenticate = (userId, password) => {
         })
       })
       .then(() => browserHistory.push('/banking'))
-      .catch(({ response })  => {
+      .catch((exception)  => {
         dispatch({
           type    : UNAUTHENTICATED,
-          payload : response.data
+          payload : exception
         })
       })
-  }
-}
-
-export function authenticated(response){
-  return {
-    type: AUTHENTICATED,
-    payload: response
-  }
-}
-
-export function unauthenticate(response){
-  return {
-    type: UNAUTHENTICATED,
-    payload: response
   }
 }
 
@@ -78,33 +64,6 @@ const ACTION_HANDLERS = {
   INITIAL_STATE: (state, action) => {
     return initState();
   },
-
-  // AUTHENTICATE: (state, action) => {
-  //   let returnedError = ''
-  //
-  //   axios.post('http://localhost:26353/api/authenticate',
-  //     querystring.stringify({
-  //       userId: state.credentials.userId.value,
-  //       password: state.credentials.password.value
-  //     })
-  //   )
-  //   .then((response) => {
-  //     cookie.save('access_token',
-  //       response.data.access_token,
-  //       {
-  //         path: '/',
-  //         maxAge: response.data.expires_in
-  //       }
-  //     );
-  //     browserHistory.push('/banking')
-  //   })
-  //   .catch(({ response }) => returnedError = response.data);
-  //
-  //   return {
-  //     ...state,
-  //     returnedError
-  //   }
-  // },
 
   AUTHENTICATED: (state, action) => {
     cookie.save('access_token',

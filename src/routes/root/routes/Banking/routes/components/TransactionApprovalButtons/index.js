@@ -1,0 +1,3 @@
+import TransactionApprovalButtons from './containers/TransactionApprovalButtonsContainer'
+
+export default TransactionApprovalButtons

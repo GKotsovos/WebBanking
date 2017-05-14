@@ -1,33 +1,49 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 import FontAwesome from 'react-fontawesome'
 import './DefaultTabs.css'
 
-export const DefaultTabs = ({ setInitAccountsTabState }) => (
+export const DefaultTabs = ({ activeRoute, linkTo, deactiveAccount }) => (
   <div>
-    <ul id="tabs" className="nav nav-tabs navbar-fixed-top text-center" role="tablist">
-      <li role="presentation" className="defaultTab active" onClick={() => setInitAccountsTabState()}>
-        <a href="#accounts" className="mainTab" aria-controls="accounts" role="tab" data-toggle="tab">
-          <FontAwesome name="money"/><br/>Λογαριασμοί</a>
+    <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
+      <li className={`defaultTab ${window.location.href.endsWith("/banking") ? 'active' : ''}`}
+        onClick={() => {
+          deactiveAccount();
+          linkTo('/banking');
+      }}>
+        <a href="#accounts" className="mainTab" data-toggle="tab">
+          <FontAwesome name="money"/><br/>Λογαριασμοί
+        </a>
       </li>
-      <li role="presentation" className="defaultTab" onClick={() => setInitCardsTabState()}>
-        <a href="#cards" className="mainTab" aria-controls="cards" role="tab" data-toggle="tab">
-          <FontAwesome name="credit-card"/><br/>Κάρτες</a>
+      <li className={`defaultTab ${window.location.href.includes('/banking/cards') ? 'active' : ''}`}
+        onClick={() => linkTo('/banking/cards/debitcards')}>
+        <a href="#cards" className="mainTab" data-toggle="tab">
+          <FontAwesome name="credit-card"/><br/>Κάρτες
+        </a>
       </li>
-      <li role="presentation" className="defaultTab" onClick={() => setInitLoansTabState()}>
-        <a href="#loans" className="mainTab" aria-controls="loans" role="tab" data-toggle="tab">
-          <FontAwesome name="handshake-o"/><br/>Δάνεια</a>
+      <li className={`defaultTab ${window.location.href.includes('/banking/loans') ? 'active' : ''}`}
+        onClick={() => linkTo('/banking/loans')}>
+        <a href="#loans" className="mainTab" data-toggle="tab">
+          <FontAwesome name="handshake-o"/><br/>Δάνεια
+        </a>
       </li>
-      <li role="presentation" className="defaultTab" onClick={() => setInitTransfersTabState()}>
-        <a href="#transfers" className="mainTab" aria-controls="transfers" role="tab" data-toggle="tab">
-          <FontAwesome name="exchange"/><br/>Μεταφορές</a>
+      <li className={`defaultTab ${window.location.href.includes('/banking/transfers') ? 'active' : ''}`}
+        onClick={() => linkTo('/banking/transfers')}>
+        <a href="#transfers" className="mainTab" data-toggle="tab">
+          <FontAwesome name="exchange"/><br/>Μεταφορές
+        </a>
       </li>
-      <li role="presentation" className="defaultTab" onClick={() => setInitPaymentsTabState()}>
-        <a href="#payments" className="mainTab" aria-controls="payments" role="tab" data-toggle="tab">
-          <FontAwesome name="briefcase"/><br/>Πληρωμές</a>
+      <li className={`defaultTab ${window.location.href.includes('/banking/payments') ? 'active' : ''}`}
+        onClick={() => linkTo('/banking/payments')}>
+        <a href="#payments" className="mainTab" data-toggle="tab">
+          <FontAwesome name="briefcase"/><br/>Πληρωμές
+        </a>
       </li>
-      <li role="presentation" className="defaultTab" onClick={() => setInitOrdersTabState()}>
-        <a href="#orders" className="mainTab" aria-controls="orders" role="tab" data-toggle="tab">
-          <FontAwesome name="calendar-check-o"/><br/>Πάγιες</a>
+      <li className={`defaultTab ${window.location.href.includes('/banking/orders') ? 'active' : ''}`}
+        onClick={() => linkTo('/banking/orders')}>
+        <a href="#orders" className="mainTab" data-toggle="tab">
+          <FontAwesome name="calendar-check-o"/><br/>Πάγιες
+        </a>
       </li>
     </ul>
   </div>

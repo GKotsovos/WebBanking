@@ -1,0 +1,14 @@
+.paymentContainer {
+  max-width: 400px;
+  margin: 0 auto 4% auto;
+}
+
+#payments {
+  margin-top: 100px;
+}
+
+@media (max-width: 767px) {
+  #payments {
+    margin-top: 0;
+  }
+}

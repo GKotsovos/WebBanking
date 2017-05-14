@@ -1,8 +1,9 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
+import _ from 'underscore';
 import './Navbar.css'
 
-export const Navbar = () => (
+export const Navbar = ({ customer, logOut }) => (
   <nav id="navbar" className="navbar navbar-default navbar-fixed-top">
     <div className="container">
 
@@ -13,30 +14,33 @@ export const Navbar = () => (
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
         </button>
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="javascript:;">
           <span id="brand" aria-hidden="true">Agile Bank</span>
         </a>
       </div>
-
       <div className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
-          <li>
-            <a id="changeLang" href="javascript:;">EN</a>
-          </li>
-          <li id="aa" className="active">
-            <a id="changeLang" href="javascript:;">GR</a>
-          </li>
-          {/* <li>
-            <a id="changeLang" href="javascript:;">
-              <FontAwesome className="user" name="user-circle"/>Γεράσιμος Κοτσοβός
-            </a>
-          </li>
-          <li id="aa" className="active">
-            <a id="changeLang" href="javascript:;">
-              <FontAwesome className="logoff" name="sign-out"/>Αποσύνδεση
-            </a>
-          </li> */}
-
+          {
+            _.isEmpty(customer) ? [
+              <li>
+                <a id="changeLang" href="javascript:;">EN</a>
+              </li>,
+              <li id="aa" className="active">
+                <a id="changeLang" href="javascript:;">GR</a>
+              </li>
+            ] : [
+              <li>
+                <a id="changeLang" href="javascript:;">
+                  <FontAwesome className="user" name="user-circle"/>{`${customer.firstName} ${customer.lastName}`}
+                </a>
+              </li>,
+              <li id="aa" className="active" onClick={() => logOut()}>
+                <a id="changeLang" href="javascript:;">
+                  <FontAwesome className="logoff" name="sign-out"/>Αποσύνδεση
+                </a>
+              </li>
+            ]
+          }
         </ul>
       </div>
     </div>

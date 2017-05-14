@@ -2,8 +2,8 @@ import HomeRoute from './Home'
 import BankingRoute from './Banking'
 import RouteNotFound from './NotFound'
 
-module.exports = {
+export {
   HomeRoute,
   BankingRoute,
   RouteNotFound
-};
+}

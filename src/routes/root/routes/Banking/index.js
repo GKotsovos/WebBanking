@@ -1,19 +1,23 @@
 import { injectReducer } from 'store/reducers'
-import Banking from './containers/BankingContainer'
-import cookie from 'react-cookie'
+import BankingLayout from './containers/BankingContainer'
+import { AccountsRoute, CardsRoute, LoansRoute, OrdersRoute, PaymentsRoute, TransfersRoute } from './routes'
+import banking from './modules/banking'
 
-export default (store) => ({
-  path: 'banking',
-  getComponent (nextState, cb) {
-    require.ensure([], (require) => {
-      const reducer = require('./modules/banking').default
-      injectReducer(store, { key: 'banking', reducer })
-      cb(null, Banking)
-    })
-  },
-  onEnter(nextState, replace) {
-    if (!cookie.load('access_token')) {
-      replace("/")
-    }
+export const BankingRoute = (store) => {
+  injectReducer(store, { key: 'banking', reducer: banking });
+
+  return {
+    path        : '/banking',
+    component   : BankingLayout,
+    indexRoute  : AccountsRoute(store),
+    childRoutes : [
+      CardsRoute(store),
+      LoansRoute(store),
+      OrdersRoute(store),
+      PaymentsRoute(store),
+      TransfersRoute(store)
+    ]
   }
-})
+}
+
+export default BankingRoute

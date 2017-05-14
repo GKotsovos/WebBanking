@@ -1,0 +1,30 @@
+.cardPaymentContainer {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#organizationSelect {
+  max-width: 200px;
+  margin-bottom: 10px;
+}
+
+#organizationSelect:hover {
+  cursor: pointer;
+}
+
+#amount {
+  max-width: 150px;
+}
+
+#paymentDatePicker_group {
+  max-width: 170px;
+}
+
+#saveCardPayment {
+  display: flex;
+  align-items: center;
+}
+
+#saveCardPaymentCheckBox {
+  margin-right: 5px;
+}

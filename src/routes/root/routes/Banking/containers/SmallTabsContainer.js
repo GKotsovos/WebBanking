@@ -1,21 +1,15 @@
 import { connect } from 'react-redux';
-import {
-  setInitAccountsTabState,
-  setInitCardsTabState,
-  setInitLoansTabState,
-  setInitTransfersTabState,
-  setInitPaymentsTabState,
-  setInitOrdersTabState
- } from '../modules/banking';
+import { linkTo } from '../modules/banking';
+import { deactiveAccount } from '../routes/Accounts/modules/accounts'
 import SmallTabs from '../components/Tabs/SmallTabs';
 
-const mapActionCreators = {
-  setInitAccountsTabState: () => setInitAccountsTabState(),
-  setInitCardsTabState: () => setInitCardsTabState(),
-  setInitLoansTabState: () => setInitLoansTabState(),
-  setInitTransfersTabState: () => setInitTransfersTabState(),
-  setInitPaymentsTabState: () => setInitPaymentsTabState(),
-  setInitOrdersTabState: () => setInitOrdersTabState(),
-};
+const mapStateToProps = (state) => ({
+  activeRoute: state.banking.activeRoute
+});
 
-export default connect(null, mapActionCreators)(SmallTabs);
+const mapActionCreators = {
+  linkTo: (route) => linkTo(route),
+  deactiveAccount: () => deactiveAccount(),
+}
+
+export default connect(mapStateToProps, mapActionCreators)(SmallTabs);

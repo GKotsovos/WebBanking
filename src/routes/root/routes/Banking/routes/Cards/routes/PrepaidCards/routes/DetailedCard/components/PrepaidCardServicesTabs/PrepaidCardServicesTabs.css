@@ -1,0 +1,13 @@
+#prepaidCardServicesTabs {
+  min-width: 100px;
+  max-width: 200px;
+  margin-bottom: 5%;
+}
+
+.serviceTab {
+  width: 100px;
+  background-color: #b0c6f2;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 500;
+}

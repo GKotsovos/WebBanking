@@ -1,0 +1,13 @@
+.ordersContainer {
+  margin: 0 auto;
+}
+
+#orders {
+  margin-top: 100px;
+}
+
+@media (max-width: 767px) {
+  #orders {
+    margin-top: 0;
+  }
+}
