@@ -5,13 +5,19 @@ import './BankingLayout.css';
 
 class BankingLayout extends Component {
   componentWillMount() {
-    const { getCustomerName } = this.props;
+    const {
+      getCustomerName,
+      getAccounts,
+      getCards
+    } = this.props;
     getCustomerName();
+    getAccounts();
+    getCards();
   }
 
   componentDidMount() {
     const { logOut } = this.props;
-    setTimeout(() => logOut(), 600000)
+    setTimeout(() => logOut(), 509000)
   }
 
   render() {

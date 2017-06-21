@@ -10,12 +10,6 @@ const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT';
 const DEACTIVE_ACCOUNT = 'DEACTIVE_ACCOUNT';
 
-export function initialState(){
-  return {
-    type: INITIAL_STATE
-  }
-}
-
 export const getAccounts = () => {
   return (dispatch, getState) => {
     dispatch({
@@ -78,25 +72,15 @@ export function deactiveAccount(){
 }
 
 export const actions = {
-  initialState,
   getAccounts,
   getAccountTransactionHistory,
   setActiveAccount,
   deactiveAccount,
 }
 
-const initState = () => {
-  return {
-    initialFetch: false,
-    phase: 'REQUESTING',
-    accounts: [],
-    activeAccount: {},
-  }
-}
-
 const ACTION_HANDLERS = {
   INITIAL_STATE: (state, action) => {
-    return initState();
+    return {};
   },
 
   REQUESTING: (state, action) => {
@@ -109,7 +93,6 @@ const ACTION_HANDLERS = {
   RECEIVE_ACCOUNTS: (state, action) => {
     return {
       ...state,
-      initialFetch: true,
       accounts: action.payload
     }
   },
@@ -146,7 +129,7 @@ const ACTION_HANDLERS = {
   },
 }
 
-export default function homeReducer (state = initState(), action) {
+export default function accountReducer (state = {}, action) {
    const handler = ACTION_HANDLERS[action.type]
    return handler ? handler(state, action) : state
 }

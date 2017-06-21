@@ -7,12 +7,12 @@ import './AccountsLayout.css';
 
 // export const AccountsLayout = ({ accounts }) => (
 class AccountsLayout extends Component {
-  componentWillMount() {
-    const { initialFetch, getAccounts } = this.props;
-    if (!initialFetch) {
-      getAccounts();
-    }
-  }
+  // componentWillMount() {
+  //   const { initialFetch, getAccounts } = this.props;
+  //   if (!initialFetch) {
+  //     getAccounts();
+  //   }
+  // }
 
   render() {
     const { accounts, activeAccount } = this.props;

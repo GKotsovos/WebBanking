@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
-import CardPaymentForm from '../components';
+import { creditCardPayment } from '../../../../../../../../../modules/cards'
+import CardPaymentApproval from '../components';
 
 const mapStateToProps = (state) => ({
-  paymentDetails: state.cards.activeCard.paymentDetails,
+  transactionForm: state.cards.transactionForm,
 });
 
-// const mapActionCreators = {
-//   setActiveCard: (card) => setActiveCard(card),
-//   getProductTransactionHistory: (productId) => getProductTransactionHistory(productId),
-//   linkTo: (route) => linkTo(route)
-// };
+const mapActionCreators = {
+  creditCardPayment: () => creditCardPayment()
+};
 
-export default connect(mapStateToProps, null)(CardPaymentForm);
+export default connect(mapStateToProps, mapActionCreators)(CardPaymentApproval);

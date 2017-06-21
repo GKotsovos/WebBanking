@@ -7,46 +7,91 @@ import './CardPaymentForm.css';
 
 class CardPaymentForm extends Component {
   componentDidMount() {
+    const { transactionForm } = this.props;
     $('.selectpicker').selectpicker()
+    $('.selectpicker').selectpicker('val', [transactionForm.debitAccount])
+  }
+
+  clearForm() {
+    const { clearTransactionForm } = this.props;
+    $('.selectpicker').selectpicker('val', [''])
+    clearTransactionForm();
   }
 
   render() {
-    const { accounts } = this.props;
+    const {
+      accounts,
+      transactionForm,
+      setDebitAccount,
+      setTransactionAmount,
+      setTransactionDate
+    } = this.props;
     return (
-      <form className="cardPaymentContainer">
+      <form id="creditCardPaymentForm" className="cardPaymentContainer">
 
         <div className="form-group">
           <label htmlFor="paymentAccount">Λογαριασμός Χρέωσης</label>
           <div>
-          <select id="paymentAccount" className="selectpicker paymentAccount form-control" data-show-subtext="true">
-            {
-              _.map(accounts, (account) =>
-              <option data-subtext={`${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`}>
-                {account.iban}
-              </option>)
-            }
-          </select>
+            <select
+              id="paymentAccount"
+              className="selectpicker paymentAccount form-control"
+              data-show-subtext="true"
+              title="Επιλέξτε λογαριασμό"
+              onChange={(e) => setDebitAccount(e.target.value)}
+            >
+              {
+                _.map(accounts, (account) => (
+                  <option
+                    data-subtext={
+                      `${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`
+                    }
+                  >
+                    {account.iban}
+                  </option>
+                ))
+              }
+            </select>
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="amount">Ποσό</label>
-          <input className="form-control text-right" id="amount" placeholder="€"/>
+          <label
+            htmlFor="amount">Ποσό</label>
+          <input
+            className="form-control text-right"
+            id="amount"
+            placeholder="€"
+            value={transactionForm.amount}
+            onChange={(e) => setTransactionAmount(e.target.value)}
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="paymentDatePicker">Ημερομηνία Εκτέλεσης</label>
-          <DatePicker id="paymentDatePicker" weekStartsOnMonday calendarPlacement="top" placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"/>
+          <DatePicker
+            id="paymentDatePicker"
+            weekStartsOnMonday
+            calendarPlacement="top"
+            placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
+            value={transactionForm.viewDate}
+            onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
+          />
         </div>
 
         <div className="form-group">
           <label id="saveCardPayment">
-            <input id="saveCardPaymentCheckBox" type="checkbox" />
+            <input
+              id="saveCardPaymentCheckBox"
+              type="checkbox"
+            />
             <span>Αποθήκευση ως πρότυπο</span>
           </label>
         </div>
 
-        <FormCompletionButtons linkToApprovalForm='/banking/cards/creditcards/card/payment/approval' />
+        <FormCompletionButtons
+          clearForm={this.clearForm.bind(this)}
+          linkToApprovalForm='/banking/cards/creditcards/card/payment/approval'
+        />
 
       </form>
     )

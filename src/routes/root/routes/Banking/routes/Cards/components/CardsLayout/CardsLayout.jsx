@@ -4,12 +4,13 @@ import './CardsLayout.css';
 
 // export const CardsLayout = ({ children }) => (
 class CardsLayout extends Component {
-  componentWillMount() {
-    const { initialFetch, getCards } = this.props;
-    // if (!initialFetch) {
-      getCards();
-    // }
-  }
+  // componentWillReceiveProps() {
+  //   const { initialFetch, getCards } = this.props;
+  //   // if (!initialFetch) {
+  //     getCards();
+  //     console.log('will update');
+  //   // }
+  // }
 
   render() {
     return (

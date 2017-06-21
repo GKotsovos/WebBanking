@@ -3,6 +3,8 @@ import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
 import _ from 'underscore'
+import { getAccounts } from '../routes/Accounts/modules/accounts';
+// import { getCards } from '../routes/Cards/modules/cards';
 
 const INITIAL_STATE = 'INITIAL_STATE';
 const REQUESTING = 'REQUESTING';
@@ -12,7 +14,7 @@ const LOG_OUT = 'LOG_OUT';
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 
 export function initialState(){
-  return{
+  return {
     type: INITIAL_STATE
   }
 }
@@ -55,9 +57,11 @@ export const linkTo = (route) => {
   }
 }
 
-
 export const logOut = () => {
     return (dispatch, getState) => {
+      dispatch({
+        type    : INITIAL_STATE
+      });
       dispatch({
         type    : LOG_OUT
       });
@@ -65,20 +69,10 @@ export const logOut = () => {
     }
 }
 
-
 export const actions = {
-  initialState,
   getCustomerName,
   linkTo,
   logOut
-}
-
-const initState = () => {
-  return {
-    initialFetch: false,
-    phase: 'REQUESTING',
-    activeRoute: localStorage.path || '/banking',
-  }
 }
 
 const ACTION_HANDLERS = {
@@ -106,7 +100,7 @@ const ACTION_HANDLERS = {
 
   LOG_OUT: (state, action) => {
     cookie.remove('access_token');
-    return initState();
+    return {};
   },
 
   CHANGE_ACTIVE_TAB: (state, action) => {
@@ -117,7 +111,7 @@ const ACTION_HANDLERS = {
   },
 }
 
-export default function homeReducer (state = initState(), action) {
+export default function bankReducer (state = {}, action) {
    const handler = ACTION_HANDLERS[action.type]
    return handler ? handler(state, action) : state
 }
