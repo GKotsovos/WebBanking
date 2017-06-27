@@ -1,8 +1,8 @@
 import React from 'react';
-import TransactionHistory from '../../../../../../../../../../components/TransactionResult'
+import TransactionResult from '../../../../../../../../../../components/TransactionResult'
 
-export const CardPaymentResult = ({ result }) => (
-  <TransactionResult result={result }/>
+export const CardPaymentResult = ({ result, linkToStart }) => (
+  <TransactionResult result={result} linkToStart={linkToStart}/>
 )
 
 export default CardPaymentResult

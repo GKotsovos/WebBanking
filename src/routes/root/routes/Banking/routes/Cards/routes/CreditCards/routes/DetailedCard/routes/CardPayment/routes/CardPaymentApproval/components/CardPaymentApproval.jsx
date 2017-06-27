@@ -40,7 +40,7 @@ export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
           <tr>
             <td className="titleCell col-sm-5 text-right">Ημερομηνία εκτέλεσης</td>
             <td className="cell col-sm-4 text-center">
-              {transactionForm.date}
+              {transactionForm.viewDate}
             </td>
           </tr>
         </tbody>

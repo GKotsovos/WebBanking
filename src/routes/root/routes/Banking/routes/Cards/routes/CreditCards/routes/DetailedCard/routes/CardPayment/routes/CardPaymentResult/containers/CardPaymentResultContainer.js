@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import CardPaymentForm from '../components';
 
 const mapStateToProps = (state) => ({
-  result: state.cards.activeCard.paymentDetails.result,
+  result: state.cards.transactionForm.result,
+  linkToStart: state.cards.transactionForm.linkToStart,
 });
 
 // const mapActionCreators = {

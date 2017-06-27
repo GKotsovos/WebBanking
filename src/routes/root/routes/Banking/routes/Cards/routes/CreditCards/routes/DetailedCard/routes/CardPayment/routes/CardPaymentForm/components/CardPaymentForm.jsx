@@ -73,7 +73,7 @@ class CardPaymentForm extends Component {
             weekStartsOnMonday
             calendarPlacement="top"
             placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
-            value={transactionForm.viewDate}
+            value={transactionForm.date}
             onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
           />
         </div>

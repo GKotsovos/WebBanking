@@ -14,6 +14,8 @@ const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_TRANSACTION_AMOUNT = 'SET_TRANSACTION_AMOUNT';
 const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
 const CLEAR_TRANSACTION_FORM = 'CLEAR_TRANSACTION_FORM';
+const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
+const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_CARD = 'SET_ACTIVE_CARD';
 const DEACTIVATE_CARD = 'DEACTIVATE_CARD';
@@ -123,18 +125,19 @@ export const creditCardPayment = () => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_TRANSACTION
-      })
-    })
-    .then(() => browserHistory.push('banking/cards/creditcards/card/payment/result'))
-    .then(() => {
-      dispatch({
         type    : CLEAR_TRANSACTION_FORM
       })
     })
+    .then(() => {
+      dispatch({
+        type    : SUCCESSFUL_TRANSACTION
+      })
+    })
+    .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
     .catch((exception) => {
       dispatch({
-        type    : UNSUCCESSFUL_TRANSACTION
+        type    : UNSUCCESSFUL_TRANSACTION,
+        payload : exception
       })
     })
   }
@@ -241,7 +244,6 @@ const ACTION_HANDLERS = {
         }
       }
     }
-    console.log(state.debitCards)
     return {
       ...state,
     }
@@ -287,9 +289,8 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        viewDate: action.payload.date,
-        date: action.payload.formattedDate,
-
+        viewDate: action.payload.formattedDate,
+        date: action.payload.date,
       }
     }
   },
@@ -304,6 +305,28 @@ const ACTION_HANDLERS = {
         currency: state.activeCard.currency,
         expenses: 0,
         date: '',
+      }
+    }
+  },
+
+  SUCCESSFUL_TRANSACTION: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        result: true,
+        linkToStart: '/banking/cards/creditcards'
+      }
+    }
+  },
+
+  UNSUCCESSFUL_TRANSACTION: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        result: false,
+        linkToStart: '/banking/cards/creditcards/card/payment'
       }
     }
   },

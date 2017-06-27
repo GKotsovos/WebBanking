@@ -1,3 +1,3 @@
-import TransactionResultLayout from './TransactionResultLayout'
+import TransactionResult from './components'
 
-export default TransactionResultLayout
+export default TransactionResult

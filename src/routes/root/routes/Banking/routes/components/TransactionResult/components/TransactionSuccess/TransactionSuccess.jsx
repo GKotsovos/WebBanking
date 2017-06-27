@@ -2,12 +2,16 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome'
 import './TransactionSuccess.css';
 
-export const TransactionSuccess = () => (
+export const TransactionSuccess = ({ linkTo, linkToStart }) => (
   <div className="panel panel-default" id="transactionSuccess">
     <div id="transactionSuccessPanelBody" className="panel-body text-center">
       <FontAwesome id="transactionSuccessIcon" name="check" size="3x"/>
       <p id="transactionSuccessText">Η συναλλαγή σας ολοκληρώθηκε με επιτυχία</p>
-      <button id="finishTransaction" type="button" className="btn btn-default">Τέλος</button>
+      <button
+        id="finishTransaction"
+        type="button"
+        className="btn btn-default"
+        onClick={() => linkTo(linkToStart)}>Τέλος</button>
     </div>
   </div>
 )
