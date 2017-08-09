@@ -3,11 +3,19 @@ import { browserHistory } from 'react-router'
 import FontAwesome from 'react-fontawesome'
 import './DefaultTabs.css'
 
-export const DefaultTabs = ({ activeRoute, linkTo, deactiveAccount }) => (
+export const DefaultTabs = ({
+  activeRoute,
+  linkTo,
+  getAccounts,
+  deactiveAccount,
+  getCards,
+  deactivateCard
+}) => (
   <div>
     <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
       <li className={`defaultTab ${window.location.href.endsWith("/banking") ? 'active' : ''}`}
         onClick={() => {
+          getAccounts();
           deactiveAccount();
           linkTo('/banking');
       }}>
@@ -16,7 +24,11 @@ export const DefaultTabs = ({ activeRoute, linkTo, deactiveAccount }) => (
         </a>
       </li>
       <li className={`defaultTab ${window.location.href.includes('/banking/cards') ? 'active' : ''}`}
-        onClick={() => linkTo('/banking/cards/debitcards')}>
+        onClick={() => {
+          getCards();
+          deactivateCard();
+          linkTo('/banking/cards/debitcards');
+        }}>
         <a href="#cards" className="mainTab" data-toggle="tab">
           <FontAwesome name="credit-card"/><br/>Κάρτες
         </a>

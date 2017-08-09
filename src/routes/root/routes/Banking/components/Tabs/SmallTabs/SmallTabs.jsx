@@ -3,7 +3,14 @@ import FontAwesome from 'react-fontawesome'
 import { browserHistory } from 'react-router'
 import './SmallTabs.css'
 
-export const SmallTabs = ({ activeRoute, linkTo, deactiveAccount }) => (
+export const SmallTabs = ({
+  activeRoute,
+  linkTo,
+  getAccounts,
+  deactiveAccount,
+  getCards,
+  deactivateCard
+}) => (
   <div id="smallT">
 
     <button id="humButton" className="btn" data-toggle="collapse" data-target="#smallTabs">
@@ -14,6 +21,7 @@ export const SmallTabs = ({ activeRoute, linkTo, deactiveAccount }) => (
       <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
         <li className={`defaultTab ${window.location.href == "/banking" ? 'active' : ''}`}
           onClick={() => {
+            getAccounts();
             deactiveAccount();
             linkTo('/banking');
         }}>
@@ -21,7 +29,11 @@ export const SmallTabs = ({ activeRoute, linkTo, deactiveAccount }) => (
             <FontAwesome name="money"/><br/>Λογαριασμοί</a>
         </li>
         <li className={`defaultTab ${window.location.href.includes('/banking/cards') ? 'active' : ''}`}
-          onClick={() => linkTo('/banking/cards/debitcards')}>
+          onClick={() => {
+            getCards();
+            deactivateCard();
+            linkTo('/banking/cards/debitcards');
+          }}>
           <a href="#cards" className="mainTab" aria-controls="cards" role="tab" data-toggle="tab">
             <FontAwesome name="credit-card"/><br/>Κάρτες</a>
         </li>
