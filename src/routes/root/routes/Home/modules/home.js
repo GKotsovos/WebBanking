@@ -78,11 +78,14 @@ const ACTION_HANDLERS = {
 
   UNAUTHENTICATED: (state, action) => {
     let errorMessage = "";
-    if (action.payload.response.status == 401) {
+
+    if (_.has(action.payload.response, "status") &&
+        action.payload.response.status == 401) {
       errorMessage = "Λάθος ID χρήστη ή κωδικός.";
     } else {
-      errorMessage = "Αυτή την στιγμή υπάρχει κάποιο πρόβλημα με το σύστημα. Προσπαθήστε ξανά αργότερα"
+      errorMessage = "Αυτή την στιγμή υπάρχει κάποιο πρόβλημα με το σύστημα. Προσπαθήστε ξανά αργότερα."
     }
+
     return {
       ...state,
       returnedError: errorMessage
