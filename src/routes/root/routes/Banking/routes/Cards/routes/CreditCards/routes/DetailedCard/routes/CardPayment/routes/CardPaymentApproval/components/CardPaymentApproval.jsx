@@ -16,13 +16,13 @@ export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
           <tr>
             <td className="titleCell col-sm-5 text-right">Λογαριασμός χρέωσης</td>
             <td className="cell col-sm-4 text-center">
-              {transactionForm.debitAccount}
+              {transactionForm.debitAccount.value}
             </td>
           </tr>
           <tr>
             <td className="titleCell col-sm-5 text-right">Ποσό πληρωμής</td>
             <td className="cell col-sm-4 text-center">
-              {transactionForm.amount.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
+              {transactionForm.amount.value.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
             </td>
           </tr>
           <tr>
@@ -34,7 +34,7 @@ export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
           <tr>
             <td className="titleCell col-sm-5 text-right">Σύνολο χρέωσης λογαριασμού</td>
             <td className="cell col-sm-4 text-center">
-              {transactionForm.amount.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
+              {transactionForm.amount.value.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
             </td>
           </tr>
           <tr>

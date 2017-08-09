@@ -9,7 +9,7 @@ class CardPaymentForm extends Component {
   componentDidMount() {
     const { transactionForm } = this.props;
     $('.selectpicker').selectpicker()
-    $('.selectpicker').selectpicker('val', [transactionForm.debitAccount])
+    $('.selectpicker').selectpicker('val', [transactionForm.debitAccount.value])
   }
 
   clearForm() {
@@ -34,7 +34,7 @@ class CardPaymentForm extends Component {
           <div>
             <select
               id="paymentAccount"
-              className="selectpicker paymentAccount form-control"
+              className={`selectpicker paymentAccount form-control ${_.isEmpty(transactionForm.debitAccount) || transactionForm.debitAccount.correct ? "" : "notValid"}`}
               data-show-subtext="true"
               title="Επιλέξτε λογαριασμό"
               onChange={(e) => setDebitAccount(e.target.value)}
@@ -58,10 +58,10 @@ class CardPaymentForm extends Component {
           <label
             htmlFor="amount">Ποσό</label>
           <input
-            className="form-control text-right"
+            className={`form-control text-right ${_.isEmpty(transactionForm.amount) || transactionForm.amount.correct ? "" : "notValid"}`}
             id="amount"
             placeholder="€"
-            value={transactionForm.amount}
+            value={transactionForm.amount.value || ""}
             onChange={(e) => setTransactionAmount(e.target.value)}
           />
         </div>
@@ -70,10 +70,11 @@ class CardPaymentForm extends Component {
           <label htmlFor="paymentDatePicker">Ημερομηνία Εκτέλεσης</label>
           <DatePicker
             id="paymentDatePicker"
+            className={`form-control text-right ${_.isEmpty(transactionForm.date) || transactionForm.date.correct ? "" : "notValid"}`}
             weekStartsOnMonday
             calendarPlacement="top"
             placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
-            value={transactionForm.date}
+            value={transactionForm.date.value}
             onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
           />
         </div>
