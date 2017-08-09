@@ -2,6 +2,7 @@ import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
+import dateformat from 'dateformat';
 import _ from 'underscore'
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
@@ -13,13 +14,13 @@ const CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT';
 const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_TRANSACTION_AMOUNT = 'SET_TRANSACTION_AMOUNT';
 const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
+const VALIDATE_CREDIT_CARD_PAYMENT_FORM = 'VALIDATE_CREDIT_CARD_PAYMENT_FORM';
 const CLEAR_TRANSACTION_FORM = 'CLEAR_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_CARD = 'SET_ACTIVE_CARD';
 const DEACTIVATE_CARD = 'DEACTIVATE_CARD';
-
 
 export const linkTo = (route) => {
   localStorage.setItem('path', route);
@@ -92,12 +93,13 @@ export const deleteLinkedProduct = (productId) => {
       }),
       withCredentials: true,
     })
-    .then((response) => {
-      dispatch({
-        type    : DELETE_LINKED_PRODUCT,
-        payload : productId
-      })
-    })
+    // .then((response) => {
+    //   dispatch({
+    //     type    : DELETE_LINKED_PRODUCT,
+    //     payload : productId
+    //   })
+    // })
+    .then(() => getCards()(dispatch, getState))
     .catch((exception) => {
       dispatch({
         type    : REQUEST_ERROR,
@@ -115,55 +117,78 @@ export const creditCardPayment = () => {
       url: 'http://localhost:26353/api/card/CreditCardPayment',
       data: querystring.stringify({
         cardId: transactionForm.cardId,
-        debitAccount: transactionForm.debitAccount,
-        amount: transactionForm.amount,
+        debitAccount: transactionForm.debitAccount.value,
+        amount: transactionForm.amount.value,
         currency: transactionForm.currency,
         expenses: transactionForm.expenses,
-        date: transactionForm.date
+        date: transactionForm.date.value
       }),
       withCredentials: true,
-    })
-    .then(() => {
-      dispatch({
-        type    : CLEAR_TRANSACTION_FORM
-      })
     })
     .then(() => {
       dispatch({
         type    : SUCCESSFUL_TRANSACTION
       })
     })
-    .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
+    .then(() => getCards()(dispatch, getState))
+    .then(() => {
+      dispatch({
+        type    : SET_ACTIVE_CARD,
+        payload : _.filter(getState().cards.creditCards, (card) => card.id == getState().cards.activeCard.id)[0]
+      })
+    })
+    // .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
+    // .then(() => {
+    //   dispatch({
+    //     type    : CLEAR_TRANSACTION_FORM
+    //   })
+    // })
     .catch((exception) => {
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
         payload : exception
       })
     })
+    .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
   }
 }
 
-export function setDebitAccount(debitAccount){
-  return {
-    type: SET_DEBIT_ACCOUNT,
-    payload: debitAccount
+export const setDebitAccount = (debitAccount) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_DEBIT_ACCOUNT,
+      payload: debitAccount
+    });
+    dispatch({
+      type: VALIDATE_CREDIT_CARD_PAYMENT_FORM
+    });
   }
 }
 
-export function setTransactionAmount(amount){
-  return {
-    type: SET_TRANSACTION_AMOUNT,
-    payload: amount
+export const setTransactionAmount = (amount) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSACTION_AMOUNT,
+      payload: amount
+    });
+    dispatch({
+      type: VALIDATE_CREDIT_CARD_PAYMENT_FORM
+    });
   }
 }
 
-export function setTransactionDate(date, formattedDate){
-  return {
-    type: SET_TRANSACTION_DATE,
-    payload: {
-      date,
-      formattedDate
-    }
+export const setTransactionDate = (date, formattedDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSACTION_DATE,
+      payload: {
+        date,
+        formattedDate
+      }
+    });
+    dispatch({
+      type: VALIDATE_CREDIT_CARD_PAYMENT_FORM
+    });
   }
 }
 
@@ -197,7 +222,7 @@ export const actions = {
   setTransactionDate,
   clearTransactionForm,
   setActiveCard,
-  deactivateCard
+  deactivateCard,
 }
 
 const ACTION_HANDLERS = {
@@ -269,7 +294,10 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        debitAccount: action.payload,
+        debitAccount: {
+          value: action.payload,
+          correct: action.payload != ""
+        }
       }
     }
   },
@@ -279,7 +307,12 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        amount: action.payload,
+        amount: {
+          value: action.payload,
+          correct: action.payload > 0 &&
+          (action.payload <= state.activeCard.nextInstallmentAmount ||
+           action.payload <= state.activeCard.debt)
+        }
       }
     }
   },
@@ -290,7 +323,23 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         viewDate: action.payload.formattedDate,
-        date: action.payload.date,
+        date: {
+          value: action.payload.date,
+          correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
+        }
+      }
+    }
+  },
+
+
+  VALIDATE_CREDIT_CARD_PAYMENT_FORM: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        shouldProcess: state.transactionForm.debitAccount.correct &&
+        state.transactionForm.amount.correct &&
+        state.transactionForm.date.correct
       }
     }
   },
@@ -300,11 +349,12 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         cardId: state.activeCard.id,
-        debitAccount: '',
-        amount: '',
+        debitAccount: {},
+        amount: {},
         currency: state.activeCard.currency,
         expenses: 0,
-        date: '',
+        date: {},
+        shouldProcess: false
       }
     }
   },
@@ -315,12 +365,13 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         result: true,
-        linkToStart: '/banking/cards/creditcards'
+        linkToStart: '/banking/cards/creditcards/card'
       }
     }
   },
 
   UNSUCCESSFUL_TRANSACTION: (state, action) => {
+    console.log(action.payload)
     return {
       ...state,
       transactionForm: {
@@ -332,6 +383,7 @@ const ACTION_HANDLERS = {
   },
 
   SET_ACTIVE_CARD: (state, action) => {
+    console.log(action.payload)
     return {
       ...state,
       activeCard: action.payload,
@@ -343,6 +395,7 @@ const ACTION_HANDLERS = {
         expenses: 0,
         viewDate: '',
         date: '',
+        shouldProcess: false
       }
     }
   },
