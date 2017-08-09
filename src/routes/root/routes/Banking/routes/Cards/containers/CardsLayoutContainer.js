@@ -3,7 +3,7 @@ import { getCards } from '../modules/cards'
 import CardsTabs from '../components/CardsLayout';
 
 const mapActionCreators = {
-  getCards: () => getCards()
+  getCards: () => getCards(),
 }
 
 export default connect(null, mapActionCreators)(CardsTabs);

@@ -4,14 +4,6 @@ import './CardsLayout.css';
 
 // export const CardsLayout = ({ children }) => (
 class CardsLayout extends Component {
-  // componentWillReceiveProps() {
-  //   const { initialFetch, getCards } = this.props;
-  //   // if (!initialFetch) {
-  //     getCards();
-  //     console.log('will update');
-  //   // }
-  // }
-
   render() {
     return (
       <div id="cards" className="cardsContainer">
