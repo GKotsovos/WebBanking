@@ -5,6 +5,7 @@ import _ from 'underscore'
 const INITIAL_STATE = 'INITIAL_STATE';
 const REQUESTING = 'REQUESTING';
 const RECEIVE_ACCOUNTS = 'RECEIVE_ACCOUNTS';
+const RECEIVE_ACCOUNT = 'RECEIVE_ACCOUNT';
 const RECEIVE_ACCOUNT_TRANSACTION_HISTORY = 'RECEIVE_ACCOUNT_TRANSACTION_HISTORY';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT';
@@ -31,6 +32,32 @@ export const getAccounts = () => {
       dispatch({
         type    : REQUEST_ERROR,
         payload : response.data
+      })
+    })
+  }
+}
+
+export const getAccountById = (accountId) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: REQUESTING
+    });
+
+    return axios({
+      method: 'get',
+      url: 'http://localhost:26353/api/account/GetAccountById/' + accountId,
+      withCredentials: true
+    })
+    .then((response) => {
+      dispatch({
+        type    : RECEIVE_ACCOUNT,
+        payload : response.data
+      })
+    })
+    .catch((exception)  => {
+      dispatch({
+        type    : REQUEST_ERROR,
+        payload : exception
       })
     })
   }
@@ -73,6 +100,7 @@ export function deactiveAccount(){
 
 export const actions = {
   getAccounts,
+  getAccountById,
   getAccountTransactionHistory,
   setActiveAccount,
   deactiveAccount,
@@ -87,6 +115,13 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       phase: 'REQUESTING'
+    }
+  },
+
+  RECEIVE_ACCOUNT: (state, action) => {
+    return {
+      ...state,
+      accounts: _.map(state.accounts, (account) => account.iban == action.payload.iban ? action.payload : account)
     }
   },
 
@@ -108,9 +143,9 @@ const ACTION_HANDLERS = {
   },
 
   REQUEST_ERROR: (state, action) => {
+    console.log(action.payload)
     return {
-      ...state,
-      returnedError: action.payload
+      ...state
     }
   },
 
