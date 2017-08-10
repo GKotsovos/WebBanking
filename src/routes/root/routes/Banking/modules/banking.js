@@ -65,7 +65,7 @@ export const logOut = () => {
       dispatch({
         type    : LOG_OUT
       });
-      browserHistory.push('/');
+      window.location.href = '/';
     }
 }
 
