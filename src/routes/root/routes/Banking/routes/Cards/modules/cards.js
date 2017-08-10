@@ -164,7 +164,6 @@ export const getCardTransactionHistory = (productId) => {
 }
 
 export const deleteLinkedProduct = (productId) => {
-
   return (dispatch, getState) => {
     return axios({
       method: 'post',
@@ -464,17 +463,7 @@ const ACTION_HANDLERS = {
   SET_ACTIVE_CARD: (state, action) => {
     return {
       ...state,
-      activeCard: action.payload,
-      transactionForm: {
-        cardId: action.payload.id,
-        debitAccount: '',
-        amount: '',
-        currency: action.payload.currency,
-        expenses: 0,
-        viewDate: '',
-        date: '',
-        shouldProcess: false
-      }
+      activeCard: action.payload
     }
   },
 
