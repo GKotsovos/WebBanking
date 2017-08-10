@@ -1,51 +1,99 @@
 import React, { Component, PropTypes } from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
-import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons'
+import currencyFormatter from 'currency-formatter';
+import _ from 'underscore';
+import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import './LoadForm.css';
 
-// const callJquery = () => {
-//   $(document).ready( () => $('.selectpicker').selectpicker() )
-// }
-
-// export const LoadForm = () => (
 class LoadForm extends Component {
   componentDidMount() {
+    const { transactionForm } = this.props;
     $('.selectpicker').selectpicker()
+    $('.selectpicker').selectpicker('val', [transactionForm.debitAccount.value])
+  }
+
+  clearForm() {
+    const { clearCardTransactionForm } = this.props;
+    $('.selectpicker').selectpicker('val', [''])
+    clearCardTransactionForm();
   }
 
   render() {
+    const {
+      accounts,
+      transactionForm,
+      setDebitAccount,
+      setPrepaidCardLoadAmount,
+      setTransactionDate
+    } = this.props;
     return (
       <form className="loadFormContainer">
 
         <div className="form-group">
-          <label htmlFor="paymentAccount">Λογαριασμός Χρέωσης</label>
+          <label htmlFor="loadAmount">Λογαριασμός Χρέωσης</label>
           <div>
-          <select id="paymentAccount" className="selectpicker paymentAccount form-control" data-show-subtext="true">
-            <option data-subtext="Μισθοδοσία 525,00€">GR2201100470000009237465820</option>
-            <option data-subtext="Αποταμίευση 1525,00€">GR2201100470000009237465350</option>
-            <option data-subtext="Αποταμίευση 5425,00€">GR2201100470000009237465700</option>
-          </select>
+
+            <select
+              id="loadAmount"
+              className={`selectpicker loadAccount form-control ${_.isEmpty(transactionForm.debitAccount) || transactionForm.debitAccount.correct ? "" : "notValid"}`}
+              data-show-subtext="true"
+              title="Επιλέξτε λογαριασμό"
+              onChange={(e) => setDebitAccount(e.target.value)}
+            >
+              {
+                _.map(accounts, (account) => (
+                  <option
+                    data-subtext={
+                      `${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`
+                    }
+                  >
+                    {account.iban}
+                  </option>
+                ))
+              }
+              {/* Add logic for credit cards and loans*/}
+             </select>
+            </div>
           </div>
-        </div>
 
         <div className="form-group">
           <label htmlFor="amount">Ποσό</label>
-          <input className="form-control text-right" id="amount" placeholder="€"/>
+          <input
+            className={`form-control text-right ${_.isEmpty(transactionForm.amount) || transactionForm.amount.correct ? "" : "notValid"}`}
+            id="amount"
+            placeholder="€"
+            value={transactionForm.amount.value || ""}
+            onChange={(e) => setPrepaidCardLoadAmount(e.target.value)}
+          />
         </div>
 
         <div className="form-group">
-          <label htmlFor="loadDatePicker">Ημερομηνία Εκτέλεσης</label>
-          <DatePicker id="loadDatePicker" weekStartsOnMonday calendarPlacement="top" placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"/>
+          <label htmlFor="paymentDatePicker">Ημερομηνία Εκτέλεσης</label>
+          <DatePicker
+            id="loadDatePicker"
+            className={`form-control text-right ${_.isEmpty(transactionForm.date) || transactionForm.date.correct ? "" : "notValid"}`}
+            weekStartsOnMonday
+            calendarPlacement="top"
+            placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
+            value={transactionForm.date.value}
+            onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
+          />
         </div>
 
         <div className="form-group">
           <label id="saveLoad">
-            <input id="saveLoadCheckBox" type="checkbox" />
+            <input
+              id="saveLoadCheckBox"
+              type="checkbox"
+            />
             <span>Αποθήκευση ως πρότυπο</span>
           </label>
         </div>
 
-        <FormCompletionButtons />
+        <FormCompletionButtons
+          clearForm={this.clearForm.bind(this)}
+          linkToApprovalForm='/banking/cards/creditcards/card/payment/approval'
+        />
 
       </form>
     )

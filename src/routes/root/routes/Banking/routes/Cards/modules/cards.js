@@ -17,6 +17,7 @@ const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
 const CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT';
 const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
+const SET_PREPAID_CARD_LOAD_AMOUNT = 'SET_PREPAID_CARD_LOAD_AMOUNT';
 const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
 const VALIDATE_CARDS_TRANSACTION_FORM = 'VALIDATE_CARDS_TRANSACTION_FORM';
 const CLEAR_CARD_TRANSACTION_FORM = 'CLEAR_CARD_TRANSACTION_FORM';
@@ -248,6 +249,14 @@ export const setCreditCardPaymentAmount = (amount) => {
   }
 }
 
+export const setPrepaidCardLoadAmount = (amount) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_PREPAID_CARD_LOAD_AMOUNT,
+      payload: amount
+    });
+    dispatch({
+      type: VALIDATE_CARDS_TRANSACTION_FORM
     });
   }
 }
@@ -297,6 +306,7 @@ export const actions = {
   creditCardPayment,
   setDebitAccount,
   setCreditCardPaymentAmount,
+  setPrepaidCardLoadAmount,
   setTransactionDate,
   clearCardTransactionForm,
   setActiveCard,
@@ -400,6 +410,15 @@ const ACTION_HANDLERS = {
     }
   },
 
+  SET_PREPAID_CARD_LOAD_AMOUNT: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        amount: {
+          value: action.payload,
+          correct: action.payload > 0
+          // && Add logic for accounts, credit cards and loans
         }
       }
     }
@@ -418,7 +437,6 @@ const ACTION_HANDLERS = {
       }
     }
   },
-
 
   VALIDATE_CARDS_TRANSACTION_FORM: (state, action) => {
     return {

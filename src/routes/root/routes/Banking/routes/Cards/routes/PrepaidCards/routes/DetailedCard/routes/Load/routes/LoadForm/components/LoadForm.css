@@ -2,16 +2,11 @@
   margin: 0 auto;
 }
 
-#organizationSelect {
-  max-width: 200px;
-  margin-bottom: 10px;
+.btn-group.bootstrap-select.loadAccount.form-control{
+  max-width: 500px;
 }
 
-#organizationSelect:hover {
-  cursor: pointer;
-}
-
-#amount {
+#loadAmount {
   max-width: 150px;
 }
 
