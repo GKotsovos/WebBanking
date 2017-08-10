@@ -206,19 +206,15 @@ export const creditCardPayment = () => {
         type    : SUCCESSFUL_TRANSACTION
       })
     })
-    .then(() => getCards()(dispatch, getState))
+    .then(() => getCreditCardById(transactionForm.cardId)(dispatch, getState))
     .then(() => {
       dispatch({
         type    : SET_ACTIVE_CARD,
         payload : _.filter(getState().cards.creditCards, (card) => card.id == getState().cards.activeCard.id)[0]
       })
     })
-    // .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
-    // .then(() => {
-    //   dispatch({
-    //     type    : CLEAR_TRANSACTION_FORM
-    //   })
-    // })
+    .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
+    .then(() => getAccountById(transactionForm.debitAccount.value)(dispatch, getState))
     .catch((exception) => {
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
@@ -346,6 +342,14 @@ const ACTION_HANDLERS = {
       prepaidCards: _.map(state.prepaidCards, (prepaidCard) => prepaidCard.id == action.payload.id ? action.payload : prepaidCard)
     }
   },
+
+  RECEIVE_CARD_TRANSACTION_HISTORY: (state, action) => {
+    return {
+      ...state,
+      activeCard: {
+        ...state.activeCard,
+        transactionHistory: action.payload
+      }
     }
   },
 
@@ -458,7 +462,6 @@ const ACTION_HANDLERS = {
   },
 
   SET_ACTIVE_CARD: (state, action) => {
-    console.log(action.payload)
     return {
       ...state,
       activeCard: action.payload,
