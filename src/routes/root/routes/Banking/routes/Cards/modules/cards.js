@@ -4,6 +4,7 @@ import querystring from 'querystring';
 import { browserHistory } from 'react-router'
 import dateformat from 'dateformat';
 import _ from 'underscore'
+import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const REQUESTING = 'REQUESTING';
@@ -174,13 +175,7 @@ export const deleteLinkedProduct = (productId) => {
       }),
       withCredentials: true,
     })
-    // .then((response) => {
-    //   dispatch({
-    //     type    : DELETE_LINKED_PRODUCT,
-    //     payload : productId
-    //   })
-    // })
-    .then(() => getCards()(dispatch, getState))
+    .then(() => getDebitCardById(productId)(dispatch, getState))
     .catch((exception) => {
       dispatch({
         type    : REQUEST_ERROR,
@@ -338,17 +333,6 @@ const ACTION_HANDLERS = {
     }
   },
 
-  DELETE_LINKED_PRODUCT: (state, action) => {
-    getCards();
-    let debitCards = state.debitCards
-    for (let i = 0; i < debitCards.length; i++) {
-      if (state.activeCard.id == debitCards[i].debitCard.id) {
-        for (let j = 0; j < debitCards[i].accounts.length; j++) {
-          if (debitCards[i].accounts[j].iban == action.payload) {
-            debitCards[i].accounts.splice(j, 1)
-          }
-        }
-      }
   RECEIVE_CREDIT_CARD: (state, action) => {
     return {
       ...state,
