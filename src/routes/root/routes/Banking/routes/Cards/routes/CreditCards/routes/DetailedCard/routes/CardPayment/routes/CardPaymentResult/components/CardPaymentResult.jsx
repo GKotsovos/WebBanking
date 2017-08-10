@@ -1,8 +1,8 @@
 import React from 'react';
-import TransactionResult from '../../../../../../../../../../components/TransactionResult'
+import TransactionResult from 'routes/root/routes/Banking/routes/components/TransactionResult';
 
-export const CardPaymentResult = ({ result, linkToStart }) => (
-  <TransactionResult result={result} linkToStart={linkToStart}/>
+export const CardPaymentResult = ({ result, linkToStart, clearTransactionForm }) => (
+  <TransactionResult result={result} linkToStart={linkToStart} clearTransactionForm={clearTransactionForm} />
 )
 
 export default CardPaymentResult

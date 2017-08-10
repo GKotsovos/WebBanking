@@ -1,7 +1,7 @@
 import React from 'react';
 import './CreditCardServicesTabs.css';
 
-export const CreditCardServicesTabs = ({ activeRoute, clearTransactionForm, linkTo }) => (
+export const CreditCardServicesTabs = ({ activeRoute, clearCardTransactionForm, linkTo }) => (
   <div className="">
     <ul id="creditCardServicesTabs" className="nav nav-tabs text-center">
       <li
@@ -12,7 +12,7 @@ export const CreditCardServicesTabs = ({ activeRoute, clearTransactionForm, link
       <li
         className={`serviceTab ${activeRoute.includes('card/payment') ? 'active' : ''}`}
         onClick={() =>{
-          clearTransactionForm();
+          clearCardTransactionForm();
           linkTo('/banking/cards/creditcards/card/payment');
         }}>
         <a id="cardPaymentTab" href="#cardPayment" aria-controls="payment" role="tab" data-toggle="tab">Πληρωμή</a>

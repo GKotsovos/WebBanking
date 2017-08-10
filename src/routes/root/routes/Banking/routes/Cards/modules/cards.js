@@ -19,7 +19,7 @@ const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_TRANSACTION_AMOUNT = 'SET_TRANSACTION_AMOUNT';
 const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
 const VALIDATE_CREDIT_CARD_PAYMENT_FORM = 'VALIDATE_CREDIT_CARD_PAYMENT_FORM';
-const CLEAR_TRANSACTION_FORM = 'CLEAR_TRANSACTION_FORM';
+const CLEAR_CARD_TRANSACTION_FORM = 'CLEAR_CARD_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 const REQUEST_ERROR = 'REQUEST_ERROR';
@@ -276,9 +276,9 @@ export function deactivateCard(){
   }
 }
 
-export function clearTransactionForm(){
+export function clearCardTransactionForm(){
   return {
-    type: CLEAR_TRANSACTION_FORM,
+    type: CLEAR_CARD_TRANSACTION_FORM,
   }
 }
 
@@ -294,7 +294,7 @@ export const actions = {
   setDebitAccount,
   setTransactionAmount,
   setTransactionDate,
-  clearTransactionForm,
+  clearCardTransactionForm,
   setActiveCard,
   deactivateCard,
 }
@@ -422,7 +422,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  CLEAR_TRANSACTION_FORM: (state, action) => {
+  CLEAR_CARD_TRANSACTION_FORM: (state, action) => {
     return {
       ...state,
       transactionForm: {

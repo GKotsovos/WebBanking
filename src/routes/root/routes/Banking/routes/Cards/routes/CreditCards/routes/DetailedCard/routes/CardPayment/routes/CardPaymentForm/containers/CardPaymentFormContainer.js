@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import {
   setDebitAccount,
-  setTransactionAmount,
+  setCreditCardPaymentAmount,
   setTransactionDate,
   validateCreditCardPaymentForm,
-  clearTransactionForm
+  clearCardTransactionForm
  } from '../../../../../../../../../modules/cards.js'
 import CardPaymentForm from '../components';
 
@@ -15,10 +15,10 @@ const mapStateToProps = (state) => ({
 
 const mapActionCreators = {
   setDebitAccount: (debitAccount) => setDebitAccount(debitAccount),
-  setTransactionAmount: (amount) => setTransactionAmount(amount),
+  setCreditCardPaymentAmount: (amount) => setCreditCardPaymentAmount(amount),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
   validateCreditCardPaymentForm: () => validateCreditCardPaymentForm(),
-  clearTransactionForm: () => clearTransactionForm(),
+  clearCardTransactionForm: () => clearCardTransactionForm(),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(CardPaymentForm);

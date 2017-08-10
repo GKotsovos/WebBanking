@@ -13,9 +13,9 @@ class CardPaymentForm extends Component {
   }
 
   clearForm() {
-    const { clearTransactionForm } = this.props;
+    const { clearCardTransactionForm } = this.props;
     $('.selectpicker').selectpicker('val', [''])
-    clearTransactionForm();
+    clearCardTransactionForm();
   }
 
   render() {
@@ -23,7 +23,7 @@ class CardPaymentForm extends Component {
       accounts,
       transactionForm,
       setDebitAccount,
-      setTransactionAmount,
+      setCreditCardPaymentAmount,
       setTransactionDate
     } = this.props;
     return (
@@ -50,6 +50,7 @@ class CardPaymentForm extends Component {
                   </option>
                 ))
               }
+              {/* Add logic for loans */}
             </select>
           </div>
         </div>
@@ -62,7 +63,7 @@ class CardPaymentForm extends Component {
             id="amount"
             placeholder="€"
             value={transactionForm.amount.value || ""}
-            onChange={(e) => setTransactionAmount(e.target.value)}
+            onChange={(e) => setCreditCardPaymentAmount(e.target.value)}
           />
         </div>
 
