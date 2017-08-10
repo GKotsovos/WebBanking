@@ -10,6 +10,7 @@ const REQUESTING = 'REQUESTING';
 const RECEIVE_CARDS = 'RECEIVE_CARDS';
 const RECEIVE_DEBIT_CARD = 'RECEIVE_DEBIT_CARD';
 const RECEIVE_CREDIT_CARD = 'RECEIVE_CREDIT_CARD';
+const RECEIVE_PREPAID_CARD = 'RECEIVE_PREPAID_CARD';
 const RECEIVE_CARD_TRANSACTION_HISTORY = 'RECEIVE_CARD_TRANSACTION_HISTORY';
 const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
 const CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT';
@@ -101,6 +102,32 @@ export const getCreditCardById = (id) => {
     .then((response) => {
       dispatch({
         type    : RECEIVE_CREDIT_CARD,
+        payload : response.data
+      })
+    })
+    .catch(( exception )  => {
+      dispatch({
+        type    : REQUEST_ERROR,
+        payload : exception
+      })
+    })
+  }
+}
+
+export const getPrepaidCardById = (id) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: REQUESTING
+    });
+
+    return axios({
+      method: 'get',
+      url: 'http://localhost:26353/api/card/GetPrepaidCardById/' + id,
+      withCredentials: true
+    })
+    .then((response) => {
+      dispatch({
+        type    : RECEIVE_PREPAID_CARD,
         payload : response.data
       })
     })
@@ -270,6 +297,7 @@ export const actions = {
   getCards,
   getDebitCardById,
   getCreditCardById,
+  getPrepaidCardById,
   getCardTransactionHistory,
   deleteLinkedProduct,
   creditCardPayment,
@@ -328,8 +356,12 @@ const ACTION_HANDLERS = {
     }
   },
 
+  RECEIVE_PREPAID_CARD: (state, action) => {
     return {
       ...state,
+      prepaidCards: _.map(state.prepaidCards, (prepaidCard) => prepaidCard.id == action.payload.id ? action.payload : prepaidCard)
+    }
+  },
     }
   },
 
