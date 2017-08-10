@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
 import FormCompletionButtons from '../../../../../components/FormCompletionButtons';
-import './LoanPayment.css';
+import './LoanPaymentForm.css';
 
 // const callJquery = () => {
 //   $(document).ready( () => $('.selectpicker').selectpicker() )
 // }
 
-// export const LoanPayment = () => (
-class LoanPayment extends Component {
+// export const LoanPaymentForm = () => (
+class LoanPaymentForm extends Component {
   componentDidMount() {
     $('.selectpicker').selectpicker()
   }
@@ -39,8 +39,8 @@ class LoanPayment extends Component {
         </div>
 
         <div className="form-group">
-          <label id="saveLoanPayment">
-            <input id="saveLoanPaymentCheckBox" type="checkbox" />
+          <label id="saveLoanPaymentForm">
+            <input id="saveLoanPaymentFormCheckBox" type="checkbox" />
             <span>Αποθήκευση ως πρότυπο</span>
           </label>
         </div>
@@ -52,4 +52,4 @@ class LoanPayment extends Component {
   }
 }
 
-export default LoanPayment
+export default LoanPaymentForm

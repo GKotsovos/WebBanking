@@ -4,14 +4,13 @@ import DetailedLoan from '../DetailedLoan';
 import LoanServicesTabs from '../LoanServicesTabs';
 import './LoansLayout.css';
 
-export const LoansLayout = ({ children }) => (
+export const LoansLayout = ({ children, loans, activeLoan }) => (
   <div role="tabpanel" className="tab-pane" id="loans">
-    <Loan />
-    {/* <DetailedLoan />
-    <LoanServicesTabs />
-    <div>
-      {children}
-    </div> */}
+    {
+      _.isEmpty(activeLoan) ?
+        _.map(loans, (loan) => <Loan loan={loan} />)
+        : children
+    }
   </div>
 )
 

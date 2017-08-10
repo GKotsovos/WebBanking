@@ -1,7 +1,5 @@
-import LoanPaymentRoute from './LoanPayment'
-import TransactionHistoryRoute from './TransactionHistory'
+import DetailedLoanRoute from './DetailedLoan'
 
 export {
-  LoanPaymentRoute,
-  TransactionHistoryRoute
+  DetailedLoanRoute,
 }

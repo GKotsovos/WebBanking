@@ -1,14 +1,12 @@
 import { injectReducer } from 'store/reducers'
-import LoanPayment from './components/LoanPaymentLayout'
+import LoanPaymentApproval from './containers/LoanPaymentApprovalContainer'
 import cookie from 'react-cookie'
 
 export default (store) => ({
-  path: '/banking/loans/payment',
+  path: '/banking/loans/loan/payment/approval',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
-      const reducer = require('./modules/loanPayment').default
-      injectReducer(store, { key: 'loanPayment', reducer })
-      cb(null, LoanPayment)
+      cb(null, LoanPaymentApproval)
     })
   },
   onEnter(nextState, replace) {
