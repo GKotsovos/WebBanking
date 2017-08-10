@@ -16,9 +16,9 @@ const RECEIVE_CARD_TRANSACTION_HISTORY = 'RECEIVE_CARD_TRANSACTION_HISTORY';
 const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
 const CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT';
 const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
-const SET_TRANSACTION_AMOUNT = 'SET_TRANSACTION_AMOUNT';
+const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
 const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
-const VALIDATE_CREDIT_CARD_PAYMENT_FORM = 'VALIDATE_CREDIT_CARD_PAYMENT_FORM';
+const VALIDATE_CARDS_TRANSACTION_FORM = 'VALIDATE_CARDS_TRANSACTION_FORM';
 const CLEAR_CARD_TRANSACTION_FORM = 'CLEAR_CARD_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
@@ -231,19 +231,23 @@ export const setDebitAccount = (debitAccount) => {
       payload: debitAccount
     });
     dispatch({
-      type: VALIDATE_CREDIT_CARD_PAYMENT_FORM
+      type: VALIDATE_CARDS_TRANSACTION_FORM
     });
   }
 }
 
-export const setTransactionAmount = (amount) => {
+export const setCreditCardPaymentAmount = (amount) => {
   return (dispatch, getState) => {
     dispatch({
-      type: SET_TRANSACTION_AMOUNT,
+      type: SET_CREDIT_CARD_PAYMENT_AMOUNT,
       payload: amount
     });
     dispatch({
-      type: VALIDATE_CREDIT_CARD_PAYMENT_FORM
+      type: VALIDATE_CARDS_TRANSACTION_FORM
+    });
+  }
+}
+
     });
   }
 }
@@ -258,7 +262,7 @@ export const setTransactionDate = (date, formattedDate) => {
       }
     });
     dispatch({
-      type: VALIDATE_CREDIT_CARD_PAYMENT_FORM
+      type: VALIDATE_CARDS_TRANSACTION_FORM
     });
   }
 }
@@ -292,7 +296,7 @@ export const actions = {
   deleteLinkedProduct,
   creditCardPayment,
   setDebitAccount,
-  setTransactionAmount,
+  setCreditCardPaymentAmount,
   setTransactionDate,
   clearCardTransactionForm,
   setActiveCard,
@@ -380,7 +384,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_TRANSACTION_AMOUNT: (state, action) => {
+  SET_CREDIT_CARD_PAYMENT_AMOUNT: (state, action) => {
     return {
       ...state,
       transactionForm: {
@@ -390,6 +394,12 @@ const ACTION_HANDLERS = {
           correct: action.payload > 0 &&
           (action.payload <= state.activeCard.nextInstallmentAmount ||
            action.payload <= state.activeCard.debt)
+          // && Add logic for accounts and loans
+        }
+      }
+    }
+  },
+
         }
       }
     }
@@ -410,7 +420,7 @@ const ACTION_HANDLERS = {
   },
 
 
-  VALIDATE_CREDIT_CARD_PAYMENT_FORM: (state, action) => {
+  VALIDATE_CARDS_TRANSACTION_FORM: (state, action) => {
     return {
       ...state,
       transactionForm: {
