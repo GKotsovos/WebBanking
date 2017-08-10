@@ -8,6 +8,7 @@ import _ from 'underscore'
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const REQUESTING = 'REQUESTING';
 const RECEIVE_CARDS = 'RECEIVE_CARDS';
+const RECEIVE_DEBIT_CARD = 'RECEIVE_DEBIT_CARD';
 const RECEIVE_CARD_TRANSACTION_HISTORY = 'RECEIVE_CARD_TRANSACTION_HISTORY';
 const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
 const CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT';
@@ -47,6 +48,32 @@ export const getCards = () => {
     .then((response) => {
       dispatch({
         type    : RECEIVE_CARDS,
+        payload : response.data
+      })
+    })
+    .catch(( exception )  => {
+      dispatch({
+        type    : REQUEST_ERROR,
+        payload : exception
+      })
+    })
+  }
+}
+
+export const getDebitCardById = (id) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: REQUESTING
+    });
+
+    return axios({
+      method: 'get',
+      url: 'http://localhost:26353/api/card/GetDebitCardWithLinkedProductsById/' + getState().cards.activeCard.id,
+      withCredentials: true
+    })
+    .then((response) => {
+      dispatch({
+        type    : RECEIVE_DEBIT_CARD,
         payload : response.data
       })
     })
@@ -214,6 +241,7 @@ export function clearTransactionForm(){
 export const actions = {
   linkTo,
   getCards,
+  getDebitCardById,
   getCardTransactionHistory,
   deleteLinkedProduct,
   creditCardPayment,
@@ -247,13 +275,10 @@ const ACTION_HANDLERS = {
     }
   },
 
-  RECEIVE_CARD_TRANSACTION_HISTORY: (state, action) => {
+  RECEIVE_DEBIT_CARD: (state, action) => {
     return {
       ...state,
-      activeCard: {
-        ...state.activeCard,
-        transactionHistory: action.payload
-      }
+      debitCards: _.map(state.debitCards, (debitCard) => debitCard.debitCard.id == action.payload.debitCard.id ? action.payload : debitCard)
     }
   },
 
