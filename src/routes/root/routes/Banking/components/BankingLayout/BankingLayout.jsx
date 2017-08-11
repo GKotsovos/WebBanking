@@ -8,11 +8,13 @@ class BankingLayout extends Component {
     const {
       getCustomerName,
       getAccounts,
-      getCards
+      getCards,
+      getLoans,
     } = this.props;
     getCustomerName();
     getAccounts();
     getCards();
+    getLoans();
   }
 
   componentDidMount() {

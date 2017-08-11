@@ -5,7 +5,7 @@ import {
 } from '../modules/banking';
 import { getAccounts } from '../routes/Accounts/modules/accounts';
 import { getCards } from '../routes/Cards/modules/cards';
-// import { getLoans } from '../routes/Loans/modules/loans';
+import { getLoans } from '../routes/Loans/modules/loans';
 import Banking from '../components/BankingLayout';
 
 const mapStateToProps = (state) => ({
@@ -16,6 +16,7 @@ const mapActionCreators = {
   getCustomerName: () => getCustomerName(),
   getAccounts: () => getAccounts(),
   getCards: () => getCards(),
+  getLoans: () => getLoans(),
   logOut: () => logOut(),
 };
 

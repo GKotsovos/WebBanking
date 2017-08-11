@@ -9,7 +9,9 @@ export const SmallTabs = ({
   getAccounts,
   deactiveAccount,
   getCards,
-  deactivateCard
+  deactivateCard,
+  getLoans,
+  deactivateLoan,
 }) => (
   <div id="smallT">
 
@@ -38,7 +40,11 @@ export const SmallTabs = ({
             <FontAwesome name="credit-card"/><br/>Κάρτες</a>
         </li>
         <li className={`defaultTab ${window.location.href.includes('/banking/loans') ? 'active' : ''}`}
-          onClick={() => linkTo('/banking/loans')}>
+          onClick={() => {
+            getLoans();
+            deactivateLoan();
+            linkTo('/banking/loans');
+          }}>
           <a href="#loans" className="mainTab" aria-controls="loans" role="tab" data-toggle="tab">
             <FontAwesome name="handshake-o"/><br/>Δάνεια</a>
         </li>
