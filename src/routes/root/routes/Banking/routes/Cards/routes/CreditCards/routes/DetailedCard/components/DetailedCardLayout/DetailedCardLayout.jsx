@@ -14,4 +14,5 @@ class DetailedCardLayout extends Component {
     )
   }
 }
+
 export default DetailedCardLayout

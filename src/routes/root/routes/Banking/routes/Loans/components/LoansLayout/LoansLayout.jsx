@@ -1,11 +1,10 @@
 import React from 'react';
-import Loan from '../Loan';
-import DetailedLoan from '../DetailedLoan';
-import LoanServicesTabs from '../LoanServicesTabs';
+import Loan from '../../containers/LoanContainer';
+import _ from 'underscore';
 import './LoansLayout.css';
 
 export const LoansLayout = ({ children, loans, activeLoan }) => (
-  <div role="tabpanel" className="tab-pane" id="loans">
+  <div role="tabpanel" className="tab-pane loansContainer" id="loans">
     {
       _.isEmpty(activeLoan) ?
         _.map(loans, (loan) => <Loan loan={loan} />)

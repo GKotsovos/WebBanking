@@ -14,7 +14,6 @@ const RECEIVE_CREDIT_CARD = 'RECEIVE_CREDIT_CARD';
 const RECEIVE_PREPAID_CARD = 'RECEIVE_PREPAID_CARD';
 const RECEIVE_CARD_TRANSACTION_HISTORY = 'RECEIVE_CARD_TRANSACTION_HISTORY';
 const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
-const CREDIT_CARD_PAYMENT = 'CREDIT_CARD_PAYMENT';
 const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
 const SET_PREPAID_CARD_LOAD_AMOUNT = 'SET_PREPAID_CARD_LOAD_AMOUNT';
@@ -357,16 +356,6 @@ const ACTION_HANDLERS = {
   },
 
   RECEIVE_CARD_TRANSACTION_HISTORY: (state, action) => {
-    return {
-      ...state,
-      activeCard: {
-        ...state.activeCard,
-        transactionHistory: action.payload
-      }
-    }
-  },
-
-  CREDIT_CARD_PAYMENT: (state, action) => {
     return {
       ...state,
       activeCard: {

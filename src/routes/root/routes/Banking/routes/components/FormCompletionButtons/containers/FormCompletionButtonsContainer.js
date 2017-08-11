@@ -3,7 +3,7 @@ import { linkTo } from '../../../../modules/banking'
 import FormCompletionButtons from '../components';
 
 const mapStateToProps = (state) => ({
-  shouldProcess: state.cards.transactionForm.shouldProcess
+  // shouldProcess: state.cards.transactionForm.shouldProcess
 });
 
 const mapActionCreators = {
@@ -11,4 +11,4 @@ const mapActionCreators = {
 };
 
 
-export default connect(mapStateToProps, mapActionCreators)(FormCompletionButtons);
+export default connect(null, mapActionCreators)(FormCompletionButtons);

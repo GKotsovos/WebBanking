@@ -1,6 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
-import TransactionApprovalButtons from '../../../../../../../../../../components/TransactionApprovalButtons'
+import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
 import './CardPaymentApproval.css';
 
 export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (

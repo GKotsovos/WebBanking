@@ -10,7 +10,7 @@ import LoanPaymentForm from '../components';
 
 const mapStateToProps = (state) => ({
   accounts: state.accounts.accounts,
-  transactionForm: state.cards.transactionForm
+  transactionForm: state.loans.transactionForm
 });
 
 const mapActionCreators = {

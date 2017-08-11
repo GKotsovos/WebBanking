@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
-import FormCompletionButtons from '../../../../../../../../../../components/FormCompletionButtons'
+import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons'
 import './CardPaymentForm.css';
 
 class CardPaymentForm extends Component {
@@ -91,6 +91,7 @@ class CardPaymentForm extends Component {
         </div>
 
         <FormCompletionButtons
+          transactionForm={transactionForm.shouldProcess}
           clearForm={this.clearForm.bind(this)}
           linkToApprovalForm='/banking/cards/creditcards/card/payment/approval'
         />

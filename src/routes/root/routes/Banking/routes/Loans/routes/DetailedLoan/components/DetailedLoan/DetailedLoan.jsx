@@ -49,7 +49,7 @@ export const DetailedLoan = ({ activeLoan }) => (
               {activeLoan.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
             </span>
             <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
-              {dateformat(activeCard.nextInstallmentDate, 'dd/mm/yyyy')}
+              {dateformat(activeLoan.nextInstallmentDate, 'dd/mm/yyyy')}
             </span>
           </span>
           <span className="summary">
@@ -66,10 +66,10 @@ export const DetailedLoan = ({ activeLoan }) => (
         <div className="row">
           <span>
             <span className="col-xs-3 text-right">
-              {dateformat(activeCard.issuedDate, 'dd/mm/yyyy')}
+              {dateformat(activeLoan.issuedDate, 'dd/mm/yyyy')}
             </span>
             <span className="col-xs-offset-1 col-xs-4 text-right">
-              {dateformat(activeCard.repaymentDate, 'dd/mm/yyyy')}
+              {dateformat(activeLoan.repaymentDate, 'dd/mm/yyyy')}
             </span>
             <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
               {activeLoan.repaymentBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
