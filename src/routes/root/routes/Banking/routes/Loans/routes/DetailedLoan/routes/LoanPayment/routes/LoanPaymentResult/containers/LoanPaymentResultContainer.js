@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { clearLoanTransactionForm } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
 import LoanPaymentForm from '../components';
 
 const mapStateToProps = (state) => ({
@@ -6,10 +7,8 @@ const mapStateToProps = (state) => ({
   linkToStart: state.loans.transactionForm.linkToStart,
 });
 
-// const mapActionCreators = {
-//   setActiveLoan: (card) => setActiveLoan(card),
-//   getProductTransactionHistory: (productId) => getProductTransactionHistory(productId),
-//   linkTo: (route) => linkTo(route)
-// };
+const mapActionCreators = {
+  clearLoanTransactionForm: () => clearLoanTransactionForm(),
+};
 
-export default connect(mapStateToProps, null)(LoanPaymentForm);
+export default connect(mapStateToProps, mapActionCreators)(LoanPaymentForm);
