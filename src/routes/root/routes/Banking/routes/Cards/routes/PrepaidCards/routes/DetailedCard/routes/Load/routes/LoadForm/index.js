@@ -10,7 +10,7 @@ export default (store) => ({
   },
   onEnter(nextState, replace) {
     if (!cookie.load('access_token')) {
-      replace("/")
+      window.location.href = '/';
     }
   }
 })
