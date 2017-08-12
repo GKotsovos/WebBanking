@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { linkTo } from 'routes/root/routes/banking/modules/banking';
+import { linkTo } from 'routes/root/routes/Banking/modules/banking';
 import { clearLoanTransactionForm } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
 import LoanServicesTabs from '../components/LoanServicesTabs';
 
