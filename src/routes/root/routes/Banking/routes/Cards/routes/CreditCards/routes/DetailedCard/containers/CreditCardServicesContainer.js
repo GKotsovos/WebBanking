@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { linkTo } from '../../../../../../../modules/banking';
-import { clearCardTransactionForm } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
+import { initCardTransactionForm } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import CreditCardServicesTabs from '../components/CreditCardServicesTabs';
 
 const mapStateToProps = (state) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapActionCreators = {
   linkTo: (route) => linkTo(route),
-  clearCardTransactionForm: () => clearCardTransactionForm(),
+  initCardTransactionForm: () => initCardTransactionForm(),
 };
 
 

@@ -14,6 +14,7 @@ const RECEIVE_CREDIT_CARD = 'RECEIVE_CREDIT_CARD';
 const RECEIVE_PREPAID_CARD = 'RECEIVE_PREPAID_CARD';
 const RECEIVE_CARD_TRANSACTION_HISTORY = 'RECEIVE_CARD_TRANSACTION_HISTORY';
 const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
+const INIT_CARD_TRANSACTION_FORM = 'INIT_CARD_TRANSACTION_FORM';
 const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
 const SET_PREPAID_CARD_LOAD_AMOUNT = 'SET_PREPAID_CARD_LOAD_AMOUNT';
@@ -224,6 +225,12 @@ export const creditCardPayment = () => {
   }
 }
 
+export function initCardTransactionForm(){
+  return {
+    type: INIT_CARD_TRANSACTION_FORM
+  }
+}
+
 export const setDebitAccount = (debitAccount) => {
   return (dispatch, getState) => {
     dispatch({
@@ -300,16 +307,17 @@ export const actions = {
   getDebitCardById,
   getCreditCardById,
   getPrepaidCardById,
+  setActiveCard,
+  deactivateCard,
   getCardTransactionHistory,
   deleteLinkedProduct,
-  creditCardPayment,
+  initCardTransactionForm,
   setDebitAccount,
   setCreditCardPaymentAmount,
   setPrepaidCardLoadAmount,
   setTransactionDate,
+  creditCardPayment,
   clearCardTransactionForm,
-  setActiveCard,
-  deactivateCard,
 }
 
 const ACTION_HANDLERS = {
@@ -368,6 +376,21 @@ const ACTION_HANDLERS = {
   REQUEST_ERROR: (state, action) => {
     console.log(action.payload)
     return state;
+  },
+
+  INIT_CARD_TRANSACTION_FORM: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        cardId: state.activeCard.id,
+        debitAccount: {},
+        amount: {},
+        currency: state.activeCard.currency,
+        expenses: 0,
+        date: {},
+        shouldProcess: false
+      }
+    }
   },
 
   SET_DEBIT_ACCOUNT: (state, action) => {
@@ -442,15 +465,7 @@ const ACTION_HANDLERS = {
   CLEAR_CARD_TRANSACTION_FORM: (state, action) => {
     return {
       ...state,
-      transactionForm: {
-        cardId: state.activeCard.id,
-        debitAccount: {},
-        amount: {},
-        currency: state.activeCard.currency,
-        expenses: 0,
-        date: {},
-        shouldProcess: false
-      }
+      transactionForm: undefined
     }
   },
 
@@ -487,7 +502,7 @@ const ACTION_HANDLERS = {
   DEACTIVATE_CARD: (state, action) => {
     return {
       ...state,
-      activeCard: {}
+      activeCard: undefined
     }
   },
 }

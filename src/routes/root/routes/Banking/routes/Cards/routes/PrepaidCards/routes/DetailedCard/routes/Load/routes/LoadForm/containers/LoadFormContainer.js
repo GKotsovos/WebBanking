@@ -4,7 +4,7 @@ import {
   setPrepaidCardLoadAmount,
   setTransactionDate,
   validateCreditCardPaymentForm,
-  clearCardTransactionForm,
+  initCardTransactionForm,
 } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import LoadForm from '../components';
 
@@ -18,7 +18,7 @@ const mapActionCreators = {
   setPrepaidCardLoadAmount: (amount) => setPrepaidCardLoadAmount(amount),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
   validateCreditCardPaymentForm: () => validateCreditCardPaymentForm(),
-  clearCardTransactionForm: () => clearCardTransactionForm(),
+  initCardTransactionForm: () => initCardTransactionForm(),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(LoadForm);

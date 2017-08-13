@@ -13,9 +13,9 @@ class LoanPaymentForm extends Component {
   }
 
   clearForm() {
-    const { clearLoanTransactionForm } = this.props;
+    const { initLoanTransactionForm } = this.props;
     $('.selectpicker').selectpicker('val', [''])
-    clearLoanTransactionForm();
+    initLoanTransactionForm();
   }
 
   render() {

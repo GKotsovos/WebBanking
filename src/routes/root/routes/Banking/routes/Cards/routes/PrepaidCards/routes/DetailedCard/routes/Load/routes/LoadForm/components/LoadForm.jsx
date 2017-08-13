@@ -13,9 +13,9 @@ class LoadForm extends Component {
   }
 
   clearForm() {
-    const { clearCardTransactionForm } = this.props;
+    const { initCardTransactionForm } = this.props;
     $('.selectpicker').selectpicker('val', [''])
-    clearCardTransactionForm();
+    initCardTransactionForm();
   }
 
   render() {

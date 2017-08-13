@@ -13,9 +13,9 @@ class CardPaymentForm extends Component {
   }
 
   clearForm() {
-    const { clearCardTransactionForm } = this.props;
+    const { initCardTransactionForm } = this.props;
     $('.selectpicker').selectpicker('val', [''])
-    clearCardTransactionForm();
+    initCardTransactionForm();
   }
 
   render() {
@@ -91,7 +91,7 @@ class CardPaymentForm extends Component {
         </div>
 
         <FormCompletionButtons
-          transactionForm={transactionForm.shouldProcess}
+          shouldProcess={transactionForm.shouldProcess}
           clearForm={this.clearForm.bind(this)}
           linkToApprovalForm='/banking/cards/creditcards/card/payment/approval'
         />

@@ -94,7 +94,7 @@ export function setActiveAccount(account){
 
 export function deactiveAccount(){
   return {
-    type: SET_ACTIVE_ACCOUNT,
+    type: DEACTIVE_ACCOUNT,
   }
 }
 
@@ -159,7 +159,7 @@ const ACTION_HANDLERS = {
   DEACTIVE_ACCOUNT: (state, action) => {
     return {
       ...state,
-      activeAccount: {}
+      activeAccount: undefined
     }
   },
 }

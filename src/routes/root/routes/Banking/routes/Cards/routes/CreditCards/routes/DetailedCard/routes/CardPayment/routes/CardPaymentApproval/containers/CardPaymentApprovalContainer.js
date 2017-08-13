@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loanPayment } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
+import { creditCardPayment } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import CardPaymentApproval from '../components';
 
 const mapStateToProps = (state) => ({

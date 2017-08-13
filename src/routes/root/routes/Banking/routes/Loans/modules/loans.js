@@ -11,6 +11,7 @@ const REQUESTING = 'REQUESTING';
 const RECEIVE_LOANS = 'RECEIVE_LOANS';
 const RECEIVE_LOAN = 'RECEIVE_LOAN';
 const RECEIVE_LOAN_TRANSACTION_HISTORY = 'RECEIVE_LOAN_TRANSACTION_HISTORY';
+const INIT_LOAN_TRANSACTION_FORM = 'INIT_LOAN_TRANSACTION_FORM';
 const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
 const SET_LOAN_PAYMENT_AMOUNT = 'SET_LOAN_PAYMENT_AMOUNT';
 const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
@@ -198,6 +199,12 @@ export function deactivateLoan(){
   }
 }
 
+export const initLoanTransactionForm = () => {
+  return {
+    type: INIT_LOAN_TRANSACTION_FORM,
+  }
+}
+
 export function clearLoanTransactionForm(){
   return {
     type: CLEAR_LOAN_TRANSACTION_FORM,
@@ -208,14 +215,15 @@ export const actions = {
   linkTo,
   getLoans,
   getLoanById,
+  setActiveLoan,
+  deactivateLoan,
+  initLoanTransactionForm,
   getLoanTransactionHistory,
-  loanPayment,
   setDebitAccount,
   setLoanPaymentAmount,
   setTransactionDate,
+  loanPayment,
   clearLoanTransactionForm,
-  setActiveLoan,
-  deactivateLoan,
 }
 
 const ACTION_HANDLERS = {
@@ -258,6 +266,20 @@ const ACTION_HANDLERS = {
   REQUEST_ERROR: (state, action) => {
     console.log(action.payload)
     return state;
+  },
+
+  INIT_LOAN_TRANSACTION_FORM: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        loanId: state.activeLoan.id,
+        debitAccount: {},
+        amount: {},
+        currency: state.activeLoan.currency,
+        date: {},
+        shouldProcess: false
+      }
+    }
   },
 
   SET_DEBIT_ACCOUNT: (state, action) => {
@@ -318,14 +340,7 @@ const ACTION_HANDLERS = {
   CLEAR_LOAN_TRANSACTION_FORM: (state, action) => {
     return {
       ...state,
-      transactionForm: {
-        loanId: state.activeLoan.id,
-        debitAccount: {},
-        amount: {},
-        currency: state.activeLoan.currency,
-        date: {},
-        shouldProcess: false
-      }
+      transactionForm: undefined
     }
   },
 
@@ -362,7 +377,7 @@ const ACTION_HANDLERS = {
   DEACTIVATE_LOAN: (state, action) => {
     return {
       ...state,
-      activeLoan: {}
+      activeLoan: undefined
     }
   },
 }
