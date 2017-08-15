@@ -2,11 +2,11 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome'
 import './TransactionFailure.css';
 
-export const TransactionFailure = ({ linkTo, linkToStart }) => (
+export const TransactionFailure = ({ linkTo, errorMessage, linkToStart }) => (
   <div className="panel panel-default" id="transactionFailure">
     <div id="failPanelBody" className="panel-body text-center">
       <FontAwesome id="failIcon" name="times" size="3x"/>
-      <p id="failText">Η συναλλαγή σας δεν ολοκληρώθηκε με επιτυχία</p>
+      <p id="failText">{errorMessage}</p>
       <button
         id="returnToForm"
         type="button"
