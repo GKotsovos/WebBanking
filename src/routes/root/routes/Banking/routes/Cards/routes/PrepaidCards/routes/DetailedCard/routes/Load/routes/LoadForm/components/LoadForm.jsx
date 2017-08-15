@@ -41,8 +41,9 @@ class LoadForm extends Component {
               onChange={(e) => setDebitAccount(e.target.value)}
             >
               {
-                _.map(accounts, (account) => (
+                _.map(accounts, (account, key) => (
                   <option
+                    key={account.iban}
                     data-subtext={
                       `${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`
                     }

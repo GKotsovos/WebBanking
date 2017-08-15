@@ -42,6 +42,7 @@ class CardPaymentForm extends Component {
               {
                 _.map(accounts, (account) => (
                   <option
+                    key={account.iban}
                     data-subtext={
                       `${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`
                     }
@@ -51,6 +52,9 @@ class CardPaymentForm extends Component {
                 ))
               }
               {/* Add logic for loans */}
+                    key={loan.id}
+                    key={creditCard.id}
+                    key={prepaidCard.id}
             </select>
           </div>
         </div>

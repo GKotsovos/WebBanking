@@ -39,8 +39,9 @@ class LoanPaymentForm extends Component {
             onChange={(e) => setDebitAccount(e.target.value)}
           >
           {
-            _.map(accounts, (account) => (
+            _.map(accounts, (account, key) => (
               <option
+                key={key}
                 data-subtext={
                   `${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`
                 }

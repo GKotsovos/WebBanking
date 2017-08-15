@@ -17,16 +17,16 @@ export const LinkedProducts = ({ linkedProducts, deleteLinkedProduct }) => (
       </thead>
       <tbody>
         {
-          _.map(linkedProducts, (linkedProduct) => linkedProduct ? [
-            <tr>
-              <td className="cell col-xs-2 text-center">{linkedProduct.type}</td>
-              <td className="cell col-xs-4 text-center">{linkedProduct.iban}</td>
-              <td className="cell col-xs-2 text-center">
+          _.map(linkedProducts, (linkedProduct, key) => linkedProduct ? [
+            <tr key={key}>
+              <td key={key++} className="cell col-xs-2 text-center">{linkedProduct.type}</td>
+              <td key={key++} className="cell col-xs-4 text-center">{linkedProduct.iban}</td>
+              <td key={key++} className="cell col-xs-2 text-center">
                 {linkedProduct.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
                 {currencyFormatter.findCurrency(linkedProduct.currency).symbol}
               </td>
-              <td className="cell col-xs-1 text-center">
-                <FontAwesome className="xIcon" name="times" onClick={() => deleteLinkedProduct(linkedProduct.iban)}/>
+              <td key={key++} className="cell col-xs-1 text-center">
+                <FontAwesome key={key++} className="xIcon" name="times" onClick={() => deleteLinkedProduct(linkedProduct.iban)}/>
               </td>
             </tr>
           ]: [])

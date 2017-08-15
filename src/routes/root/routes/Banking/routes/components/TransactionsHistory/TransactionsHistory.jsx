@@ -23,21 +23,21 @@ export const TransactionsHistory = ({ transactionHistory }) => (
       </thead>
       <tbody>
         {
-          _.map(transactionHistory, (transaction) => [
-            <tr>
-              <td className="cell col-sm-2 text-center">
+          _.map(transactionHistory, (transaction, key) => [
+            <tr key={key}>
+              <td key={key++} className="cell col-sm-2 text-center">
                 {dateformat(transaction.date, 'dd/mm/yyyy')}
               </td>
-              <td className="cell col-sm-3 text-center">
+              <td key={key++} className="cell col-sm-3 text-center">
                 {transaction.details}
               </td>
-              <td className="cell col-sm-4 text-center">
+              <td key={key++} className="cell col-sm-4 text-center">
                 {transaction.beneficiary}
               </td>
-              <td className={`cell col-sm-1 text-center ${transaction.transactionType}`}>
+              <td key={key++} className={`cell col-sm-1 text-center ${transaction.transactionType}`}>
                 {`${sign[transaction.transactionType]}${transaction.amount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(transaction.currency).symbol}`}
               </td>
-              <td className="cell text-center col-sm-2">
+              <td key={key++} className="cell text-center col-sm-2">
                  {`${transaction.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(transaction.currency).symbol}`}
               </td>
             </tr>
