@@ -240,6 +240,10 @@ export const creditCardPayment = () => {
     .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
     .then(() => getAccountById(transactionForm.debitAccount.value)(dispatch, getState))
     .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
         payload : exception
