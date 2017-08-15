@@ -7,14 +7,18 @@ import {
   initCardTransactionForm
  } from '../../../../../../../../../modules/cards.js'
 import CardPaymentForm from '../components';
+import _ from 'underscore';
 
 const mapStateToProps = (state) => ({
   accounts: state.accounts.accounts,
-  transactionForm: state.cards.transactionForm
+  loans: state.loans.loans,
+  creditCards: _.filter(state.cards.creditCards, (creditCard) => creditCard.id != state.cards.activeCard.id),
+  prepaidCards: state.cards.prepaidCards,
+  transactionForm: state.cards.transactionForm,
 });
 
 const mapActionCreators = {
-  setDebitAccount: (debitAccount) => setDebitAccount(debitAccount),
+  setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount(debitAccount, debitAccountType),
   setCreditCardPaymentAmount: (amount) => setCreditCardPaymentAmount(amount),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
   validateCreditCardPaymentForm: () => validateCreditCardPaymentForm(),

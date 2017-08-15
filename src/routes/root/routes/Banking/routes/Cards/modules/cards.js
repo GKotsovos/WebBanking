@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router'
 import dateformat from 'dateformat';
 import _ from 'underscore'
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
+import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const REQUESTING = 'REQUESTING';
@@ -218,6 +219,7 @@ export const creditCardPayment = () => {
       data: querystring.stringify({
         cardId: transactionForm.cardId,
         debitAccount: transactionForm.debitAccount.value,
+        debitAccountType: transactionForm.debitAccount.type,
         amount: transactionForm.amount.value,
         currency: transactionForm.currency,
         expenses: transactionForm.expenses,
@@ -238,7 +240,22 @@ export const creditCardPayment = () => {
       })
     })
     .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
-    .then(() => getAccountById(transactionForm.debitAccount.value)(dispatch, getState))
+    .then(() => {
+      switch (transactionForm.debitAccount.type) {
+        case "isAccount":
+          getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isLoan":
+          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isCreditCard":
+          getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isPrepaidCard":
+          getPrepaidCardById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+      }
+    })
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
@@ -259,11 +276,45 @@ export function initCardTransactionForm(){
   }
 }
 
-export const setDebitAccount = (debitAccount) => {
+export const setDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
+
+    let availableBalance = 0;
+
+    switch (debitAccountType) {
+      case "isAccount":
+        availableBalance = _.chain(getState().accounts.accounts)
+          .filter((account) => account.iban == debitAccount)
+          .first()
+          .value().ledgerBalance;
+        break;
+      case "isLoan":
+        availableBalance = _.chain(getState().loans.loans)
+          .filter((loan) => loan.id == debitAccount)
+          .first()
+          .value().availableBalance;
+        break;
+      case "isCreditCard":
+        availableBalance = _.chain(getState().cards.creditCards)
+          .filter((creditCard) => creditCard.id == debitAccount)
+          .first()
+          .value().availableLimit;
+        break;
+      case "isPrepaidCard":
+        availableBalance = _.chain(getState().cards.prepaidCards)
+          .filter((prepaidCard) => prepaidCard.id == debitAccount)
+          .first()
+          .value().availableLimit;
+        break;
+    }
+
     dispatch({
       type: SET_DEBIT_ACCOUNT,
-      payload: debitAccount
+      payload: {
+        debitAccount,
+        debitAccountType,
+        availableBalance,
+      }
     });
     dispatch({
       type: VALIDATE_CARDS_TRANSACTION_FORM
@@ -427,8 +478,10 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         debitAccount: {
-          value: action.payload,
-          correct: action.payload != ""
+          value: action.payload.debitAccount,
+          availableBalance: action.payload.availableBalance,
+          correct: action.payload != "",
+          type: action.payload.debitAccountType
         }
       }
     }
@@ -443,7 +496,8 @@ const ACTION_HANDLERS = {
           value: action.payload,
           correct: action.payload > 0 &&
           (action.payload <= state.activeCard.nextInstallmentAmount ||
-           action.payload <= state.activeCard.debt)
+           action.payload <= state.activeCard.debt) &&
+          action.payload <= state.transactionForm.debitAccount.availableBalance
           // && Add logic for accounts and loans
         }
       }
