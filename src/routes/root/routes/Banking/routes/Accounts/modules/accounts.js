@@ -3,6 +3,7 @@ import querystring from 'querystring';
 import _ from 'underscore'
 
 const INITIAL_STATE = 'INITIAL_STATE';
+const LOG_OUT = 'LOG_OUT';
 const REQUESTING = 'REQUESTING';
 const RECEIVE_ACCOUNTS = 'RECEIVE_ACCOUNTS';
 const RECEIVE_ACCOUNT = 'RECEIVE_ACCOUNT';
@@ -28,10 +29,14 @@ export const getAccounts = () => {
         payload : response.data
       })
     })
-    .catch(({ response })  => {
+    .catch((exception)  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
-        payload : response.data
+        payload : exception
       })
     })
   }
@@ -55,6 +60,10 @@ export const getAccountById = (accountId) => {
       })
     })
     .catch((exception)  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -77,6 +86,10 @@ export const getAccountTransactionHistory = (productId) => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception

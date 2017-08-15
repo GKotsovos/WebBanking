@@ -52,6 +52,10 @@ export const getLoans = () => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -78,6 +82,10 @@ export const getLoanById = (id) => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -100,6 +108,10 @@ export const getLoanTransactionHistory = (loanId) => {
       })
     })
     .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -138,6 +150,10 @@ export const loanPayment = () => {
     .then(() => linkTo('/banking/loans/loan/payment/result'))
     .then(() => getAccountById(transactionForm.debitAccount.value)(dispatch, getState))
     .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
         payload : exception

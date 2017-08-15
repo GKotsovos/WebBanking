@@ -2,9 +2,6 @@ import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
-import _ from 'underscore'
-import { getAccounts } from '../routes/Accounts/modules/accounts';
-// import { getCards } from '../routes/Cards/modules/cards';
 
 const INITIAL_STATE = 'INITIAL_STATE';
 const REQUESTING = 'REQUESTING';
@@ -36,10 +33,14 @@ export const getCustomerName = () => {
         payload : response.data
       })
     })
-    .catch(({ response })  => {
+    .catch((exception)  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
-        payload : response.data
+        payload : exception
       })
     })
   }
@@ -65,7 +66,6 @@ export const logOut = () => {
       dispatch({
         type    : LOG_OUT
       });
-      window.location.href = '/';
     }
 }
 
@@ -100,7 +100,8 @@ const ACTION_HANDLERS = {
 
   LOG_OUT: (state, action) => {
     cookie.remove('access_token');
-    return {};
+    window.location.href = '/';
+    return state;
   },
 
   CHANGE_ACTIVE_TAB: (state, action) => {

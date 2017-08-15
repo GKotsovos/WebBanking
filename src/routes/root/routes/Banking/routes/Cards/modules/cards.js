@@ -56,6 +56,10 @@ export const getCards = () => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -82,6 +86,10 @@ export const getDebitCardById = (id) => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -108,6 +116,10 @@ export const getCreditCardById = (id) => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -134,6 +146,10 @@ export const getPrepaidCardById = (id) => {
       })
     })
     .catch(( exception )  => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -156,6 +172,10 @@ export const getCardTransactionHistory = (productId) => {
       })
     })
     .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -177,6 +197,10 @@ export const deleteLinkedProduct = (productId) => {
     })
     .then(() => getDebitCardById(productId)(dispatch, getState))
     .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
