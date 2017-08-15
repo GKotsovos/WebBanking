@@ -44,7 +44,7 @@ class CardPaymentForm extends Component {
                   <option
                     key={account.iban}
                     data-subtext={
-                      `${account.type} ${account.ledgerBalance} ${currencyFormatter.findCurrency(account.currency).symbol}`
+                      `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
                     }
                   >
                     {account.iban}
@@ -53,6 +53,9 @@ class CardPaymentForm extends Component {
               }
               {/* Add logic for loans */}
                     key={loan.id}
+                    data-subtext={
+                      `${loan.customTitle} ${loan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
+                    }
                     key={creditCard.id}
                     key={prepaidCard.id}
             </select>

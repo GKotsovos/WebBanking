@@ -24,10 +24,10 @@ export const DetailedLoan = ({ activeLoan }) => (
             {activeLoan.type}
           </span>
           <span className="col-xs-offset-1 col-xs-4 text-right">
-            {activeLoan.loanedAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
+            {activeLoan.loanedAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
           </span>
           <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
-            {activeLoan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
+            {activeLoan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
           </span>
         </span>
         <span className="summary">
@@ -43,10 +43,10 @@ export const DetailedLoan = ({ activeLoan }) => (
         <div className="row">
           <span>
             <span className="col-xs-3 text-right">
-              {activeLoan.nextInstallmentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
+              {activeLoan.nextInstallmentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
             </span>
             <span className="col-xs-offset-1 col-xs-4 text-right">
-              {activeLoan.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
+              {activeLoan.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
             </span>
             <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
               {dateformat(activeLoan.nextInstallmentDate, 'dd/mm/yyyy')}
@@ -72,7 +72,7 @@ export const DetailedLoan = ({ activeLoan }) => (
               {dateformat(activeLoan.repaymentDate, 'dd/mm/yyyy')}
             </span>
             <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
-              {activeLoan.repaymentBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeLoan.currency).symbol}
+              {activeLoan.repaymentBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
             </span>
           </span>
           <span className="summary">

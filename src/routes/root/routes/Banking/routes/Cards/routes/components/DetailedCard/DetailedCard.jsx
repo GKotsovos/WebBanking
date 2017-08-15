@@ -22,17 +22,15 @@ export const DetailedCard = ({ activeCard, type }) => (
         {
           type != 'PREPAID' ?
             <span className="col-xs-3 col-sm-3 text-right">
-              {
-                activeCard[type == 'DEBIT' ? 'dailyLimit' : 'limit'].toLocaleString('gr-GR', {minimumFractionDigits: 2})
-              }
+              {activeCard[type == 'DEBIT' ? 'dailyLimit' : 'limit'].toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
             </span>
             : <span className="col-xs-3 col-sm-3 text-right"></span>
         }
         <span className="col-xs-4 col-sm-4 text-right">
-          {activeCard.availableLimit.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeCard.currency).symbol}
+          {activeCard.availableLimit.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
         </span>
         <span className="col-xs-offset-1 col-xs-4 text-right">
-          {activeCard.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeCard.currency).symbol}
+          {activeCard.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
         </span>
       </span>
       <span className="row cardSummary">
@@ -70,15 +68,15 @@ export const DetailedCard = ({ activeCard, type }) => (
     </ul>
 
     {
-      type == 'CREDIT' ? [
+      type == 'CREDIT' ? (
         <ul className="list-group">
           <li className="list-group-item">
             <span className="row">
               <span className="col-xs-3 col-sm-3 text-right">
-                {activeCard.nextInstallmentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeCard.currency).symbol}
+                {activeCard.nextInstallmentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
               </span>
               <span className="col-xs-4 col-sm-4 text-right">
-                {activeCard.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(activeCard.currency).symbol}
+                {activeCard.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
               </span>
               <span className="col-xs-offset-1 col-xs-4 text-right">
                 {dateformat(activeCard.nextInstallmentDate, 'dd/mm/yyyy')}
@@ -91,7 +89,7 @@ export const DetailedCard = ({ activeCard, type }) => (
             </span>
           </li>
         </ul>
-      ] : []
+      ) : []
     }
 
   </div>
