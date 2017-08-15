@@ -515,6 +515,7 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         result: false,
+        errorMessage: action.payload.response.data,
         linkToStart: '/banking/cards/creditcards/card/payment'
       }
     }
