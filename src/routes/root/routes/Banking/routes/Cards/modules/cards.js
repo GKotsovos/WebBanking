@@ -229,7 +229,8 @@ export const creditCardPayment = () => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_TRANSACTION
+        type    : SUCCESSFUL_TRANSACTION,
+        payload : '/banking/cards/creditcards/card'
       })
     })
     .then(() => getCreditCardById(transactionForm.cardId)(dispatch, getState))
@@ -263,7 +264,10 @@ export const creditCardPayment = () => {
       }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
-        payload : exception
+        payload : {
+          exception,
+          linkToStart: '/banking/cards/creditcards/card/payment'
+        }
       })
     })
     .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
@@ -557,20 +561,20 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         result: true,
-        linkToStart: '/banking/cards/creditcards/card'
+        linkToStart: action.payload
       }
     }
   },
 
   UNSUCCESSFUL_TRANSACTION: (state, action) => {
-    console.log(action.payload)
+    console.log(action.payload.exception)
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         result: false,
-        errorMessage: action.payload.response.data,
-        linkToStart: '/banking/cards/creditcards/card/payment'
+        errorMessage: action.payload.exception.response.data,
+        linkToStart: action.payload.linkToStart
       }
     }
   },

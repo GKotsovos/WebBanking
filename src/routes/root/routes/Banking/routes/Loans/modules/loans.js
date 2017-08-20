@@ -137,7 +137,8 @@ export const loanPayment = () => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_TRANSACTION
+        type    : SUCCESSFUL_TRANSACTION,
+        payload : '/banking/loans/loan'
       })
     })
     .then(() => getLoanById(transactionForm.loanId)(dispatch, getState))
@@ -156,7 +157,10 @@ export const loanPayment = () => {
       }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
-        payload : exception
+        payload : {
+          exception,
+          linkToStart: '/banking/loans/loan/payment'
+        }
       })
     })
     .then(() => linkTo('/banking/loans/loan/payment/result'))
@@ -366,19 +370,20 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         result: true,
-        linkToStart: '/banking/loans/loan'
+        linkToStart: action.payload
       }
     }
   },
 
   UNSUCCESSFUL_TRANSACTION: (state, action) => {
-    console.log(action.payload)
+    console.log(action.payload.exception)
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         result: false,
-        linkToStart: '/banking/loans/loan/payment'
+        errorMessage: action.payload.exception.response.data,
+        linkToStart: action.payload.linkToStart
       }
     }
   },
