@@ -4,6 +4,7 @@ import LoanPaymentForm from '../components';
 
 const mapStateToProps = (state) => ({
   result: state.loans.transactionForm.result,
+  errorMessage: state.loans.transactionForm.errorMessage,
   linkToStart: state.loans.transactionForm.linkToStart,
 });
 

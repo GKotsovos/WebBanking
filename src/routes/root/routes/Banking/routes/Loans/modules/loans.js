@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router'
 import dateformat from 'dateformat';
 import _ from 'underscore'
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
+import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const REQUESTING = 'REQUESTING';
@@ -12,9 +13,9 @@ const RECEIVE_LOANS = 'RECEIVE_LOANS';
 const RECEIVE_LOAN = 'RECEIVE_LOAN';
 const RECEIVE_LOAN_TRANSACTION_HISTORY = 'RECEIVE_LOAN_TRANSACTION_HISTORY';
 const INIT_LOAN_TRANSACTION_FORM = 'INIT_LOAN_TRANSACTION_FORM';
-const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
+const SET_LOAN_DEBIT_ACCOUNT = 'SET_LOAN_DEBIT_ACCOUNT';
 const SET_LOAN_PAYMENT_AMOUNT = 'SET_LOAN_PAYMENT_AMOUNT';
-const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
+const SET_LOAN_TRANSACTION_DATE = 'SET_LOAN_TRANSACTION_DATE';
 const VALIDATE_LOANS_TRANSACTION_FORM = 'VALIDATE_LOANS_TRANSACTION_FORM';
 const CLEAR_LOAN_TRANSACTION_FORM = 'CLEAR_LOAN_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
@@ -125,10 +126,11 @@ export const loanPayment = () => {
     const transactionForm = getState().loans.transactionForm;
     return axios({
       method: 'post',
-      url: 'http://localhost:26353/api/loan/Payment',
+      url: 'http://localhost:26353/api/loan/LoanPayment',
       data: querystring.stringify({
         loanId: transactionForm.loanId,
         debitAccount: transactionForm.debitAccount.value,
+        debitAccountType: transactionForm.debitAccount.type,
         amount: transactionForm.amount.value,
         currency: transactionForm.currency,
         date: transactionForm.date.value
@@ -148,8 +150,24 @@ export const loanPayment = () => {
         payload : _.filter(getState().loans.loans, (loan) => loan.id == getState().loans.activeLoan.id)[0]
       })
     })
+    .then(() => getLoanTransactionHistory(transactionForm.loanId)(dispatch, getState))
     .then(() => linkTo('/banking/loans/loan/payment/result'))
-    .then(() => getAccountById(transactionForm.debitAccount.value)(dispatch, getState))
+    .then(() => {
+      switch (transactionForm.debitAccount.type) {
+        case "isAccount":
+          getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isLoan":
+          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isCreditCard":
+          getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isPrepaidCard":
+          getPrepaidCardById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+      }
+    })
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
@@ -167,11 +185,45 @@ export const loanPayment = () => {
   }
 }
 
-export const setDebitAccount = (debitAccount) => {
+export const setDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
+
+    let availableBalance = 0;
+
+    switch (debitAccountType) {
+      case "isAccount":
+        availableBalance = _.chain(getState().accounts.accounts)
+          .filter((account) => account.iban == debitAccount)
+          .first()
+          .value().ledgerBalance;
+        break;
+      case "isLoan":
+        availableBalance = _.chain(getState().loans.loans)
+          .filter((loan) => loan.id == debitAccount)
+          .first()
+          .value().availableBalance;
+        break;
+      case "isCreditCard":
+        availableBalance = _.chain(getState().cards.creditCards)
+          .filter((creditCard) => creditCard.id == debitAccount)
+          .first()
+          .value().availableLimit;
+        break;
+      case "isPrepaidCard":
+        availableBalance = _.chain(getState().cards.prepaidCards)
+          .filter((prepaidCard) => prepaidCard.id == debitAccount)
+          .first()
+          .value().availableLimit;
+        break;
+    }
+
     dispatch({
-      type: SET_DEBIT_ACCOUNT,
-      payload: debitAccount
+      type: SET_LOAN_DEBIT_ACCOUNT,
+      payload: {
+        debitAccount,
+        debitAccountType,
+        availableBalance,
+      }
     });
     dispatch({
       type: VALIDATE_LOANS_TRANSACTION_FORM
@@ -194,7 +246,7 @@ export const setLoanPaymentAmount = (amount) => {
 export const setTransactionDate = (date, formattedDate) => {
   return (dispatch, getState) => {
     dispatch({
-      type: SET_TRANSACTION_DATE,
+      type: SET_LOAN_TRANSACTION_DATE,
       payload: {
         date,
         formattedDate
@@ -302,14 +354,16 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_DEBIT_ACCOUNT: (state, action) => {
+  SET_LOAN_DEBIT_ACCOUNT: (state, action) => {
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         debitAccount: {
-          value: action.payload,
-          correct: action.payload != ""
+          value: action.payload.debitAccount,
+          availableBalance: action.payload.availableBalance,
+          correct: action.payload != "",
+          type: action.payload.debitAccountType
         }
       }
     }
@@ -323,15 +377,15 @@ const ACTION_HANDLERS = {
         amount: {
           value: action.payload,
           correct: action.payload > 0 &&
-          (action.payload <= state.activeLoan.nextInstallmentAmount ||
-           action.payload <= state.activeLoan.debt)
-          // && Add logic for accounts and credit cards
+          (parseFloat(action.payload) <= state.activeLoan.nextInstallmentAmount ||
+           parseFloat(action.payload) <= state.activeLoan.debt) &&
+           parseFloat(action.payload) <= state.transactionForm.debitAccount.availableBalance
         }
       }
     }
   },
 
-  SET_TRANSACTION_DATE: (state, action) => {
+  SET_LOAN_TRANSACTION_DATE: (state, action) => {
     return {
       ...state,
       transactionForm: {
