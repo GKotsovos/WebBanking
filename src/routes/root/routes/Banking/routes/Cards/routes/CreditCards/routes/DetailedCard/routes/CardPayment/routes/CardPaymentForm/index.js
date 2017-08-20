@@ -1,4 +1,5 @@
 import { injectReducer } from 'store/reducers'
+import { logOut } from 'routes/root/routes/Banking/modules/banking';
 import CardPaymentForm from './containers/CardPaymentFormContainer'
 import cookie from 'react-cookie'
 
@@ -10,7 +11,7 @@ export default (store) => ({
   },
   onEnter(nextState, replace) {
     if (!cookie.load('access_token')) {
-      window.location.href = '/';
+      logOut()(dispatch, getState);
     }
   }
 })
