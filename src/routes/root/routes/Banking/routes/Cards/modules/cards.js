@@ -240,6 +240,7 @@ export const creditCardPayment = () => {
         payload : _.filter(getState().cards.creditCards, (card) => card.id == getState().cards.activeCard.id)[0]
       })
     })
+    .then(() => getCardTransactionHistory(transactionForm.cardId)(dispatch, getState))
     .then(() => linkTo('/banking/cards/creditcards/card/payment/result'))
     .then(() => {
       switch (transactionForm.debitAccount.type) {
@@ -565,9 +566,9 @@ const ACTION_HANDLERS = {
         amount: {
           value: action.payload,
           correct: action.payload > 0 &&
-          (action.payload <= state.activeCard.nextInstallmentAmount ||
-           action.payload <= state.activeCard.debt) &&
-          action.payload <= state.transactionForm.debitAccount.availableBalance
+          (parseFloat(action.payload) <= state.activeCard.nextInstallmentAmount ||
+           parseFloat(action.payload) <= state.activeCard.debt) &&
+          parseFloat(action.payload) <= state.transactionForm.debitAccount.availableBalance
           // && Add logic for accounts and loans
         }
       }
@@ -581,7 +582,8 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         amount: {
           value: action.payload,
-          correct: action.payload > 0
+          correct: action.payload > 0 &&
+          action.payload <= state.transactionForm.debitAccount.availableBalance
           // && Add logic for accounts, credit cards and loans
         }
       }
