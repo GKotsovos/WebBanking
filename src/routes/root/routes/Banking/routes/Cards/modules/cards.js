@@ -16,10 +16,10 @@ const RECEIVE_PREPAID_CARD = 'RECEIVE_PREPAID_CARD';
 const RECEIVE_CARD_TRANSACTION_HISTORY = 'RECEIVE_CARD_TRANSACTION_HISTORY';
 const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
 const INIT_CARD_TRANSACTION_FORM = 'INIT_CARD_TRANSACTION_FORM';
-const SET_DEBIT_ACCOUNT = 'SET_DEBIT_ACCOUNT';
+const SET_CARD_DEBIT_ACCOUNT = 'SET_CARD_DEBIT_ACCOUNT';
 const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
 const SET_PREPAID_CARD_LOAD_AMOUNT = 'SET_PREPAID_CARD_LOAD_AMOUNT';
-const SET_TRANSACTION_DATE = 'SET_TRANSACTION_DATE';
+const SET_CARD_TRANSACTION_DATE = 'SET_CARD_TRANSACTION_DATE';
 const VALIDATE_CARDS_TRANSACTION_FORM = 'VALIDATE_CARDS_TRANSACTION_FORM';
 const CLEAR_CARD_TRANSACTION_FORM = 'CLEAR_CARD_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
@@ -378,7 +378,7 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
     }
 
     dispatch({
-      type: SET_DEBIT_ACCOUNT,
+      type: SET_CARD_DEBIT_ACCOUNT,
       payload: {
         debitAccount,
         debitAccountType,
@@ -418,7 +418,7 @@ export const setPrepaidCardLoadAmount = (amount) => {
 export const setTransactionDate = (date, formattedDate) => {
   return (dispatch, getState) => {
     dispatch({
-      type: SET_TRANSACTION_DATE,
+      type: SET_CARD_TRANSACTION_DATE,
       payload: {
         date,
         formattedDate
@@ -542,7 +542,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_DEBIT_ACCOUNT: (state, action) => {
+  SET_CARD_DEBIT_ACCOUNT: (state, action) => {
     return {
       ...state,
       transactionForm: {
@@ -588,7 +588,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_TRANSACTION_DATE: (state, action) => {
+  SET_CARD_TRANSACTION_DATE: (state, action) => {
     return {
       ...state,
       transactionForm: {
