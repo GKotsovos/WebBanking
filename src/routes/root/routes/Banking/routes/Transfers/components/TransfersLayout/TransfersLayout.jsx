@@ -1,14 +1,10 @@
-import React from 'react';
-import TransfersForm from '../TransfersForm';
-import TransferApproval from '../TransferApproval';
-import TransactionResult from '../../../components/TransactionResult';
+import React, { Component, PropTypes } from 'react';
+import _ from 'underscore';
 import './TransfersLayout.css';
 
-export const TransfersLayout = () => (
+export const TransfersLayout = ({ children }) => (
   <div role="tabpanel" className="tab-pane" id="transfers">
-    <TransfersForm />
-    {/* <TransferApproval /> */}
-    {/* <TransactionResult /> */}
+    {children}
   </div>
 )
 

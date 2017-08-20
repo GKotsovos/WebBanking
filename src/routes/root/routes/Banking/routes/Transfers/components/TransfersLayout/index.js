@@ -1,3 +1,3 @@
-import TransfersLayout from './TransfersLayout.jsx';
+import TransfersLayout from './TransfersLayout.jsx'
 
 export default TransfersLayout

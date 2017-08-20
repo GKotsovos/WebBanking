@@ -1,19 +1,20 @@
 import { injectReducer } from 'store/reducers'
-import Transfers from './components/TransfersLayout'
-import cookie from 'react-cookie'
+import TransfersLayout from './components/TransfersLayout'
+import { TransferFormRoute, TransferApprovalRoute, TransferResultRoute } from './routes'
+import transfers from './modules/transfers'
 
-export default (store) => ({
-  path: '/banking/transfers',
-  getComponent (nextState, cb) {
-    require.ensure([], (require) => {
-      const reducer = require('./modules/transfers').default
-      injectReducer(store, { key: 'transfers', reducer })
-      cb(null, Transfers)
-    })
-  },
-  onEnter(nextState, replace) {
-    if (!cookie.load('access_token')) {
-      window.location.href = '/';
-    }
+export const TransfersRoute = (store) => {
+  injectReducer(store, { key: 'transfers', reducer: transfers });
+
+  return {
+    path        : '/banking/transfers',
+    component   : TransfersLayout,
+    indexRoute  : TransferFormRoute(store),
+    childRoutes : [
+      TransferApprovalRoute(store),
+      TransferResultRoute(store),
+    ]
   }
-})
+}
+
+export default TransfersRoute

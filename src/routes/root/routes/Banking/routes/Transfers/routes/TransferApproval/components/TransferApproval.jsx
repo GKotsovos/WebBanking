@@ -1,5 +1,5 @@
 import React from 'react';
-import TransactionApprovalButtons from '../../../components/TransactionApprovalButtons';
+import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
 import './TransferApproval.css';
 
 export const TransferApproval = () => (
