@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
+import { prepaidCardLoad } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import LoadForm from '../components';
 
 const mapStateToProps = (state) => ({
-  loadDetails: state.cards.activeCard.loadDetails,
+  transactionForm: state.cards.transactionForm,
 });
 
-// const mapActionCreators = {
-//   setActiveCard: (card) => setActiveCard(card),
-//   getProductTransactionHistory: (productId) => getProductTransactionHistory(productId),
-//   linkTo: (route) => linkTo(route)
-// };
+const mapActionCreators = {
+  prepaidCardLoad: () => prepaidCardLoad(),
+};
 
-export default connect(mapStateToProps, null)(LoadForm);
+export default connect(mapStateToProps, mapActionCreators)(LoadForm);

@@ -274,6 +274,71 @@ export const creditCardPayment = () => {
   }
 }
 
+export const prepaidCardLoad = () => {
+  return (dispatch, getState) => {
+    const transactionForm = getState().cards.transactionForm;
+    return axios({
+      method: 'post',
+      url: 'http://localhost:26353/api/card/PrepaidCardLoad',
+      data: querystring.stringify({
+        cardId: transactionForm.cardId,
+        debitAccount: transactionForm.debitAccount.value,
+        debitAccountType: transactionForm.debitAccount.type,
+        amount: transactionForm.amount.value,
+        currency: transactionForm.currency,
+        expenses: transactionForm.expenses,
+        date: transactionForm.date.value
+      }),
+      withCredentials: true,
+    })
+    .then(() => {
+      dispatch({
+        type    : SUCCESSFUL_TRANSACTION,
+        payload : '/banking/cards/prepaidcards/card'
+      })
+    })
+    .then(() => getPrepaidCardById(transactionForm.cardId)(dispatch, getState))
+    .then(() => {
+      dispatch({
+        type    : SET_ACTIVE_CARD,
+        payload : _.filter(getState().cards.prepaidCards, (card) => card.id == getState().cards.activeCard.id)[0]
+      })
+    })
+    .then(() => getCardTransactionHistory(transactionForm.cardId)(dispatch, getState))
+    .then(() => linkTo('/banking/cards/prepaidcards/card/load/result'))
+    .then(() => {
+      switch (transactionForm.debitAccount.type) {
+        case "isAccount":
+          getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isLoan":
+          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isCreditCard":
+          getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+        case "isPrepaidCard":
+          getPrepaidCardById(transactionForm.debitAccount.value)(dispatch, getState)
+          break;
+      }
+    })
+    .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
+      dispatch({
+        type    : UNSUCCESSFUL_TRANSACTION,
+        payload :  {
+          exception,
+          linkToStart: '/banking/cards/prepaidcards/card/load'
+        }
+      })
+    })
+    .then(() => linkTo('/banking/cards/prepaidcards/card/load/result'))
+  }
+}
+
 export function initCardTransactionForm(){
   return {
     type: INIT_CARD_TRANSACTION_FORM
@@ -400,6 +465,7 @@ export const actions = {
   setPrepaidCardLoadAmount,
   setTransactionDate,
   creditCardPayment,
+  prepaidCardLoad,
   clearCardTransactionForm,
 }
 

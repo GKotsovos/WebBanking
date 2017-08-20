@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import _ from 'underscore';
 import {
   setDebitAccount,
   setPrepaidCardLoadAmount,
@@ -10,11 +11,14 @@ import LoadForm from '../components';
 
 const mapStateToProps = (state) => ({
   accounts: state.accounts.accounts,
+  creditCards: state.cards.creditCards,
+  prepaidCards: _.filter(state.cards.prepaidCards, (prepaidCard) => prepaidCard.id != state.cards.activeCard.id),
+  loans: state.loans.loans,
   transactionForm: state.cards.transactionForm
 });
 
 const mapActionCreators = {
-  setDebitAccount: (debitAccount) => setDebitAccount(debitAccount),
+  setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount(debitAccount, debitAccountType),
   setPrepaidCardLoadAmount: (amount) => setPrepaidCardLoadAmount(amount),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
   validateCreditCardPaymentForm: () => validateCreditCardPaymentForm(),

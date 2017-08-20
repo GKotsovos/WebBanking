@@ -4,7 +4,7 @@ import LoadResult from './containers/LoadResultContainer'
 import cookie from 'react-cookie'
 
 export default (store) => ({
-  path: '/banking/cards/creditcards/card/load/result',
+  path: '/banking/cards/prepaidcards/card/load/result',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
       cb(null, LoadResult)

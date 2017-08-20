@@ -4,7 +4,7 @@ import LoadApproval from './containers/LoadApprovalContainer'
 import cookie from 'react-cookie'
 
 export default (store) => ({
-  path: '/banking/cards/creditcards/card/load/approval',
+  path: '/banking/cards/prepaidcards/card/load/approval',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
       cb(null, LoadApproval)
