@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { clearCardTransactionForm } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
-import CardPaymentForm from '../components';
+import CardPaymentResult from '../components';
 
 const mapStateToProps = (state) => ({
   result: state.cards.transactionForm.result,
@@ -12,4 +12,4 @@ const mapActionCreators = {
   clearCardTransactionForm: () => clearCardTransactionForm(),
 };
 
-export default connect(mapStateToProps, mapActionCreators)(CardPaymentForm);
+export default connect(mapStateToProps, mapActionCreators)(CardPaymentResult);

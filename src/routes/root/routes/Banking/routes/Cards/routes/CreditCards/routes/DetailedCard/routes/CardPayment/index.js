@@ -3,7 +3,6 @@ import CardPaymentLayout from './components/CardPaymentLayout'
 import { CardPaymentFormRoute, CardPaymentApprovalRoute, CardPaymentResultRoute } from './routes'
 
 export const CardPaymentRoute = (store) => {
-
   return {
     path        : '/banking/cards/creditcards/card/payment',
     component   : CardPaymentLayout,

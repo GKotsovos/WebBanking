@@ -77,6 +77,10 @@ export const actions = {
 
 const ACTION_HANDLERS = {
 
+  INITIAL_STATE: (state, action) => {
+    return {};
+  },
+
   REQUESTING: (state, action) => {
     return {
       ...state,
