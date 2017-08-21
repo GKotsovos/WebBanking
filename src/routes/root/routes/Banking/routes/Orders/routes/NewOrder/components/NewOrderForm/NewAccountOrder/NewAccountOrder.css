@@ -6,9 +6,9 @@
   max-width: 150px;
 }
 
-.bootstrap-select.form-control:not([class*=col-]) {
+/*.bootstrap-select.form-control.ΒΑΛΕ CLASS {
   max-width: 185px;
-}
+}*/
 
 #orderBankSelect:hover {
   cursor: pointer;

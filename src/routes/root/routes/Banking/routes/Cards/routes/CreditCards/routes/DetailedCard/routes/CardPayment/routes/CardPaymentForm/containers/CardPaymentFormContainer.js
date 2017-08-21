@@ -3,7 +3,6 @@ import {
   setDebitAccount,
   setCreditCardPaymentAmount,
   setTransactionDate,
-  validateCreditCardPaymentForm,
   initCardTransactionForm
  } from '../../../../../../../../../modules/cards.js'
 import CardPaymentForm from '../components';
@@ -21,7 +20,6 @@ const mapActionCreators = {
   setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount(debitAccount, debitAccountType),
   setCreditCardPaymentAmount: (amount) => setCreditCardPaymentAmount(amount),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
-  validateCreditCardPaymentForm: () => validateCreditCardPaymentForm(),
   initCardTransactionForm: () => initCardTransactionForm(),
 };
 
