@@ -24,7 +24,11 @@ label {
   color: black;
 }
 
-#transferBankSelect, #transferBIC {
+.bootstrap-select.form-control.transferBankSelect {
+  max-width: 225px;
+}
+
+.bootstrap-select.form-control.transferBIC {
   max-width: 185px;
 }
 
@@ -40,6 +44,10 @@ label {
 input[type=radio],
 input[type=checkbox] {
   margin-top: 0;
+}
+
+.transferDateRadio:hover {
+  cursor: default;
 }
 
 #now {

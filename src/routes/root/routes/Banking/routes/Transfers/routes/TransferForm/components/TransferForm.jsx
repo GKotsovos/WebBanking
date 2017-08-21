@@ -25,9 +25,17 @@ class TransferForm extends Component {
       creditCards,
       prepaidCards,
       transactionForm,
+      initTransferTransactionForm,
       setDebitAccount,
+      setCreditAccount,
+      setCreditFullName,
+      setCreditBank,
+      setCreditBankBIC,
       setTransferAmount,
-      setTransactionDate
+      setChargesBeneficiary,
+      setAsapTransfer,
+      setTransferComments,
+      setTransactionDate,
     } = this.props;
     return (
       <form id="transferCompletionForm" className="transfersContainer">
@@ -103,49 +111,106 @@ class TransferForm extends Component {
 
         <div className="form-group">
           <label htmlFor="transferIBAN">Λογαριασμός Πίστωσης</label>
-          <input className="form-control" id="transferIBAN" placeholder="IBAN" />
-          <input className="form-control" id="transferOwner" placeholder="Ονοματεπώνυμο Δικαιούχου" />
+          <input
+            id="transferIBAN"
+            className={`form-control ${_.isEmpty(transactionForm.creditAccount) || transactionForm.creditAccount.correct ? "" : "notValid"}`}
+            value={transactionForm.creditAccount.value || ""}
+            onChange={(e) => setCreditAccount(e.target.value)}
+            placeholder="IBAN"
+          />
+          <input
+            className={`form-control ${_.isEmpty(transactionForm.fullName) || transactionForm.fullName.correct ? "" : "notValid"}`}
+            value={transactionForm.fullName.value || ""}
+            onChange={(e) => setCreditFullName(e.target.value)}
+            placeholder="Ονοματεπώνυμο Δικαιούχου"
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="transferBankSelect">Τράπεζα</label>
           <div>
-            <select id="transferBankSelect" className="selectpicker transferBankSelect form-control">
+            <select
+              className={`selectpicker transferBankSelect form-control ${_.isEmpty(transactionForm.bank) || transactionForm.bank.correct ? "" : "notValid"}`}
+              data-show-subtext="true"
+              title="Επιλέξτε Τράπεζα Δικαιούχου"
+              onChange={
+                (e) => setCreditBank(e.target.value, e.target.options[e.target.options.selectedIndex].className)
+              }
+            >
               <option>Agile Bank</option>
               <option>Τράπεζα Εσωτερικού</option>
               <option>Τράπεζα Εξωτερικού</option>
+              {/* {
+                transactionForm.bank.isGreekBank ?
+                _.map(greekBanks, (greekBank) => (
+                  <option
+                    key={greekBank.id}
+                    className="isGreekBank"
+                    value={greekBank.name}
+                  >
+                    {greekBank.name}
+                  </option>
+                )) :
+                _.map(foreignBanks, (foreignBank) => (
+                  <option
+                    key={foreignBank.id}
+                    className="isForeignBank"
+                    value={foreignBank.name}
+                  >
+                    {foreignBank.name}
+                  </option>
+                ))
+              } */}
             </select>
           </div>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="transferBIC">BIC Τράπεζας</label>
-          <input className="form-control" id="transferBIC" placeholder="BIC" />
-        </div>
+          <input
+            className={`form-control transferBIC ${_.isEmpty(transactionForm.bankBIC) || transactionForm.bankBIC.correct ? "" : "notValid"}`}
+            value={transactionForm.bankBIC.value || ""}
+            onChange={(e) => setCreditFullName(e.target.value)}
+            placeholder="BIC"
+          />
+        </div> */}
 
         <div className="form-group">
           <label htmlFor="transferAmount">Ποσό</label>
           <input
-            className={`form-control text-right ${_.isEmpty(transactionForm.amount) || transactionForm.amount.correct ? "" : "notValid"}`}
             id="transferAmount"
-            placeholder="€"
+            className={`form-control text-right ${_.isEmpty(transactionForm.amount) || transactionForm.amount.correct ? "" : "notValid"}`}
             value={transactionForm.amount.value || ""}
             onChange={(e) => setTransferAmount(e.target.value)}
+            placeholder="€"
            />
         </div>
 
         <div className="form-group">
           <label htmlFor="transferSelectCharges">Επιβάρυνση Εξόδων</label>
           <div>
-          <select className="selectpicker transferSelectCharges form-control" data-show-subtext="true">
-            <option data-subtext="3,00€">
-              <span className="chargesText">Να επιβαρυνθώ μόνο με τα έξοδα της τράπεζας μου</span>
+          <select
+            className={`selectpicker transferSelectCharges form-control ${_.isEmpty(transactionForm.chanrgesBeneficiary) || transactionForm.chanrgesBeneficiary.correct ? "" : "notValid"}`}
+            data-show-subtext="true"
+            title="Επιλέξτε επιβάρυνση εξόδων"
+            onChange={(e) => setChargesBeneficiary(e.target.options[e.target.options.selectedIndex].id)}>
+            <option
+              id="both"
+              className="chargesText"
+              data-subtext="3,00€">
+              Να επιβαρυνθώ μόνο με τα έξοδα της τράπεζας μου
             </option>
-            <option data-subtext="6,00€">
-              <span className="chargesText">Να επιβαρυνθώ με όλα τα έξοδα</span>
+            <option
+              id="sender"
+              className="chargesText"
+              data-subtext="6,00€">
+              Να επιβαρυνθώ με όλα τα έξοδα
             </option>
-            <option data-subtext="0,00€">
-              <span className="chargesText">Να επιβαρυνθεί ο δικαιούχος με όλα τα έξοδα</span>
+            <option
+              id="beneficiary"
+              className="chargesText"
+              data-subtext="0,00€">
+              Να επιβαρυνθεί ο δικαιούχος με όλα τα έξοδα
             </option>
           </select>
           </div>
@@ -153,20 +218,57 @@ class TransferForm extends Component {
 
         <div className="form-group">
           <label htmlFor="transferComment">Σχόλια</label>
-          <textarea className="form-control" rows="3" id="transferComment"></textarea>
+          <textarea
+            id="transferComment"
+            className={`form-control ${_.isEmpty(transactionForm.comments) || transactionForm.comments.correct ? "" : "notValid"}`}
+            value={transactionForm.comments.value || ""}
+            onChange={(e) => setTransferComments(e.target.value)}
+            rows="3"
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="transferDate">Εκτέλεση Συναλλαγής</label>
           <div id="transferDate">
-            <span id="now">
-              <input type="radio" name="transferDate" id="transferNowRadio" value="now" />
-              <span id="amesa">Άμεσα</span>
+            <span
+              id="now"
+              className="transferDateRadio">
+              <input
+                type="radio"
+                name="transferDate"
+                onChange={() => setAsapTransfer(true)}
+                checked={transactionForm.date.asapTransfer}
+              />
+              <span
+                id="amesa"
+                onClick={() => setAsapTransfer(true)}>
+                Άμεσα
+              </span>
             </span>
-            <span id="later">
-              <input type="radio" name="transferDate" id="transferLaterRadio" value="later" />
-              <span id="stis">Στις</span>
-              <DatePicker id="transferDatePicker" weekStartsOnMonday calendarPlacement="top" placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"/>
+            <span
+              id="later"
+              className="transferDateRadio">
+              <input
+                type="radio"
+                name="transferDate"
+                onChange={() => setAsapTransfer(false)}
+                checked={!_.isEmpty(transactionForm.date) && !transactionForm.date.asapTransfer}
+              />
+              <span
+                id="stis"
+                onClick={() => setAsapTransfer(false)}>
+                Στις
+              </span>
+              <DatePicker
+                id="transferDatePicker"
+                className={`form-control text-right ${_.isEmpty(transactionForm.date) || transactionForm.date.correct ? "" : "notValid"}`}
+                weekStartsOnMonday
+                calendarPlacement="top"
+                placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
+                value={transactionForm.date.value}
+                onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
+                disabled={_.isEmpty(transactionForm.date) || transactionForm.date.asapTransfer}
+              />
             </span>
           </div>
         </div>
@@ -178,7 +280,11 @@ class TransferForm extends Component {
           </label>
         </div>
 
-        <FormCompletionButtons />
+        <FormCompletionButtons
+          shouldProcess={transactionForm.shouldProcess}
+          clearForm={this.clearForm.bind(this)}
+          linkToApprovalForm='/banking/transfers/approval'
+        />
 
       </form>
     )

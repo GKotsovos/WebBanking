@@ -6,20 +6,26 @@ import dateformat from 'dateformat';
 import _ from 'underscore'
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
 import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
-import { getTransferById } from 'routes/root/routes/Banking/routes/Transfers/modules/transfers';
+import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const INIT_TRANSFER_TRANSACTION_FORM = 'INIT_TRANSFER_TRANSACTION_FORM';
 const SET_TRANSFER_DEBIT_ACCOUNT = 'SET_TRANSFER_DEBIT_ACCOUNT';
 const SET_TRANSFER_CREDIT_ACCOUNT = 'SET_TRANSFER_CREDIT_ACCOUNT';
+const SET_TRANSFER_CREDIT_FULL_NAME = 'SET_TRANSFER_CREDIT_FULL_NAME';
+const SET_TRANSFER_CREDIT_BANK = 'SET_TRANSFER_CREDIT_BANK';
+const SET_TRANSFER_CREDIT_BANK_BIC = 'SET_TRANSFER_CREDIT_BANK_BIC';
 const SET_TRANSFER_AMOUNT = 'SET_TRANSFER_AMOUNT';
+const SET_TRANSFER_CHARGES_BENEFICIARY = 'SET_TRANSFER_CHARGES_BENEFICIARY';
+const SET_TRANSFER_COMMENTS = 'SET_TRANSFER_COMMENTS';
+const SET_ASAP_TRANSFER = 'SET_ASAP_TRANSFER';
 const SET_TRANSFER_TRANSACTION_DATE = 'SET_TRANSFER_TRANSACTION_DATE';
 const VALIDATE_TRANSFER_TRANSACTION_FORM = 'VALIDATE_TRANSFER_TRANSACTION_FORM';
 const CLEAR_TRANSFER_TRANSACTION_FORM = 'CLEAR_TRANSFER_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 
-export const linkTo = (route) => {
+const linkTo = (route) => {
   localStorage.setItem('path', route);
   browserHistory.push(route);
   return (dispatch, getState) => {
@@ -32,7 +38,7 @@ export const linkTo = (route) => {
 
 export const transfer = () => {
   return (dispatch, getState) => {
-    const transactionForm = getState().transfers.transactionForm;
+    const transactionForm = getState().TRANSFER.transactionForm;
     return axios({
       method: 'post',
       url: 'http://localhost:26353/api/transfer/Transfer',
@@ -49,18 +55,18 @@ export const transfer = () => {
     .then(() => {
       dispatch({
         type    : SUCCESSFUL_TRANSACTION,
-        payload : '/banking/transfers'
+        payload : '/banking/TRANSFER'
       })
     })
     .then(() => getTransferById(transactionForm.transferId)(dispatch, getState))
     .then(() => {
       dispatch({
-        type    : SET_ACTIVE_LOAN,
-        payload : _.filter(getState().transfers.transfers, (transfer) => transfer.id == getState().transfers.activeTransfer.id)[0]
+        type    : SET_ACTIVE_TRANSFER,
+        payload : _.filter(getState().TRANSFER.TRANSFER, (transfer) => transfer.id == getState().TRANSFER.activeTransfer.id)[0]
       })
     })
     .then(() => getTransferTransactionHistory(transactionForm.transferId)(dispatch, getState))
-    .then(() => linkTo('/banking/transfers/result'))
+    .then(() => linkTo('/banking/TRANSFER/result'))
     .then(() => {
       switch (transactionForm.debitAccount.type) {
         case "isAccount":
@@ -90,7 +96,7 @@ export const transfer = () => {
         }
       })
     })
-    .then(() => linkTo('/banking/transfers/result'))
+    .then(() => linkTo('/banking/TRANSFER/result'))
   }
 }
 
@@ -106,9 +112,9 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
           .first()
           .value().ledgerBalance;
         break;
-      case "isLoan":
-        availableBalance = _.chain(getState().loans.loans)
-          .filter((loan) => loan.id == debitAccount)
+      case "isTRANSFER":
+        availableBalance = _.chain(getState().TRANSFER.TRANSFER)
+          .filter((TRANSFER) => TRANSFER.id == debitAccount)
           .first()
           .value().availableBalance;
         break;
@@ -127,7 +133,7 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
     }
 
     dispatch({
-      type: SET_LOAN_DEBIT_ACCOUNT,
+      type: SET_TRANSFER_DEBIT_ACCOUNT,
       payload: {
         debitAccount,
         debitAccountType,
@@ -135,7 +141,55 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
       }
     });
     dispatch({
-      type: VALIDATE_LOANS_TRANSACTION_FORM
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setCreditAccount = (account) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_CREDIT_ACCOUNT,
+      payload: account
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setCreditFullName = (fullName) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_CREDIT_FULL_NAME,
+      payload: fullName
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setCreditBank = (bank) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_CREDIT_BANK,
+      payload: bank
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setCreditBankBIC = (bankBIC) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_CREDIT_BANK_BIC,
+      payload: bankBIC
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
     });
   }
 }
@@ -143,8 +197,32 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
 export const setTransferAmount = (amount) => {
   return (dispatch, getState) => {
     dispatch({
-      type: SET_TRANSFER__AMOUNT,
+      type: SET_TRANSFER_AMOUNT,
       payload: amount
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setChargesBeneficiary = (beneficiary) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_CHARGES_BENEFICIARY,
+      payload: beneficiary
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setTransferComments = (comments) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_COMMENTS,
+      payload: comments
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -167,25 +245,40 @@ export const setTransactionDate = (date, formattedDate) => {
   }
 }
 
+export const setAsapTransfer = (isAsap) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ASAP_TRANSFER,
+      payload: isAsap
+    })
+  }
+}
+
 export const initTransferTransactionForm = () => {
   return {
     type: INIT_TRANSFER_TRANSACTION_FORM,
   }
 }
 
-export function clearTransferTransactionForm(){
+export const clearTransferTransactionForm = () => {
   return {
     type: CLEAR_TRANSFER_TRANSACTION_FORM,
   }
 }
 
 export const actions = {
-  linkTo,
-  initTransferTransactionForm,
-  setDebitAccount,
-  setTransferAmount,
-  setTransactionDate,
   transfer,
+  setDebitAccount,
+  setCreditAccount,
+  setCreditFullName,
+  setCreditBank,
+  setCreditBankBIC,
+  setTransferAmount,
+  setChargesBeneficiary,
+  setTransferComments,
+  setAsapTransfer,
+  setTransactionDate,
+  initTransferTransactionForm,
   clearTransferTransactionForm,
 }
 
@@ -199,10 +292,14 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       transactionForm: {
-        // transferId: state.activeTransfer.id,
         debitAccount: {},
+        creditAccount: {},
+        fullName: {},
+        bank: {},
         amount: {},
-        // currency: state.activeTransfer.currency,
+        chanrgesBeneficiary: {},
+        currency: 'EUR',
+        comments: {},
         date: {},
         shouldProcess: false
       }
@@ -224,7 +321,59 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_TRANSFER__AMOUNT: (state, action) => {
+  SET_TRANSFER_CREDIT_ACCOUNT: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        creditAccount: {
+          value: action.payload,
+          //TODO correct: ,
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_CREDIT_FULL_NAME: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        fullName: {
+          value: action.payload,
+          //TODO correct: ,
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_CREDIT_BANK: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        bank: {
+          value: action.payload,
+          //TODO correct: ,
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_CREDIT_BANK_BIC: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        bankBIC: {
+          value: action.payload,
+          //TODO correct: ,
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_AMOUNT: (state, action) => {
     return {
       ...state,
       transactionForm: {
@@ -232,9 +381,49 @@ const ACTION_HANDLERS = {
         amount: {
           value: action.payload,
           correct: action.payload > 0 &&
-          (parseFloat(action.payload) <= state.activeTransfer.nextInstallmentAmount ||
-           parseFloat(action.payload) <= state.activeTransfer.debt) &&
            (parseFloat(action.payload)) <= state.transactionForm.debitAccount.availableBalance
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_CHARGES_BENEFICIARY: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        chanrgesBeneficiary: {
+          value: action.payload,
+          //TODO correct: ,
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_COMMENTS: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        comments: {
+          value: action.payload,
+          //TODO correct: ,
+        }
+      }
+    }
+  },
+
+  SET_ASAP_TRANSFER: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        viewDate: action.payload.formattedDate,
+        date: {
+          ...state.transactionForm.date,
+          asapTransfer: action.payload,
+          correct: action.payload,
+          value: undefined
         }
       }
     }
@@ -247,6 +436,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         viewDate: action.payload.formattedDate,
         date: {
+          ...state.transactionForm.date,
           value: action.payload.date,
           correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
         }
