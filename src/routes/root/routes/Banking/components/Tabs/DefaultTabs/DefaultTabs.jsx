@@ -12,7 +12,6 @@ export const DefaultTabs = ({
   deactivateCard,
   getLoans,
   deactivateLoan,
-  initTransferTransactionForm,
 }) => (
   <div>
     <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
@@ -47,10 +46,7 @@ export const DefaultTabs = ({
         </a>
       </li>
       <li className={`defaultTab ${window.location.href.includes('/banking/transfers') ? 'active' : ''}`}
-        onClick={() => {
-          initTransferTransactionForm();
-          linkTo('/banking/transfers');
-        }}>
+        onClick={() => linkTo('/banking/transfers')}>
         <a href="#transfers" className="mainTab" data-toggle="tab">
           <FontAwesome name="exchange"/><br/>Μεταφορές
         </a>

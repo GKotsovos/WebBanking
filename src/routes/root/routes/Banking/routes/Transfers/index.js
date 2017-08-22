@@ -1,5 +1,5 @@
 import { injectReducer } from 'store/reducers'
-import TransfersLayout from './components/TransfersLayout'
+import TransfersLayout from './containers/TransfersLayoutContainer'
 import { TransferFormRoute, TransferApprovalRoute, TransferResultRoute } from './routes'
 import transfers from './modules/transfers'
 

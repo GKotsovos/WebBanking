@@ -12,7 +12,6 @@ export const SmallTabs = ({
   deactivateCard,
   getLoans,
   deactivateLoan,
-  initTransferTransactionForm,
 }) => (
   <div id="smallT">
 
@@ -50,10 +49,7 @@ export const SmallTabs = ({
             <FontAwesome name="handshake-o"/><br/>Δάνεια</a>
         </li>
         <li className={`defaultTab ${window.location.href.includes('/banking/transfers') ? 'active' : ''}`}
-          onClick={() => {
-            initTransferTransactionForm();
-            linkTo('/banking/transfers');
-        }}>
+          onClick={() => linkTo('/banking/transfers')}>
           <a href="#transfers" className="mainTab" aria-controls="transfers" role="tab" data-toggle="tab">
             <FontAwesome name="exchange"/><br/>Μεταφορές</a>
         </li>

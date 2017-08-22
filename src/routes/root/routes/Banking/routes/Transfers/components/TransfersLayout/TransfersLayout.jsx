@@ -2,10 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import _ from 'underscore';
 import './TransfersLayout.css';
 
-export const TransfersLayout = ({ children }) => (
-  <div role="tabpanel" className="tab-pane" id="transfers">
-    {children}
-  </div>
-)
+class TransfersLayout extends Component {
+  componentWillMount(){
+    const { transactionForm, initTransferTransactionForm } = this.props;
+    if (_.isEmpty(transactionForm)) {
+      initTransferTransactionForm();
+    }
+  }
+  
+  render(){
+    return (
+      <div role="tabpanel" className="tab-pane" id="transfers">
+      {this.props.children}
+    </div>
+    )
+  }
+}
 
 export default TransfersLayout
