@@ -18,8 +18,8 @@ class BankingLayout extends Component {
   }
 
   componentDidMount() {
-    const { logOut } = this.props;
-    setTimeout(() => logOut(), 500000)
+    const { timeOutLogOut } = this.props;
+    timeOutLogOut(500000);
   }
 
   render() {

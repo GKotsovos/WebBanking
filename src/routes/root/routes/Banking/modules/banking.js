@@ -69,6 +69,10 @@ export const logOut = () => {
     }
 }
 
+export const timeOutLogOut = (ms) => {
+    return (dispatch, getState) => setTimeout(() => logOut()(dispatch, getState), ms)
+}
+
 export const actions = {
   getCustomerName,
   linkTo,

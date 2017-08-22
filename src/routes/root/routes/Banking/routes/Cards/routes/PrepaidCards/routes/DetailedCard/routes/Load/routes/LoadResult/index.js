@@ -12,7 +12,7 @@ export default (store) => ({
   },
   onEnter(nextState, replace) {
     if (!cookie.load('access_token')) {
-      logOut()(dispatch, getState);
+      logOut()(store.dispatch, store.getState);
     }
   }
 })

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
   getCustomerName,
-  logOut
+  timeOutLogOut
 } from '../modules/banking';
 import { getAccounts } from '../routes/Accounts/modules/accounts';
 import { getCards } from '../routes/Cards/modules/cards';
@@ -17,7 +17,7 @@ const mapActionCreators = {
   getAccounts: () => getAccounts(),
   getCards: () => getCards(),
   getLoans: () => getLoans(),
-  logOut: () => logOut(),
+  timeOutLogOut: (ms) => timeOutLogOut(ms),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Banking);
