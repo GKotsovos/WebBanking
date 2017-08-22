@@ -4,6 +4,7 @@ import querystring from 'querystring';
 import { browserHistory } from 'react-router';
 import dateformat from 'dateformat';
 import _ from 'underscore'
+import IBAN from 'iban';
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
 import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
@@ -47,7 +48,6 @@ export const transfer = () => {
         debitAccount: transactionForm.debitAccount.value,
         debitAccountType: transactionForm.debitAccount.type,
         amount: transactionForm.amount.value,
-        currency: transactionForm.currency,
         date: transactionForm.date.value
       }),
       withCredentials: true,
@@ -66,13 +66,13 @@ export const transfer = () => {
       })
     })
     .then(() => getTransferTransactionHistory(transactionForm.transferId)(dispatch, getState))
-    .then(() => linkTo('/banking/TRANSFER/result'))
+    .then(() => linkTo('/banking/transfers/result'))
     .then(() => {
       switch (transactionForm.debitAccount.type) {
         case "isAccount":
           getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
           break;
-        case "isTransfer":
+        case "isLoan":
           getTransferById(transactionForm.debitAccount.value)(dispatch, getState)
           break;
         case "isCreditCard":
@@ -92,11 +92,11 @@ export const transfer = () => {
         type    : UNSUCCESSFUL_TRANSACTION,
         payload : {
           exception,
-          linkToStart: '/banking/transfer/'
+          linkToStart: '/banking/transfers/'
         }
       })
     })
-    .then(() => linkTo('/banking/TRANSFER/result'))
+    .then(() => linkTo('/banking/transfers/result'))
   }
 }
 
@@ -112,9 +112,9 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
           .first()
           .value().ledgerBalance;
         break;
-      case "isTRANSFER":
-        availableBalance = _.chain(getState().TRANSFER.TRANSFER)
-          .filter((TRANSFER) => TRANSFER.id == debitAccount)
+      case "isLoan":
+        availableBalance = _.chain(getState().loans.loans)
+          .filter((loan) => loan.id == debitAccount)
           .first()
           .value().availableBalance;
         break;
@@ -298,8 +298,10 @@ const ACTION_HANDLERS = {
         bank: {},
         amount: {},
         chanrgesBeneficiary: {},
-        currency: 'EUR',
-        comments: {},
+        comments: {
+          value: '',
+          correct: true,
+        },
         date: {},
         shouldProcess: false
       }
@@ -328,20 +330,22 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         creditAccount: {
           value: action.payload,
-          //TODO correct: ,
+          correct: IBAN.isValid(action.payload),
         }
       }
     }
   },
 
   SET_TRANSFER_CREDIT_FULL_NAME: (state, action) => {
+    const correctPattern = new RegExp("^[A-Za-zΑ-Ωα-ω ]+$");
+    const fullName = action.payload.toUpperCase()
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         fullName: {
-          value: action.payload,
-          //TODO correct: ,
+          value: correctPattern.test(fullName) || fullName == '' ? fullName : state.transactionForm.fullName.value,
+          correct: fullName.split(' ').length == 2,
         }
       }
     }
@@ -394,7 +398,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         chanrgesBeneficiary: {
           value: action.payload,
-          //TODO correct: ,
+          correct: action.payload == 'both' || action.payload == 'sender' || action.payload == 'beneficiary',
         }
       }
     }
@@ -407,7 +411,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         comments: {
           value: action.payload,
-          //TODO correct: ,
+          correct: action.payload.length <= 100,
         }
       }
     }
@@ -450,7 +454,12 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         shouldProcess: state.transactionForm.debitAccount.correct &&
+        state.transactionForm.creditAccount.correct &&
+        state.transactionForm.fullName.correct &&
+        state.transactionForm.bank.correct &&
         state.transactionForm.amount.correct &&
+        state.transactionForm.chanrgesBeneficiary.correct &&
+        state.transactionForm.comments.correct &&
         state.transactionForm.date.correct
       }
     }

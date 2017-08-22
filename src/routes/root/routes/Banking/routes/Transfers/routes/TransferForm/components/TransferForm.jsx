@@ -13,9 +13,9 @@ class TransferForm extends Component {
   }
 
   clearForm() {
-    const { initCardTransactionForm } = this.props;
+    const { initTransferTransactionForm } = this.props;
     $('.selectpicker').selectpicker('val', [''])
-    initCardTransactionForm();
+    initTransferTransactionForm();
   }
 
   render() {
@@ -25,7 +25,6 @@ class TransferForm extends Component {
       creditCards,
       prepaidCards,
       transactionForm,
-      initTransferTransactionForm,
       setDebitAccount,
       setCreditAccount,
       setCreditFullName,
@@ -37,6 +36,7 @@ class TransferForm extends Component {
       setTransferComments,
       setTransactionDate,
     } = this.props;
+
     return (
       <form id="transferCompletionForm" className="transfersContainer">
 
