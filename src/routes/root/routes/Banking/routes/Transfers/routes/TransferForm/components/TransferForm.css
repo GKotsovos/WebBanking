@@ -11,21 +11,24 @@ label {
   font-weight: 500;
 }
 
-#transferIBAN {
-  margin-bottom: 10px;
+.bottomOfTwoDivs {
+  margin-top: 10px;
 }
 
 .btn-group.bootstrap-select.transferSelectAccount.form-control{
   max-width: 500px;
 }
 
+#bankDiv {
+  margin-bottom: 10px;
+}
 
 .bootstrap-select.btn-group .dropdown-menu li.active:not(.disabled) a small, .bootstrap-select.btn-group .dropdown-menu li:not(.disabled) a:focus small, .bootstrap-select.btn-group .dropdown-menu li:not(.disabled) a:hover small {
   color: black;
 }
 
 .bootstrap-select.form-control.transferBankSelect {
-  max-width: 225px;
+  max-width: 200px;
 }
 
 .bootstrap-select.form-control.transferBIC {

@@ -5,6 +5,7 @@ import {
   setDebitAccount,
   setCreditAccount,
   setCreditFullName,
+  setCreditBankType,
   setCreditBank,
   setCreditBankBIC,
   setTransferAmount,
@@ -26,8 +27,9 @@ const mapStateToProps = (state) => ({
 const mapActionCreators = {
   initTransferTransactionForm: () => initTransferTransactionForm(),
   setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount (debitAccount, debitAccountType),
-  setCreditAccount: (account) => setCreditAccount (account),
+  setCreditAccount: (account, type) => setCreditAccount (account, type),
   setCreditFullName: (fullName) => setCreditFullName (fullName),
+  setCreditBankType: (selection, bankType) => setCreditBankType (selection, bankType),
   setCreditBank: (bank) => setCreditBank (bank),
   setCreditBankBIC: (bankBIC) => setCreditBankBIC (bankBIC),
   setTransferAmount: (amount) => setTransferAmount (amount),

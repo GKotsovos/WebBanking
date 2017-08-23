@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import dateformat from 'dateformat';
 import _ from 'underscore'
 import IBAN from 'iban';
+import bic from 'bic';
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
 import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
@@ -14,6 +15,7 @@ const INIT_TRANSFER_TRANSACTION_FORM = 'INIT_TRANSFER_TRANSACTION_FORM';
 const SET_TRANSFER_DEBIT_ACCOUNT = 'SET_TRANSFER_DEBIT_ACCOUNT';
 const SET_TRANSFER_CREDIT_ACCOUNT = 'SET_TRANSFER_CREDIT_ACCOUNT';
 const SET_TRANSFER_CREDIT_FULL_NAME = 'SET_TRANSFER_CREDIT_FULL_NAME';
+const SET_TRANSFER_CREDIT_BANK_TYPE = 'SET_TRANSFER_CREDIT_BANK_TYPE';
 const SET_TRANSFER_CREDIT_BANK = 'SET_TRANSFER_CREDIT_BANK';
 const SET_TRANSFER_CREDIT_BANK_BIC = 'SET_TRANSFER_CREDIT_BANK_BIC';
 const SET_TRANSFER_AMOUNT = 'SET_TRANSFER_AMOUNT';
@@ -146,11 +148,14 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
   }
 }
 
-export const setCreditAccount = (account) => {
+export const setCreditAccount = (account, type) => {
   return (dispatch, getState) => {
     dispatch({
       type: SET_TRANSFER_CREDIT_ACCOUNT,
-      payload: account
+      payload: {
+        account,
+        type
+      }
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -163,6 +168,21 @@ export const setCreditFullName = (fullName) => {
     dispatch({
       type: SET_TRANSFER_CREDIT_FULL_NAME,
       payload: fullName
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setCreditBankType = (selection, bankType) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSFER_CREDIT_BANK_TYPE,
+      payload: {
+        selection,
+        bankType
+      }
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -271,7 +291,7 @@ export const actions = {
   setDebitAccount,
   setCreditAccount,
   setCreditFullName,
-  setCreditBank,
+  setCreditBankType,
   setCreditBankBIC,
   setTransferAmount,
   setChargesBeneficiary,
@@ -329,7 +349,8 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         creditAccount: {
-          value: action.payload,
+          value: action.payload.type == 'other' ? '' : action.payload.account,
+          type: action.payload.type,
           correct: IBAN.isValid(action.payload),
         }
       }
@@ -351,6 +372,20 @@ const ACTION_HANDLERS = {
     }
   },
 
+  SET_TRANSFER_CREDIT_BANK_TYPE: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        bank: {
+          type: action.payload.bankType,
+          selection: action.payload.selection,
+          correct: action.payload.bankType == 'agileBank'
+        }
+      }
+    }
+  },
+
   SET_TRANSFER_CREDIT_BANK: (state, action) => {
     return {
       ...state,
@@ -358,7 +393,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         bank: {
           value: action.payload,
-          //TODO correct: ,
+          correct: true,
         }
       }
     }
@@ -369,9 +404,10 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        bankBIC: {
-          value: action.payload,
-          //TODO correct: ,
+        bank: {
+          ...state.transactionForm.bank,
+          bic: action.payload,
+          correct: bic.isValid(action.payload),
         }
       }
     }

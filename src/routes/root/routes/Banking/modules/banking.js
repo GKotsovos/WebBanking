@@ -35,9 +35,7 @@ export const getCustomerName = () => {
     })
     .catch((exception)  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : LOG_OUT,
-      }) :
+      logOut() :
       dispatch({
         type    : REQUEST_ERROR,
         payload : exception
@@ -61,10 +59,10 @@ export const linkTo = (route) => {
 export const logOut = () => {
     return (dispatch, getState) => {
       dispatch({
-        type    : INITIAL_STATE
+        type    : LOG_OUT
       });
       dispatch({
-        type    : LOG_OUT
+        type    : INITIAL_STATE
       });
     }
 }

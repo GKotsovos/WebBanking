@@ -9,7 +9,8 @@ class TransferForm extends Component {
   componentDidMount() {
     const { transactionForm } = this.props;
     $('.selectpicker').selectpicker()
-    $('.selectpicker').selectpicker('val', [transactionForm.debitAccount.value])
+    $('.selectpicker.transferSelectAccount').selectpicker('val', [transactionForm.debitAccount.value])
+    $('.selectpicker.transferBankSelect').selectpicker('val', [transactionForm.bank.selection])
   }
 
   clearForm() {
@@ -28,6 +29,7 @@ class TransferForm extends Component {
       setDebitAccount,
       setCreditAccount,
       setCreditFullName,
+      setCreditBankType,
       setCreditBank,
       setCreditBankBIC,
       setTransferAmount,
@@ -40,8 +42,9 @@ class TransferForm extends Component {
     return (
       <form id="transferCompletionForm" className="transfersContainer">
 
+{/* ------------------------------------------------  ΑΠΟ START ---------------------------------------------------- */}
         <div className="form-group">
-          <label htmlFor="transferSelectAccount">Λογαριασμός Χρέωσης</label>
+          <label htmlFor="transferSelectAccount">Από</label>
           <div>
           <select
             className={`selectpicker transferSelectAccount form-control ${_.isEmpty(transactionForm.debitAccount) || transactionForm.debitAccount.correct ? "" : "notValid"}`}
@@ -108,74 +111,133 @@ class TransferForm extends Component {
           </select>
           </div>
         </div>
+{/* ------------------------------------------------  ΑΠΟ END ---------------------------------------------------- */}
 
-        <div className="form-group">
-          <label htmlFor="transferIBAN">Λογαριασμός Πίστωσης</label>
-          <input
-            id="transferIBAN"
-            className={`form-control ${_.isEmpty(transactionForm.creditAccount) || transactionForm.creditAccount.correct ? "" : "notValid"}`}
-            value={transactionForm.creditAccount.value || ""}
-            onChange={(e) => setCreditAccount(e.target.value)}
-            placeholder="IBAN"
-          />
-          <input
-            className={`form-control ${_.isEmpty(transactionForm.fullName) || transactionForm.fullName.correct ? "" : "notValid"}`}
-            value={transactionForm.fullName.value || ""}
-            onChange={(e) => setCreditFullName(e.target.value)}
-            placeholder="Ονοματεπώνυμο Δικαιούχου"
-          />
-        </div>
-
-        <div className="form-group">
+{/* ---------------------------------------------  ΤΡΑΠΕΖΑ START --------------------------------------------------- */}
+        <div id="bankDiv" className="form-group">
           <label htmlFor="transferBankSelect">Τράπεζα</label>
           <div>
             <select
               className={`selectpicker transferBankSelect form-control ${_.isEmpty(transactionForm.bank) || transactionForm.bank.correct ? "" : "notValid"}`}
               data-show-subtext="true"
-              title="Επιλέξτε Τράπεζα Δικαιούχου"
+              title="Επιλέξτε Τύπο Τράπεζας"
+              value={transactionForm.bank.type || ""}
               onChange={
-                (e) => setCreditBank(e.target.value, e.target.options[e.target.options.selectedIndex].className)
+                (e) => setCreditBankType(e.target.value, e.target.options[e.target.options.selectedIndex].id)
               }
             >
-              <option>Agile Bank</option>
-              <option>Τράπεζα Εσωτερικού</option>
-              <option>Τράπεζα Εξωτερικού</option>
-              {/* {
-                transactionForm.bank.isGreekBank ?
-                _.map(greekBanks, (greekBank) => (
-                  <option
-                    key={greekBank.id}
-                    className="isGreekBank"
-                    value={greekBank.name}
-                  >
-                    {greekBank.name}
-                  </option>
-                )) :
-                _.map(foreignBanks, (foreignBank) => (
-                  <option
-                    key={foreignBank.id}
-                    className="isForeignBank"
-                    value={foreignBank.name}
-                  >
-                    {foreignBank.name}
-                  </option>
-                ))
-              } */}
+              <option id="agileBank">Agile Bank</option>
+              <option id="domesticBank">Τράπεζα Εσωτερικού</option>
+              <option id="foreignBank">Τράπεζα Εξωτερικού</option>
             </select>
           </div>
+          <div
+            className="bottomOfTwoDivs"
+            style={
+              !_.isEmpty(transactionForm.bank) && transactionForm.bank.type == 'domesticBank' ? {} : { display: 'none' }
+            }>
+            <select
+              className={`selectpicker form-control ${_.isEmpty(transactionForm.bank) || transactionForm.bank.correct ? "" : "notValid"} `}
+              data-show-subtext="true"
+              title="Επιλέξτε Τράπεζα Δικαιούχου"
+              value={transactionForm.bank.name || ""}
+              onChange={
+                (e) => setCreditBank(e.target.value)
+              }
+            >
+              {/*
+                _.map(domesticBanks, (domesticBank) => (
+                  <option
+                    key={domesticBank.id}
+                    className="isDomesticBank"
+                    value={domesticBank.id}
+                  >
+                    {domesticBank.name}
+                  </option>
+                )) */}
+            </select>
+          </div>
+          <div
+            className="bottomOfTwoDivs"
+            style={
+              !_.isEmpty(transactionForm.bank) && transactionForm.bank.type == 'foreignBank' ? {} : { display: 'none' }
+            }>
+            <label htmlFor="transferBIC">BIC Τράπεζας</label>
+            <input
+              className={`form-control transferBIC ${_.isEmpty(transactionForm.bank) ||      transactionForm.bank.correct ? "" : "notValid"}`}
+              value={transactionForm.bank.bic || ""}
+              onChange={(e) => setCreditBankBIC(e.target.value)}
+              placeholder="BIC"
+            />
+          </div>
         </div>
+{/* ---------------------------------------------  ΤΡΑΠΕΖΑ END --------------------------------------------------- */}
 
-        {/* <div className="form-group">
-          <label htmlFor="transferBIC">BIC Τράπεζας</label>
-          <input
-            className={`form-control transferBIC ${_.isEmpty(transactionForm.bankBIC) || transactionForm.bankBIC.correct ? "" : "notValid"}`}
-            value={transactionForm.bankBIC.value || ""}
-            onChange={(e) => setCreditFullName(e.target.value)}
-            placeholder="BIC"
-          />
-        </div> */}
+{/* ---------------------------------------------  ACCOUNT START --------------------------------------------------- */}
+        <div
+          className="form-group"
+          style={
+            !_.isEmpty(transactionForm.bank) && transactionForm.bank.type == 'agileBank' ? {} : { display: 'none' }
+          }>
+          <label htmlFor="transferIBAN">Προς</label>
+            <select
+              id="selectCreditAccount"
+              className={`selectpicker transferSelectAccount form-control ${_.isEmpty(transactionForm.debitAccount) || transactionForm.debitAccount.correct ? "" : "notValid"}`}
+              style={
+                !_.isEmpty(transactionForm.bank) && transactionForm.bank.type == 'agileBank' ? {} : { display: 'none' }
+              }
+              data-show-subtext="true"
+              title="IBAN"
+              onChange={
+                (e) => setCreditAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)
+              }
+            >
+              {
+                _.map(accounts, (account) => (
+                  <option
+                    key={account.iban}
+                    className="isAccount"
+                    data-subtext={
+                      `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
+                    }
+                  >
+                    {account.iban}
+                  </option>
+                ))
+              }
+              <option className="other">Λογαριασμός Τρίτου</option>
+            </select>
 
-        <div className="form-group">
+
+        </div>
+{/* ---------------------------------------------  ACCOUNT END --------------------------------------------------- */}
+        <input
+          className={`form-control ${_.isEmpty(transactionForm.creditAccount) || transactionForm.creditAccount.correct ? "" : "notValid"}`}
+          style={
+            !_.isEmpty(transactionForm.bank) && transactionForm.bank.type != 'agileBank' ? {} : { display: 'none' }
+          }
+          value={transactionForm.creditAccount.value || ""}
+          onChange={(e) => setCreditAccount(e.target.value)}
+          placeholder="IBAN"
+        />
+{/* -------------------------------------------  FULL NAME START ------------------------------------------------- */}
+        <input
+          className={`form-control bottomOfTwoDivs ${_.isEmpty(transactionForm.fullName) || transactionForm.fullName.correct ? "" : "notValid"}`}
+          value={transactionForm.fullName.value || ""}
+          style={
+            !_.isEmpty(transactionForm.bank) && transactionForm.bank.type != '' ? {} : { display: 'none' }
+          }
+          onChange={(e) => setCreditFullName(e.target.value)}
+          placeholder="Ονοματεπώνυμο Δικαιούχου"
+        />
+{/* -------------------------------------------  FULL NAME END --------------------------------------------------- */}
+
+{/* ---------------------------------------------  AMOUNT START --------------------------------------------------- */}
+        <div
+          className="form-group bottomOfTwoDivs"
+          style={
+            !_.isEmpty(transactionForm.bank) && transactionForm.bank.type != '' ? {} : { display: 'none' }
+          }>
           <label htmlFor="transferAmount">Ποσό</label>
           <input
             id="transferAmount"
@@ -185,8 +247,14 @@ class TransferForm extends Component {
             placeholder="€"
            />
         </div>
+{/* ---------------------------------------------  AMOUNT END --------------------------------------------------- */}
 
-        <div className="form-group">
+{/* ---------------------------------------------  CHARGES START --------------------------------------------------- */}
+        <div
+          className="form-group"
+          style={
+            !_.isEmpty(transactionForm.bank) && transactionForm.bank.type != 'agileBank' ? {} : { display: 'none' }
+          }>
           <label htmlFor="transferSelectCharges">Επιβάρυνση Εξόδων</label>
           <div>
           <select
@@ -215,76 +283,92 @@ class TransferForm extends Component {
           </select>
           </div>
         </div>
+{/* ---------------------------------------------  CHARGES END --------------------------------------------------- */}
 
-        <div className="form-group">
-          <label htmlFor="transferComment">Σχόλια</label>
-          <textarea
-            id="transferComment"
-            className={`form-control ${_.isEmpty(transactionForm.comments) || transactionForm.comments.correct ? "" : "notValid"}`}
-            value={transactionForm.comments.value || ""}
-            onChange={(e) => setTransferComments(e.target.value)}
-            rows="3"
+{/* --------------------------------------------  COMMENTS START --------------------------------------------------- */}
+        <div
+          style={
+            !_.isEmpty(transactionForm.bank) && transactionForm.bank.type != '' ? {} : { display: 'none' }
+          }>
+          <div
+            className="form-group">
+            <label htmlFor="transferComment">Σχόλια</label>
+            <textarea
+              id="transferComment"
+              className={`form-control ${_.isEmpty(transactionForm.comments) || transactionForm.comments.correct ? "" : "notValid"}`}
+              value={transactionForm.comments.value || ""}
+              onChange={(e) => setTransferComments(e.target.value)}
+              rows="3"
+            />
+          </div><div className="form-group">
+            <label htmlFor="transferDate">Εκτέλεση Συναλλαγής</label>
+            <div id="transferDate">
+              <span
+                id="now"
+                className="transferDateRadio">
+                <input
+                  type="radio"
+                  name="transferDate"
+                  onChange={() => setAsapTransfer(true)}
+                  checked={transactionForm.date.asapTransfer}
+                />
+                <span
+                  id="amesa"
+                  onClick={() => setAsapTransfer(true)}>
+                  Άμεσα
+                </span>
+              </span>
+              <span
+                id="later"
+                className="transferDateRadio">
+                <input
+                  type="radio"
+                  name="transferDate"
+                  onChange={() => setAsapTransfer(false)}
+                  checked={!_.isEmpty(transactionForm.date) && !transactionForm.date.asapTransfer}
+                />
+                <span
+                  id="stis"
+                  onClick={() => setAsapTransfer(false)}>
+                  Στις
+                </span>
+                <DatePicker
+                  id="transferDatePicker"
+                  className={`form-control text-right ${_.isEmpty(transactionForm.date) || transactionForm.date.correct ? "" : "notValid"}`}
+                  weekStartsOnMonday
+                  calendarPlacement="top"
+                  placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
+                  value={transactionForm.date.value}
+                  onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
+                  disabled={_.isEmpty(transactionForm.date) || transactionForm.date.asapTransfer}
+                />
+              </span>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label id="saveTransfer">
+              <input id="saveTransferCheckBox" type="checkbox" />
+              <span>Αποθήκευση ως πρότυπο</span>
+            </label>
+          </div>
+
+          <FormCompletionButtons
+            shouldProcess={transactionForm.shouldProcess}
+            clearForm={this.clearForm.bind(this)}
+            linkToApprovalForm='/banking/transfers/approval'
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="transferDate">Εκτέλεση Συναλλαγής</label>
-          <div id="transferDate">
-            <span
-              id="now"
-              className="transferDateRadio">
-              <input
-                type="radio"
-                name="transferDate"
-                onChange={() => setAsapTransfer(true)}
-                checked={transactionForm.date.asapTransfer}
-              />
-              <span
-                id="amesa"
-                onClick={() => setAsapTransfer(true)}>
-                Άμεσα
-              </span>
-            </span>
-            <span
-              id="later"
-              className="transferDateRadio">
-              <input
-                type="radio"
-                name="transferDate"
-                onChange={() => setAsapTransfer(false)}
-                checked={!_.isEmpty(transactionForm.date) && !transactionForm.date.asapTransfer}
-              />
-              <span
-                id="stis"
-                onClick={() => setAsapTransfer(false)}>
-                Στις
-              </span>
-              <DatePicker
-                id="transferDatePicker"
-                className={`form-control text-right ${_.isEmpty(transactionForm.date) || transactionForm.date.correct ? "" : "notValid"}`}
-                weekStartsOnMonday
-                calendarPlacement="top"
-                placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
-                value={transactionForm.date.value}
-                onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
-                disabled={_.isEmpty(transactionForm.date) || transactionForm.date.asapTransfer}
-              />
-            </span>
-          </div>
-        </div>
+{/* ---------------------------------------------  COMMENTS END --------------------------------------------------- */}
 
-        <div className="form-group">
-          <label id="saveTransfer">
-            <input id="saveTransferCheckBox" type="checkbox" />
-            <span>Αποθήκευση ως πρότυπο</span>
-          </label>
-        </div>
 
-        <FormCompletionButtons
-          shouldProcess={transactionForm.shouldProcess}
-          clearForm={this.clearForm.bind(this)}
-          linkToApprovalForm='/banking/transfers/approval'
-        />
+
+
+
+
+
+
 
       </form>
     )
