@@ -14,14 +14,14 @@ import {
   setAsapTransfer,
   setTransactionDate,
 } from 'routes/root/routes/Banking/routes/Transfers/modules/transfers';
-import TransferForm from '../components';
+import TransferFormLayout from '../components/TransferFormLayout';
 
 const mapStateToProps = (state) => ({
   accounts: state.accounts.accounts,
   loans: state.loans.loans,
   creditCards: state.cards.creditCards,
   prepaidCards: state.cards.prepaidCards,
-  transactionForm: state.transfers.transactionForm
+  transactionForm: state.transfers.transactionForm,
 });
 
 const mapActionCreators = {
@@ -39,4 +39,4 @@ const mapActionCreators = {
   setTransactionDate: (date, formattedDate) => setTransactionDate (date, formattedDate),
 };
 
-export default connect(mapStateToProps, mapActionCreators)(TransferForm);
+export default connect(mapStateToProps, mapActionCreators)(TransferFormLayout);

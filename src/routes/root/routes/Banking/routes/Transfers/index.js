@@ -5,12 +5,12 @@ import transfers from './modules/transfers'
 
 export const TransfersRoute = (store) => {
   injectReducer(store, { key: 'transfers', reducer: transfers });
-
   return {
     path        : '/banking/transfers',
     component   : TransfersLayout,
     indexRoute  : TransferFormRoute(store),
     childRoutes : [
+      TransferFormRoute(store),
       TransferApprovalRoute(store),
       TransferResultRoute(store),
     ]

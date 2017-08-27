@@ -12,6 +12,8 @@ import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loa
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const INIT_TRANSFER_TRANSACTION_FORM = 'INIT_TRANSFER_TRANSACTION_FORM';
+const FETCHING_DOMESTIC_BANKS = 'FETCHING_DOMESTIC_BANKS';
+const SET_DOMESTIC_BANKS = 'SET_DOMESTIC_BANKS';
 const SET_TRANSFER_DEBIT_ACCOUNT = 'SET_TRANSFER_DEBIT_ACCOUNT';
 const SET_TRANSFER_CREDIT_ACCOUNT = 'SET_TRANSFER_CREDIT_ACCOUNT';
 const SET_TRANSFER_CREDIT_FULL_NAME = 'SET_TRANSFER_CREDIT_FULL_NAME';
@@ -36,6 +38,40 @@ const linkTo = (route) => {
       type: CHANGE_ACTIVE_TAB,
       payload: route
     });
+  }
+}
+
+export const getDomesticBanks = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type    : FETCHING_DOMESTIC_BANKS
+    });
+
+    return axios({
+      method: 'get',
+      url: 'http://localhost:26353/api/Bank/GetAllDomesticBanks',
+      withCredentials: true,
+    })
+    .then((response) => {
+      dispatch({
+        type    : SET_DOMESTIC_BANKS,
+        payload : response
+      })
+    })
+    .catch((exception) => {
+      !_.isEmpty(exception.response) && exception.response.status == 401 ?
+      dispatch({
+        type    : LOG_OUT,
+      }) :
+      dispatch({
+        type    : UNSUCCESSFUL_TRANSACTION,
+        payload : {
+          exception,
+          linkToStart: '/banking/transfers'
+        }
+      })
+    })
+    .then(() => linkTo('/banking/transfers'))
   }
 }
 
@@ -177,6 +213,9 @@ export const setCreditFullName = (fullName) => {
 
 export const setCreditBankType = (selection, bankType) => {
   return (dispatch, getState) => {
+    if (bankType == 'domesticBank') {
+      getDomesticBanks()(dispatch, getState)
+    }
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
       payload: {
@@ -187,6 +226,17 @@ export const setCreditBankType = (selection, bankType) => {
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
     });
+    switch (bankType) {
+      case 'agileBank':
+          linkTo('/banking/transfers/toAgileBank')
+        break;
+      case 'domesticBank':
+        linkTo('/banking/transfers/toDomesticBank')
+        break;
+      case 'foreignBank':
+        linkTo('/banking/transfers/toForeignBank')
+        break;
+    }
   }
 }
 
@@ -275,8 +325,11 @@ export const setAsapTransfer = (isAsap) => {
 }
 
 export const initTransferTransactionForm = () => {
-  return {
-    type: INIT_TRANSFER_TRANSACTION_FORM,
+  return (dispatch, getState) => {
+    dispatch({
+      type: INIT_TRANSFER_TRANSACTION_FORM,
+    })
+    getDomesticBanks()(dispatch, getState);
   }
 }
 
@@ -288,6 +341,7 @@ export const clearTransferTransactionForm = () => {
 
 export const actions = {
   transfer,
+  getDomesticBanks,
   setDebitAccount,
   setCreditAccount,
   setCreditFullName,
@@ -317,7 +371,7 @@ const ACTION_HANDLERS = {
         fullName: {},
         bank: {},
         amount: {},
-        chanrgesBeneficiary: {},
+        chargesBeneficiary: {},
         comments: {
           value: '',
           correct: true,
@@ -344,12 +398,13 @@ const ACTION_HANDLERS = {
   },
 
   SET_TRANSFER_CREDIT_ACCOUNT: (state, action) => {
+    console.log(action.payload.type)
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         creditAccount: {
-          value: action.payload.type == 'other' ? '' : action.payload.account,
+          value: action.payload.account,
           type: action.payload.type,
           correct: IBAN.isValid(action.payload),
         }
@@ -382,6 +437,16 @@ const ACTION_HANDLERS = {
           selection: action.payload.selection,
           correct: action.payload.bankType == 'agileBank'
         }
+      }
+    }
+  },
+
+  SET_DOMESTIC_BANKS: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        domesticBanks: action.payload.data,
       }
     }
   },
@@ -432,7 +497,7 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        chanrgesBeneficiary: {
+        chargesBeneficiary: {
           value: action.payload,
           correct: action.payload == 'both' || action.payload == 'sender' || action.payload == 'beneficiary',
         }
@@ -494,7 +559,7 @@ const ACTION_HANDLERS = {
         state.transactionForm.fullName.correct &&
         state.transactionForm.bank.correct &&
         state.transactionForm.amount.correct &&
-        state.transactionForm.chanrgesBeneficiary.correct &&
+        (state.transactionForm.bank.type == 'agileBank' || state.transactionForm.chargesBeneficiary.correct) &&
         state.transactionForm.comments.correct &&
         state.transactionForm.date.correct
       }

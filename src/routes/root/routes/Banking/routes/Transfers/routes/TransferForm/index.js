@@ -1,18 +1,21 @@
 import { injectReducer } from 'store/reducers'
-import { logOut } from 'routes/root/routes/Banking/modules/banking';
-import TransferForm from './containers/TransferFormContainer'
-// import TransferForm from './components'
-import cookie from 'react-cookie'
+import TransferFormLayout from './containers/TransferFormLayoutContainer'
+import {
+  ToAgileBankFormRoute,
+  ToDomesticBankFormRoute,
+  ToForeignBankFormRoute,
+} from './routes'
 
-export default (store) => ({
-  getComponent (nextState, cb) {
-    require.ensure([], (require) => {
-      cb(null, TransferForm)
-    })
-  },
-  onEnter(nextState, replace) {
-    if (!cookie.load('access_token')) {
-      logOut()(store.dispatch, store.getState);
-    }
+export const TransferFormRoute = (store) => {
+  return {
+    component   : TransferFormLayout,
+    indexRoute  : ToAgileBankFormRoute(store),
+    childRoutes : [
+      ToAgileBankFormRoute(store),
+      ToDomesticBankFormRoute(store),
+      ToForeignBankFormRoute(store),
+    ]
   }
-})
+}
+
+export default TransferFormRoute
