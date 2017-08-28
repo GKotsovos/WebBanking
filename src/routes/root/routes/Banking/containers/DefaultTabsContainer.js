@@ -3,6 +3,7 @@ import { linkTo } from '../modules/banking';
 import { getAccounts, deactiveAccount } from '../routes/Accounts/modules/accounts';
 import { getCards, deactivateCard } from '../routes/Cards/modules/cards';
 import { getLoans, deactivateLoan } from '../routes/Loans/modules/loans';
+import { initTransferTransactionForm } from '../routes/Transfers/modules/transfers'
 import DefaultTabs from '../components/Tabs/DefaultTabs';
 
 const mapStateToProps = (state) => ({
@@ -17,6 +18,7 @@ const mapActionCreators = {
   deactivateCard: ()=> deactivateCard(),
   getLoans: () => getLoans(),
   deactivateLoan: ()=> deactivateLoan(),
+  initTransferTransactionForm: ()=> initTransferTransactionForm(),
 }
 
 export default connect(mapStateToProps, mapActionCreators)(DefaultTabs);

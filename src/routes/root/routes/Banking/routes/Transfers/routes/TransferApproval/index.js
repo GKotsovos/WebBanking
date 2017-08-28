@@ -1,7 +1,6 @@
 import { injectReducer } from 'store/reducers'
 import { logOut } from 'routes/root/routes/Banking/modules/banking';
-// import TransferApproval from './containers/TransferApprovalContainer'
-import TransferApproval from './components'
+import TransferApproval from './containers/TransferApprovalContainer'
 import cookie from 'react-cookie'
 
 export default (store) => ({

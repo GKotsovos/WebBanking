@@ -249,7 +249,10 @@ export const setAsapLoanTransaction = (isAsap) => {
     dispatch({
       type: SET_ASAP_LOAN_TRANSACTION_DATE,
       payload: isAsap
-    })
+    });
+    dispatch({
+      type: VALIDATE_LOANS_TRANSACTION_FORM
+    });
   }
 }
 

@@ -43,35 +43,36 @@ const linkTo = (route) => {
 
 export const getDomesticBanks = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type    : FETCHING_DOMESTIC_BANKS
-    });
+    if (_.isEmpty(getState().transfers.transactionForm.domesticBanks)) {
+      dispatch({
+        type    : FETCHING_DOMESTIC_BANKS
+      });
 
-    return axios({
-      method: 'get',
-      url: 'http://localhost:26353/api/Bank/GetAllDomesticBanks',
-      withCredentials: true,
-    })
-    .then((response) => {
-      dispatch({
-        type    : SET_DOMESTIC_BANKS,
-        payload : response
+      return axios({
+        method: 'get',
+        url: 'http://localhost:26353/api/Bank/GetAllDomesticBanks',
+        withCredentials: true,
       })
-    })
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : LOG_OUT,
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_TRANSACTION,
-        payload : {
-          exception,
-          linkToStart: '/banking/transfers'
-        }
+      .then((response) => {
+        dispatch({
+          type    : SET_DOMESTIC_BANKS,
+          payload : response
+        })
       })
-    })
-    .then(() => linkTo('/banking/transfers'))
+      .catch((exception) => {
+        !_.isEmpty(exception.response) && exception.response.status == 401 ?
+        dispatch({
+          type    : LOG_OUT,
+        }) :
+        dispatch({
+          type    : UNSUCCESSFUL_TRANSACTION,
+          payload : {
+            exception,
+            linkToStart: '/banking/transfers'
+          }
+        })
+      })
+    }
   }
 }
 
@@ -213,9 +214,6 @@ export const setCreditFullName = (fullName) => {
 
 export const setCreditBankType = (selection, bankType) => {
   return (dispatch, getState) => {
-    if (bankType == 'domesticBank') {
-      getDomesticBanks()(dispatch, getState)
-    }
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
       payload: {
@@ -223,12 +221,17 @@ export const setCreditBankType = (selection, bankType) => {
         bankType
       }
     });
+    const bic = bankType == 'agileBank' ? 'AGILGRAA' : ''
+    dispatch({
+      type: SET_TRANSFER_CREDIT_BANK,
+      payload: bic
+    });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
     });
     switch (bankType) {
       case 'agileBank':
-          linkTo('/banking/transfers/toAgileBank')
+        linkTo('/banking/transfers/toAgileBank')
         break;
       case 'domesticBank':
         linkTo('/banking/transfers/toDomesticBank')
@@ -320,7 +323,10 @@ export const setAsapTransfer = (isAsap) => {
     dispatch({
       type: SET_ASAP_TRANSFER,
       payload: isAsap
-    })
+    });
+    dispatch({
+      type: VALIDATE_TRANSFER_TRANSACTION_FORM
+    });
   }
 }
 
@@ -329,7 +335,7 @@ export const initTransferTransactionForm = () => {
     dispatch({
       type: INIT_TRANSFER_TRANSACTION_FORM,
     })
-    getDomesticBanks()(dispatch, getState);
+    getDomesticBanks()(dispatch, getState)
   }
 }
 
@@ -366,6 +372,7 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       transactionForm: {
+        ...state.transactionForm,
         debitAccount: {},
         creditAccount: {},
         fullName: {},
@@ -398,7 +405,6 @@ const ACTION_HANDLERS = {
   },
 
   SET_TRANSFER_CREDIT_ACCOUNT: (state, action) => {
-    console.log(action.payload.type)
     return {
       ...state,
       transactionForm: {
@@ -406,7 +412,7 @@ const ACTION_HANDLERS = {
         creditAccount: {
           value: action.payload.account,
           type: action.payload.type,
-          correct: IBAN.isValid(action.payload),
+          correct: IBAN.isValid(action.payload.account),
         }
       }
     }
@@ -457,7 +463,9 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         bank: {
-          value: action.payload,
+          ...state.transactionForm.bank,
+          bic: action.payload.split(' - ')[0],
+          selection: action.payload,
           correct: true,
         }
       }
@@ -472,7 +480,7 @@ const ACTION_HANDLERS = {
         bank: {
           ...state.transactionForm.bank,
           bic: action.payload,
-          correct: bic.isValid(action.payload),
+          correct: bic.isValid(action.payload) || action.payload == 'AGILGRAA',
         }
       }
     }
@@ -550,16 +558,20 @@ const ACTION_HANDLERS = {
   },
 
   VALIDATE_TRANSFER_TRANSACTION_FORM: (state, action) => {
+    console.log(state.transactionForm.creditAccount.correct)
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         shouldProcess: state.transactionForm.debitAccount.correct &&
         state.transactionForm.creditAccount.correct &&
-        state.transactionForm.fullName.correct &&
+        ((state.transactionForm.bank.type == 'agileBank' &&
+        state.transactionForm.creditAccount.type != 'other') ||
+        state.transactionForm.fullName.correct) &&
         state.transactionForm.bank.correct &&
         state.transactionForm.amount.correct &&
-        (state.transactionForm.bank.type == 'agileBank' || state.transactionForm.chargesBeneficiary.correct) &&
+        (state.transactionForm.bank.type == 'agileBank' ||
+        state.transactionForm.chargesBeneficiary.correct) &&
         state.transactionForm.comments.correct &&
         state.transactionForm.date.correct
       }

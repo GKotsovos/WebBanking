@@ -422,7 +422,10 @@ export const setAsapCardTransaction = (isAsap) => {
     dispatch({
       type: SET_ASAP_CARD_TRANSACTION_DATE,
       payload: isAsap
-    })
+    });
+    dispatch({
+      type: VALIDATE_CARDS_TRANSACTION_FORM
+    });
   }
 }
 

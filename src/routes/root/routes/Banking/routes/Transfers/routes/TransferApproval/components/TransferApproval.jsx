@@ -1,63 +1,68 @@
 import React from 'react';
+import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/components/TransactionApprovalHeader'
+import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
+import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
 import './TransferApproval.css';
 
-export const TransferApproval = () => (
+export const TransferApproval = ({ transactionForm, transfer }) => (
   <form id="transferApprovalForm">
 
     <div id="transferApprovalTable" className="form-group">
       <table className="table table-bordered">
         <thead>
-          <tr className="tableHead titles">
-            <th colSpan="3" className="text-center">Στοιχεία Εμβάσματος</th>
-          </tr>
+          <TransactionApprovalHeader
+            title='Στοιχεία Εμβάσματος'
+          />
         </thead>
         <tbody>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Λογαριασμός χρέωσης</td>
-            <td className="cell col-sm-4 text-center">GR2201100470000009237465820</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Λογαριασμός πίστωσης</td>
-            <td className="cell col-sm-4 text-center">GR2201100470000009256765829</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Όνομα δικαιούχου</td>
-            <td className="cell col-sm-4 text-center">Μαρία Κοτσοβού</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Τράπεζα</td>
-            <td className="cell col-sm-4 text-center">Agile Bank</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Καθαρό ποσό εμβάσματος</td>
-            <td className="cell col-sm-4 text-center">250,00€</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Έξοδα εμβάσματος</td>
-            <td className="cell col-sm-4 text-center">0,00€</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Σύνολο χρέωσης λογαριασμού</td>
-            <td className="cell col-sm-4 text-center">250,00€</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Λογιστικό υπόλοιπο λογαριασμού</td>
-            <td className="cell col-sm-4 text-center">5200,00€</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Ημερομηνία συναλλαγής</td>
-            <td className="cell col-sm-4 text-center">29/12/2016</td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Σχόλια</td>
-            <td className="cell col-sm-4 text-center">Δανεικά</td>
-          </tr>
+          <SimpleTransactionApprovalRow
+            title='Λογαριασμός χρέωσης'
+            value={transactionForm.debitAccount.value}
+          />
+          <SimpleTransactionApprovalRow
+            title='Λογαριασμός πίστωσης'
+            value={transactionForm.creditAccount.value}
+          />
+          <SimpleTransactionApprovalRow
+            title='Όνομα δικαιούχου'
+            value={transactionForm.fullName.value}
+          />
+          <SimpleTransactionApprovalRow
+            title='BIC Τράπεζας'
+            value={transactionForm.bank.bic}
+          />
+          <MoneyTransactionApprovalRow
+            title='Καθαρό ποσό εμβάσματος'
+            amount={transactionForm.amount.value}
+            currency='EUR'
+          />
+          {/* <MoneyTransactionApprovalRow
+            title='Καθαρό ποσό εμβάσματος'
+            amount={transactionForm.charges}
+            currency={transactionForm.currency}
+          />
+          <MoneyTransactionApprovalRow
+            title='Σύνολο χρέωσης λογαριασμού'
+            amount={transactionForm.amount.value + transactionForm.value}
+            currency={transactionForm.currency}
+          /> */}
+          <SimpleTransactionApprovalRow
+            title='Ημερομηνία εκτέλεσης'
+            value={transactionForm.viewDate}
+          />
+          <SimpleTransactionApprovalRow
+            title='Σχόλια'
+            value={transactionForm.comments.value}
+          />
         </tbody>
       </table>
     </div>
 
-    <TransactionApprovalButtons />
+    <TransactionApprovalButtons
+      linkToPreviousForm='/banking/transfers'
+      completeTransaction={transfer}
+    />
 
   </form>
 )
