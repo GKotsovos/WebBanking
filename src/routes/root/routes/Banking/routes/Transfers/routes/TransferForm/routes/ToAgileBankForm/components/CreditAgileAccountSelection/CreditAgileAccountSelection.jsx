@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
-import './CreditAgileAccountSelection.css';
 
 class CreditAgileAccountSelection extends Component {
   componentDidMount() {

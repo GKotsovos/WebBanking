@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-// import { linkTo } from '../modules/cards'
 import DebitCardsLayout from '../components/DebitCardsLayout';
 
 const mapStateToProps = (state) => ({
@@ -8,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
-  // linkTo: (route) => linkTo(route)
+  
 }
 
 export default connect(mapStateToProps, null)(DebitCardsLayout);

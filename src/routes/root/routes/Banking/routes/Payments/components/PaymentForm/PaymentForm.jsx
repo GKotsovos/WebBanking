@@ -3,11 +3,6 @@ import DatePicker from 'react-bootstrap-date-picker'
 import FormCompletionButtons from '../../../components/FormCompletionButtons';
 import './PaymentForm.css';
 
-// const callJquery = () => {
-//   $(document).ready( () => $('.selectpicker').selectpicker() )
-// }
-
-// export const PaymentForm = () => (
 class PaymentForm extends Component {
   componentDidMount() {
     $('.selectpicker').selectpicker()

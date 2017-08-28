@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
 import Card from '../../../containers/CardContainer'
-import './PrepaidCardsLayout.css';
+import _ from 'underscore';
 
 export const PrepaidCardsLayout = ({ children, prepaidCards, activeCard }) => (
   <div role="tabpanel" className="tab-pane" id="prepaid">

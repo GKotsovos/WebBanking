@@ -4,6 +4,7 @@ import {
   initLoanTransactionForm,
   setDebitAccount,
   setLoanPaymentAmount,
+  setAsapLoanTransaction,
   setTransactionDate,
   validateLoanPaymentForm,
  } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
@@ -21,6 +22,7 @@ const mapActionCreators = {
   initLoanTransactionForm: () => initLoanTransactionForm(),
   setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount(debitAccount, debitAccountType),
   setLoanPaymentAmount: (amount) => setLoanPaymentAmount(amount),
+  setAsapLoanTransaction: (isAsap) => setAsapLoanTransaction(isAsap),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
   validateLoanPaymentForm: () => validateLoanPaymentForm(),
 };

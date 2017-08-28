@@ -1,10 +1,9 @@
 import React from 'react'
 import BicInput from '../BicInput'
-import CreditAccountInput from '../../../../components/CreditAccountInput'
-import BeneficiaryInput from '../../../../components/BeneficiaryInput'
-import AmountInput from '../../../../components/AmountInput'
-import ChargesSelection from '../../../../components/ChargesSelection'
-import './ToForeignBankForm.css';
+import CreditAccountInput from '../../../../components/CreditAccountInput';
+import BeneficiaryInput from '../../../../components/BeneficiaryInput';
+import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
+import ChargesSelection from '../../../../components/ChargesSelection';
 
 export const ToForeignBankForm = ({
   bank,
@@ -33,7 +32,7 @@ export const ToForeignBankForm = ({
     />
     <AmountInput
       amount={amount}
-      setTransferAmount={setTransferAmount}
+      setTransactionAmount={setTransferAmount}
     />
     <ChargesSelection
       chargesBeneficiary={chargesBeneficiary}

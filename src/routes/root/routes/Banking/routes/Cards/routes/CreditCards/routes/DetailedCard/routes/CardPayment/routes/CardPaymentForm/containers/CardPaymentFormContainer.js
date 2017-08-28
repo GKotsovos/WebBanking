@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
   setDebitAccount,
   setCreditCardPaymentAmount,
+  setAsapCardTransaction,
   setTransactionDate,
   initCardTransactionForm
  } from '../../../../../../../../../modules/cards.js'
@@ -19,6 +20,7 @@ const mapStateToProps = (state) => ({
 const mapActionCreators = {
   setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount(debitAccount, debitAccountType),
   setCreditCardPaymentAmount: (amount) => setCreditCardPaymentAmount(amount),
+  setAsapCardTransaction: (isAsap) => setAsapCardTransaction(isAsap),
   setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
   initCardTransactionForm: () => initCardTransactionForm(),
 };

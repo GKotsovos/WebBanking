@@ -1,5 +1,7 @@
 import React from 'react';
-import currencyFormatter from 'currency-formatter';
+import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/components/TransactionApprovalHeader';
+import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow';
+import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow';
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons';
 import './LoadApproval.css';
 
@@ -9,47 +11,40 @@ export const LoadApproval = ({ transactionForm, prepaidCardLoad }) => (
     <div id="loadApprovalTable" className="form-group">
       <table className="table table-bordered">
         <thead>
-          <tr className="tableHead titles">
-            <th colSpan="3" className="text-center">Στοιχεία Πληρωμής</th>
-          </tr>
+          <TransactionApprovalHeader
+            title='Στοιχεία Πληρωμής'
+          />
         </thead>
         <tbody>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Λογαριασμός χρέωσης</td>
-            <td className="cell col-sm-4 text-center">
-              {transactionForm.debitAccount.value}
-            </td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Ποσό φόρτισης</td>
-            <td className="cell col-sm-4 text-center">
-              {transactionForm.amount.value.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
-            </td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Έξοδα φόρτισης</td>
-            <td className="cell col-sm-4 text-center">
-              {transactionForm.expenses.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
-            </td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Σύνολο χρέωσης λογαριασμού</td>
-            <td className="cell col-sm-4 text-center">
-              {transactionForm.amount.value.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(transactionForm.currency).symbol}
-            </td>
-          </tr>
-          <tr>
-            <td className="titleCell col-sm-5 text-right">Ημερομηνία εκτέλεσης</td>
-            <td className="cell col-sm-4 text-center">
-              {transactionForm.viewDate}
-            </td>
-          </tr>
+          <SimpleTransactionApprovalRow
+            title='Λογαριασμός χρέωσης'
+            value={transactionForm.debitAccount.value}
+          />
+          <MoneyTransactionApprovalRow
+            title='Ποσό φόρτισης'
+            amount={transactionForm.amount.value}
+            currency={transactionForm.currency}
+          />
+          <MoneyTransactionApprovalRow
+            title='Έξοδα φόρτισης'
+            amount={transactionForm.expenses}
+            currency={transactionForm.currency}
+          />
+          <MoneyTransactionApprovalRow
+            title='Σύνολο χρέωσης λογαριασμού'
+            amount={transactionForm.amount.value}
+            currency={transactionForm.currency}
+          />
+          <SimpleTransactionApprovalRow
+            title='Ημερομηνία εκτέλεσης'
+            value={transactionForm.viewDate}
+          />
         </tbody>
       </table>
     </div>
 
     <TransactionApprovalButtons
-      linkToPreviousForm='/banking/cards/creditcards/card/payment'
+      linkToPreviousForm='/banking/cards/prepaidcards/card/load'
       completeTransaction={prepaidCardLoad}
     />
 

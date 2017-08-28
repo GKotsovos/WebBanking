@@ -19,6 +19,7 @@ const INIT_CARD_TRANSACTION_FORM = 'INIT_CARD_TRANSACTION_FORM';
 const SET_CARD_DEBIT_ACCOUNT = 'SET_CARD_DEBIT_ACCOUNT';
 const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
 const SET_PREPAID_CARD_LOAD_AMOUNT = 'SET_PREPAID_CARD_LOAD_AMOUNT';
+const SET_ASAP_CARD_TRANSACTION_DATE = 'SET_ASAP_CARD_TRANSACTION_DATE';
 const SET_CARD_TRANSACTION_DATE = 'SET_CARD_TRANSACTION_DATE';
 const VALIDATE_CARDS_TRANSACTION_FORM = 'VALIDATE_CARDS_TRANSACTION_FORM';
 const CLEAR_CARD_TRANSACTION_FORM = 'CLEAR_CARD_TRANSACTION_FORM';
@@ -416,6 +417,15 @@ export const setPrepaidCardLoadAmount = (amount) => {
   }
 }
 
+export const setAsapCardTransaction = (isAsap) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ASAP_CARD_TRANSACTION_DATE,
+      payload: isAsap
+    })
+  }
+}
+
 export const setTransactionDate = (date, formattedDate) => {
   return (dispatch, getState) => {
     dispatch({
@@ -464,6 +474,7 @@ export const actions = {
   setDebitAccount,
   setCreditCardPaymentAmount,
   setPrepaidCardLoadAmount,
+  setAsapCardTransaction,
   setTransactionDate,
   creditCardPayment,
   prepaidCardLoad,
@@ -590,6 +601,22 @@ const ACTION_HANDLERS = {
     }
   },
 
+  SET_ASAP_CARD_TRANSACTION_DATE: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        viewDate: action.payload.formattedDate,
+        date: {
+          ...state.transactionForm.date,
+          asapTransfer: action.payload,
+          correct: action.payload,
+          value: undefined
+        }
+      }
+    }
+  },
+
   SET_CARD_TRANSACTION_DATE: (state, action) => {
     return {
       ...state,
@@ -597,6 +624,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         viewDate: action.payload.formattedDate,
         date: {
+          ...state.transactionForm.date,
           value: action.payload.date,
           correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
         }

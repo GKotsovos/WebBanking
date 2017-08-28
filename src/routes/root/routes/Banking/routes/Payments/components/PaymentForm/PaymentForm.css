@@ -11,10 +11,6 @@
   cursor: pointer;
 }
 
-#amount {
-  max-width: 150px;
-}
-
 #paymentDatePicker_group {
   max-width: 170px;
 }

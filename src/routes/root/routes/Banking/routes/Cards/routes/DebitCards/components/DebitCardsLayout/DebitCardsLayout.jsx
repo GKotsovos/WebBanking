@@ -1,7 +1,6 @@
 import React from 'react';
-import _ from 'underscore';
 import Card from '../../../containers/CardContainer'
-import './DebitCardsLayout.css';
+import _ from 'underscore';
 
 export const DebitCardsLayout = ({ children, debitCards, activeCard }) => (
   <div role="tabpanel" className="tab-pane active" id="debit">

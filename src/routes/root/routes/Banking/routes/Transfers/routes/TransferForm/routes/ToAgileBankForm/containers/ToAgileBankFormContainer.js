@@ -6,9 +6,10 @@ import {
   setTransferAmount,
 } from 'routes/root/routes/Banking/routes/Transfers/modules/transfers';
 import ToAgileBankForm from '../components/ToAgileBankForm';
+import _ from 'underscore';
 
 const mapStateToProps = (state) => ({
-  accounts: state.accounts.accounts,
+  accounts: _.filter(state.accounts.accounts, (account) => account.iban != state.transfers.transactionForm.debitAccount.value),
   creditAccount: state.transfers.transactionForm.creditAccount,
   fullName: state.transfers.transactionForm.fullName,
   amount: state.transfers.transactionForm.amount,

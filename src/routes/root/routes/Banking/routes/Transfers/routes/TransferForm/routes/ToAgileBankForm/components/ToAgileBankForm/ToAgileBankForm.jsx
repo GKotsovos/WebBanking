@@ -1,8 +1,7 @@
 import React from 'react'
 import CreditAgileAccountSelection from '../CreditAgileAccountSelection'
 import BeneficiaryInput from '../../../../components/BeneficiaryInput'
-import AmountInput from '../../../../components/AmountInput'
-import './ToAgileBankForm.css';
+import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 
 export const ToAgileBankForm = ({
   accounts,
@@ -19,13 +18,16 @@ export const ToAgileBankForm = ({
       creditAccount={creditAccount}
       setCreditAccount={setCreditAccount}
     />
-    <BeneficiaryInput
-      fullName={fullName}
-      setCreditFullName={setCreditFullName}
-    />
+    {
+      creditAccount.type == 'other' ? 
+        <BeneficiaryInput
+          fullName={fullName}
+          setCreditFullName={setCreditFullName}
+        /> : null
+    }
     <AmountInput
       amount={amount}
-      setTransferAmount={setTransferAmount}
+      setTransactionAmount={setTransferAmount}
     />
   </div>
 )

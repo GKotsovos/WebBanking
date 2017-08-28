@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
-import './DomesticBankSelection.css';
 
 class DomesticBankSelection extends Component {
   componentDidMount() {

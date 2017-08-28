@@ -1,17 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import DetailedCard from '../../../../../containers/DetailedCardContainer'
 import PrepaidCardServicesTabs from '../../containers/PrepaidCardServicesContainer'
-import './DetailedCardLayout.css';
 
-class DetailedCardLayout extends Component {
-  render() {
-    return (
-      <div>
-        <DetailedCard type="PREPAID"/>
-        <PrepaidCardServicesTabs />
-        {this.props.children}
-      </div>
-    )
-  }
-}
+export const DetailedCardLayout = ({ children }) => (
+  <div>
+    <DetailedCard type="PREPAID"/>
+    <PrepaidCardServicesTabs />
+    {children}
+  </div>
+)
+
 export default DetailedCardLayout

@@ -2,7 +2,7 @@ import React from 'react';
 import './PrepaidCardServicesTabs.css';
 
 export const PrepaidCardServicesTabs = ({ activeRoute, initCardTransactionForm, linkTo }) => (
-  <div className="">
+  <div>
     <ul id="prepaidCardServicesTabs" className="nav nav-tabs text-center">
       <li
         className={`serviceTab ${activeRoute.endsWith('card') ? 'active' : ''}`}

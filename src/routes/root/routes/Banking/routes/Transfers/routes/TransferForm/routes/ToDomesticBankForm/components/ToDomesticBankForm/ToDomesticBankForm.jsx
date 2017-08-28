@@ -2,9 +2,8 @@ import React from 'react'
 import DomesticBankSelection from '../DomesticBankSelection'
 import CreditAccountInput from '../../../../components/CreditAccountInput'
 import BeneficiaryInput from '../../../../components/BeneficiaryInput'
-import AmountInput from '../../../../components/AmountInput'
+import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import ChargesSelection from '../../../../components/ChargesSelection'
-import './ToDomesticBankForm.css';
 
 export const ToDomesticBankForm = ({
   bank,
@@ -35,7 +34,7 @@ export const ToDomesticBankForm = ({
     />
     <AmountInput
       amount={amount}
-      setTransferAmount={setTransferAmount}
+      setTransactionAmount={setTransferAmount}
     />
     <ChargesSelection
       chargesBeneficiary={chargesBeneficiary}

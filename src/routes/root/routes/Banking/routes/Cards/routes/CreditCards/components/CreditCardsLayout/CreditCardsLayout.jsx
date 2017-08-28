@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
 import Card from '../../../containers/CardContainer'
+import _ from 'underscore';
 import './CreditCardsLayout.css';
 
 export const CreditCardsLayout = ({ children, creditCards, activeCard }) => (

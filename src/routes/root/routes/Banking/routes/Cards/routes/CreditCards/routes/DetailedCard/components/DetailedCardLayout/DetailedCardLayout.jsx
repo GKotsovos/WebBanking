@@ -3,16 +3,12 @@ import DetailedCard from '../../../../../containers/DetailedCardContainer'
 import CreditCardServicesTabs from '../../containers/CreditCardServicesContainer'
 import './DetailedCardLayout.css';
 
-class DetailedCardLayout extends Component {
-  render() {
-    return (
-      <div>
-        <DetailedCard type="CREDIT"/>
-        <CreditCardServicesTabs />
-        {this.props.children}
-      </div>
-    )
-  }
-}
+export const DetailedCardLayout = ({ children }) => (
+  <div>
+    <DetailedCard type="CREDIT"/>
+    <CreditCardServicesTabs />
+    {children}
+  </div>
+)
 
 export default DetailedCardLayout
