@@ -1,13 +1,14 @@
 import React from 'react';
+import { browserHistory } from 'react-router'
 import './TransactionApprovalButtons.css';
 
-export const TransactionApprovalButtons = ({ linkTo, linkToPreviousForm, completeTransaction, linkToTransactionResult }) => (
+export const TransactionApprovalButtons = ({ completeTransaction }) => (
   <div id="formApprovalButtons" className="form-group">
     <button
       id="previousForm"
       type="button"
       className="btn btn-default"
-      onClick={() => linkTo(linkToPreviousForm)}>
+      onClick={() => browserHistory.goBack()}>
       Επιστροφή
     </button>
     <button

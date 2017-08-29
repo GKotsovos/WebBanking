@@ -33,7 +33,6 @@ export const LoanPaymentApproval = ({ transactionForm, loanPayment }) => (
     </div>
 
     <TransactionApprovalButtons
-      linkToPreviousForm='/banking/loans/loan/payment'
       completeTransaction={loanPayment}
     />
 

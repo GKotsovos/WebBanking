@@ -60,7 +60,6 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
     </div>
 
     <TransactionApprovalButtons
-      linkToPreviousForm='/banking/transfers'
       completeTransaction={transfer}
     />
 

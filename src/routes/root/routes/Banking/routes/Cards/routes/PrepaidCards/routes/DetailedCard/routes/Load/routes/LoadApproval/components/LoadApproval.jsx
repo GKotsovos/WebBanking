@@ -44,7 +44,6 @@ export const LoadApproval = ({ transactionForm, prepaidCardLoad }) => (
     </div>
 
     <TransactionApprovalButtons
-      linkToPreviousForm='/banking/cards/prepaidcards/card/load'
       completeTransaction={prepaidCardLoad}
     />
 
