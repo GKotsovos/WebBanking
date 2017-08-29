@@ -6,7 +6,7 @@ class CreditAgileAccountSelection extends Component {
   componentDidMount() {
     const { creditAccount } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.transferCreditAccountType').selectpicker('val', [creditAccount.type]);
+    $('.selectpicker.transferCreditAccountType').selectpicker('val', [creditAccount.value]);
   }
 
   render() {

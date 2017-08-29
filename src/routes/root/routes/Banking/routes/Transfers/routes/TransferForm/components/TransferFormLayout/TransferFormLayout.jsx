@@ -45,7 +45,7 @@ class TransferFormLayout extends Component {
           setDebitAccount={setDebitAccount}
         />
         <SelectBankType
-          bank={transactionForm.bank}
+          bankType={transactionForm.bankType}
           setCreditBankType={setCreditBankType}
         />
         {children}

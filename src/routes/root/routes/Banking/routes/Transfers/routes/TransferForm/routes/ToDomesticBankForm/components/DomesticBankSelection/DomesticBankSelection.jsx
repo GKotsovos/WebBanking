@@ -5,7 +5,7 @@ class DomesticBankSelection extends Component {
   componentDidMount() {
     const { bank } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.domesticBankSelect').selectpicker('val', [bank.value]);
+    $('.selectpicker.domesticBankSelect').selectpicker('val', [bank.selection]);
   }
 
   render() {
@@ -22,7 +22,7 @@ class DomesticBankSelection extends Component {
           className={`selectpicker domesticBankSelect form-control ${_.isEmpty(bank) || bank.correct ? "" : "notValid"} `}
           data-show-subtext="true"
           title="Επιλέξτε Τράπεζα Δικαιούχου"
-          value={bank.name || ""}
+          value={bank.selection || ""}
           onChange={
             (e) => setCreditBank(e.target.value)
           }

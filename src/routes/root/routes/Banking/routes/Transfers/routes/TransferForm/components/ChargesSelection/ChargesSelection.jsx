@@ -6,7 +6,7 @@ export class ChargesSelection extends Component {
   componentDidMount() {
     const { chargesBeneficiary } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.transferSelectCharges').selectpicker('val', [chargesBeneficiary.value]);
+    $('.selectpicker.transferSelectCharges').selectpicker('val', [chargesBeneficiary.selection]);
   }
 
   render(){
@@ -19,7 +19,7 @@ export class ChargesSelection extends Component {
           className={`selectpicker transferSelectCharges form-control ${_.isEmpty(chargesBeneficiary) || chargesBeneficiary.correct ? "" : "notValid"}`}
           data-show-subtext="true"
           title="Επιλέξτε επιβάρυνση εξόδων"
-          onChange={(e) => setChargesBeneficiary(e.target.options[e.target.options.selectedIndex].id)}>
+          onChange={(e) => setChargesBeneficiary(e.target.value, e.target.options[e.target.options.selectedIndex].id)}>
           <option
             id="both"
             className="chargesText"

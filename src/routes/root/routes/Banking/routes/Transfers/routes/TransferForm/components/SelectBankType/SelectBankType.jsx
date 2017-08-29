@@ -4,14 +4,14 @@ import './SelectBankType.css';
 
 export class SelectBankType extends Component {
   componentDidMount() {
-    const { bank } = this.props;
+    const { bankType } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.transferBankSelect').selectpicker('val', [bank.selection])
+    $('.selectpicker.transferBankSelect').selectpicker('val', [bankType.selection])
   }
 
   render(){
     const {
-      bank,
+      bankType,
       setCreditBankType
     } = this.props;
     return (
@@ -19,10 +19,10 @@ export class SelectBankType extends Component {
         <label htmlFor="transferBankSelect">Τράπεζα</label>
         <div>
           <select
-            className={`selectpicker transferBankSelect form-control ${_.isEmpty(bank) || bank.correct ? "" : "notValid"}`}
+            className={`selectpicker transferBankSelect form-control ${_.isEmpty(bankType) || bankType.correct ? "" : "notValid"}`}
             data-show-subtext="true"
             title="Επιλέξτε Τύπο Τράπεζας"
-            value={bank.type || ""}
+            value={bankType.value || ""}
             onChange={
               (e) => setCreditBankType(e.target.value, e.target.options[e.target.options.selectedIndex].id)
             }

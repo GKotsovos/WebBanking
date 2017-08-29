@@ -22,7 +22,7 @@ const mapActionCreators = {
   setCreditAccount: (account, type) => setCreditAccount (account, type),
   setCreditFullName: (fullName) => setCreditFullName (fullName),
   setTransferAmount: (amount) => setTransferAmount (amount),
-  setChargesBeneficiary: (beneficiary) => setChargesBeneficiary (beneficiary),
+  setChargesBeneficiary: (selection, beneficiary) => setChargesBeneficiary (selection, beneficiary),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(ToDomesticBankForm);

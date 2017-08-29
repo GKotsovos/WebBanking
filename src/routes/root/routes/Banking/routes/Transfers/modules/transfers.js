@@ -213,6 +213,7 @@ export const setCreditFullName = (fullName) => {
 }
 
 export const setCreditBankType = (selection, bankType) => {
+  console.log(selection)
   return (dispatch, getState) => {
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
@@ -242,6 +243,37 @@ export const setCreditBankType = (selection, bankType) => {
     }
   }
 }
+
+// export const setCreditBankType = (selection, bankType) => {
+//   return (dispatch, getState) => {
+//     dispatch({
+//       type: SET_TRANSFER_CREDIT_BANK_TYPE,
+//       payload: {
+//         selection,
+//         bankType
+//       }
+//     });
+//     const bic = bankType == 'agileBank' ? 'AGILGRAA' : ''
+//     dispatch({
+//       type: SET_TRANSFER_CREDIT_BANK,
+//       payload: bic
+//     });
+//     dispatch({
+//       type: VALIDATE_TRANSFER_TRANSACTION_FORM
+//     });
+//     switch (bankType) {
+//       case 'agileBank':
+//         linkTo('/banking/transfers/toAgileBank')
+//         break;
+//       case 'domesticBank':
+//         linkTo('/banking/transfers/toDomesticBank')
+//         break;
+//       case 'foreignBank':
+//         linkTo('/banking/transfers/toForeignBank')
+//         break;
+//     }
+//   }
+// }
 
 export const setCreditBank = (bank) => {
   return (dispatch, getState) => {
@@ -279,11 +311,14 @@ export const setTransferAmount = (amount) => {
   }
 }
 
-export const setChargesBeneficiary = (beneficiary) => {
+export const setChargesBeneficiary = (selection, beneficiary) => {
   return (dispatch, getState) => {
     dispatch({
       type: SET_TRANSFER_CHARGES_BENEFICIARY,
-      payload: beneficiary
+      payload: {
+        selection,
+        beneficiary
+      }
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -376,6 +411,7 @@ const ACTION_HANDLERS = {
         debitAccount: {},
         creditAccount: {},
         fullName: {},
+        bankType: {},
         bank: {},
         amount: {},
         chargesBeneficiary: {},
@@ -438,10 +474,10 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        bank: {
-          type: action.payload.bankType,
+        bankType: {
+          value: action.payload.bankType,
           selection: action.payload.selection,
-          correct: action.payload.bankType == 'agileBank'
+          correct: true
         }
       }
     }
@@ -463,7 +499,6 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         bank: {
-          ...state.transactionForm.bank,
           bic: action.payload.split(' - ')[0],
           selection: action.payload,
           correct: true,
@@ -506,8 +541,9 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         chargesBeneficiary: {
-          value: action.payload,
-          correct: action.payload == 'both' || action.payload == 'sender' || action.payload == 'beneficiary',
+          value: action.payload.beneficiary,
+          selection: action.payload.selection,
+          correct: action.payload.beneficiary == 'both' || action.payload.beneficiary == 'sender' || action.payload.beneficiary == 'beneficiary',
         }
       }
     }
@@ -558,19 +594,20 @@ const ACTION_HANDLERS = {
   },
 
   VALIDATE_TRANSFER_TRANSACTION_FORM: (state, action) => {
-    console.log(state.transactionForm.creditAccount.correct)
+    console.log(state.transactionForm.bankType.correct)
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         shouldProcess: state.transactionForm.debitAccount.correct &&
         state.transactionForm.creditAccount.correct &&
-        ((state.transactionForm.bank.type == 'agileBank' &&
+        ((state.transactionForm.bankType.value == 'agileBank' &&
         state.transactionForm.creditAccount.type != 'other') ||
         state.transactionForm.fullName.correct) &&
         state.transactionForm.bank.correct &&
+        state.transactionForm.bankType.correct &&
         state.transactionForm.amount.correct &&
-        (state.transactionForm.bank.type == 'agileBank' ||
+        (state.transactionForm.bankType.value == 'agileBank' ||
         state.transactionForm.chargesBeneficiary.correct) &&
         state.transactionForm.comments.correct &&
         state.transactionForm.date.correct
