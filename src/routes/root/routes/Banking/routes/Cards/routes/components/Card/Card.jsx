@@ -35,7 +35,7 @@ export const Card = ({ card, type, setActiveCard, getCardTransactionHistory, lin
             : <span className="col-xs-3 col-sm-2 text-right"></span>
         }
         <span className="col-xs-4 col-sm-5 text-right">
-          {card.availableLimit.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
+          {card.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
         </span>
         <span className="col-xs-offset-1 col-xs-4 text-right">
           {card.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}

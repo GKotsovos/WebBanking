@@ -20,7 +20,7 @@ class AccountsLayout extends Component {
       <div id="accounts" role="tabpanel" className="tab-pane active">
         {
           _.isEmpty(activeAccount) ?
-            _.map(accounts, (account) => <Account key={account.iban} account={account} />)
+            _.map(accounts, (account) => <Account key={account.id} account={account} />)
           : [
               <DetailedAccount />,
               <TransactionsHistory transactionHistory={activeAccount.transactionHistory} />

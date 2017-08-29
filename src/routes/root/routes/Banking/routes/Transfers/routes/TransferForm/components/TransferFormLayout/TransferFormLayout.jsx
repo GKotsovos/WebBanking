@@ -48,21 +48,28 @@ class TransferFormLayout extends Component {
           bankType={transactionForm.bankType}
           setCreditBankType={setCreditBankType}
         />
-        {children}
-        <Comments
-          comments={transactionForm.comments}
-          setTransferComments={setTransferComments}
-        />
-        <SelectTransactionDate
-          date={transactionForm.date}
-          setAsapTransaction={setAsapTransfer}
-          setTransactionDate={setTransactionDate}
-        />
-        <FormCompletionButtons
-          shouldProcess={transactionForm.shouldProcess}
-          clearForm={this.clearForm.bind(this)}
-          linkToApprovalForm='/banking/transfers/approval'
-        />
+        {
+          transactionForm.bankType.value ? [
+            children,
+            <Comments
+              key='comments'
+              comments={transactionForm.comments}
+              setTransferComments={setTransferComments}
+            />,
+            <SelectTransactionDate
+              key='date'
+              date={transactionForm.date}
+              setAsapTransaction={setAsapTransfer}
+              setTransactionDate={setTransactionDate}
+            />,
+            <FormCompletionButtons
+              key='completion'
+              shouldProcess={transactionForm.shouldProcess}
+              clearForm={this.clearForm.bind(this)}
+              linkToApprovalForm='/banking/transfers/approval'
+            />,
+          ] : null
+        }
       </form>
     )
   }

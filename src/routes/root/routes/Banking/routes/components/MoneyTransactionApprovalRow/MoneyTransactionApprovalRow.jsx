@@ -6,7 +6,7 @@ export const MoneyTransactionApprovalRow = ({ title, amount, currency }) => (
   <tr>
     <td className="titleCell col-sm-5 text-right">{title}</td>
     <td className="cell col-sm-4 text-center">
-      {amount.toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(currency).symbol}
+      {Number(amount).toLocaleString('gr-GR', {minimumFractionDigits: 2})} {currencyFormatter.findCurrency(currency).symbol}
     </td>
   </tr>
 )

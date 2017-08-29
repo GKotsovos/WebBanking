@@ -36,7 +36,7 @@ export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
           />
           <SimpleTransactionApprovalRow
             title='Ημερομηνία εκτέλεσης'
-            value={transactionForm.viewDate}
+            value={transactionForm.date.view}
           />
         </tbody>
       </table>

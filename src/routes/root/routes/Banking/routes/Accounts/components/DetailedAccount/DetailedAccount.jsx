@@ -11,7 +11,7 @@ export const DetailedAccount = ({ activeAccount }) => (
           ({currencyFormatter.findCurrency(activeAccount.currency).symbol}) {activeAccount.type}
         </span>
         <span className="titles IBAN">
-          {activeAccount.iban}
+          {activeAccount.id}
         </span>
       </h3>
     </div>

@@ -27,7 +27,7 @@ export const DetailedCard = ({ activeCard, type }) => (
             : <span className="col-xs-3 col-sm-3 text-right"></span>
         }
         <span className="col-xs-4 col-sm-4 text-right">
-          {activeCard.availableLimit.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
+          {activeCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}
         </span>
         <span className="col-xs-offset-1 col-xs-4 text-right">
           {activeCard.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeCard.currency).symbol}

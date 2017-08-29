@@ -15,7 +15,7 @@ export const AccountOrder = () => (
     <div className="panel-body">
       <div className="row">
         <span>
-          <span className="col-xs-6 text-right ibanOrder">GR2201100470000009237465820</span>
+          <span className="col-xs-6 text-right idOrder">GR2201100470000009237465820</span>
           <span className="col-xs-3 text-right">100,00€</span>
           <span className="col-xs-3 text-right">3/2/2017</span>
         </span>

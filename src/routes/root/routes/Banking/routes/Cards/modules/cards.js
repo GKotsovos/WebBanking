@@ -355,7 +355,7 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
     switch (debitAccountType) {
       case "isAccount":
         availableBalance = _.chain(getState().accounts.accounts)
-          .filter((account) => account.iban == debitAccount)
+          .filter((account) => account.id == debitAccount)
           .first()
           .value().ledgerBalance;
         break;
@@ -369,13 +369,13 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
         availableBalance = _.chain(getState().cards.creditCards)
           .filter((creditCard) => creditCard.id == debitAccount)
           .first()
-          .value().availableLimit;
+          .value().availableBalance;
         break;
       case "isPrepaidCard":
         availableBalance = _.chain(getState().cards.prepaidCards)
           .filter((prepaidCard) => prepaidCard.id == debitAccount)
           .first()
-          .value().availableLimit;
+          .value().availableBalance;
         break;
     }
 

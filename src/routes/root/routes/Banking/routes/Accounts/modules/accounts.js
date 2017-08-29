@@ -134,7 +134,7 @@ const ACTION_HANDLERS = {
   RECEIVE_ACCOUNT: (state, action) => {
     return {
       ...state,
-      accounts: _.map(state.accounts, (account) => account.iban == action.payload.iban ? action.payload : account)
+      accounts: _.map(state.accounts, (account) => account.id == action.payload.id ? action.payload : account)
     }
   },
 

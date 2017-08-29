@@ -35,13 +35,13 @@ export class SelectDebitAccount extends Component {
           {
             _.map(accounts, (account) => (
               <option
-                key={account.iban}
+                key={account.id}
                 className="isAccount"
                 data-subtext={
                   `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
                 }
               >
-                {account.iban}
+                {account.id}
               </option>
             ))
           }
@@ -64,7 +64,7 @@ export class SelectDebitAccount extends Component {
                 key={creditCard.id}
                 className="isCreditCard"
                 data-subtext={
-                  `Credit Card ${creditCard.availableLimit.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
+                  `Credit Card ${creditCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
                 }
                 value={creditCard.id}
               >
@@ -78,7 +78,7 @@ export class SelectDebitAccount extends Component {
                 key={prepaidCard.id}
                 className="isPrepaidCard"
                 data-subtext={
-                  `Prepaid Card ${prepaidCard.availableLimit.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
+                  `Prepaid Card ${prepaidCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
                 }
                 value={prepaidCard.id}
               >

@@ -147,7 +147,7 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
     switch (debitAccountType) {
       case "isAccount":
         availableBalance = _.chain(getState().accounts.accounts)
-          .filter((account) => account.iban == debitAccount)
+          .filter((account) => account.id == debitAccount)
           .first()
           .value().ledgerBalance;
         break;
@@ -161,13 +161,13 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
         availableBalance = _.chain(getState().cards.creditCards)
           .filter((creditCard) => creditCard.id == debitAccount)
           .first()
-          .value().availableLimit;
+          .value().availableBalance;
         break;
       case "isPrepaidCard":
         availableBalance = _.chain(getState().cards.prepaidCards)
           .filter((prepaidCard) => prepaidCard.id == debitAccount)
           .first()
-          .value().availableLimit;
+          .value().availableBalance;
         break;
     }
 
@@ -222,7 +222,7 @@ export const setCreditBankType = (selection, bankType) => {
         bankType
       }
     });
-    const bic = bankType == 'agileBank' ? 'AGILGRAA' : ''
+    const bic = bankType == 'agileBank' ? 'AGILGRAA - AGILE BANK' : ''
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK,
       payload: bic
@@ -414,6 +414,7 @@ const ACTION_HANDLERS = {
         bankType: {},
         bank: {},
         amount: {},
+        charges: 5,
         chargesBeneficiary: {},
         comments: {
           value: '',
@@ -500,6 +501,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         bank: {
           bic: action.payload.split(' - ')[0],
+          name: action.payload.split(' - ')[1],
           selection: action.payload,
           correct: true,
         }
@@ -567,7 +569,6 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        viewDate: action.payload.formattedDate,
         date: {
           ...state.transactionForm.date,
           asapTransfer: action.payload,
@@ -583,10 +584,10 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        viewDate: action.payload.formattedDate,
         date: {
           ...state.transactionForm.date,
           value: action.payload.date,
+          view: action.payload.formattedDate,
           correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
         }
       }

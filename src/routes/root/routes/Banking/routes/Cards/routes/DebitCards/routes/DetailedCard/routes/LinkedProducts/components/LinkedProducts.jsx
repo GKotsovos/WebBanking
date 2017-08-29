@@ -20,13 +20,13 @@ export const LinkedProducts = ({ linkedProducts, deleteLinkedProduct }) => (
           _.map(linkedProducts, (linkedProduct, key) => linkedProduct ? [
             <tr key={key}>
               <td key={key++} className="cell col-xs-2 text-center">{linkedProduct.type}</td>
-              <td key={key++} className="cell col-xs-4 text-center">{linkedProduct.iban}</td>
+              <td key={key++} className="cell col-xs-4 text-center">{linkedProduct.id}</td>
               <td key={key++} className="cell col-xs-2 text-center">
                 {linkedProduct.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
                 {currencyFormatter.findCurrency(linkedProduct.currency).symbol}
               </td>
               <td key={key++} className="cell col-xs-1 text-center">
-                <FontAwesome key={key++} className="xIcon" name="times" onClick={() => deleteLinkedProduct(linkedProduct.iban)}/>
+                <FontAwesome key={key++} className="xIcon" name="times" onClick={() => deleteLinkedProduct(linkedProduct.id)}/>
               </td>
             </tr>
           ]: [])

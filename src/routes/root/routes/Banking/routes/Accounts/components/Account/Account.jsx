@@ -5,7 +5,7 @@ import './Account.css';
 export const Account = ({ account,  setActiveAccount, getAccountTransactionHistory }) => (
   <div className="panel panel-default accountContainer" onClick={() => {
     setActiveAccount(account);
-    getAccountTransactionHistory(account.iban);
+    getAccountTransactionHistory(account.id);
   }}>
     <div className="panel-heading accountTitle">
       <h3 className="panel-title">
@@ -13,7 +13,7 @@ export const Account = ({ account,  setActiveAccount, getAccountTransactionHisto
           ({currencyFormatter.findCurrency(account.currency).symbol}) {account.type}
         </span>
         <span className="titles IBAN">
-          {account.iban}
+          {account.id}
         </span>
       </h3>
     </div>

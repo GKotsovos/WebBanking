@@ -13,7 +13,7 @@ export const OrganizationOrder = () => (
     <div className="panel-body">
       <div className="row">
         <span>
-          <span className="col-xs-6 text-right ibanOrder">GR2201100470000009237465820</span>
+          <span className="col-xs-6 text-right idOrder">GR2201100470000009237465820</span>
           <span className="col-xs-3 text-right">1/1/2021</span>
           <span className="col-xs-3 text-right">Ενεργή</span>
         </span>

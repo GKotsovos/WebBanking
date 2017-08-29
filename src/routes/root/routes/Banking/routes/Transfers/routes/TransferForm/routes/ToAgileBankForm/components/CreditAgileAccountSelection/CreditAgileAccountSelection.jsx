@@ -32,13 +32,13 @@ class CreditAgileAccountSelection extends Component {
           {
             _.map(accounts, (account) => (
               <option
-                key={account.iban}
+                key={account.id}
                 className="isAccount"
                 data-subtext={
                   `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
                 }
               >
-                {account.iban}
+                {account.id}
               </option>
             ))
           }

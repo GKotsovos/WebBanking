@@ -37,7 +37,7 @@ export const LoadApproval = ({ transactionForm, prepaidCardLoad }) => (
           />
           <SimpleTransactionApprovalRow
             title='Ημερομηνία εκτέλεσης'
-            value={transactionForm.viewDate}
+            value={transactionForm.date.view}
           />
         </tbody>
       </table>
