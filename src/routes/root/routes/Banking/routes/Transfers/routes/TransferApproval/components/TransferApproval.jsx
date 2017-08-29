@@ -24,37 +24,53 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
             title='Λογαριασμός πίστωσης'
             value={transactionForm.creditAccount.value}
           />
+          {
+            transactionForm.creditAccount.type != 'isAccount' ?
+            <SimpleTransactionApprovalRow
+              title='Όνομα δικαιούχου'
+              value={transactionForm.fullName.value}
+            /> : null
+          }
           <SimpleTransactionApprovalRow
-            title='Όνομα δικαιούχου'
-            value={transactionForm.fullName.value}
+            title='Τράπεζα'
+            value={transactionForm.bank.name}
           />
-          <SimpleTransactionApprovalRow
-            title='BIC Τράπεζας'
-            value={transactionForm.bank.bic}
-          />
+          {
+            transactionForm.bankType.value == 'foreignBank' ?
+            <SimpleTransactionApprovalRow
+              title='BIC Τράπεζας'
+              value={transactionForm.bank.bic}
+            /> : null
+          }
           <MoneyTransactionApprovalRow
             title='Καθαρό ποσό εμβάσματος'
             amount={transactionForm.amount.value}
             currency='EUR'
           />
-          {/* <MoneyTransactionApprovalRow
-            title='Καθαρό ποσό εμβάσματος'
+          <MoneyTransactionApprovalRow
+            title='Έξοδα εμβάσματος'
             amount={transactionForm.charges}
-            currency={transactionForm.currency}
+            currency='EUR'
+            // currency={transactionForm.currency}
           />
           <MoneyTransactionApprovalRow
             title='Σύνολο χρέωσης λογαριασμού'
-            amount={transactionForm.amount.value + transactionForm.value}
-            currency={transactionForm.currency}
-          /> */}
+            amount={transactionForm.amount.value + transactionForm.charges}
+            currency='EUR'
+            // currency={transactionForm.currency}
+          />
           <SimpleTransactionApprovalRow
             title='Ημερομηνία εκτέλεσης'
-            value={transactionForm.viewDate}
+            value={transactionForm.date.view}
           />
-          <SimpleTransactionApprovalRow
-            title='Σχόλια'
-            value={transactionForm.comments.value}
-          />
+          {
+            transactionForm.comments.value != '' ?
+            <SimpleTransactionApprovalRow
+              title='Σχόλια'
+              value={transactionForm.comments.value}
+            /> : null
+          }
+
         </tbody>
       </table>
     </div>
