@@ -62,7 +62,7 @@ export const getDomesticBanks = () => {
       .catch((exception) => {
         !_.isEmpty(exception.response) && exception.response.status == 401 ?
         dispatch({
-          type    : LOG_OUT,
+          type    : 'LOG_OUT',
         }) :
         dispatch({
           type    : UNSUCCESSFUL_TRANSACTION,
@@ -125,7 +125,7 @@ export const transfer = () => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,

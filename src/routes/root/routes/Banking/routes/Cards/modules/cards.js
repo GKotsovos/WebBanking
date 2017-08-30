@@ -60,7 +60,7 @@ export const getCards = () => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -90,7 +90,7 @@ export const getDebitCardById = (id) => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -120,7 +120,7 @@ export const getCreditCardById = (id) => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -150,7 +150,7 @@ export const getPrepaidCardById = (id) => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -176,7 +176,7 @@ export const getCardTransactionHistory = (productId) => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -201,7 +201,7 @@ export const deleteLinkedProduct = (productId) => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -262,7 +262,7 @@ export const creditCardPayment = () => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
@@ -327,7 +327,7 @@ export const prepaidCardLoad = () => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,

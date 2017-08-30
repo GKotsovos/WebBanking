@@ -32,7 +32,7 @@ export const getAccounts = () => {
     .catch((exception)  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -62,7 +62,7 @@ export const getAccountById = (accountId) => {
     .catch((exception)  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -88,7 +88,7 @@ export const getAccountTransactionHistory = (productId) => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,

@@ -61,9 +61,6 @@ export const logOut = () => {
       dispatch({
         type    : LOG_OUT
       });
-      dispatch({
-        type    : INITIAL_STATE
-      });
     }
 }
 
@@ -107,7 +104,7 @@ const ACTION_HANDLERS = {
   LOG_OUT: (state, action) => {
     cookie.remove('access_token');
     window.location.href = '/';
-    return state;
+    return {};
   },
 
   CHANGE_ACTIVE_TAB: (state, action) => {

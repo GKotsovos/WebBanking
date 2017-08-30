@@ -56,7 +56,7 @@ export const getLoans = () => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -86,7 +86,7 @@ export const getLoanById = (id) => {
     .catch(( exception )  => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -112,7 +112,7 @@ export const getLoanTransactionHistory = (loanId) => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : REQUEST_ERROR,
@@ -172,7 +172,7 @@ export const loanPayment = () => {
     .catch((exception) => {
       !_.isEmpty(exception.response) && exception.response.status == 401 ?
       dispatch({
-        type    : LOG_OUT,
+        type    : 'LOG_OUT',
       }) :
       dispatch({
         type    : UNSUCCESSFUL_TRANSACTION,
