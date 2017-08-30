@@ -12,6 +12,9 @@ import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loa
 
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const INIT_TRANSFER_TRANSACTION_FORM = 'INIT_TRANSFER_TRANSACTION_FORM';
+const INIT_TRANSFER_TO_AGILE_TRANSACTION_FORM = 'INIT_TRANSFER_TO_AGILE_TRANSACTION_FORM';
+const INIT_TRANSFER_TO_DOMESTIC_TRANSACTION_FORM = 'INIT_TRANSFER_TO_DOMESTIC_TRANSACTION_FORM';
+const INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM = 'INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM';
 const FETCHING_DOMESTIC_BANKS = 'FETCHING_DOMESTIC_BANKS';
 const SET_DOMESTIC_BANKS = 'SET_DOMESTIC_BANKS';
 const SET_TRANSFER_DEBIT_ACCOUNT = 'SET_TRANSFER_DEBIT_ACCOUNT';
@@ -76,35 +79,31 @@ export const getDomesticBanks = () => {
   }
 }
 
-export const transfer = () => {
+export const transfer = (transactionForm) => {
   return (dispatch, getState) => {
-    const transactionForm = getState().TRANSFER.transactionForm;
     return axios({
       method: 'post',
       url: 'http://localhost:26353/api/transfer/Transfer',
       data: querystring.stringify({
-        transferId: transactionForm.transferId,
         debitAccount: transactionForm.debitAccount.value,
         debitAccountType: transactionForm.debitAccount.type,
+        creditAccount: transactionForm.creditAccount.value,
+        beneficiary: transactionForm.fullName.value,
+        bank: transactionForm.bank.bic,
         amount: transactionForm.amount.value,
-        date: transactionForm.date.value
+        currency: 'EUR',
+        date: transactionForm.date.value,
+        expenses: transactionForm.expenses,
+        comments: transactionForm.comments.value,
       }),
       withCredentials: true,
     })
     .then(() => {
       dispatch({
         type    : SUCCESSFUL_TRANSACTION,
-        payload : '/banking/TRANSFER'
+        payload : '/banking/transfers'
       })
     })
-    .then(() => getTransferById(transactionForm.transferId)(dispatch, getState))
-    .then(() => {
-      dispatch({
-        type    : SET_ACTIVE_TRANSFER,
-        payload : _.filter(getState().TRANSFER.TRANSFER, (transfer) => transfer.id == getState().TRANSFER.activeTransfer.id)[0]
-      })
-    })
-    .then(() => getTransferTransactionHistory(transactionForm.transferId)(dispatch, getState))
     .then(() => linkTo('/banking/transfers/result'))
     .then(() => {
       switch (transactionForm.debitAccount.type) {
@@ -131,11 +130,10 @@ export const transfer = () => {
         type    : UNSUCCESSFUL_TRANSACTION,
         payload : {
           exception,
-          linkToStart: '/banking/transfers/'
+          linkToStart: '/banking/transfers'
         }
       })
     })
-    .then(() => linkTo('/banking/transfers/result'))
   }
 }
 
@@ -213,8 +211,16 @@ export const setCreditFullName = (fullName) => {
 }
 
 export const setCreditBankType = (selection, bankType) => {
-  console.log(selection)
   return (dispatch, getState) => {
+    const customerName = (getState().banking.customerName.firstName + ' ' + getState().banking.customerName.lastName)
+    .replace('ά', 'α')
+    .replace('έ', 'ε')
+    .replace('ί', 'ι')
+    .replace('ή', 'η')
+    .replace('ό', 'ο')
+    .replace('ύ', 'υ')
+    .replace('ώ', 'ω');
+
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
       payload: {
@@ -226,6 +232,11 @@ export const setCreditBankType = (selection, bankType) => {
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK,
       payload: bic
+    });
+    const fullName = bankType == 'agileBank' ? customerName : ''
+    dispatch({
+      type: SET_TRANSFER_CREDIT_FULL_NAME,
+      payload: fullName
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -374,6 +385,33 @@ export const initTransferTransactionForm = () => {
   }
 }
 
+export const initTransferToAgileTransactionForm = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: INIT_TRANSFER_TO_AGILE_TRANSACTION_FORM,
+    })
+    getDomesticBanks()(dispatch, getState)
+  }
+}
+
+export const initTransferToDomesticTransactionForm = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: INIT_TRANSFER_TO_DOMESTIC_TRANSACTION_FORM,
+    })
+    getDomesticBanks()(dispatch, getState)
+  }
+}
+
+export const initTransferToForeignTransactionForm = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM,
+    })
+    getDomesticBanks()(dispatch, getState)
+  }
+}
+
 export const clearTransferTransactionForm = () => {
   return {
     type: CLEAR_TRANSFER_TRANSACTION_FORM,
@@ -394,6 +432,9 @@ export const actions = {
   setAsapTransfer,
   setTransactionDate,
   initTransferTransactionForm,
+  initTransferToAgileTransactionForm,
+  initTransferToDomesticTransactionForm,
+  initTransferToForeignTransactionForm,
   clearTransferTransactionForm,
 }
 
@@ -422,6 +463,65 @@ const ACTION_HANDLERS = {
         },
         date: {},
         shouldProcess: false
+      }
+    }
+  },
+
+  INIT_TRANSFER_TO_AGILE_TRANSACTION_FORM: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        creditAccount: {},
+        fullName: {},
+        amount: {},
+        charges: 5,
+        chargesBeneficiary: {},
+        comments: {
+          value: '',
+          correct: true,
+        },
+        date: {},
+      }
+    }
+  },
+
+  INIT_TRANSFER_TO_DOMESTIC_TRANSACTION_FORM: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        creditAccount: {},
+        fullName: {},
+        bank: {},
+        amount: {},
+        charges: 5,
+        chargesBeneficiary: {},
+        comments: {
+          value: '',
+          correct: true,
+        },
+        date: {},
+      }
+    }
+  },
+
+  INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        creditAccount: {},
+        fullName: {},
+        bank: {},
+        amount: {},
+        charges: 5,
+        chargesBeneficiary: {},
+        comments: {
+          value: '',
+          correct: true,
+        },
+        date: {},
       }
     }
   },
@@ -595,7 +695,6 @@ const ACTION_HANDLERS = {
   },
 
   VALIDATE_TRANSFER_TRANSACTION_FORM: (state, action) => {
-    console.log(state.transactionForm.bankType.correct)
     return {
       ...state,
       transactionForm: {

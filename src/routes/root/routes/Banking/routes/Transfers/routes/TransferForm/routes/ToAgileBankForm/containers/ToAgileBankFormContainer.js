@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import {
+  initTransferToAgileTransactionForm,
   setCreditAccountType,
   setCreditAccount,
   setCreditFullName,
@@ -16,6 +17,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
+  initTransferToAgileTransactionForm: () => initTransferToAgileTransactionForm(),
   setCreditAccountType: (creditAccountType) => setCreditAccountType(creditAccountType),
   setCreditAccount: (account, type) => setCreditAccount (account, type),
   setCreditFullName: (fullName) => setCreditFullName (fullName),

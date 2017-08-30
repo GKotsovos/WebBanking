@@ -21,7 +21,7 @@ const mapStateToProps = (state) => ({
   loans: state.loans.loans,
   creditCards: state.cards.creditCards,
   prepaidCards: state.cards.prepaidCards,
-  transactionForm: state.transfers.transactionForm,
+  transactionForm: state.transfers.transactionForm || {},
 });
 
 const mapActionCreators = {

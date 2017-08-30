@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import {
+  initTransferToForeignTransactionForm,
   setCreditBankBIC,
   setCreditAccount,
   setCreditFullName,
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
+  initTransferToForeignTransactionForm : () => initTransferToForeignTransactionForm(),
   setCreditBankBIC: (bic) => setCreditBankBIC (bic),
   setCreditAccount: (account, type) => setCreditAccount (account, type),
   setCreditFullName: (fullName) => setCreditFullName (fullName),

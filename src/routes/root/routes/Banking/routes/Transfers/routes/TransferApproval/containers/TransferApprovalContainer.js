@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
-  transfer: () => transfer()
+  transfer: (transactionForm) => transfer(transactionForm)
 };
 
 export default connect(mapStateToProps, mapActionCreators)(TransferApproval);

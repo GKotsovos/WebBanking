@@ -76,7 +76,7 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
     </div>
 
     <TransactionApprovalButtons
-      completeTransaction={transfer}
+      completeTransaction={() => transfer(transactionForm)}
     />
 
   </form>

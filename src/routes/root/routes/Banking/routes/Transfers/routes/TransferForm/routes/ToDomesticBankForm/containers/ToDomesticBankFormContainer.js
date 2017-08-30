@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import {
+  initTransferToDomesticTransactionForm,
   setCreditBank,
   setCreditAccount,
   setCreditFullName,
@@ -18,11 +19,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
-  setCreditBank: (bank) => setCreditBank (bank),
-  setCreditAccount: (account, type) => setCreditAccount (account, type),
-  setCreditFullName: (fullName) => setCreditFullName (fullName),
-  setTransferAmount: (amount) => setTransferAmount (amount),
-  setChargesBeneficiary: (selection, beneficiary) => setChargesBeneficiary (selection, beneficiary),
+  initTransferToDomesticTransactionForm: () => initTransferToDomesticTransactionForm(),
+  setCreditBank: (bank) => setCreditBank(bank),
+  setCreditAccount: (account, type) => setCreditAccount(account, type),
+  setCreditFullName: (fullName) => setCreditFullName(fullName),
+  setTransferAmount: (amount) => setTransferAmount(amount),
+  setChargesBeneficiary: (selection, beneficiary) => setChargesBeneficiary(selection, beneficiary),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(ToDomesticBankForm);
