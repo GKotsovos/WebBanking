@@ -29,7 +29,7 @@ export const TransactionsHistory = ({ transactionHistory }) => (
                 {dateformat(transaction.date, 'dd/mm/yyyy')}
               </td>
               <td key={key++} className="cell col-sm-3 text-center">
-                {transaction.details}
+                {transaction.title}
               </td>
               <td key={key++} className="cell col-sm-4 text-center">
                 {transaction.beneficiary}
@@ -38,7 +38,7 @@ export const TransactionsHistory = ({ transactionHistory }) => (
                 {`${sign[transaction.transactionType]}${transaction.amount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(transaction.currency).symbol}`}
               </td>
               <td key={key++} className="cell text-center col-sm-2">
-                 {`${transaction.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(transaction.currency).symbol}`}
+                 {`${transaction.newBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(transaction.currency).symbol}`}
               </td>
             </tr>
           ])

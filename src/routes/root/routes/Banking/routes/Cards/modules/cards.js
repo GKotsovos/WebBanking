@@ -216,7 +216,7 @@ export const creditCardPayment = () => {
     const transactionForm = getState().cards.transactionForm;
     return axios({
       method: 'post',
-      url: 'http://localhost:26353/api/card/CreditCardPayment',
+      url: 'http://localhost:26353/api/Payment/CreditCardPayment',
       data: querystring.stringify({
         cardId: transactionForm.cardId,
         debitAccount: transactionForm.debitAccount.value,
@@ -281,7 +281,7 @@ export const prepaidCardLoad = () => {
     const transactionForm = getState().cards.transactionForm;
     return axios({
       method: 'post',
-      url: 'http://localhost:26353/api/card/PrepaidCardLoad',
+      url: 'http://localhost:26353/api/Load/PrepaidCardLoad',
       data: querystring.stringify({
         cardId: transactionForm.cardId,
         debitAccount: transactionForm.debitAccount.value,

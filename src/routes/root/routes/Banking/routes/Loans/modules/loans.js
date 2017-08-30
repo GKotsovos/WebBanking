@@ -127,7 +127,7 @@ export const loanPayment = () => {
     const transactionForm = getState().loans.transactionForm;
     return axios({
       method: 'post',
-      url: 'http://localhost:26353/api/loan/LoanPayment',
+      url: 'http://localhost:26353/api/Payment/LoanPayment',
       data: querystring.stringify({
         loanId: transactionForm.loanId,
         debitAccount: transactionForm.debitAccount.value,
