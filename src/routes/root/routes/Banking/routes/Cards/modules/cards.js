@@ -583,7 +583,6 @@ const ACTION_HANDLERS = {
           (parseFloat(action.payload) <= state.activeCard.nextInstallmentAmount ||
            parseFloat(action.payload) <= state.activeCard.debt) &&
           parseFloat(action.payload) <= state.transactionForm.debitAccount.availableBalance
-          // && Add logic for accounts and loans
         }
       }
     }
@@ -598,7 +597,6 @@ const ACTION_HANDLERS = {
           value: action.payload,
           correct: action.payload > 0 &&
           action.payload <= state.transactionForm.debitAccount.availableBalance
-          // && Add logic for accounts, credit cards and loans
         }
       }
     }
@@ -609,7 +607,6 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        viewDate: action.payload.formattedDate,
         date: {
           ...state.transactionForm.date,
           asapTransfer: action.payload,
@@ -625,10 +622,10 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        viewDate: action.payload.formattedDate,
         date: {
           ...state.transactionForm.date,
           value: action.payload.date,
+          view: action.payload.formattedDate,
           correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
         }
       }

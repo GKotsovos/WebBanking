@@ -419,7 +419,6 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        viewDate: action.payload.formattedDate,
         date: {
           ...state.transactionForm.date,
           value: action.payload.date,
