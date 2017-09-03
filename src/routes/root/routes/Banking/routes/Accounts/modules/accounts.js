@@ -76,7 +76,7 @@ export const getAccountTransactionHistory = (productId) => {
   return (dispatch, getState) => {
     return axios({
       method: 'get',
-      url: 'http://localhost:26353/api/TransactionHistory/GetProductTransactionHistory/' + productId,
+      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistory/' + productId,
       withCredentials: true
     })
     .then((response) => {

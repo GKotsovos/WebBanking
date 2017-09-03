@@ -100,7 +100,7 @@ export const getLoanTransactionHistory = (loanId) => {
   return (dispatch, getState) => {
     return axios({
       method: 'get',
-      url: 'http://localhost:26353/api/TransactionHistory/GetProductTransactionHistory/' + loanId,
+      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistory/' + loanId,
       withCredentials: true
     })
     .then((response) => {
@@ -129,12 +129,18 @@ export const loanPayment = () => {
       method: 'post',
       url: 'http://localhost:26353/api/Payment/LoanPayment',
       data: querystring.stringify({
-        loanId: transactionForm.loanId,
-        debitAccount: transactionForm.debitAccount.value,
-        debitAccountType: transactionForm.debitAccount.type,
-        amount: transactionForm.amount.value,
+        debitProductId: transactionForm.debitAccount.value,
+        debitProductType: transactionForm.debitAccount.type,
+        creditProductId: transactionForm.loanId,
+        creditProductType: 'isLoan',
+        beneficiary: 'AGILE BANK',
+        bank: 'AGILE BANK',
+        isTransfer: false,
+        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
-        date: transactionForm.date.value
+        date: transactionForm.date.value,
+        expenses: 0,
+        comments: '',
       }),
       withCredentials: true,
     })

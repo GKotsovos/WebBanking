@@ -85,13 +85,15 @@ export const transfer = (transactionForm) => {
       method: 'post',
       url: 'http://localhost:26353/api/transfer/Transfer',
       data: querystring.stringify({
-        debitAccount: transactionForm.debitAccount.value,
-        debitAccountType: transactionForm.debitAccount.type,
-        creditAccount: transactionForm.creditAccount.value,
+        debitProductId: transactionForm.debitAccount.value,
+        debitProductType: transactionForm.debitAccount.type,
+        creditProductId: transactionForm.creditAccount.value,
+        creditProductType: 'isAccount',
         beneficiary: transactionForm.fullName.value,
         bank: transactionForm.bank.bic,
-        amount: transactionForm.amount.value,
-        currency: 'EUR',
+        isTransfer: true,
+        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
+        currency: transactionForm.currency.value,
         date: transactionForm.date.value,
         expenses: transactionForm.expenses,
         comments: transactionForm.comments.value,
@@ -111,7 +113,7 @@ export const transfer = (transactionForm) => {
           getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
           break;
         case "isLoan":
-          getTransferById(transactionForm.debitAccount.value)(dispatch, getState)
+          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
           break;
         case "isCreditCard":
           getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)

@@ -164,7 +164,7 @@ export const getCardTransactionHistory = (productId) => {
   return (dispatch, getState) => {
     return axios({
       method: 'get',
-      url: 'http://localhost:26353/api/TransactionHistory/GetProductTransactionHistory/' + productId,
+      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistory/' + productId,
       withCredentials: true
     })
     .then((response) => {
@@ -218,13 +218,18 @@ export const creditCardPayment = () => {
       method: 'post',
       url: 'http://localhost:26353/api/Payment/CreditCardPayment',
       data: querystring.stringify({
-        cardId: transactionForm.cardId,
-        debitAccount: transactionForm.debitAccount.value,
-        debitAccountType: transactionForm.debitAccount.type,
-        amount: transactionForm.amount.value,
+        debitProductId: transactionForm.debitAccount.value,
+        debitProductType: transactionForm.debitAccount.type,
+        creditProductId: transactionForm.cardId,
+        creditProductType: 'isCreditCard',
+        beneficiary: 'AGILE BANK',
+        bank: 'AGILE BANK',
+        isTransfer: false,
+        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
+        date: transactionForm.date.value,
         expenses: transactionForm.expenses,
-        date: transactionForm.date.value
+        comments: '',
       }),
       withCredentials: true,
     })
@@ -283,13 +288,18 @@ export const prepaidCardLoad = () => {
       method: 'post',
       url: 'http://localhost:26353/api/Load/PrepaidCardLoad',
       data: querystring.stringify({
-        cardId: transactionForm.cardId,
-        debitAccount: transactionForm.debitAccount.value,
-        debitAccountType: transactionForm.debitAccount.type,
-        amount: transactionForm.amount.value,
+        debitProductId: transactionForm.debitAccount.value,
+        debitProductType: transactionForm.debitAccount.type,
+        creditProductId: transactionForm.cardId,
+        creditProductType: 'isPrepaidCard',
+        beneficiary: 'AGILE BANK',
+        bank: 'AGILE BANK',
+        isTransfer: false,
+        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
+        date: transactionForm.date.value,
         expenses: transactionForm.expenses,
-        date: transactionForm.date.value
+        comments: '',
       }),
       withCredentials: true,
     })
