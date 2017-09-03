@@ -31,16 +31,15 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
               value={transactionForm.fullName.value}
             /> : null
           }
-          <SimpleTransactionApprovalRow
-            title='Τράπεζα'
-            value={transactionForm.bank.name}
-          />
           {
             transactionForm.bankType.value == 'foreignBank' ?
             <SimpleTransactionApprovalRow
               title='BIC Τράπεζας'
               value={transactionForm.bank.bic}
-            /> : null
+            /> : <SimpleTransactionApprovalRow
+              title='Τράπεζα'
+              value={transactionForm.bank.name}
+            />
           }
           <MoneyTransactionApprovalRow
             title='Καθαρό ποσό εμβάσματος'
