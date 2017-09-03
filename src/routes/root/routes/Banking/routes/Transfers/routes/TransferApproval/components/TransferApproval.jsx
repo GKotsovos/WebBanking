@@ -58,10 +58,11 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
             amount={transactionForm.amount.value + transactionForm.charges}
             currency='EUR'
             // currency={transactionForm.currency}
+            amount={parseFloat(transactionForm.amount.value) + parseFloat(transactionForm.charges)}
           />
           <SimpleTransactionApprovalRow
             title='Ημερομηνία εκτέλεσης'
-            value={transactionForm.date.view}
+            value={transactionForm.date.asapTransfer ? transactionForm.date.asapText : transactionForm.date.view}
           />
           {
             transactionForm.comments.value != '' ?

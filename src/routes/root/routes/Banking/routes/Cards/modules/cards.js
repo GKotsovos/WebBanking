@@ -621,7 +621,8 @@ const ACTION_HANDLERS = {
           ...state.transactionForm.date,
           asapTransfer: action.payload,
           correct: action.payload,
-          value: undefined
+          value: undefined,
+          asapText: 'ΑΜΕΣΑ'
         }
       }
     }
