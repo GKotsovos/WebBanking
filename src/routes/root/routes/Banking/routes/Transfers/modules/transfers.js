@@ -18,6 +18,7 @@ const INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM = 'INIT_TRANSFER_TO_FOREIGN_TRAN
 const FETCHING_DOMESTIC_BANKS = 'FETCHING_DOMESTIC_BANKS';
 const SET_DOMESTIC_BANKS = 'SET_DOMESTIC_BANKS';
 const SET_TRANSFER_DEBIT_ACCOUNT = 'SET_TRANSFER_DEBIT_ACCOUNT';
+const SET_TRANSFER_CURRENCY = 'SET_TRANSFER_CURRENCY';
 const SET_TRANSFER_CREDIT_ACCOUNT = 'SET_TRANSFER_CREDIT_ACCOUNT';
 const SET_TRANSFER_CREDIT_FULL_NAME = 'SET_TRANSFER_CREDIT_FULL_NAME';
 const SET_TRANSFER_CREDIT_BANK_TYPE = 'SET_TRANSFER_CREDIT_BANK_TYPE';
@@ -142,34 +143,36 @@ export const transfer = (transactionForm) => {
 export const setDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
 
-    let availableBalance = 0;
+    let innerDebitAccount = '';
 
     switch (debitAccountType) {
       case "isAccount":
-        availableBalance = _.chain(getState().accounts.accounts)
+        innerDebitAccount =  _.chain(getState().accounts.accounts)
           .filter((account) => account.id == debitAccount)
           .first()
-          .value().ledgerBalance;
+          .value();
         break;
       case "isLoan":
-        availableBalance = _.chain(getState().loans.loans)
+        innerDebitAccount = _.chain(getState().loans.loans)
           .filter((loan) => loan.id == debitAccount)
           .first()
-          .value().availableBalance;
+          .value();
         break;
       case "isCreditCard":
-        availableBalance = _.chain(getState().cards.creditCards)
+        innerDebitAccount = _.chain(getState().cards.creditCards)
           .filter((creditCard) => creditCard.id == debitAccount)
           .first()
-          .value().availableBalance;
+          .value();
         break;
       case "isPrepaidCard":
-        availableBalance = _.chain(getState().cards.prepaidCards)
+        innerDebitAccount = _.chain(getState().cards.prepaidCards)
           .filter((prepaidCard) => prepaidCard.id == debitAccount)
           .first()
-          .value().availableBalance;
+          .value();
         break;
     }
+    const availableBalance = innerDebitAccount.availableBalance
+    const currency = innerDebitAccount.currency
 
     dispatch({
       type: SET_TRANSFER_DEBIT_ACCOUNT,
@@ -178,6 +181,10 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
         debitAccountType,
         availableBalance,
       }
+    });
+    dispatch({
+      type: SET_TRANSFER_CURRENCY,
+      payload: currency,
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -475,7 +482,6 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         creditAccount: {},
-        fullName: {},
         amount: {},
         charges: 5,
         chargesBeneficiary: {},
@@ -538,6 +544,19 @@ const ACTION_HANDLERS = {
           availableBalance: action.payload.availableBalance,
           correct: action.payload != "",
           type: action.payload.debitAccountType
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_CURRENCY: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        currency: {
+          value: action.payload,
+          correct: action.payload != "",
         }
       }
     }
@@ -667,6 +686,7 @@ const ACTION_HANDLERS = {
   },
 
   SET_ASAP_TRANSFER: (state, action) => {
+
     return {
       ...state,
       transactionForm: {
