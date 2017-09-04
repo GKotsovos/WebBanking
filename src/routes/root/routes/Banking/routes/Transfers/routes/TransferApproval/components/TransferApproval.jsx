@@ -58,7 +58,7 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
           />
           <SimpleTransactionApprovalRow
             title='Ημερομηνία εκτέλεσης'
-            value={transactionForm.date.asapTransfer ? transactionForm.date.asapText : transactionForm.date.view}
+            value={transactionForm.date.asapTransaction ? transactionForm.date.asapText : transactionForm.date.view}
           />
           {
             transactionForm.comments.value != '' ?

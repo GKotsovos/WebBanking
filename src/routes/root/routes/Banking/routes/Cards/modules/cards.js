@@ -619,7 +619,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         date: {
           ...state.transactionForm.date,
-          asapTransfer: action.payload,
+          asapTransaction: action.payload,
           correct: action.payload,
           value: undefined,
           asapText: 'ΑΜΕΣΑ'
@@ -636,6 +636,8 @@ const ACTION_HANDLERS = {
         date: {
           ...state.transactionForm.date,
           value: action.payload.date,
+          asapTransaction: false,
+          asapText: undefined,
           view: action.payload.formattedDate,
           correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
         }

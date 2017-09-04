@@ -18,7 +18,7 @@ export const SelectTransactionDate = ({
           type="radio"
           name="transactionDate"
           onChange={() => setAsapTransaction(true)}
-          checked={date.asapTransfer}
+          checked={date.asapTransaction}
         />
         <span
           id="amesa"
@@ -33,7 +33,7 @@ export const SelectTransactionDate = ({
           type="radio"
           name="transactionDate"
           onChange={() => setAsapTransaction(false)}
-          checked={!_.isEmpty(date) && !date.asapTransfer}
+          checked={!_.isEmpty(date) && !date.asapTransaction}
         />
         <span
           id="stis"
@@ -48,7 +48,7 @@ export const SelectTransactionDate = ({
           placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
           value={date.value}
           onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
-          disabled={_.isEmpty(date) || date.asapTransfer}
+          disabled={_.isEmpty(date) || date.asapTransaction}
         />
       </span>
     </div>
