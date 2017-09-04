@@ -11,4 +11,4 @@ const mapActionCreators = {
   initTransferTransactionForm: () => initTransferTransactionForm(),
 };
 
-export default connect(null, mapActionCreators)(TransfersLayout);
+export default connect(mapStateToProps, mapActionCreators)(TransfersLayout);
