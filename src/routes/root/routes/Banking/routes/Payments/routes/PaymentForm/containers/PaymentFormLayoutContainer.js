@@ -3,8 +3,13 @@ import _ from 'underscore';
 import {
   initPaymentTransactionForm,
   setDebitAccount,
+  setSearchPayment,
+  setActivePaymentCategory,
+  setActivePaymentSubCategory,
+  setActivePaymentMethod,
+  setPaymentCode,
   setPaymentAmount,
-  setAsapPayment,
+  setAsapTransaction,
   setTransactionDate,
 } from 'routes/root/routes/Banking/routes/Payments/modules/payments';
 import PaymentFormLayout from '../components/PaymentFormLayout';
@@ -20,9 +25,14 @@ const mapStateToProps = (state) => ({
 const mapActionCreators = {
   initPaymentTransactionForm: () => initPaymentTransactionForm(),
   setDebitAccount: (debitAccount, debitAccountType) => setDebitAccount (debitAccount, debitAccountType),
-  setPaymentAmount: (amount) => setPaymentAmount (amount),
-  setAsapPayment: (isAsap) => setAsapPayment(isAsap),
-  setTransactionDate: (date, formattedDate) => setTransactionDate (date, formattedDate),
+  setSearchPayment: (shouldSearch) => setSearchPayment(shouldSearch),
+  setActivePaymentCategory: (category) => setActivePaymentCategory(category),
+  setActivePaymentSubCategory: (subCategory) => setActivePaymentSubCategory(subCategory),
+  setActivePaymentMethod: (paymentMethod) => setActivePaymentMethod(paymentMethod),
+  setPaymentCode: (paymentCode) => setPaymentCode(paymentCode),
+  setPaymentAmount: (amount) => setPaymentAmount(amount),
+  setAsapTransaction: (isAsap) => setAsapTransaction(isAsap),
+  setTransactionDate: (date, formattedDate) => setTransactionDate(date, formattedDate),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(PaymentFormLayout);

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
-// import SelectPaymentMethod from '../SelectPaymentMethod';
+import SelectPayment from '../SelectPayment';
 import PaymentCodeInput from '../PaymentCodeInput';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
@@ -29,12 +29,14 @@ class PaymentFormLayout extends Component {
       prepaidCards,
       transactionForm,
       setDebitAccount,
-      setPaymentMethod,
+      setSearchPayment,
+      setActivePaymentCategory,
+      setActivePaymentSubCategory,
+      setActivePaymentMethod,
       setPaymentCode,
       setPaymentAmount,
-      setAsapPayment,
+      setAsapTransaction,
       setTransactionDate,
-      children,
     } = this.props;
     return (
       <form className="paymentContainer">
@@ -47,17 +49,25 @@ class PaymentFormLayout extends Component {
           prepaidCards={prepaidCards}
           setDebitAccount={setDebitAccount}
         />
-        {/*
-          <SelectPaymentMethod
-            paymentMethods={transactionForm.paymentMethods}
-            setPaymentMethod={setPaymentMethod}
-          />
-
+        <SelectPayment
+          setSearchPayment={setSearchPayment}
+          shouldSearch={transactionForm.shouldSearch}
+          availableCategories={transactionForm.availableCategories}
+          activeCategory={transactionForm.paymentSelections.category}
+          setActivePaymentCategory={setActivePaymentCategory}
+          availableSubCategories={transactionForm.availableSubCategories}
+          paymentSubCategories={transactionForm.subCategories}
+          activeSubCategory={transactionForm.paymentSelections.subCategory}
+          setActivePaymentSubCategory={setActivePaymentSubCategory}
+          availablePaymentMethods={transactionForm.availablePaymentMethods}
+          activeMethod={transactionForm.paymentSelections.paymentMethod}
+          setActivePaymentMethod={setActivePaymentMethod}
+        />
+        {/* TODO, Instead of payment code, Agile Bank's products */}
         <PaymentCodeInput
           paymentCode={transactionForm.paymentCode}
           setPaymentCode={setPaymentCode}
         />
-        */}
         <AmountInput
           amount={transactionForm.amount}
           setTransactionAmount={setPaymentAmount}
@@ -65,7 +75,7 @@ class PaymentFormLayout extends Component {
         <SelectTransactionDate
           key='date'
           date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
-          setAsapTransaction={setAsapPayment}
+          setAsapTransaction={setAsapTransaction}
           setTransactionDate={setTransactionDate}
         />
         <FormCompletionButtons

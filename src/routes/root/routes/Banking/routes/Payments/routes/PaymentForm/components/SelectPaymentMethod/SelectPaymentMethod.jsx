@@ -1,70 +1,41 @@
-import React, { Component, PropTypes }  from 'react';
+import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
-import SearchPaymentMethod from '../SearchPaymentMethod';
 import './SelectPaymentMethod.css';
 
 export class SelectPaymentMethod extends Component {
   componentDidMount() {
-    const { bankType } = this.props;
+    const { activeMethod } = this.props;
     $('.selectpicker').selectpicker();
-    // $('.selectpicker.transferBankSelect').selectpicker('val', [bankType.selection])
+    $('.selectpicker.paymentMethod').selectpicker('val', [activeMethod])
   }
 
-  render(){
+  componentWillReceiveProps() {
+    setTimeout(() => $(".selectpicker.paymentMethod").selectpicker('refresh'), 350);
+  }
+
+  render() {
     const {
-      bankType,
-      setCreditBankType
+      availablePaymentMethods,
+      activeMethod,
+      setActivePaymentMethod,
     } = this.props;
     return (
-      <div>
-        <label htmlFor="selectWayOfSelection">Πληρωμή</label>
-        <div id="selectWayOfSelection">
-          <span
-            id="select"
-            onClick={() => setSearchPayment(false)}>
-            <input
-              type="radio"
-              name="wayOfSelection"
-              onChange={() => setSearchPayment(false)}
-            />
-            Επιλογή
-          </span>
-          <span
-            id="search"
-            onClick={() => setSearchPayment(true)}>
-            <input
-              type="radio"
-              name="wayOfSelection"
-              onChange={() => setSearchPayment(true)}
-            />
-            Αναζήτηση
-          </span>
-        </div>
-        {
-          {/*
-          shouldSearch ? (
-            <SearchPaymentMethod
-              paymentMethods={paymentMethods}
-              setPaymentMethod={setPaymentMethod}
-            />
-          ) : [
-              <SelectPaymentCategory
-                paymentCategories={paymentCategories}
-                setPaymentCategory={setPaymentCategory}
-              />,
-              activeCategory.subCategory ? (
-                <SelectPaymentSubCategory
-                  paymentSubCategories={paymentSubCategories}
-                  setPaymentSubCategory={setPaymentSubCategory}
-                />
-              ) : null,
-              <PaymentMethodInput
-                paymentMethods={paymentMethods}
-                setPaymentMethod={setPaymentMethod}
-              />
-            ]
-        */}
-        }
+      <div className="form-group">
+        <select
+          id="paymentMethod"
+          className={`selectpicker paymentMethod form-control ${_.isEmpty(activeMethod) || activeMethod.correct ? "" : "notValid"}`}
+          data-show-subtext="true"
+          title="Επιλέξτε Πληρωμή"
+          onChange={(e) => setActivePaymentMethod(e.target.value)}
+        >
+          {
+            _.map(availablePaymentMethods, (method) => (
+              <option key={method}>
+                {method}
+              </option>
+            ))
+          }
+        </select>
       </div>
     )
   }

@@ -14,6 +14,13 @@ const SET_PAYMENT_DEBIT_ACCOUNT = 'SET_PAYMENT_DEBIT_ACCOUNT';
 const SET_PAYMENT_CURRENCY = 'SET_PAYMENT_CURRENCY';
 const FETCHING_PAYMENT_METHODS = 'FETCHING_PAYMENT_METHODS';
 const SET_PAYMENT_METHODS = 'SET_PAYMENT_METHODS';
+const SET_AVAILABLE_PAYMENT_CATEGORIES = 'SET_AVAILABLE_PAYMENT_CATEGORIES';
+const SET_WAY_OF_SELECTION = 'SET_WAY_OF_SELECTION';
+const SET_ACTIVE_PAYMENT_CATEGORY = 'SET_ACTIVE_PAYMENT_CATEGORY';
+const SET_AVAILABLE_PAYMENT_SUBCATEGORIES = 'SET_AVAILABLE_PAYMENT_SUBCATEGORIES';
+const SET_ACTIVE_PAYMENT_SUBCATEGORY = 'SET_ACTIVE_PAYMENT_SUBCATEGORY';
+const SET_AVAILABLE_PAYMENT_METHODS = 'SET_AVAILABLE_PAYMENT_METHODS';
+const SET_ACTIVE_PAYMENT_METHOD = 'SET_ACTIVE_PAYMENT_METHOD';
 const SET_PAYMENT_CODE = 'SET_PAYMENT_CODE';
 const SET_PAYMENT_AMOUNT = 'SET_PAYMENT_AMOUNT';
 const SET_ASAP_PAYMENT = 'SET_ASAP_PAYMENT';
@@ -52,6 +59,11 @@ export const getPaymentMethods = () => {
           payload : response
         })
       })
+      .then(() => {
+        dispatch({
+          type    : SET_AVAILABLE_PAYMENT_CATEGORIES,
+        })
+      })
       .catch((exception) => {
         !_.isEmpty(exception.response) && exception.response.status == 401 ?
         dispatch({
@@ -66,6 +78,65 @@ export const getPaymentMethods = () => {
         })
       })
     }
+  }
+}
+
+export const setSearchPayment = (shouldSearch) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_WAY_OF_SELECTION,
+      payload: shouldSearch
+    });
+    dispatch({
+      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setActivePaymentCategory = (category) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ACTIVE_PAYMENT_CATEGORY,
+      payload: category
+    });
+    dispatch({
+      type: SET_AVAILABLE_PAYMENT_SUBCATEGORIES,
+    });
+    if (getState().payments.transactionForm.availableSubCategories.length == 0) {
+      dispatch({
+        type: SET_AVAILABLE_PAYMENT_METHODS,
+      });
+    }
+    dispatch({
+      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setActivePaymentSubCategory = (subCategory) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ACTIVE_PAYMENT_SUBCATEGORY,
+      payload: subCategory
+    });
+    dispatch({
+      type: SET_AVAILABLE_PAYMENT_METHODS,
+    });
+    dispatch({
+      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+    });
+  }
+}
+
+export const setActivePaymentMethod = (paymentMethod) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ACTIVE_PAYMENT_METHOD,
+      payload: paymentMethod
+    });
+    dispatch({
+      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+    });
   }
 }
 
@@ -181,6 +252,18 @@ export const setDebitAccount = (debitAccount, debitAccountType) => {
   }
 }
 
+export const setPaymentCode = (paymentCode) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_PAYMENT_CODE,
+      payload: paymentCode
+    });
+    dispatch({
+      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+    });
+  }
+}
+
 export const setPaymentAmount = (amount) => {
   return (dispatch, getState) => {
     dispatch({
@@ -193,7 +276,7 @@ export const setPaymentAmount = (amount) => {
   }
 }
 
-export const setAsapPayment = (isAsap) => {
+export const setAsapTransaction = (isAsap) => {
   return (dispatch, getState) => {
     dispatch({
       type: SET_ASAP_PAYMENT,
@@ -239,8 +322,13 @@ export const actions = {
   payment,
   getPaymentMethods,
   setDebitAccount,
+  setSearchPayment,
+  setActivePaymentCategory,
+  setActivePaymentSubCategory,
+  setActivePaymentMethod,
+  setPaymentCode,
   setPaymentAmount,
-  setAsapPayment,
+  setAsapTransaction,
   setTransactionDate,
   initPaymentTransactionForm,
   clearPaymentTransactionForm,
@@ -256,8 +344,15 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       transactionForm: {
+        paymentMethods: {},
         debitAccount: {},
+        availableCategories: [],
+        shouldSearch: false,
+        availableSubCategories: [],
+        availablePaymentMethods: [],
+        paymentSelections: {},
         amount: {},
+        paymentCode: {},
         charges: {},
         date: {},
         shouldProcess: false
@@ -266,29 +361,115 @@ const ACTION_HANDLERS = {
   },
 
   SET_PAYMENT_METHODS: (state, action) => {
-    const categories = _.chain(action.payload.data)
-                        .groupBy('category')
-                        .keys()
-                        .value();
-                        
-    const subCategories =
-      _.chain(categories['ΛΟΙΠΩΝ ΕΤΑΙΡΙΩΝ'])
-       .filter((payment) => payment.subCategory != " ")
-       .map((payment) => payment.subCategory)
-       .uniq()
-       .value();
-
-    const payments =
-      _.chain(categories['ΛΟΙΠΩΝ ΕΤΑΙΡΙΩΝ'])
-       .filter((payment) => payment.subCategory == subCategories[2])
-       .map((payment) => payment.name)
-       .value();
-
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         paymentMethods: _.groupBy(action.payload.data, 'category')
+      }
+    }
+  },
+
+  SET_AVAILABLE_PAYMENT_CATEGORIES: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        availableCategories: _.keys(state.transactionForm.paymentMethods),
+      }
+    }
+  },
+
+  SET_WAY_OF_SELECTION: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        shouldSearch: action.payload,
+      }
+    }
+  },
+
+  SET_ACTIVE_PAYMENT_CATEGORY: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        paymentSelections: {
+          ...state.transactionForm.paymentSelections,
+          category: action.payload,
+          subCategory: undefined,
+          paymentMethod: undefined,
+        },
+        availableSubCategories: [],
+        availablePaymentMethods: [],
+      }
+    }
+  },
+
+  SET_AVAILABLE_PAYMENT_SUBCATEGORIES: (state, action) => {
+    const subCategories =
+      _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
+       .filter((payment) => payment.subCategory != " ")
+       .map((payment) => payment.subCategory)
+       .uniq()
+       .value();
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        availableSubCategories: subCategories
+      }
+    }
+  },
+
+  SET_ACTIVE_PAYMENT_SUBCATEGORY: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        paymentSelections: {
+          ...state.transactionForm.paymentSelections,
+          subCategory: action.payload,
+          paymentMethod: undefined,
+        }
+      }
+    }
+  },
+
+  SET_AVAILABLE_PAYMENT_METHODS: (state, action) => {
+    let payments = [];
+    if (state.transactionForm.availableSubCategories.length > 0) {
+      payments =
+        _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
+         .filter((payment) => payment.subCategory == state.transactionForm.paymentSelections.subCategory)
+         .map((payment) => payment.name)
+         .value();
+    } else {
+      payments =
+        _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
+         .filter((payment) => payment.category == state.transactionForm.paymentSelections.category)
+         .map((payment) => payment.name)
+         .value();
+    }
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        availablePaymentMethods: payments
+      }
+    }
+  },
+
+  SET_ACTIVE_PAYMENT_METHOD: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        paymentSelections: {
+          ...state.transactionForm.paymentSelections,
+          paymentMethod: action.payload
+        }
       }
     }
   },
@@ -330,6 +511,20 @@ const ACTION_HANDLERS = {
           value: action.payload,
           correct: action.payload > 0 &&
            (parseFloat(action.payload)) <= state.transactionForm.debitAccount.availableBalance
+        }
+      }
+    }
+  },
+
+  SET_PAYMENT_CODE: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        paymentCode: {
+          value: action.payload,
+          correct: true,
+          //TODO
         }
       }
     }

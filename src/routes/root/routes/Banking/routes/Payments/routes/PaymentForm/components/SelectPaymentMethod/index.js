@@ -1,3 +1,3 @@
-import SelectPaymentMethod from './SelectPaymentMethod.jsx';
+import SelectPaymentMethod from './SelectPaymentMethod'
 
 export default SelectPaymentMethod
