@@ -1,3 +1,8 @@
+.paymentContainer {
+  max-width: 400px;
+  margin: 0 auto 4% auto;
+}
+
 .btn-group.bootstrap-select.paymentAccount.form-control{
   max-width: 500px;
 }

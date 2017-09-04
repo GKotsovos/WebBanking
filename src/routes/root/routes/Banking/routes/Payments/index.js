@@ -1,20 +1,20 @@
 import { injectReducer } from 'store/reducers'
-import { logOut } from 'routes/root/routes/Banking/modules/banking';
-import Payments from './components/PaymentsLayout'
-import cookie from 'react-cookie'
+import PaymentsLayout from './containers/PaymentsLayoutContainer'
+import { PaymentFormRoute, PaymentApprovalRoute, PaymentResultRoute } from './routes'
+import payments from './modules/payments'
 
-export default (store) => ({
-  path: '/banking/payments',
-  getComponent (nextState, cb) {
-    require.ensure([], (require) => {
-      const reducer = require('./modules/payments').default
-      injectReducer(store, { key: 'payments', reducer })
-      cb(null, Payments)
-    })
-  },
-  onEnter(nextState, replace) {
-    if (!cookie.load('access_token')) {
-      logOut()(store.dispatch, store.getState);
-    }
+export const PaymentsRoute = (store) => {
+  injectReducer(store, { key: 'payments', reducer: payments });
+  return {
+    path        : '/banking/Payments',
+    component   : PaymentsLayout,
+    indexRoute  : PaymentFormRoute(store),
+    childRoutes : [
+      PaymentFormRoute(store),
+      PaymentApprovalRoute(store),
+      PaymentResultRoute(store),
+    ]
   }
-})
+}
+
+export default PaymentsRoute

@@ -1,15 +1,22 @@
-import React from 'react';
-import PaymentForm from '../PaymentForm';
-import PaymentApproval from '../PaymentApproval';
-import TransactionResult from '../../../components/TransactionResult';
+import React, { Component, PropTypes } from 'react';
+import _ from 'underscore';
 import './PaymentsLayout.css';
 
-export const PaymentsLayout = () => (
-  <div role="tabpanel" className="tab-pane" id="payments">
-    <PaymentForm />
-    {/* <PaymentApproval /> */}
-    {/* <TransactionResult /> */}
-  </div>
-)
+class PaymentsLayout extends Component {
+  componentWillMount() {
+    const { transactionForm, initPaymentTransactionForm } = this.props;
+    if (_.isEmpty(transactionForm)) {
+      initPaymentTransactionForm();
+    }
+  }
+
+  render() {
+    return (
+      <div role="tabpanel" className="tab-pane" id="payments">
+      {this.props.children}
+    </div>
+    )
+  }
+}
 
 export default PaymentsLayout
