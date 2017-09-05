@@ -3,7 +3,7 @@ import _ from 'underscore';
 import './PaymentCodeInput.css';
 
 export const PaymentCodeInput = ({ paymentCode, setPaymentCode }) => (
-  <div className="form-group bottomOfTwoDivs">
+  <div>
     <label htmlFor="paymentCode">Κωδικός Πληρωμής</label>
     <input
       id="paymentCode"

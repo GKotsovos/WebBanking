@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectPayment from '../SelectPayment';
-import PaymentCodeInput from '../PaymentCodeInput';
+import PaymentCodeSelection from '../PaymentCodeSelection';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
@@ -64,7 +64,9 @@ class PaymentFormLayout extends Component {
           setActivePaymentMethod={setActivePaymentMethod}
         />
         {/* TODO, Instead of payment code, Agile Bank's products */}
-        <PaymentCodeInput
+        <PaymentCodeSelection
+          creditCards={creditCards}
+          loans={loans}
           paymentCode={transactionForm.paymentCode}
           setPaymentCode={setPaymentCode}
         />
