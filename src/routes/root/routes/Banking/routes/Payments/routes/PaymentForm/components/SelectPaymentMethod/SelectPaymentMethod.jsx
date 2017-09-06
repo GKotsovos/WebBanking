@@ -10,6 +10,7 @@ export class SelectPaymentMethod extends Component {
   }
 
   componentWillReceiveProps() {
+    const { activeMethod } = this.props;
     setTimeout(() => $(".selectpicker.paymentMethod").selectpicker('refresh'), 350);
   }
 
@@ -23,7 +24,7 @@ export class SelectPaymentMethod extends Component {
       <div className="form-group">
         <select
           id="paymentMethod"
-          className={`selectpicker paymentMethod form-control ${_.isEmpty(activeMethod) || activeMethod.correct ? "" : "notValid"}`}
+          className={`selectpicker paymentMethod form-control ${_.isEmpty(activeMethod) ? "" : "notValid"}`}
           data-show-subtext="true"
           title="Επιλέξτε Πληρωμή"
           onChange={(e) => setActivePaymentMethod(e.target.value)}

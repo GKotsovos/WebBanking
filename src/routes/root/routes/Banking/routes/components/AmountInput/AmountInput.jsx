@@ -8,7 +8,7 @@ export const AmountInput = ({ amount, setTransactionAmount}) => (
     <input
       id="transactionAmount"
       className={`form-control text-right ${_.isEmpty(amount) || amount.correct ? "" : "notValid"}`}
-      value={amount.value || ""}
+      value={_.isEmpty(amount) ? '' : amount.value}
       onChange={(e) => setTransactionAmount(e.target.value)}
       placeholder="€"
      />

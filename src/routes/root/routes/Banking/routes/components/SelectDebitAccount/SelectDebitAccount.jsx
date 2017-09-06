@@ -9,6 +9,10 @@ export class SelectDebitAccount extends Component {
     $('.selectpicker').selectpicker();
     $('.selectpicker.transactionDebitAccount').selectpicker('val', [debitAccount.value])
   }
+  
+  componentWillReceiveProps() {
+    setTimeout(() => $(".selectpicker.transactionDebitAccount").selectpicker('refresh'), 350);
+  }
 
   render(){
     const {

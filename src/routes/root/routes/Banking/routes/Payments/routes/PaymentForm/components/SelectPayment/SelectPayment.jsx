@@ -28,10 +28,11 @@ export const SelectPayment = ({
     />
     {
       shouldSearch ? (
-        <span>TODO SearchPaymentMethod</span>
-        /* <SearchPaymentMethod
+        <SearchPaymentMethod
           availablePaymentMethods={availablePaymentMethods}
-        /> */
+          activeMethod={activeMethod}
+          setActivePaymentMethod={setActivePaymentMethod}
+        />
       ) : [
         <SelectPaymentCategory
           availableCategories={availableCategories}

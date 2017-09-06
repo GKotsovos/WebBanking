@@ -13,6 +13,7 @@ export const DefaultTabs = ({
   getLoans,
   deactivateLoan,
   initTransferTransactionForm,
+  initPaymentTransactionForm,
 }) => (
   <div>
     <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
@@ -49,6 +50,7 @@ export const DefaultTabs = ({
       <li className={`defaultTab ${window.location.href.includes('/banking/transfers') ? 'active' : ''}`}
         onClick={() => {
           initTransferTransactionForm();
+          setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
           linkTo('/banking/transfers');
         }}>
         <a href="#transfers" className="mainTab" data-toggle="tab">
@@ -56,7 +58,11 @@ export const DefaultTabs = ({
         </a>
       </li>
       <li className={`defaultTab ${window.location.href.includes('/banking/payments') ? 'active' : ''}`}
-        onClick={() => linkTo('/banking/payments')}>
+        onClick={() => {
+          initPaymentTransactionForm();
+          setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
+          linkTo('/banking/payments');
+        }}>
         <a href="#payments" className="mainTab" data-toggle="tab">
           <FontAwesome name="briefcase"/><br/>Πληρωμές
         </a>

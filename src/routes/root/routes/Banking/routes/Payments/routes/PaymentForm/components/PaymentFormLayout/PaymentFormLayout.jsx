@@ -12,7 +12,6 @@ class PaymentFormLayout extends Component {
   componentDidMount() {
     const { initPaymentTransactionForm } = this.props;
     $('.selectpicker').selectpicker();
-    initPaymentTransactionForm();
   }
 
   clearForm() {
@@ -53,39 +52,43 @@ class PaymentFormLayout extends Component {
           setSearchPayment={setSearchPayment}
           shouldSearch={transactionForm.shouldSearch}
           availableCategories={transactionForm.availableCategories}
-          activeCategory={transactionForm.paymentSelections.category}
+          activeCategory={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.category}
           setActivePaymentCategory={setActivePaymentCategory}
           availableSubCategories={transactionForm.availableSubCategories}
           paymentSubCategories={transactionForm.subCategories}
-          activeSubCategory={transactionForm.paymentSelections.subCategory}
+          activeSubCategory={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.subCategory}
           setActivePaymentSubCategory={setActivePaymentSubCategory}
           availablePaymentMethods={transactionForm.availablePaymentMethods}
-          activeMethod={transactionForm.paymentSelections.paymentMethod}
+          activeMethod={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentMethod}
           setActivePaymentMethod={setActivePaymentMethod}
         />
-        {/* TODO, Instead of payment code, Agile Bank's products */}
-        <PaymentCodeSelection
-          creditCards={creditCards}
-          loans={loans}
-          paymentCode={transactionForm.paymentCode}
-          setPaymentCode={setPaymentCode}
-        />
-        <AmountInput
-          amount={transactionForm.amount}
-          setTransactionAmount={setPaymentAmount}
-        />
-        <SelectTransactionDate
-          key='date'
-          date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
-          setAsapTransaction={setAsapTransaction}
-          setTransactionDate={setTransactionDate}
-        />
-        <FormCompletionButtons
-          key='completion'
-          shouldProcess={!!transactionForm.shouldProcess}
-          clearForm={this.clearForm.bind(this)}
-          linkToApprovalForm='/banking/payments/approval'
-        />
+        {
+          !_.isEmpty(transactionForm) && transactionForm.paymentSelections.paymentMethod ? [
+            <PaymentCodeSelection
+              creditCards={creditCards}
+              loans={loans}
+              paymentType={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentType}
+              paymentCode={transactionForm.paymentCode}
+              setPaymentCode={setPaymentCode}
+            />,
+            <AmountInput
+              amount={transactionForm.amount}
+              setTransactionAmount={setPaymentAmount}
+            />,
+            <SelectTransactionDate
+              key='date'
+              date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
+              setAsapTransaction={setAsapTransaction}
+              setTransactionDate={setTransactionDate}
+            />,
+            <FormCompletionButtons
+              key='completion'
+              shouldProcess={!!transactionForm.shouldProcess}
+              clearForm={this.clearForm.bind(this)}
+              linkToApprovalForm='/banking/payments/approval'
+            />
+          ] : null
+        }
       </form>
     )
   }

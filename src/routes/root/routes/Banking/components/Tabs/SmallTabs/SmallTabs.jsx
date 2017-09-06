@@ -13,6 +13,7 @@ export const SmallTabs = ({
   getLoans,
   deactivateLoan,
   initTransferTransactionForm,
+  initPaymentTransactionForm,
 }) => (
   <div id="smallT">
 
@@ -52,13 +53,18 @@ export const SmallTabs = ({
         <li className={`defaultTab ${window.location.href.includes('/banking/transfers') ? 'active' : ''}`}
           onClick={() => {
             initTransferTransactionForm();
+            setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
             linkTo('/banking/transfers');
           }}>
           <a href="#transfers" className="mainTab" aria-controls="transfers" role="tab" data-toggle="tab">
             <FontAwesome name="exchange"/><br/>Μεταφορές</a>
         </li>
         <li className={`defaultTab ${window.location.href.includes('/banking/payments') ? 'active' : ''}`}
-          onClick={() => linkTo('/banking/payments')}>
+          onClick={() => {
+            initPaymentTransactionForm();
+            setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
+            linkTo('/banking/payments');
+          }}>
           <a href="#payments" className="mainTab" aria-controls="payments" role="tab" data-toggle="tab">
             <FontAwesome name="briefcase"/><br/>Πληρωμές</a>
         </li>

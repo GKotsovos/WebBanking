@@ -7,6 +7,7 @@ class PaymentsLayout extends Component {
     const { transactionForm, initPaymentTransactionForm } = this.props;
     if (_.isEmpty(transactionForm)) {
       initPaymentTransactionForm();
+      setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
     }
   }
 

@@ -18,11 +18,12 @@ export class CustomerCreditCards extends Component {
     } = this.props;
     return (
       <div className="form-group">
+        <label htmlFor="paymentCreditCard">Πιστωτική κάρτα</label>
         <select
           id="paymentCreditCard"
           className={`selectpicker paymentCreditCard form-control ${_.isEmpty(selectedCreditCard) || selectedCreditCard.correct ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε δάνειο"
+          title="Επιλέξτε πιστωτική κάρτα"
           onChange={
             (e) => setCreditCardForPayment(e.target.value, e.target.options[e.target.options.selectedIndex].className)
           }

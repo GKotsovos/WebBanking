@@ -21,18 +21,15 @@ export class LoanSelection extends Component {
         <label htmlFor="paymentLoan">Δάνειο</label>
         <select
           id="paymentLoan"
-          className={`selectpicker paymentLoan form-control ${_.isEmpty(selectedLoan) || selectedLoan.correct ? "" : "notValid"}`}
+          className={`selectpicker paymentLoan form-control ${!_.isEmpty(selectedLoan) || selectedLoan.correct ? "" : "notValid"}`}
           data-show-subtext="true"
           title="Επιλέξτε δάνειο"
-          onChange={
-            (e) => setLoanForPayment(e.target.value, e.target.options[e.target.options.selectedIndex].className)
-          }
+          onChange={(e) => setLoanForPayment(e.target.value)}
         >
           {
             _.map(loans, (loan) => (
               <option
                 key={loan.id}
-                className="isLoan"
                 data-subtext={
                   `${loan.customTitle} ${loan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
                 }

@@ -19,6 +19,7 @@ const SET_WAY_OF_SELECTION = 'SET_WAY_OF_SELECTION';
 const SET_ACTIVE_PAYMENT_CATEGORY = 'SET_ACTIVE_PAYMENT_CATEGORY';
 const SET_AVAILABLE_PAYMENT_SUBCATEGORIES = 'SET_AVAILABLE_PAYMENT_SUBCATEGORIES';
 const SET_ACTIVE_PAYMENT_SUBCATEGORY = 'SET_ACTIVE_PAYMENT_SUBCATEGORY';
+const SET_PAYMENT_TYPE = 'SET_PAYMENT_TYPE';
 const SET_AVAILABLE_PAYMENT_METHODS = 'SET_AVAILABLE_PAYMENT_METHODS';
 const SET_ACTIVE_PAYMENT_METHOD = 'SET_ACTIVE_PAYMENT_METHOD';
 const SET_PAYMENT_CODE = 'SET_PAYMENT_CODE';
@@ -26,7 +27,6 @@ const SET_PAYMENT_AMOUNT = 'SET_PAYMENT_AMOUNT';
 const SET_ASAP_PAYMENT = 'SET_ASAP_PAYMENT';
 const SET_PAYMENT_TRANSACTION_DATE = 'SET_PAYMENT_TRANSACTION_DATE';
 const VALIDATE_PAYMENT_TRANSACTION_FORM = 'VALIDATE_PAYMENT_TRANSACTION_FORM';
-const CLEAR_PAYMENT_TRANSACTION_FORM = 'CLEAR_PAYMENT_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 
@@ -43,7 +43,7 @@ const linkTo = (route) => {
 
 export const getPaymentMethods = () => {
   return (dispatch, getState) => {
-    if (_.isEmpty(getState().payments.transactionForm.organizations)) {
+    if (_.isEmpty(getState().payments.transactionForm.paymentMethods)) {
       dispatch({
         type    : FETCHING_PAYMENT_METHODS
       });
@@ -88,6 +88,9 @@ export const setSearchPayment = (shouldSearch) => {
       payload: shouldSearch
     });
     dispatch({
+      type: SET_AVAILABLE_PAYMENT_METHODS,
+    });
+    dispatch({
       type: VALIDATE_PAYMENT_TRANSACTION_FORM
     });
   }
@@ -105,6 +108,10 @@ export const setActivePaymentCategory = (category) => {
     if (getState().payments.transactionForm.availableSubCategories.length == 0) {
       dispatch({
         type: SET_AVAILABLE_PAYMENT_METHODS,
+      });
+      dispatch({
+        type: SET_PAYMENT_TYPE,
+        payload: 'thirdPartyPayment'
       });
     }
     dispatch({
@@ -134,6 +141,28 @@ export const setActivePaymentMethod = (paymentMethod) => {
       type: SET_ACTIVE_PAYMENT_METHOD,
       payload: paymentMethod
     });
+    let paymentType = '';
+    switch (paymentMethod) {
+      case 'ΚΑΡΤΑ AGILE BANK':
+        paymentType = 'isCreditCardAgile';
+        break;
+      case 'ΚΑΡΤΑ ΑΛΛΗΣ ΤΡΑΠΕΖΗΣ':
+        paymentType = 'isCreditCardThirdParty';
+        break;
+      case 'ΔΑΝΕΙΟ AGILE BANK':
+        paymentType = 'isLoan';
+        break;
+      default:
+        paymentType = 'thirdPartyPayment';
+    }
+    dispatch({
+      type: SET_PAYMENT_TYPE,
+      payload: paymentType
+    });
+    dispatch({
+      type: SET_PAYMENT_CODE,
+      payload: undefined
+    });
     dispatch({
       type: VALIDATE_PAYMENT_TRANSACTION_FORM
     });
@@ -141,22 +170,43 @@ export const setActivePaymentMethod = (paymentMethod) => {
 }
 
 export const payment = (transactionForm) => {
+  let bank = '';
+  const paymentMethod = transactionForm.paymentSelections.paymentMethod;
+  let beneficiary = paymentMethod;
+  if (paymentMethod.toUpperCase().includes('AGILE')) {
+    bank = 'AGILE BANK';
+    beneficiary = 'AGILE BANK';
+  }
+
+  let creditProductType = '';
+  console.log(paymentMethod)
+  if (paymentMethod.includes('ΚΑΡΤΑ')) {
+    creditProductType = 'isCreditCard';
+  } else if (paymentMethod.includes('ΔΑΝΕΙΟ')) {
+    creditProductType = 'isLoan';
+  }
+  let url = 'http://localhost:26353/api/Payment/ThirdPartyPayment';
+  if (bank == 'AGILE BANK' && creditProductType == 'isCreditCard') {
+    url = 'http://localhost:26353/api/Payment/CreditCardPayment';
+  } else if (bank == 'AGILE BANK' && creditProductType == 'isLoan') {
+    url = 'http://localhost:26353/api/Payment/LoanPayment';
+  }
   return (dispatch, getState) => {
     return axios({
       method: 'post',
-      url: 'http://localhost:26353/api/Payment/ThirdPartyPayment',
+      url,
       data: querystring.stringify({
         debitProductId: transactionForm.debitAccount.value,
         debitProductType: transactionForm.debitAccount.type,
-        creditProductId: '',
-        creditProductType: '',
-        beneficiary: '',
-        bank: '',
-        isPayment: false,
+        creditProductId: transactionForm.paymentCode.value,
+        creditProductType,
+        beneficiary,
+        bank,
+        isPayment: true,
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency.value,
         date: transactionForm.date.value,
-        expenses: transactionForm.expenses,
+        expenses: 0,
         comments: '',
       }),
       withCredentials: true,
@@ -312,12 +362,6 @@ export const initPaymentTransactionForm = () => {
   }
 }
 
-export const clearPaymentTransactionForm = () => {
-  return {
-    type: CLEAR_PAYMENT_TRANSACTION_FORM,
-  }
-}
-
 export const actions = {
   payment,
   getPaymentMethods,
@@ -331,7 +375,6 @@ export const actions = {
   setAsapTransaction,
   setTransactionDate,
   initPaymentTransactionForm,
-  clearPaymentTransactionForm,
 }
 
 const ACTION_HANDLERS = {
@@ -344,16 +387,16 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       transactionForm: {
-        paymentMethods: {},
+        ...state.transactionForm,
         debitAccount: {},
-        availableCategories: [],
+        currency: {},
         shouldSearch: false,
         availableSubCategories: [],
         availablePaymentMethods: [],
         paymentSelections: {},
         amount: {},
         paymentCode: {},
-        charges: {},
+        charges: 0,
         date: {},
         shouldProcess: false
       }
@@ -400,6 +443,7 @@ const ACTION_HANDLERS = {
           category: action.payload,
           subCategory: undefined,
           paymentMethod: undefined,
+          paymentType: undefined,
         },
         availableSubCategories: [],
         availablePaymentMethods: [],
@@ -437,9 +481,27 @@ const ACTION_HANDLERS = {
     }
   },
 
+  SET_PAYMENT_TYPE: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        paymentSelections: {
+          ...state.transactionForm.paymentSelections,
+          paymentType: action.payload,
+        }
+      }
+    }
+  },
+
   SET_AVAILABLE_PAYMENT_METHODS: (state, action) => {
     let payments = [];
-    if (state.transactionForm.availableSubCategories.length > 0) {
+    if (state.transactionForm.shouldSearch) {
+      payments = _.chain(state.transactionForm.paymentMethods)
+        .map((paymentMethod) => _.map(paymentMethod, (method) => method.name))
+        .flatten()
+        .value();
+    } else if (state.transactionForm.availableSubCategories.length > 0) {
       payments =
         _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
          .filter((payment) => payment.subCategory == state.transactionForm.paymentSelections.subCategory)
@@ -523,7 +585,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         paymentCode: {
           value: action.payload,
-          correct: true,
+          correct: !!action.payload == undefined ? undefined : true,
           //TODO
         }
       }
@@ -570,25 +632,12 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         shouldProcess: state.transactionForm.debitAccount.correct &&
-        state.transactionForm.creditAccount.correct &&
-        ((state.transactionForm.bankType.value == 'agileBank' &&
-        state.transactionForm.creditAccount.type != 'other') ||
-        state.transactionForm.fullName.correct) &&
-        state.transactionForm.bank.correct &&
-        state.transactionForm.bankType.correct &&
+        state.transactionForm.paymentSelections.paymentType != '' &&
         state.transactionForm.amount.correct &&
-        (state.transactionForm.bankType.value == 'agileBank' ||
-        state.transactionForm.chargesBeneficiary.correct) &&
-        state.transactionForm.comments.correct &&
-        state.transactionForm.date.correct
+        state.transactionForm.paymentCode.correct &&
+        state.transactionForm.date.correct &&
+        state.transactionForm.currency.correct
       }
-    }
-  },
-
-  CLEAR_PAYMENT_TRANSACTION_FORM: (state, action) => {
-    return {
-      ...state,
-      transactionForm: undefined
     }
   },
 

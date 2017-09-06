@@ -8,6 +8,7 @@ import './CreditCardSelection.css';
 export class CreditCardSelection extends Component {
   render(){
     const {
+      creditCardType,
       creditCards,
       selectedCreditCard,
       setCreditCardForPayment
@@ -15,27 +16,24 @@ export class CreditCardSelection extends Component {
 
     let creditCardView;
     switch (creditCardType) {
-      case 'agile':
-        creditCardView = (
+      case 'isCreditCardAgile':
+        creditCardView =
           <CustomerCreditCards
             creditCards={creditCards}
             selectedCreditCard={selectedCreditCard}
             setCreditCardForPayment={setCreditCardForPayment}
           />
-        )
         break;
       default:
-        creditCardView = (
+        creditCardView =
           <CreditCardInput
             selectedCreditCard={selectedCreditCard}
             setCreditCardForPayment={setCreditCardForPayment}
           />
-        )
     }
 
     return (
       <div className="form-group">
-        <label htmlFor="paymentCreditCard">Πιστωτική κάρτα</label>
         {creditCardView}
       </div>
     )

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { clearPaymentTransactionForm } from 'routes/root/routes/Banking/routes/Payments/modules/payments';
+import { initPaymentTransactionForm } from 'routes/root/routes/Banking/routes/Payments/modules/payments';
 import PaymentResult from '../components';
 
 const mapStateToProps = (state) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
-  clearPaymentTransactionForm: () => clearPaymentTransactionForm(),
+  initPaymentTransactionForm: () => initPaymentTransactionForm(),
 };
 
 export default connect(mapStateToProps, mapActionCreators)(PaymentResult);
