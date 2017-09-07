@@ -1,11 +1,11 @@
-import OrdersLayout from './components/OrdersLayout'
-import NewOrderRoute from './routes'
+import OrdersLayout from './containers/OrdersLayoutContainer'
+import { ExistingRoutes , NewOrderRoute } from './routes'
 
 export const OrdersRoute = (store) => ({
   path        : '/banking/orders',
   component   : OrdersLayout,
-  // indexRoute  : TransactionHistoryRoute,
   childRoutes : [
+    ExistingRoutes(store),
     NewOrderRoute(store)
   ]
 })

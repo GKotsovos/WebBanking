@@ -1,0 +1,9 @@
+.panel-default> .orderTitle {
+  background-color: #003cb3;
+  color: #EEEEEE;
+}
+
+.orderTo {
+  float: right;
+  margin-top: 2px;
+}

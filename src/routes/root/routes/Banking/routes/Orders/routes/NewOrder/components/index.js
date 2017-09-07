@@ -1,3 +1,3 @@
-import NewOrderLayout from './NewOrderLayout'
+import NewOrderLayout from './NewOrderLayout.jsx';
 
 export default NewOrderLayout

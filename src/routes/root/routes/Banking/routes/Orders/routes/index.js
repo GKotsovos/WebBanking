@@ -1,3 +1,7 @@
-import NewOrderRoute from './NewOrder'
+import ExistingOrders from './ExistingOrders';
+import NewOrder from './NewOrder';
 
-export default NewOrderRoute
+export {
+  ExistingOrders,
+  NewOrder
+}

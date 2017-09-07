@@ -1,12 +1,20 @@
 import React from 'react';
 import NewOrderSelect from '../NewOrderSelect'
-import Order from '../Order'
 import './OrdersLayout.css';
 
-export const OrdersLayout = () => (
+export const OrdersLayout = ({
+  children,
+  orderType,
+  setOrderType,
+  setNewOrder
+}) => (
   <div role="tabpanel" className="tab-pane" id="orders">
-    <NewOrderSelect />
-    <Order />
+    <NewOrderSelect
+      orderType={orderType}
+      setOrderType={setOrderType}
+      setNewOrder={setNewOrder}
+    />
+    {children}
   </div>
 )
 

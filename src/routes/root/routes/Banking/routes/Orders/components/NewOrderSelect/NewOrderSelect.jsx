@@ -1,27 +1,44 @@
 import React, { Component, PropTypes } from 'react'
-import DatePicker from 'react-bootstrap-date-picker'
 import './NewOrderSelect.css';
 
-// const callJquery = () => {
-//   $(document).ready( () => $('.selectpicker').selectpicker() )
-// }
-
-// export const NewOrderSelect = () => (
 class NewOrderSelect extends Component {
   componentDidMount() {
-    $('.selectpicker').selectpicker()
+    const { typeOfOrder } = this.props;
+    $('.selectpicker').selectpicker();
+    $('.selectpicker.orderSelect').selectpicker('val', [typeOfOrder.value]);
+  }
+
+  componentWillReceiveProps() {
+    setTimeout(() => $(".selectpicker.orderSelect").selectpicker('refresh'), 350);
   }
 
   render() {
+    const {
+      children,
+      orderType,
+      setOrderType,
+      setNewOrder
+    } = this.props;
     return (
       <div id="newOrderSelectContainer">
-        <label htmlFor="orderSelect">Λογαριασμός Χρέωσης</label>
+        <label htmlFor="orderSelect">Τύπος πάγιας εντολής</label>
         <div id="newOrderChoice">
-          <select id="orderSelect" className="selectpicker orderSelect form-control" data-show-subtext="true">
-            <option>Σε λογαριασμό</option>
-            <option>Σε οργανισμό</option>
+          <select
+            id="orderSelect"
+            className={`selectpicker orderSelect form-control ${_.isEmpty(orderType) || orderType.correct ? "" : "notValid"}`}
+            data-show-subtext="true"
+            title="Επιλέξτε τύπο πάγιας εντολής"
+            onChange={(e) => setOrderType(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>
+            <option className="accountOrder">Σε λογαριασμό</option>
+            <option className="organizationOrder">Σε οργανισμό</option>
           </select>
-          <button id="newOrderButton" type="button" className="btn btn-default">Νέα εντολή</button>
+          <button
+            id="newOrderButton"
+            type="button"
+            className="btn btn-default"
+            onClick={() => setNewOrder()}>
+            Νέα εντολή
+          </button>
         </div>
       </div>
     )
