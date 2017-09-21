@@ -27,21 +27,45 @@ class Login extends Component {
         <div id="loginPanelBody" className="panel-body">
           <form id="loginForm" data-toggle="validator" onSubmit={this.validateForm}>
             <div className="form-group">
-              <input type="text" id="userId" className="form-control formControls" placeholder="ID Χρήστη"
-                ref={ node => this.userId = node } data-error="Το ID χρήστη είναι υποχρεωτικό" required/>
+              <input
+                type="text"
+                id="userId"
+                className="form-control formControls"
+                placeholder="ID Χρήστη"
+                ref={ node => this.userId = node }
+                data-error="Το ID χρήστη είναι υποχρεωτικό"
+                required
+              />
               <div className="help-block with-errors"></div>
             </div>
             <div className="form-group">
-              <input type="password" id="password" className="form-control formControls" placeholder="Κωδικός"
-                ref={ node => this.password = node } data-error="Ο κωδικός είναι υποχρεωτικός" required/>
+              <input
+                type="password"
+                id="password"
+                className="form-control formControls"
+                placeholder="Κωδικός"
+                ref={ node => this.password = node }
+                data-error="Ο κωδικός είναι υποχρεωτικός"
+                required
+              />
               <div className="help-block with-errors"></div>
             </div>
-            <button type="submit" id="loginButton" className="btn btn-default buttons">Είσοδος</button>
+            <button
+              type="submit"
+              id="loginButton"
+              className="btn btn-default buttons">
+              Είσοδος
+            </button>
           </form>
           <p id="forgotP" onClick={() => changePanel('FOTGOT_PASSWORD')}>
             <FontAwesome name="question-circle" /> Ξεχάσατε το Όνομα Χρήστη / Κωδικό;
           </p>
-          <div id="returnedError" style={returnedError == 'none' ? { visibility: 'hidden' } : {}}>{returnedError}</div>
+          <div
+            id="returnedError"
+            style={
+              returnedError == 'none' ? { visibility: 'hidden' } : {}
+            }>{returnedError}
+          </div>
         </div>
         <ul className="list-group">
           <li id="newUser" className="list-group-item">
@@ -49,7 +73,13 @@ class Login extends Component {
               <FontAwesome id="userIcon" name="user" />
               <span>Νέος Χρήστης</span>
             </h3>
-            <button onClick={() => changePanel('NEW_APPLICATION')} id="newUserButton" className="btn btn-default buttons" type="submit">Αίτηση Εγγραφής</button>
+            <button
+              onClick={() => changePanel('NEW_APPLICATION')}
+              id="newUserButton"
+              className="btn btn-default buttons"
+              type="submit">
+              Αίτηση Εγγραφής
+            </button>
           </li>
         </ul>
       </div>

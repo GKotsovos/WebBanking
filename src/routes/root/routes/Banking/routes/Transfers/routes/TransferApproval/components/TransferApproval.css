@@ -1,0 +1,9 @@
+#transferApprovalForm {
+  margin: 0 auto 5% auto;
+  width: 100%;
+}
+
+#transferApprovalTable {
+  max-width: 500px;
+  margin: 0 auto;
+}

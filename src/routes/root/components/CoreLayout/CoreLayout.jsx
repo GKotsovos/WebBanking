@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Navbar'
+import Navbar from '../../containers/NavbarContainer'
 import Footer from '../Footer'
 import './CoreLayout.css'
 import 'styles/core.scss'
