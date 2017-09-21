@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import CreditAgileAccountSelection from '../CreditAgileAccountSelection';
+import CreditAgileAccountSelection from 'routes/root/routes/Banking/routes/components/CreditAgileAccountSelection';
 import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 
