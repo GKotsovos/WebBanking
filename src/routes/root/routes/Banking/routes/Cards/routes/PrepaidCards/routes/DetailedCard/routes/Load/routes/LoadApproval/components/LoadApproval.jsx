@@ -10,11 +10,9 @@ export const LoadApproval = ({ transactionForm, prepaidCardLoad }) => (
 
     <div id="loadApprovalTable" className="form-group">
       <table className="table table-bordered">
-        <thead>
-          <TransactionApprovalHeader
-            title='Στοιχεία Πληρωμής'
-          />
-        </thead>
+        <TransactionApprovalHeader
+          title='Στοιχεία Πληρωμής'
+        />
         <tbody>
           <SimpleTransactionApprovalRow
             title='Λογαριασμός χρέωσης'

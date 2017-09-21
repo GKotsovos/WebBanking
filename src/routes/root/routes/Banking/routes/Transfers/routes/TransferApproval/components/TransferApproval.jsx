@@ -10,11 +10,9 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
 
     <div id="transferApprovalTable" className="form-group">
       <table className="table table-bordered">
-        <thead>
-          <TransactionApprovalHeader
-            title='Στοιχεία Εμβάσματος'
-          />
-        </thead>
+        <TransactionApprovalHeader
+          title='Στοιχεία Εμβάσματος'
+        />
         <tbody>
           <SimpleTransactionApprovalRow
             title='Λογαριασμός χρέωσης'
