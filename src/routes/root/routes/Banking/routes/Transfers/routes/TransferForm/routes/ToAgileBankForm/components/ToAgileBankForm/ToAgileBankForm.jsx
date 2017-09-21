@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CreditAgileAccountSelection from '../CreditAgileAccountSelection';
-import BeneficiaryInput from '../../../../components/BeneficiaryInput';
+import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 
 class ToAgileBankForm extends Component {
@@ -27,7 +27,7 @@ class ToAgileBankForm extends Component {
        />
        {
          creditAccount.type == 'other' ?
-           <BeneficiaryInput
+           <BeneficiaryFullNameInput
              fullName={fullName}
              setCreditFullName={setCreditFullName}
            /> : null
