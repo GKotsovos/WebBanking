@@ -1,21 +1,30 @@
-import React from 'react';
-import NewOrderSelect from '../NewOrderSelect'
+import React, { Component, PropTypes }  from 'react';
+import _ from 'underscore';
+import OrderSelect from '../../containers/OrderSelectContainer'
 import './OrdersLayout.css';
 
-export const OrdersLayout = ({
-  children,
-  orderType,
-  setOrderType,
-  setNewOrder
-}) => (
-  <div role="tabpanel" className="tab-pane" id="orders">
-    <NewOrderSelect
-      orderType={orderType}
-      setOrderType={setOrderType}
-      setNewOrder={setNewOrder}
-    />
-    {children}
-  </div>
-)
+class OrdersLayout extends Component {
+  componentWillMount(){
+    const {
+      orderState,
+      initializeState,
+      getTransferOrders,
+      getPaymentOrders,
+    } = this.props;
+    if (_.isEmpty(orderState)) {
+      getTransferOrders();
+      getPaymentOrders();
+    }
+  }
+
+  render() {
+    return (
+      <div role="tabpanel" className="tab-pane ordersContainer" id="orders">
+        <OrderSelect />
+        {this.props.children}
+      </div>
+    )
+  }
+}
 
 export default OrdersLayout

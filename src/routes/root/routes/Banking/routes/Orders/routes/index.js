@@ -1,7 +1,11 @@
-import ExistingOrders from './ExistingOrders';
-import NewOrder from './NewOrder';
+import ExistingTransferOrdersRoute from './ExistingTransferOrders';
+import ExistingPaymentOrdersRoute from './ExistingPaymentOrders';
+import NewTransferOrderRoute from './NewTransferOrder'
+import NewPaymentOrderRoute from './NewPaymentOrder'
 
 export {
-  ExistingOrders,
-  NewOrder
+  ExistingTransferOrdersRoute,
+  ExistingPaymentOrdersRoute,
+  NewTransferOrderRoute,
+  NewPaymentOrderRoute,
 }

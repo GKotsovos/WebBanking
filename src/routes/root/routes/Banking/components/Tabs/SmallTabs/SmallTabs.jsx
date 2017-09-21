@@ -14,6 +14,7 @@ export const SmallTabs = ({
   deactivateLoan,
   initTransferTransactionForm,
   initPaymentTransactionForm,
+  initializeOrderState,
 }) => (
   <div id="smallT">
 
@@ -69,7 +70,11 @@ export const SmallTabs = ({
             <FontAwesome name="briefcase"/><br/>Πληρωμές</a>
         </li>
         <li className={`defaultTab ${window.location.href.includes('/banking/orders') ? 'active' : ''}`}
-          onClick={() => linkTo('/banking/orders')}>
+          onClick={() => {
+            initializeOrderState();
+            $('.selectpicker').selectpicker('val', [''])
+            linkTo('/banking/orders');
+          }}>
           <a href="#orders" className="mainTab" aria-controls="orders" role="tab" data-toggle="tab">
             <FontAwesome name="calendar-check-o"/><br/>Πάγιες</a>
         </li>

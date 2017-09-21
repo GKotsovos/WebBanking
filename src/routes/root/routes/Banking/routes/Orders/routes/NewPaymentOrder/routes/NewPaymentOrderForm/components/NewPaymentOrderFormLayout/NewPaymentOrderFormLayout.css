@@ -1,0 +1,21 @@
+.newOrderForm {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#orderOrganizationSelect {
+  max-width: 200px;
+  margin-bottom: 10px;
+}
+
+#orderOrganizationSelect:hover {
+  cursor: pointer;
+}
+
+#maxAmount {
+  max-width: 150px;
+}
+
+#startDatePicker_group {
+  max-width: 170px;
+}

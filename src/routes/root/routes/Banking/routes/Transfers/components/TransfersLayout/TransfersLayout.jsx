@@ -5,11 +5,9 @@ import './TransfersLayout.css';
 class TransfersLayout extends Component {
   componentWillMount(){
     const { transactionForm, initTransferTransactionForm } = this.props;
-    if (_.isEmpty(transactionForm)) {
-      initTransferTransactionForm();
-    }
+    initTransferTransactionForm();
   }
-  
+
   render(){
     return (
       <div role="tabpanel" className="tab-pane" id="transfers">
