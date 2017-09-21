@@ -3,7 +3,7 @@ import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/Sel
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import SelectBankType from '../SelectBankType';
-import Comments from '../Comments';
+import Comments from 'routes/root/routes/Banking/routes/components/Comments';
 import _ from 'underscore';
 import './TransferFormLayout.css';
 
