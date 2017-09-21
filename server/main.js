@@ -4,9 +4,10 @@ const webpack = require('webpack')
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
+const cors = require('cors')
 
 const app = express()
-
+app.use(cors({credentials: true, origin: true}))
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement universal
 // rendering, you'll want to remove this middleware.

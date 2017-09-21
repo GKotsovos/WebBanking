@@ -1,0 +1,28 @@
+#orderSelectContainer{
+  max-width: 400px;
+  margin: 0 auto 4% auto;
+}
+
+.btn-group.bootstrap-select.orderSelect.form-control{
+  max-width: 300px;
+}
+
+#paymentAccount:hover, #orderSelect:hover {
+  cursor: pointer;
+}
+
+#newOrderChoice {
+  display: flex;
+  align-items: center;
+}
+
+#orderSelect, #newOrderButton {
+  display: inline;
+}
+
+#newOrderButton {
+  width: 100px;
+  margin-left: 5%;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

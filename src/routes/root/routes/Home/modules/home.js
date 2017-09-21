@@ -1,55 +1,106 @@
-// // ------------------------------------
-// // Constants
-// // ------------------------------------
-// export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-//
-// // ------------------------------------
-// // Actions
-// // ------------------------------------
-// export function increment (value = 1) {
-//   return {
-//     type    : COUNTER_INCREMENT,
-//     payload : value
-//   }
-// }
-//
-// /*  This is a thunk, meaning it is a function that immediately
-//     returns a function for lazy evaluation. It is incredibly useful for
-//     creating async actions, especially when combined with redux-thunk!
-//
-//     NOTE: This is solely for demonstration purposes. In a real application,
-//     you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-//     reducer take care of this logic.  */
-//
-// export const doubleAsync = () => {
-//   return (dispatch, getState) => {
-//     return new Promise((resolve) => {
-//       setTimeout(() => {
-//         dispatch(increment(getState().counter))
-//         resolve()
-//       }, 200)
-//     })
-//   }
-// }
-//
-// export const actions = {
-//   increment,
-//   doubleAsync
-// }
-//
-// // ------------------------------------
-// // Action Handlers
-// // ------------------------------------
-// const ACTION_HANDLERS = {
-//   [COUNTER_INCREMENT] : (state, action) => state + action.payload
-// }
-//
-// // ------------------------------------
-// // Reducer
-// // ------------------------------------
-// const initialState = 0
-// export default function counterReducer (state = initialState, action) {
-//   const handler = ACTION_HANDLERS[action.type]
-//
-//   return handler ? handler(state, action) : state
-// }
+import cookie from 'react-cookie';
+import axios from 'axios';
+import querystring from 'querystring';
+import { browserHistory } from 'react-router'
+import _ from 'underscore'
+
+const INITIAL_STATE = 'INITIAL_STATE';
+const AUTHENTICATE = 'AUTHENTICATE';
+const AUTHENTICATED = 'AUTHENTICATED';
+const UNAUTHENTICATED = 'UNAUTHENTICATED';
+const CHANGE_PANEL = 'CHANGE_PANEL'
+
+export function initialState(){
+  return{
+    type: INITIAL_STATE
+  }
+}
+
+export const authenticate = (userId, password) => {
+  return (dispatch, getState) => {
+    return axios.post('http://localhost:26353/api/authenticate',
+        querystring.stringify({
+          userId: userId,
+          password: password
+        })
+      )
+      .then((response) => {
+        dispatch({
+          type    : AUTHENTICATED,
+          payload : response.data
+        })
+      })
+      .then(() => browserHistory.push('/banking'))
+      .catch((exception) => {
+        dispatch({
+          type    : UNAUTHENTICATED,
+          payload : exception
+        })
+      })
+  }
+}
+
+export function changePanel(panel){
+  return{
+    type: CHANGE_PANEL,
+    payload: panel
+  }
+}
+
+export const actions = {
+  initialState,
+  authenticate,
+  changePanel
+}
+
+const initState = () => {
+  return {
+    activePanel: 'NEWS',
+    returnedError: 'none'
+  }
+}
+
+const ACTION_HANDLERS = {
+  INITIAL_STATE: (state, action) => {
+    return initState();
+  },
+
+  AUTHENTICATED: (state, action) => {
+    cookie.save('access_token',
+      action.payload.access_token,
+      {
+        path: '/',
+        maxAge: action.payload.expires_in
+      }
+    );
+    return state;
+  },
+
+  UNAUTHENTICATED: (state, action) => {
+    let errorMessage = "";
+
+    if (_.has(action.payload.response, "status") &&
+        action.payload.response.status == 401) {
+      errorMessage = "Λάθος ID χρήστη ή κωδικός.";
+    } else {
+      errorMessage = "Αυτή την στιγμή υπάρχει κάποιο πρόβλημα με το σύστημα. Προσπαθήστε ξανά αργότερα."
+    }
+
+    return {
+      ...state,
+      returnedError: errorMessage
+    }
+  },
+
+  CHANGE_PANEL: (state, action) => {
+    return {
+      ...state,
+      activePanel: action.payload
+    }
+  },
+}
+
+export default function homeReducer (state = initState(), action) {
+   const handler = ACTION_HANDLERS[action.type]
+   return handler ? handler(state, action) : state
+}

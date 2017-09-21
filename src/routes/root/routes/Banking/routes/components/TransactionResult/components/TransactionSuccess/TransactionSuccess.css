@@ -1,0 +1,18 @@
+#transactionSuccessPanelBody {
+  padding-bottom: 20px;
+}
+
+#transactionSuccessIcon {
+  color: #00cc00;
+}
+
+#transactionSuccessText {
+  margin: 10px 0 25px 0;
+  font-weight: 500;
+}
+
+#finishTransaction {
+  min-width: 100px;
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

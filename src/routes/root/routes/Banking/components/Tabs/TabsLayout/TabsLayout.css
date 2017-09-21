@@ -1,0 +1,13 @@
+.small {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .default {
+    display: none;
+  }
+
+  .small {
+    display: inline;
+  }
+}

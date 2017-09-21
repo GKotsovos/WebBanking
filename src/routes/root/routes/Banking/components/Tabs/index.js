@@ -1,3 +1,3 @@
-import Tabs from './Tabs';
+import Tabs from './TabsLayout';
 
 export default Tabs;

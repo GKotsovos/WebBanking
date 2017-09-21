@@ -1,13 +1,30 @@
 import { injectReducer } from 'store/reducers'
-import Banking from './components/BankingView'
+import BankingLayout from './containers/BankingContainer'
+import {
+  AccountsRoute,
+  CardsRoute,
+  LoansRoute,
+  PaymentsRoute,
+  TransfersRoute,
+  OrdersRoute,
+} from './routes'
+import banking from './modules/banking'
 
-export default (store) => ({
-  path: 'banking',
-  getComponent (nextState, cb) {
-    require.ensure([], (require) => {
-      const reducer = require('./modules/banking').default
-      injectReducer(store, { key: 'banking', reducer })
-      cb(null, Banking)
-    })
+export const BankingRoute = (store) => {
+  injectReducer(store, { key: 'banking', reducer: banking });
+
+  return {
+    path        : '/banking',
+    component   : BankingLayout,
+    indexRoute  : AccountsRoute(store),
+    childRoutes : [
+      CardsRoute(store),
+      LoansRoute(store),
+      PaymentsRoute(store),
+      TransfersRoute(store),
+      OrdersRoute(store),
+    ]
   }
-})
+}
+
+export default BankingRoute

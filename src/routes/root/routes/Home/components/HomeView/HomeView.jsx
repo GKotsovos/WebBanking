@@ -1,13 +1,9 @@
 import React from 'react';
-import Login from '../Login';
-import ForgotPassword from '../ForgotPassword';
-import NewApplication from '../NewApplication';
-import News from '../News';
-import InformationPanel from '../InformationPanel';
-import Information from '../Information';
+import Login from '../../containers/LoginContainer';
+import InformationPanel from '../../containers/InformationPanelContainer';
 import ContactPanel from '../ContactPanel';
-import GuidePanel from '../GuidePanel';
-import Guide from '../Guide';
+import GuidePanel from '../../containers/GuidePanelContainer';
+import MainPanel from '../../containers/MainPanelContainer';
 import './HomeView.css';
 
 export const HomeView = () => (
@@ -17,8 +13,8 @@ export const HomeView = () => (
         <div id="login" className="col-sm-4">
           <Login />
         </div>
-        <div id="news" className="col-sm-8">
-          <Information />
+        <div id="panelView" className="col-xs-12 col-sm-8">
+          <MainPanel />
           <div id="helpPanels">
             <div className="col-sm-4 col-xs-12">
               <InformationPanel id="info"/>

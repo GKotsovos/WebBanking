@@ -1,0 +1,73 @@
+.defaultTab {
+  width: 113px;
+  background-color: #b0c6f2;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#tabs {
+  max-width: 678px;
+  margin: 0 auto 5% auto;
+}
+
+.verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-tabs>li>a {
+  border-radius: 0;
+}
+
+.nav-tabs>li>.mainTab {
+  padding: 3px 15px;
+}
+
+.nav-tabs>li>a:hover,
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:visited,
+.nav-tabs>li.active>a:focus {
+  cursor: pointer;
+  color: black;
+  background-color: #e9effc;
+  border-color: #b0c6f2;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a {
+  color: #111111;
+}
+
+.fa-money {
+  color: #006600;
+}
+
+.fa-credit-card {
+  color: #000080;
+}
+
+.fa-briefcase {
+  color: #654321;
+}
+
+.fa-exchange {
+  color: green;
+}
+
+.fa-handshake-o {
+  color: blue;
+}
+
+@media (max-width: 767px) {
+  .defaultTab {
+    width: 200px;
+  }
+
+  #tabs {
+    margin: 0 auto 5% auto;
+  }
+
+}

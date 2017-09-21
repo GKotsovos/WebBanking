@@ -1,0 +1,32 @@
+.existingOrderContainer {
+  margin: 0 auto 20px auto;
+}
+
+.secondRow {
+  margin-top: 10px;
+}
+
+.orderCancel {
+  margin-top: 10px;
+  float: right;
+  width: 110px;
+  background-color: #990000;
+  color: #EEEEEE;
+}
+
+.orderCancel:hover,
+.orderCancel:active:focus,
+.orderCancel:active:active {
+  background-color: #990000 !important;
+  color: #EEEEEE !important;
+}
+
+@media (max-width: 767px) {
+  .orderDetails {
+    font-size: 12px;
+  }
+  .existingOrderPanelBody {
+    padding: 10px;
+  }
+
+}
