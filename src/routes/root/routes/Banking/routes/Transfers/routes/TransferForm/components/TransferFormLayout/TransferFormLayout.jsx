@@ -61,6 +61,7 @@ class TransferFormLayout extends Component {
             />,
             <SelectTransactionDate
               key='date'
+              title='Εκτέλεση Συναλλαγής'
               date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
               setAsapTransaction={setAsapTransfer}
               setTransactionDate={setTransactionDate}

@@ -4,12 +4,13 @@ import _ from 'underscore';
 import './SelectTransactionDate.css';
 
 export const SelectTransactionDate = ({
+  title,
   date,
   setAsapTransaction,
   setTransactionDate,
 }) => (
   <div className="form-group">
-    <label htmlFor="transactionDate">Εκτέλεση Συναλλαγής</label>
+    <label htmlFor="transactionDate">{title}</label>
     <div id="transactionDate">
       <span
         id="now"
@@ -18,7 +19,7 @@ export const SelectTransactionDate = ({
           type="radio"
           name="transactionDate"
           onChange={() => setAsapTransaction(true)}
-          checked={date.asapTransaction}
+          checked={date ? date.asapTransaction : false}
         />
         <span
           id="amesa"
@@ -46,7 +47,7 @@ export const SelectTransactionDate = ({
           weekStartsOnMonday
           calendarPlacement="top"
           placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
-          value={date.value}
+          value={date? date.value : ''}
           onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
           disabled={_.isEmpty(date) || date.asapTransaction}
         />
