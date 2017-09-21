@@ -2,9 +2,9 @@ import React from 'react'
 import _ from 'underscore';
 import './AmountInput.css';
 
-export const AmountInput = ({ amount, setTransactionAmount}) => (
+export const AmountInput = ({ title, amount, setTransactionAmount}) => (
   <div className="form-group bottomOfTwoDivs">
-    <label htmlFor="transactionAmount">Ποσό</label>
+    <label htmlFor="transactionAmount">{title}</label>
     <input
       id="transactionAmount"
       className={`form-control text-right ${_.isEmpty(amount) || amount.correct ? "" : "notValid"}`}

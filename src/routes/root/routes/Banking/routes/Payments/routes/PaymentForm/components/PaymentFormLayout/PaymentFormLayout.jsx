@@ -72,6 +72,7 @@ class PaymentFormLayout extends Component {
               setPaymentCode={setPaymentCode}
             />,
             <AmountInput
+              title='Ποσό'
               amount={transactionForm.amount}
               setTransactionAmount={setPaymentAmount}
             />,

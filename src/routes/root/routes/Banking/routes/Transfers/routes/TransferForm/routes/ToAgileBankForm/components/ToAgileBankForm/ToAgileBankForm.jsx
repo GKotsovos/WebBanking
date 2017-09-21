@@ -33,6 +33,7 @@ class ToAgileBankForm extends Component {
            /> : null
        }
        <AmountInput
+         title='Ποσό'
          amount={amount}
          setTransactionAmount={setTransferAmount}
        />

@@ -38,6 +38,7 @@ class ToForeignBankForm extends Component {
          setCreditFullName={setCreditFullName}
        />
        <AmountInput
+         title='Ποσό'
          amount={amount}
          setTransactionAmount={setTransferAmount}
        />
