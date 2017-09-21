@@ -1,7 +1,7 @@
 import React, { Component, PropTypes }  from 'react';
 import _ from 'underscore';
 import SelectWayOfSelection from '../SelectWayOfSelection';
-import SearchPaymentMethod from '../SearchPaymentMethod';
+import SearchPaymentMethod from 'routes/root/routes/Banking/routes/components/SearchPaymentMethod';
 import SelectPaymentCategory from '../SelectPaymentCategory';
 import SelectPaymentSubCategory from '../SelectPaymentSubCategory';
 import SelectPaymentMethod from '../SelectPaymentMethod';

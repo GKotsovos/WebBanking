@@ -14,6 +14,7 @@ export const DefaultTabs = ({
   deactivateLoan,
   initTransferTransactionForm,
   initPaymentTransactionForm,
+  initializeOrderState,
 }) => (
   <div>
     <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
@@ -50,7 +51,7 @@ export const DefaultTabs = ({
       <li className={`defaultTab ${window.location.href.includes('/banking/transfers') ? 'active' : ''}`}
         onClick={() => {
           initTransferTransactionForm();
-          setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
+          $('.selectpicker').selectpicker('val', [''])
           linkTo('/banking/transfers');
         }}>
         <a href="#transfers" className="mainTab" data-toggle="tab">
@@ -60,7 +61,7 @@ export const DefaultTabs = ({
       <li className={`defaultTab ${window.location.href.includes('/banking/payments') ? 'active' : ''}`}
         onClick={() => {
           initPaymentTransactionForm();
-          setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
+          $('.selectpicker').selectpicker('val', [''])
           linkTo('/banking/payments');
         }}>
         <a href="#payments" className="mainTab" data-toggle="tab">
@@ -68,7 +69,11 @@ export const DefaultTabs = ({
         </a>
       </li>
       <li className={`defaultTab ${window.location.href.includes('/banking/orders') ? 'active' : ''}`}
-        onClick={() => linkTo('/banking/orders')}>
+        onClick={() => {
+          initializeOrderState();
+          $('.selectpicker').selectpicker('val', [''])
+          linkTo('/banking/orders');
+        }}>
         <a href="#orders" className="mainTab" data-toggle="tab">
           <FontAwesome name="calendar-check-o"/><br/>Πάγιες
         </a>

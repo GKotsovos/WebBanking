@@ -1,3 +1,0 @@
-import ExistingOrganizationOrdersLayout from './ExistingOrganizationOrdersLayout'
-
-export default ExistingOrganizationOrdersLayout

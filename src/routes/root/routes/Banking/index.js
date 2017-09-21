@@ -1,6 +1,13 @@
 import { injectReducer } from 'store/reducers'
 import BankingLayout from './containers/BankingContainer'
-import { AccountsRoute, CardsRoute, LoansRoute, OrdersRoute, PaymentsRoute, TransfersRoute } from './routes'
+import {
+  AccountsRoute,
+  CardsRoute,
+  LoansRoute,
+  PaymentsRoute,
+  TransfersRoute,
+  OrdersRoute,
+} from './routes'
 import banking from './modules/banking'
 
 export const BankingRoute = (store) => {
@@ -13,9 +20,9 @@ export const BankingRoute = (store) => {
     childRoutes : [
       CardsRoute(store),
       LoansRoute(store),
-      OrdersRoute(store),
       PaymentsRoute(store),
-      TransfersRoute(store)
+      TransfersRoute(store),
+      OrdersRoute(store),
     ]
   }
 }

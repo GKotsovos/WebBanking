@@ -29,11 +29,9 @@ class PaymentApproval extends Component {
 
         <div id="paymentApprovalTable" className="form-group">
           <table className="table table-bordered">
-            <thead>
-              <TransactionApprovalHeader
-                title='Στοιχεία Πληρωμής'
-              />
-            </thead>
+            <TransactionApprovalHeader
+              title='Στοιχεία Πληρωμής'
+            />
             <tbody>
               <SimpleTransactionApprovalRow
                 title='Λογαριασμός χρέωσης'

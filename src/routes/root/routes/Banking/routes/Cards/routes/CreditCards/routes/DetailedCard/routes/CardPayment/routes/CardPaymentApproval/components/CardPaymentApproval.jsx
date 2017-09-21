@@ -9,11 +9,9 @@ export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
   <form id="cardPaymentApprovalForm">
     <div id="cardPaymentApprovalTable" className="form-group">
       <table className="table table-bordered">
-        <thead>
-          <TransactionApprovalHeader
-            title='Στοιχεία Πληρωμής'
-          />
-        </thead>
+        <TransactionApprovalHeader
+          title='Στοιχεία Πληρωμής'
+        />
         <tbody>
           <SimpleTransactionApprovalRow
             title='Λογαριασμός χρέωσης'

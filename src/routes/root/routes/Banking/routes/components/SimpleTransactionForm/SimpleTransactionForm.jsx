@@ -46,10 +46,12 @@ class SimpleTransactionForm extends Component {
           setDebitAccount={setDebitAccount}
         />
         <AmountInput
+          title='Ποσό'
           amount={amount}
           setTransactionAmount={setTransactionAmount}
         />
         <SelectTransactionDate
+          title='Εκτέλεση Συναλλαγής'
           date={date}
           setAsapTransaction={setAsapTransaction}
           setTransactionDate={setTransactionDate}

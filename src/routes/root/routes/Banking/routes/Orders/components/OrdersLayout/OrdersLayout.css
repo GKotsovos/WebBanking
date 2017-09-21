@@ -1,5 +1,7 @@
 .ordersContainer {
-  margin: 0 auto;
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
 }
 
 #orders {

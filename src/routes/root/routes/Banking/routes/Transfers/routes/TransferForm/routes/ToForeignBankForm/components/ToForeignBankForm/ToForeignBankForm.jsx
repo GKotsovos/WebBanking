@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import BicInput from '../BicInput'
-import CreditAccountInput from '../../../../components/CreditAccountInput';
-import BeneficiaryInput from '../../../../components/BeneficiaryInput';
+import CreditAccountInput from 'routes/root/routes/Banking/routes/components/CreditAccountInput';
+import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
-import ChargesSelection from '../../../../components/ChargesSelection';
+import ChargesSelection from 'routes/root/routes/Banking/routes/components/ChargesSelection';
 
 class ToForeignBankForm extends Component {
   componentWillMount() {
@@ -33,11 +33,12 @@ class ToForeignBankForm extends Component {
          creditAccount={creditAccount}
          setCreditAccount={setCreditAccount}
        />
-       <BeneficiaryInput
+       <BeneficiaryFullNameInput
          fullName={fullName}
          setCreditFullName={setCreditFullName}
        />
        <AmountInput
+         title='Ποσό'
          amount={amount}
          setTransactionAmount={setTransferAmount}
        />

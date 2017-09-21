@@ -16,6 +16,7 @@ const FETCHING_PAYMENT_METHODS = 'FETCHING_PAYMENT_METHODS';
 const SET_PAYMENT_METHODS = 'SET_PAYMENT_METHODS';
 const SET_AVAILABLE_PAYMENT_CATEGORIES = 'SET_AVAILABLE_PAYMENT_CATEGORIES';
 const SET_WAY_OF_SELECTION = 'SET_WAY_OF_SELECTION';
+const CLEAR_PAYMENT_SELECTIONS = 'CLEAR_PAYMENT_SELECTIONS';
 const SET_ACTIVE_PAYMENT_CATEGORY = 'SET_ACTIVE_PAYMENT_CATEGORY';
 const SET_AVAILABLE_PAYMENT_SUBCATEGORIES = 'SET_AVAILABLE_PAYMENT_SUBCATEGORIES';
 const SET_ACTIVE_PAYMENT_SUBCATEGORY = 'SET_ACTIVE_PAYMENT_SUBCATEGORY';
@@ -86,6 +87,9 @@ export const setSearchPayment = (shouldSearch) => {
     dispatch({
       type: SET_WAY_OF_SELECTION,
       payload: shouldSearch
+    });
+    dispatch({
+      type: CLEAR_PAYMENT_SELECTIONS,
     });
     dispatch({
       type: SET_AVAILABLE_PAYMENT_METHODS,
@@ -179,7 +183,6 @@ export const payment = (transactionForm) => {
   }
 
   let creditProductType = '';
-  console.log(paymentMethod)
   if (paymentMethod.includes('ΚΑΡΤΑ')) {
     creditProductType = 'isCreditCard';
   } else if (paymentMethod.includes('ΔΑΝΕΙΟ')) {
@@ -429,6 +432,16 @@ const ACTION_HANDLERS = {
       transactionForm: {
         ...state.transactionForm,
         shouldSearch: action.payload,
+      }
+    }
+  },
+
+  CLEAR_PAYMENT_SELECTIONS: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        paymentSelections: {},
       }
     }
   },

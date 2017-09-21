@@ -9,11 +9,9 @@ export const LoanPaymentApproval = ({ transactionForm, loanPayment }) => (
   <form id="loanPaymentApprovalForm">
     <div id="loanPaymentApprovalTable" className="form-group">
       <table className="table table-bordered">
-        <thead>
-          <TransactionApprovalHeader
-            title='Στοιχεία Πληρωμής'
-          />
-        </thead>
+        <TransactionApprovalHeader
+          title='Στοιχεία Πληρωμής'
+        />
         <tbody>
           <SimpleTransactionApprovalRow
             title='Λογαριασμός χρέωσης'
