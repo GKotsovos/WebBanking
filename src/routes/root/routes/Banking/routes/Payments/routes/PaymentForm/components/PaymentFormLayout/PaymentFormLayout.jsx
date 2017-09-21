@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectPayment from '../SelectPayment';
-import PaymentCodeSelection from '../PaymentCodeSelection';
+import PaymentCodeSelection from 'routes/root/routes/Banking/routes/components/PaymentCodeSelection';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
@@ -78,6 +78,7 @@ class PaymentFormLayout extends Component {
             />,
             <SelectTransactionDate
               key='date'
+              title='Εκτέλεση Συναλλαγής'
               date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
               setAsapTransaction={setAsapTransaction}
               setTransactionDate={setTransactionDate}
