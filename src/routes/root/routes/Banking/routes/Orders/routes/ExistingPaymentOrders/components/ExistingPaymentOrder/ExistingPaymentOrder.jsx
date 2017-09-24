@@ -1,7 +1,8 @@
 import React from 'react';
 import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
-import ExistingOrderTitle from '../../../components/ExistingOrderTitle'
+import ExistingOrderTitle from '../../../components/ExistingOrderTitle';
+import CancelOrderButton from '../../../components/CancelOrderButton';
 import './ExistingPaymentOrder.css';
 
 export const ExistingPaymentOrder = ({ paymentOrder, cancelPaymentOrder }) => (
@@ -44,11 +45,11 @@ export const ExistingPaymentOrder = ({ paymentOrder, cancelPaymentOrder }) => (
           <span className="col-xs-6 text-right">Ημ/νία τελευταίας εκτέλεσης</span>
         </span>
       </div>
-      <button
-        className="btn btn-default orderCancel"
-        onClick={() => cancelPaymentOrder(paymentOrder.id)}>
-        Ακύρωση
-      </button>
+      <CancelOrderButton
+        orderName={paymentOrder.paymentMethod}
+        orderId={paymentOrder.id}
+        cancelOrder={cancelPaymentOrder}
+      />
     </div>
   </div>
 )
