@@ -5,7 +5,6 @@ import cards from './modules/cards'
 
 export const CardsRoute = (store) => {
   injectReducer(store, { key: 'cards', reducer: cards });
-
   return {
     path        : '/banking/cards',
     component   : CardsLayout,

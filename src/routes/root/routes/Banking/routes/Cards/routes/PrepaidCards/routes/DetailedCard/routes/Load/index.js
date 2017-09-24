@@ -3,7 +3,6 @@ import LoadLayout from './components/LoadLayout'
 import { LoadFormRoute, LoadApprovalRoute, LoadResultRoute } from './routes'
 
 export const LoadRoute = (store) => {
-
   return {
     path        : '/banking/cards/prepaidcards/card/load',
     component   : LoadLayout,
