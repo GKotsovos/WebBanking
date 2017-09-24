@@ -21,7 +21,7 @@ export const Card = ({ card, type, setActiveCard, getCardTransactionHistory, lin
           ({currencyFormatter.findCurrency(card.currency).symbol}) {type} {card.brand}
         </span>
         <span className="titles cardNumber">
-          {_.map(card.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}
+          {_.map(card.id, ((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num ))}
         </span>
       </h3>
     </div>
