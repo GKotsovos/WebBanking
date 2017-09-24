@@ -6,13 +6,17 @@ import { browserHistory } from 'react-router'
 const INITIAL_STATE = 'INITIAL_STATE';
 const REQUESTING = 'REQUESTING';
 const RECEIVE_CUSTOMER_NAME = 'RECEIVE_CUSTOMER_NAME';
-const REQUEST_ERROR = 'REQUEST_ERROR';
-const LOG_OUT = 'LOG_OUT';
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
+const UPDATE_LOG_OUT_TIMER = 'UPDATE_LOG_OUT_TIMER';
+const SHOW_LOG_OUT_MODAL = 'SHOW_LOG_OUT_MODAL';
+const LOG_OUT = 'LOG_OUT';
+const REQUEST_ERROR = 'REQUEST_ERROR';
 
-export function initialState(){
-  return {
-    type: INITIAL_STATE
+export const initialState = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: INITIAL_STATE
+    });
   }
 }
 
@@ -56,21 +60,41 @@ export const linkTo = (route) => {
   }
 }
 
-export const logOut = () => {
-    return (dispatch, getState) => {
+export const logOutCountDown = () => {
+  return (dispatch, getState) => {
+    let secondsLeft = getState().home.secondsToLogOut;
+    const interval = setInterval(function() {
+      secondsLeft--;
+
+      const date = new Date(null);
+      date.setSeconds(secondsLeft);
       dispatch({
-        type    : LOG_OUT
+        type    : UPDATE_LOG_OUT_TIMER,
+        payload : date.toISOString().substr(14, 5)
       });
-    }
+
+      if (secondsLeft == 0) {
+        clearInterval(interval);
+        dispatch({
+          type    : SHOW_LOG_OUT_MODAL
+        });
+      }
+    }, 1000);
+  }
 }
 
-export const timeOutLogOut = (ms) => {
-    return (dispatch, getState) => setTimeout(() => logOut()(dispatch, getState), ms)
+export const logOut = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type    : LOG_OUT
+    });
+  }
 }
 
 export const actions = {
   getCustomerName,
   linkTo,
+  logOutCountDown,
   logOut
 }
 
@@ -94,10 +118,26 @@ const ACTION_HANDLERS = {
     }
   },
 
-  REQUEST_ERROR: (state, action) => {
+  CHANGE_ACTIVE_TAB: (state, action) => {
     return {
       ...state,
-      returnedError: action.payload
+      activeRoute: action.payload
+    }
+  },
+
+  UPDATE_LOG_OUT_TIMER: (state, action) => {
+    return {
+      ...state,
+      timeLeftToLogOut: action.payload
+    }
+  },
+
+  SHOW_LOG_OUT_MODAL: (state, action) => {
+    return {
+      ...state,
+      logOutModal: {
+        shouldShow: true
+      }
     }
   },
 
@@ -107,10 +147,10 @@ const ACTION_HANDLERS = {
     return {};
   },
 
-  CHANGE_ACTIVE_TAB: (state, action) => {
+  REQUEST_ERROR: (state, action) => {
     return {
       ...state,
-      activeRoute: action.payload
+      returnedError: action.payload
     }
   },
 }
