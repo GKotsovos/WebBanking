@@ -1,10 +1,14 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
+import DeleteLinkedProduct from '../DeleteLinkedProduct'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
-import './LinkedProducts.css';
+import './LinkedProductsLayout.css';
 
-export const LinkedProducts = ({ linkedProducts, deleteLinkedProduct }) => (
+export const LinkedProductsLayout = ({
+  debitCardId,
+  linkedProducts,
+  deleteLinkedProduct
+}) => (
   <div role="tabpanel" className="tab-pane" id="cardProducts">
     <table id="linkedProductsTable" className="table">
       <thead>
@@ -26,7 +30,12 @@ export const LinkedProducts = ({ linkedProducts, deleteLinkedProduct }) => (
                 {currencyFormatter.findCurrency(linkedProduct.currency).symbol}
               </td>
               <td key={key++} className="cell col-xs-1 text-center">
-                <FontAwesome key={key++} className="xIcon" name="times" onClick={() => deleteLinkedProduct(linkedProduct.id)}/>
+                <DeleteLinkedProduct
+                  key={key++}
+                  debitCardId={debitCardId}
+                  linkedProductId={linkedProduct.id}
+                  deleteLinkedProduct={deleteLinkedProduct}
+                />
               </td>
             </tr>
           ]: [])
@@ -36,4 +45,4 @@ export const LinkedProducts = ({ linkedProducts, deleteLinkedProduct }) => (
   </div>
 )
 
-export default LinkedProducts
+export default LinkedProductsLayout
