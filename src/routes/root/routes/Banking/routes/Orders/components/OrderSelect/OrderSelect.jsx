@@ -3,9 +3,20 @@ import './OrderSelect.css';
 
 class OrderSelect extends Component {
   componentDidMount() {
-    const { activeOrder } = this.props;
+    let { activeOrder, changeActiveOrderType } = this.props;
+    if (!activeOrder) {
+      if (localStorage.path.includes('transfer')) {
+        activeOrder = 'Μεταφορά';
+        changeActiveOrderType(activeOrder, 'transfer')
+      } else if (localStorage.path.includes('payment')) {
+        activeOrder = 'Πληρωμή';
+        changeActiveOrderType(activeOrder, 'payment')
+      } else {
+        activeOrder = '';
+      }
+    }
     $('.selectpicker').selectpicker();
-    $('.selectpicker.orderSelect').selectpicker('val', [activeOrder ? activeOrder.selection : '']);
+    $('.selectpicker.orderSelect').selectpicker('val', [activeOrder]);
   }
 
   componentWillReceiveProps() {

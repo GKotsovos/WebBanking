@@ -22,7 +22,6 @@ const RECEIVE_DOMESTIC_BANKS = 'RECEIVE_DOMESTIC_BANKS';
 const SET_ORDER_DEBIT_ACCOUNT = 'SET_ORDER_DEBIT_ACCOUNT';
 const SET_ORDER_CURRENCY = 'SET_ORDER_CURRENCY';
 const SET_TRANSFER_ORDER_BENEFICIARY_BANK_TYPE = 'SET_TRANSFER_ORDER_BENEFICIARY_BANK_TYPE';
-const SET_TRANSFER_ORDER_BENEFICIARY_BANK_NAME = 'SET_TRANSFER_ORDER_BENEFICIARY_BANK_NAME';
 const SET_TRANSFER_ORDER_BENEFICIARY_NAME = 'SET_TRANSFER_ORDER_BENEFICIARY_NAME';
 const SET_TRANSFER_ORDER_BENEFICIARY_ACCOUNT = 'SET_TRANSFER_ORDER_BENEFICIARY_ACCOUNT';
 const SET_TRANSFER_ORDER_AMOUNT = 'SET_TRANSFER_ORDER_AMOUNT';
@@ -33,7 +32,7 @@ const SET_TRANSFER_ORDER_START_DATE = 'SET_TRANSFER_ORDER_START_DATE';
 const SET_TRANSFER_ORDER_PERIODICITY = 'SET_TRANSFER_ORDER_PERIODICITY';
 const SET_TRANSFER_ORDER_TIMES_OF_EXEC = 'SET_TRANSFER_ORDER_TIMES_OF_EXEC';
 const SET_TRANSFER_ORDER_CUSTOM_TITLE = 'SET_TRANSFER_ORDER_CUSTOM_TITLE';
-const SET_AVAILABLE_PAYMENT_METHODS = 'SET_AVAILABLE_PAYMENT_METHODS';
+const SET_AVAILABLE_PAYMENT_ORDER_METHODS = 'SET_AVAILABLE_PAYMENT_ORDER_METHODS';
 const SET_PAYMENT_ORDER_PAYMENT_METHOD = 'SET_PAYMENT_ORDER_PAYMENT_METHOD';
 const SET_PAYMENT_ORDER_PAYENT_TYPE = 'SET_PAYMENT_ORDER_PAYENT_TYPE';
 const SET_PAYMENT_ORDER_PAYMENT_CODE = 'SET_PAYMENT_ORDER_PAYMENT_CODE';
@@ -733,7 +732,6 @@ export const actions = {
   setTransferOrderBeneficiaryName,
   setTransferOrderBeneficiaryAccount,
   setTransferOrderBeneficiaryBankType,
-  setTransferOrderBeneficiaryBankName,
   setTransferOrderBeneficiaryBankBic,
   setTransferOrderAmount,
   setTransferOrderChargesBeneficiary,
@@ -778,7 +776,6 @@ const ACTION_HANDLERS = {
         debitAccount: {},
         currency: {},
         beneficiaryBankType: {},
-        beneficiarybank: {},
         beneficiaryAccount: {},
         beneficiaryFullName: {},
         amount: {},
@@ -877,35 +874,6 @@ const ACTION_HANDLERS = {
           value: action.payload.bankType,
           selection: action.payload.selection,
           correct: true
-        }
-      }
-    }
-  },
-
-  SET_TRANSFER_ORDER_BENEFICIARY_BANK_NAME: (state, action) => {
-    return {
-      ...state,
-      newOrderForm: {
-        ...state.newOrderForm,
-        beneficiarybank: {
-          bic: action.payload.split(' - ')[0],
-          name: action.payload.split(' - ')[1],
-          selection: action.payload,
-          correct: true,
-        }
-      }
-    }
-  },
-
-  SET_TRANSFER_ORDER_BENEFICIARY_BANK_BIC: (state, action) => {
-    return {
-      ...state,
-      newOrderForm: {
-        ...state.newOrderForm,
-        beneficiarybank: {
-          ...state.newOrderForm.bank,
-          bic: action.payload,
-          correct: bic.isValid(action.payload) || action.payload == 'AGILGRAA',
         }
       }
     }

@@ -5,9 +5,7 @@ class NewPaymentOrderLayout extends Component {
   componentWillMount(){
     const { newOrderForm, initNewPaymentOrderForm } = this.props;
     $('.selectpicker').selectpicker();
-    // if (_.isEmpty(newOrderForm)) {
-      initNewPaymentOrderForm();
-    // }
+    initNewPaymentOrderForm();
   }
 
   render(){
