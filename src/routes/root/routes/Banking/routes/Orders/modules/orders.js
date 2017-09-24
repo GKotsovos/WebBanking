@@ -41,6 +41,7 @@ const SET_PAYMENT_ORDER_MAX_AMOUNT = 'SET_PAYMENT_ORDER_MAX_AMOUNT';
 const SET_PAYMENT_ORDER_END_DATE = 'SET_PAYMENT_ORDER_END_DATE';
 const CLEAR_NEW_ORDER_FORM = 'CLEAR_NEW_ORDER_FORM';
 const VALIDATE_TRANSFER_ORDER_FORM = 'VALIDATE_TRANSFER_ORDER_FORM';
+const VALIDATE_PAYMENT_ORDER_FORM = 'VALIDATE_PAYMENT_ORDER_FORM';
 const CLEAR_TRANSFER_ORDER_FORM = 'CLEAR_TRANSFER_ORDER_FORM';
 const SUCCESSFUL_REQUEST = 'SUCCESSFUL_REQUEST';
 const UNSUCCESSFUL_REQUEST = 'UNSUCCESSFUL_REQUEST';
@@ -261,23 +262,20 @@ export const setOrderDebitAccount = (debitAccount, debitAccountType) => {
       type: SET_ORDER_CURRENCY,
       payload: currency,
     });
-    dispatch({
-      type: VALIDATE_TRANSFER_ORDER_FORM
-    });
+    if (getState().orders.activeOrder.type == 'payment') {
+      dispatch({
+        type: VALIDATE_PAYMENT_ORDER_FORM
+      });
+    } else {
+      dispatch({
+        type: VALIDATE_TRANSFER_ORDER_FORM
+      });
+    }
   }
 }
 
 export const setTransferOrderBeneficiaryBankType = (selection, bankType) => {
   return (dispatch, getState) => {
-    const customerName = (getState().banking.customerName.firstName + ' ' + getState().banking.customerName.lastName)
-    .replace('ά', 'α')
-    .replace('έ', 'ε')
-    .replace('ί', 'ι')
-    .replace('ή', 'η')
-    .replace('ό', 'ο')
-    .replace('ύ', 'υ')
-    .replace('ώ', 'ω');
-
     dispatch({
       type: SET_TRANSFER_ORDER_BENEFICIARY_BANK_TYPE,
       payload: {
@@ -285,27 +283,13 @@ export const setTransferOrderBeneficiaryBankType = (selection, bankType) => {
         bankType
       }
     });
-    const bic = bankType == 'agileBank' ? 'AGILGRAA - AGILE BANK' : ''
     dispatch({
-      type: SET_TRANSFER_ORDER_BENEFICIARY_BANK_NAME,
-      payload: bic
+      type: SET_TRANSFER_ORDER_BENEFICIARY_ACCOUNT,
+      payload: {}
     });
-    const fullName = bankType == 'agileBank' ? customerName : ''
     dispatch({
       type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
-      payload: fullName
-    });
-    dispatch({
-      type: VALIDATE_TRANSFER_ORDER_FORM
-    });
-  }
-}
-
-export const setTransferOrderBeneficiaryBankName = (bankName) => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SET_TRANSFER_ORDER_BENEFICIARY_BANK_NAME,
-      payload: bankName
+      payload: ''
     });
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
@@ -346,6 +330,25 @@ export const setTransferOrderBeneficiaryAccount = (account, type) => {
         type
       }
     });
+    if (type == 'isAccount' && getState().orders.newOrderForm.beneficiaryBankType.value == 'agileBank') {
+      const customerName = (getState().banking.customerName.firstName + ' ' + getState().banking.customerName.lastName)
+      .replace('ά', 'α')
+      .replace('έ', 'ε')
+      .replace('ί', 'ι')
+      .replace('ή', 'η')
+      .replace('ό', 'ο')
+      .replace('ύ', 'υ')
+      .replace('ώ', 'ω');
+      dispatch({
+        type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
+        payload: customerName
+      });
+    } else {
+      dispatch({
+        type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
+        payload: ''
+      });
+    }
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
     });
@@ -459,30 +462,32 @@ export const setTransferOrderCustomTitle = (title) => {
 
 export const getPaymentMethods = () => {
   return (dispatch, getState) => {
-    return axios({
-      method: 'get',
-      url: 'http://localhost:26353/api/Payment/GetPaymentMethods',
-      withCredentials: true,
-    })
-    .then((response) => {
-      dispatch({
-        type    : SET_AVAILABLE_PAYMENT_METHODS,
-        payload : response.data
+    if (_.isEmpty(getState().orders.newOrderForm.availablePaymentMethods)) {
+      return axios({
+        method: 'get',
+        url: 'http://localhost:26353/api/Payment/GetPaymentMethods',
+        withCredentials: true,
       })
-    })
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_TRANSACTION,
-        payload : {
-          exception,
-          linkToStart: '/banking/payments'
-        }
+      .then((response) => {
+        dispatch({
+          type    : SET_AVAILABLE_PAYMENT_ORDER_METHODS,
+          payload : response.data
+        })
       })
-    })
+      .catch((exception) => {
+        !_.isEmpty(exception.response) && exception.response.status == 401 ?
+        dispatch({
+          type    : 'LOG_OUT',
+        }) :
+        dispatch({
+          type    : UNSUCCESSFUL_REQUEST,
+          payload : {
+            exception,
+            linkToStart: '/banking/payments'
+          }
+        })
+      })
+    }
   }
 }
 
@@ -515,7 +520,7 @@ export const setPaymentOrderPaymentMethod = (paymentMethod) => {
       payload: undefined
     });
     dispatch({
-      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+      type: VALIDATE_PAYMENT_ORDER_FORM
     });
   }
 }
@@ -527,7 +532,7 @@ export const setPaymentOrderPaymentCode = (paymentCode) => {
       payload: paymentCode
     });
     dispatch({
-      type: VALIDATE_PAYMENT_TRANSACTION_FORM
+      type: VALIDATE_PAYMENT_ORDER_FORM
     });
   }
 }
@@ -539,7 +544,7 @@ export const setPaymentOrderMaxAmount = (amount) => {
       payload: amount
     });
     dispatch({
-      type: VALIDATE_TRANSFER_ORDER_FORM
+      type: VALIDATE_PAYMENT_ORDER_FORM
     });
   }
 }
@@ -554,7 +559,7 @@ export const setPaymentOrderEndDate = (date, formattedDate) => {
       }
     });
     dispatch({
-      type: VALIDATE_TRANSFER_ORDER_FORM
+      type: VALIDATE_PAYMENT_ORDER_FORM
     });
   }
 }
@@ -1030,7 +1035,7 @@ const ACTION_HANDLERS = {
         ...state.newOrderForm,
         timesOfExecution: {
           value: action.payload,
-          correct: true,
+          correct: action.payload > 0
         }
       }
     }
@@ -1043,13 +1048,13 @@ const ACTION_HANDLERS = {
         ...state.newOrderForm,
         customTitle: {
           value: action.payload,
-          correct: true,
+          correct: action.payload != '',
         }
       }
     }
   },
 
-  SET_AVAILABLE_PAYMENT_METHODS: (state, action) => {
+  SET_AVAILABLE_PAYMENT_ORDER_METHODS: (state, action) => {
     return {
       ...state,
       newOrderForm: {
@@ -1131,8 +1136,35 @@ const ACTION_HANDLERS = {
       ...state,
       newOrderForm: {
         ...state.newOrderForm,
-        shouldProcess: true
-        // TODO
+        shouldProcess: state.newOrderForm.debitAccount.correct &&
+          state.newOrderForm.currency.correct &&
+          state.newOrderForm.beneficiaryBankType.correct &&
+          state.newOrderForm.beneficiaryAccount.correct &&
+          state.newOrderForm.beneficiaryFullName.correct &&
+          state.newOrderForm.amount.correct &&
+          ((state.newOrderForm.beneficiaryBankType.value == 'agileBank' &&
+           state.newOrderForm.beneficiaryAccount.type == 'isAccount') ||
+          state.newOrderForm.chargesBeneficiary.correct) &&
+          state.newOrderForm.comments.correct &&
+          state.newOrderForm.startDate.correct &&
+          state.newOrderForm.periodicity.correct &&
+          state.newOrderForm.timesOfExecution.correct &&
+          state.newOrderForm.customTitle.correct
+      }
+    }
+  },
+
+  VALIDATE_PAYMENT_ORDER_FORM: (state, action) => {
+    return {
+      ...state,
+      newOrderForm: {
+        ...state.newOrderForm,
+        shouldProcess: state.newOrderForm.debitAccount.correct &&
+          state.newOrderForm.currency.correct &&
+          state.newOrderForm.paymentCode.correct &&
+          state.newOrderForm.maxAmount.correct &&
+          state.newOrderForm.charges.correct &&
+          state.newOrderForm.endDate.correct
       }
     }
   },
