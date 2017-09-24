@@ -2,9 +2,11 @@ import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
+import { logOutCountDown } from 'routes/root/routes/Banking/modules/banking';
 import _ from 'underscore'
 
 const INITIAL_STATE = 'INITIAL_STATE';
+const INIT_LOG_OUT_TIMER = 'INIT_LOG_OUT_TIMER';
 const AUTHENTICATE = 'AUTHENTICATE';
 const AUTHENTICATED = 'AUTHENTICATED';
 const UNAUTHENTICATED = 'UNAUTHENTICATED';
@@ -25,6 +27,11 @@ export const authenticate = (userId, password) => {
         })
       )
       .then((response) => {
+        dispatch({
+          type    : INIT_LOG_OUT_TIMER,
+          payload : response.data.expires_in
+        })
+        logOutCountDown()(dispatch, getState)
         dispatch({
           type    : AUTHENTICATED,
           payload : response.data
@@ -63,6 +70,13 @@ const initState = () => {
 const ACTION_HANDLERS = {
   INITIAL_STATE: (state, action) => {
     return initState();
+  },
+
+  INIT_LOG_OUT_TIMER: (state, action) => {
+    return {
+      ...state,
+      secondsToLogOut: action.payload
+    }
   },
 
   AUTHENTICATED: (state, action) => {
