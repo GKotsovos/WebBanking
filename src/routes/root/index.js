@@ -11,7 +11,7 @@ export const RootRoute = (store) => ({
   indexRoute  : HomeRoute(store),
   childRoutes : [
     BankingRoute(store),
-    RouteNotFound
+    RouteNotFound(store)
   ]
 })
 
