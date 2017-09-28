@@ -14,7 +14,7 @@ export class SelectDebitAccount extends Component {
     setTimeout(() => $(".selectpicker.transactionDebitAccount").selectpicker('refresh'), 350);
   }
 
-  render(){
+  render() {
     const {
       label,
       debitAccount,

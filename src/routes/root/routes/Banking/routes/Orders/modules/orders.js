@@ -3,22 +3,36 @@ import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router';
 import dateformat from 'dateformat';
-import _ from 'underscore'
 import IBAN from 'iban';
 import bic from 'bic';
-import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
-import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
-import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
+import _ from 'underscore'
+import { linkTo } from 'routes/root/routes/Banking/modules/banking';
+import {
+  getDebitAccountAvailableBalance,
+  getPaymentType,
+  getDebitAccountCurrency,
+  getActualFullName,
+  findTransferCharges,
+  findPaymentCharges,
+  isValidFullName,
+  isValidDebitAmount,
+  isValidDate,
+  isValidChargesBeneficiary,
+} from 'routes/root/routes/Banking/routes/utils/commonUtils';
+import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
+import {
+  initProperOrderForm,
+  getBeneficiaryName
+} from '../utils/orderUtils';
+import { handleOrderTransactionException } from '../utils/coommonOrderActions';
 
 const INITIAL_ORDER_STATE = 'INITIAL_ORDER_STATE';
-const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const CHANGE_ACTIVE_ORDER_TYPE = 'CHANGE_ACTIVE_ORDER_TYPE';
 const INIT_NEW_TRANSFER_ORDER_FORM = 'INIT_NEW_TRANSFER_ORDER_FORM';
 const INIT_NEW_PAYMENT_ORDER_FORM = 'INIT_NEW_PAYMENT_ORDER_FORM';
-const RECEIVE_TRANSFER_ORDERS = 'RECEIVE_TRANSFER_ORDERS';
-const RECEIVE_PAYMENT_ORDERS = 'RECEIVE_PAYMENT_ORDERS';
-const FETCHING_DOMESTIC_BANKS = 'FETCHING_DOMESTIC_BANKS';
-const RECEIVE_DOMESTIC_BANKS = 'RECEIVE_DOMESTIC_BANKS';
+const RECEIVED_TRANSFER_ORDERS = 'RECEIVED_TRANSFER_ORDERS';
+const RECEIVED_PAYMENT_ORDERS = 'RECEIVED_PAYMENT_ORDERS';
+const RECEIVED_DOMESTIC_BANKS = 'RECEIVED_DOMESTIC_BANKS';
 const SET_ORDER_DEBIT_ACCOUNT = 'SET_ORDER_DEBIT_ACCOUNT';
 const SET_ORDER_CURRENCY = 'SET_ORDER_CURRENCY';
 const SET_TRANSFER_ORDER_BENEFICIARY_BANK_TYPE = 'SET_TRANSFER_ORDER_BENEFICIARY_BANK_TYPE';
@@ -26,6 +40,8 @@ const SET_TRANSFER_ORDER_BENEFICIARY_NAME = 'SET_TRANSFER_ORDER_BENEFICIARY_NAME
 const SET_TRANSFER_ORDER_BENEFICIARY_ACCOUNT = 'SET_TRANSFER_ORDER_BENEFICIARY_ACCOUNT';
 const SET_TRANSFER_ORDER_AMOUNT = 'SET_TRANSFER_ORDER_AMOUNT';
 const SET_TRANSFER_ORDER_CHARGES_BENEFICIARY = 'SET_TRANSFER_ORDER_CHARGES_BENEFICIARY';
+const SET_TRANSFER_ORDER_CHARGES = 'SET_TRANSFER_ORDER_CHARGES';
+const CLEAR_TRANSFER_ORDER_CHARGES = 'CLEAR_TRANSFER_ORDER_CHARGES';
 const SET_TRANSFER_ORDER_COMMENTS = 'SET_TRANSFER_ORDER_COMMENTS';
 const SET_TRANSFER_ORDER_ASAP_START = 'SET_TRANSFER_ORDER_ASAP_START';
 const SET_TRANSFER_ORDER_START_DATE = 'SET_TRANSFER_ORDER_START_DATE';
@@ -34,6 +50,7 @@ const SET_TRANSFER_ORDER_TIMES_OF_EXEC = 'SET_TRANSFER_ORDER_TIMES_OF_EXEC';
 const SET_TRANSFER_ORDER_CUSTOM_TITLE = 'SET_TRANSFER_ORDER_CUSTOM_TITLE';
 const SET_AVAILABLE_PAYMENT_ORDER_METHODS = 'SET_AVAILABLE_PAYMENT_ORDER_METHODS';
 const SET_PAYMENT_ORDER_PAYMENT_METHOD = 'SET_PAYMENT_ORDER_PAYMENT_METHOD';
+const SET_PAYMENT_ORDER_CHARGES = 'SET_PAYMENT_ORDER_CHARGES';
 const SET_PAYMENT_ORDER_PAYENT_TYPE = 'SET_PAYMENT_ORDER_PAYENT_TYPE';
 const SET_PAYMENT_ORDER_PAYMENT_CODE = 'SET_PAYMENT_ORDER_PAYMENT_CODE';
 const SET_PAYMENT_ORDER_MAX_AMOUNT = 'SET_PAYMENT_ORDER_MAX_AMOUNT';
@@ -42,8 +59,9 @@ const CLEAR_NEW_ORDER_FORM = 'CLEAR_NEW_ORDER_FORM';
 const VALIDATE_TRANSFER_ORDER_FORM = 'VALIDATE_TRANSFER_ORDER_FORM';
 const VALIDATE_PAYMENT_ORDER_FORM = 'VALIDATE_PAYMENT_ORDER_FORM';
 const CLEAR_TRANSFER_ORDER_FORM = 'CLEAR_TRANSFER_ORDER_FORM';
-const SUCCESSFUL_REQUEST = 'SUCCESSFUL_REQUEST';
-const UNSUCCESSFUL_REQUEST = 'UNSUCCESSFUL_REQUEST';
+const SUCCESSFUL_ORDER_TRANSACTION = 'SUCCESSFUL_ORDER_TRANSACTION';
+const UNSUCCESSFUL_ORDER_TRANSACTION = 'UNSUCCESSFUL_ORDER_TRANSACTION';
+const REQUEST_ERROR = 'REQUEST_ERROR';
 
 export const initializeOrderState = () => {
   return (dispatch, getState) => {
@@ -79,26 +97,8 @@ export const linkToNewOrder = (activeOrder) => {
         subType: 'new'
       }
     });
-    switch (activeOrder.type) {
-      case 'transfer':
-        initNewTransferOrderForm();
-        break;
-      case 'payment':
-        initNewPaymentOrderForm();
-        break;
-    }
+    initProperOrderForm(activeOrder.type, initNewTransferOrderForm, initNewPaymentOrderForm);
     linkTo(`/banking/orders/${activeOrder.type}/new`);
-  }
-}
-
-export const linkTo = (route) => {
-  localStorage.setItem('path', route);
-  browserHistory.push(route);
-  return (dispatch, getState) => {
-    dispatch({
-      type: CHANGE_ACTIVE_TAB,
-      payload: route
-    });
   }
 }
 
@@ -134,23 +134,11 @@ export const getTransferOrders = () => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_TRANSFER_ORDERS,
+        type    : RECEIVED_TRANSFER_ORDERS,
         payload : response.data
       })
     })
-    .catch((exception)  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_REQUEST,
-        payload : {
-          exception,
-          linkToStart: '/banking/orders'
-        }
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -163,23 +151,11 @@ export const getPaymentOrders = () => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_PAYMENT_ORDERS,
+        type    : RECEIVED_PAYMENT_ORDERS,
         payload : response.data
       })
     })
-    .catch((exception)  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_REQUEST,
-        payload : {
-          exception,
-          linkToStart: '/banking/orders'
-        }
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -193,62 +169,19 @@ export const getDomesticBanks = () => {
       })
       .then((response) => {
         dispatch({
-          type    : RECEIVE_DOMESTIC_BANKS,
+          type    : RECEIVED_DOMESTIC_BANKS,
           payload : response.data
         })
       })
-      .catch((exception) => {
-        !_.isEmpty(exception.response) && exception.response.status == 401 ?
-        dispatch({
-          type    : 'LOG_OUT',
-        }) :
-        dispatch({
-          type    : UNSUCCESSFUL_REQUEST,
-          payload : {
-            exception,
-            linkToStart: '/banking/orders'
-          }
-        })
-      })
+      .catch((exception) => handleRequestException(exception, dispatch))
     }
   }
 }
 
 export const setOrderDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
-
-    let innerDebitAccount = '';
-
-    switch (debitAccountType) {
-      case "isAccount":
-        innerDebitAccount =  _.chain(getState().accounts.accounts)
-          .filter((account) => account.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isLoan":
-        innerDebitAccount = _.chain(getState().loans.loans)
-          .filter((loan) => loan.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isCreditCard":
-        innerDebitAccount = _.chain(getState().cards.creditCards)
-          .filter((creditCard) => creditCard.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isPrepaidCard":
-        innerDebitAccount = _.chain(getState().cards.prepaidCards)
-          .filter((prepaidCard) => prepaidCard.id == debitAccount)
-          .first()
-          .value();
-        break;
-    }
-
-    const availableBalance = innerDebitAccount.availableBalance
-    const currency = innerDebitAccount.currency
-
+    const availableBalance = getDebitAccountAvailableBalance(debitAccountType, debitAccount, getState())
+    const currency = getDebitAccountCurrency(debitAccountType, debitAccount, getState())
     dispatch({
       type: SET_ORDER_DEBIT_ACCOUNT,
       payload: {
@@ -290,6 +223,16 @@ export const setTransferOrderBeneficiaryBankType = (selection, bankType) => {
       type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
       payload: ''
     });
+    if (bankType == 'agileBank') {
+      dispatch({
+        type: SET_TRANSFER_ORDER_CHARGES,
+        payload: 0
+      });
+    } else {
+      dispatch({
+        type: CLEAR_TRANSFER_ORDER_CHARGES
+      });
+    }
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
     });
@@ -329,25 +272,11 @@ export const setTransferOrderBeneficiaryAccount = (account, type) => {
         type
       }
     });
-    if (type == 'isAccount' && getState().orders.newOrderForm.beneficiaryBankType.value == 'agileBank') {
-      const customerName = (getState().banking.customerName.firstName + ' ' + getState().banking.customerName.lastName)
-      .replace('ά', 'α')
-      .replace('έ', 'ε')
-      .replace('ί', 'ι')
-      .replace('ή', 'η')
-      .replace('ό', 'ο')
-      .replace('ύ', 'υ')
-      .replace('ώ', 'ω');
-      dispatch({
-        type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
-        payload: customerName
-      });
-    } else {
-      dispatch({
-        type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
-        payload: ''
-      });
-    }
+    const customerName = getBeneficiaryName(type, getState().orders.newOrderForm.beneficiaryBankType.value, getState());
+    dispatch({
+      type: SET_TRANSFER_ORDER_BENEFICIARY_NAME,
+      payload: customerName
+    });
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
     });
@@ -374,6 +303,9 @@ export const setTransferOrderChargesBeneficiary = (selection, beneficiary) => {
         selection,
         beneficiary
       }
+    });
+    dispatch({
+      type: SET_TRANSFER_ORDER_CHARGES
     });
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
@@ -473,19 +405,7 @@ export const getPaymentMethods = () => {
           payload : response.data
         })
       })
-      .catch((exception) => {
-        !_.isEmpty(exception.response) && exception.response.status == 401 ?
-        dispatch({
-          type    : 'LOG_OUT',
-        }) :
-        dispatch({
-          type    : UNSUCCESSFUL_REQUEST,
-          payload : {
-            exception,
-            linkToStart: '/banking/payments'
-          }
-        })
-      })
+      .catch((exception) => handleRequestException(exception, dispatch))
     }
   }
 }
@@ -496,20 +416,10 @@ export const setPaymentOrderPaymentMethod = (paymentMethod) => {
       type: SET_PAYMENT_ORDER_PAYMENT_METHOD,
       payload: paymentMethod
     });
-    let paymentType = '';
-    switch (paymentMethod) {
-      case 'ΚΑΡΤΑ AGILE BANK':
-        paymentType = 'isCreditCardAgile';
-        break;
-      case 'ΚΑΡΤΑ ΑΛΛΗΣ ΤΡΑΠΕΖΗΣ':
-        paymentType = 'isCreditCardThirdParty';
-        break;
-      case 'ΔΑΝΕΙΟ AGILE BANK':
-        paymentType = 'isLoan';
-        break;
-      default:
-        paymentType = 'thirdPartyPayment';
-    }
+    dispatch({
+      type: SET_PAYMENT_ORDER_CHARGES
+    });
+    const paymentType = getPaymentType(paymentMethod);
     dispatch({
       type: SET_PAYMENT_ORDER_PAYENT_TYPE,
       payload: paymentType
@@ -575,24 +485,12 @@ export const cancelTransferOrder = (orderId) => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_REQUEST,
+        type    : SUCCESSFUL_ORDER_TRANSACTION,
         payload : '/banking/orders/existing/transfer'
       })
     })
     .then(() => getTransferOrders()(dispatch, getState))
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_REQUEST,
-        payload : {
-          exception,
-          linkToStart: '/banking/orders/existing/transfer'
-        }
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -608,24 +506,12 @@ export const cancelPaymentOrder = (orderId) => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_REQUEST,
+        type    : SUCCESSFUL_ORDER_TRANSACTION,
         payload : '/banking/orders/existing/payment'
       })
     })
     .then(() => getPaymentOrders()(dispatch, getState))
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_REQUEST,
-        payload : {
-          exception,
-          linkToStart: '/banking/orders/existing/payment'
-        }
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -651,25 +537,14 @@ export const createTransferOrder = (newOrderForm) => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_REQUEST,
+        type    : SUCCESSFUL_ORDER_TRANSACTION,
         payload : '/banking/orders/transfer/existing'
       })
     })
     .then(() => getTransferOrders()(dispatch, getState))
     .then(() => linkTo('/banking/orders/transfer/new/result'))
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_REQUEST,
-        payload : {
-          exception,
-          linkToStart: '/banking/orders/transfer/new'
-        }
-      })
-    })
+    .catch((exception) => handleOrderTransactionException(exception, '/banking/orders/transfer/new', dispatch))
+    .then(() => linkTo('/banking/orders/transfer/new/result'))
   }
 }
 
@@ -691,25 +566,14 @@ export const createPaymentOrder = (newOrderForm) => {
     })
     .then(() => {
       dispatch({
-        type    : SUCCESSFUL_REQUEST,
+        type    : SUCCESSFUL_ORDER_TRANSACTION,
         payload : '/banking/orders/payment/existing'
       })
     })
     .then(() => getPaymentOrders()(dispatch, getState))
     .then(() => linkTo('/banking/orders/payment/new/result'))
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_REQUEST,
-        payload : {
-          exception,
-          linkToStart: '/banking/orders/payment/new/'
-        }
-      })
-    })
+    .catch((exception) => handleOrderTransactionException(exception, '/banking/orders/payment/new/', dispatch))
+    .then(() => linkTo('/banking/orders/payment/new/result'))
   }
 }
 
@@ -805,7 +669,7 @@ const ACTION_HANDLERS = {
         paymentSelections: {},
         paymentCode: {},
         maxAmount: {},
-        charges: { value: 0, correct: true },
+        charges: {},
         endDate: {},
         shouldProcess: false,
         linkToApprovalForm: '',
@@ -813,21 +677,21 @@ const ACTION_HANDLERS = {
     }
   },
 
-  RECEIVE_TRANSFER_ORDERS: (state, action) => {
+  RECEIVED_TRANSFER_ORDERS: (state, action) => {
     return {
       ...state,
       transferOrders: action.payload
     }
   },
 
-  RECEIVE_PAYMENT_ORDERS: (state, action) => {
+  RECEIVED_PAYMENT_ORDERS: (state, action) => {
     return {
       ...state,
       paymentOrders: action.payload
     }
   },
 
-  RECEIVE_DOMESTIC_BANKS: (state, action) => {
+  RECEIVED_DOMESTIC_BANKS: (state, action) => {
     return {
       ...state,
       newOrderForm: {
@@ -880,15 +744,14 @@ const ACTION_HANDLERS = {
   },
 
   SET_TRANSFER_ORDER_BENEFICIARY_NAME: (state, action) => {
-    const correctPattern = new RegExp("^[A-Za-zΑ-Ωα-ω ]+$");
-    const beneficiaryFullName = action.payload.toUpperCase()
+    const beneficiaryFullName = getActualFullName(action.payload);
     return {
       ...state,
       newOrderForm: {
         ...state.newOrderForm,
         beneficiaryFullName: {
-          value: correctPattern.test(beneficiaryFullName) || beneficiaryFullName == '' ? beneficiaryFullName : state.newOrderForm.beneficiaryFullName.value,
-          correct: beneficiaryFullName.split(' ').length == 2,
+          value: beneficiaryFullName,
+          correct: isValidFullName(beneficiaryFullName)
         }
       }
     }
@@ -915,8 +778,7 @@ const ACTION_HANDLERS = {
         ...state.newOrderForm,
         amount: {
           value: action.payload,
-          correct: action.payload > 0 &&
-           (parseFloat(action.payload)) <= state.newOrderForm.debitAccount.availableBalance
+          correct: isValidDebitAmount(action.payload, state.newOrderForm.debitAccount.availableBalance)
         }
       }
     }
@@ -930,8 +792,31 @@ const ACTION_HANDLERS = {
         chargesBeneficiary: {
           value: action.payload.beneficiary,
           selection: action.payload.selection,
-          correct: action.payload.beneficiary == 'both' || action.payload.beneficiary == 'sender' || action.payload.beneficiary == 'beneficiary',
+          correct: isValidChargesBeneficiary(action.payload.beneficiary)
         }
+      }
+    }
+  },
+
+  SET_TRANSFER_ORDER_CHARGES: (state, action) => {
+    return {
+      ...state,
+      newOrderForm: {
+        ...state.newOrderForm,
+        charges: {
+          value: action.payload ? action.payload : findTransferCharges(state.newOrderForm.chargesBeneficiary.value),
+          correct: true
+        }
+      }
+    }
+  },
+
+  CLEAR_TRANSFER_ORDER_CHARGES: (state, action) => {
+    return {
+      ...state,
+      newOrderForm: {
+        ...state.newOrderForm,
+        charges: {}
       }
     }
   },
@@ -976,7 +861,7 @@ const ACTION_HANDLERS = {
           asapOrder: false,
           asapText: undefined,
           view: action.payload.formattedDate,
-          correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
+          correct: isValidDate(action.payload.date)
         }
       }
     }
@@ -1027,6 +912,7 @@ const ACTION_HANDLERS = {
       ...state,
       newOrderForm: {
         ...state.newOrderForm,
+        paymentMethods: _.groupBy(action.payload, 'category'),
         availablePaymentMethods: _.map(action.payload, (paymentMethod) => paymentMethod.name)
       }
     }
@@ -1040,6 +926,19 @@ const ACTION_HANDLERS = {
         paymentSelections: {
           ...state.newOrderForm.paymentSelections,
           paymentMethod: action.payload
+        }
+      }
+    }
+  },
+
+  SET_PAYMENT_ORDER_CHARGES: (state, action) => {
+    return {
+      ...state,
+      newOrderForm: {
+        ...state.newOrderForm,
+        charges: {
+          value : findPaymentCharges(state.newOrderForm.paymentMethods, state.newOrderForm.paymentSelections.paymentMethod),
+          correct: true
         }
       }
     }
@@ -1093,7 +992,7 @@ const ACTION_HANDLERS = {
           ...state.newOrderForm.date,
           value: action.payload.date,
           view: action.payload.formattedDate,
-          correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
+          correct: isValidDate(action.payload.date)
         }
       }
     }
@@ -1144,7 +1043,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SUCCESSFUL_REQUEST: (state, action) => {
+  SUCCESSFUL_ORDER_TRANSACTION: (state, action) => {
     return {
       ...state,
       newOrderForm: {
@@ -1155,8 +1054,7 @@ const ACTION_HANDLERS = {
     }
   },
 
-  UNSUCCESSFUL_REQUEST: (state, action) => {
-    console.log(action.payload.exception)
+  UNSUCCESSFUL_ORDER_TRANSACTION: (state, action) => {
     return {
       ...state,
       newOrderForm: {
@@ -1165,6 +1063,13 @@ const ACTION_HANDLERS = {
         errorMessage: action.payload.exception.response.data,
         linkToStart: action.payload.linkToStart
       }
+    }
+  },
+
+  REQUEST_ERROR: (state, action) => {
+    return {
+      ...state,
+      returnedError: action.payload
     }
   },
 }

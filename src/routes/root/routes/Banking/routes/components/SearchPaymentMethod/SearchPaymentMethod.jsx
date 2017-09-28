@@ -14,7 +14,7 @@ export class SearchPaymentMethod extends Component {
     setTimeout(() => $(".selectpicker.searchPayment").selectpicker('refresh'), 350);
   }
 
-  render(){
+  render() {
     const {
       availablePaymentMethods,
       activeMethod,

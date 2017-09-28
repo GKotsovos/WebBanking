@@ -1,17 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
-import './NewTransferOrderLayout.css';
 
 class NewTransferOrderLayout extends Component {
-  componentWillMount(){
-    const { newOrderForm, initNewTransferOrderForm } = this.props;
+  componentWillMount() {
     $('.selectpicker').selectpicker();
-    // if (_.isEmpty(newOrderForm)) {
-      initNewTransferOrderForm();
-    // }
+    this.props.initNewTransferOrderForm();
   }
 
-  render(){
+  render() {
     return (
       <div className="newOrderContainer">
         {this.props.children}

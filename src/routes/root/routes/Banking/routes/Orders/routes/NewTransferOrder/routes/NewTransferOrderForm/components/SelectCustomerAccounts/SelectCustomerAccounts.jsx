@@ -14,7 +14,7 @@ export class SelectCustomerAccounts extends Component {
     setTimeout(() => $(".selectpicker.transferOrderCreditAccount").selectpicker('refresh'), 350);
   }
 
-  render(){
+  render() {
     const {
       accounts,
       creditAccount,

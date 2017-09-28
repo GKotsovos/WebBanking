@@ -13,7 +13,7 @@ export class SelectPaymentCategory extends Component {
     setTimeout(() => $(".selectpicker.paymentCategory").selectpicker('refresh'), 350);
   }
 
-  render(){
+  render() {
     const {
       availableCategories,
       activeCategory,

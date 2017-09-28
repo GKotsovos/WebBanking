@@ -10,7 +10,7 @@ export class CustomerCreditCards extends Component {
     $('.selectpicker.paymentCreditCard').selectpicker('val', [selectedCreditCard.value])
   }
 
-  render(){
+  render() {
     const {
       creditCards,
       selectedCreditCard,

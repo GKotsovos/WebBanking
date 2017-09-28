@@ -5,18 +5,11 @@ import { browserHistory } from 'react-router'
 import { logOutCountDown } from 'routes/root/routes/Banking/modules/banking';
 import _ from 'underscore'
 
-const INITIAL_STATE = 'INITIAL_STATE';
 const INIT_LOG_OUT_TIMER = 'INIT_LOG_OUT_TIMER';
 const AUTHENTICATE = 'AUTHENTICATE';
 const AUTHENTICATED = 'AUTHENTICATED';
 const UNAUTHENTICATED = 'UNAUTHENTICATED';
 const CHANGE_PANEL = 'CHANGE_PANEL'
-
-export function initialState(){
-  return{
-    type: INITIAL_STATE
-  }
-}
 
 export const authenticate = (userId, password) => {
   return (dispatch, getState) => {
@@ -31,7 +24,6 @@ export const authenticate = (userId, password) => {
           type    : INIT_LOG_OUT_TIMER,
           payload : response.data.expires_in
         })
-        logOutCountDown()(dispatch, getState)
         dispatch({
           type    : AUTHENTICATED,
           payload : response.data
@@ -47,15 +39,16 @@ export const authenticate = (userId, password) => {
   }
 }
 
-export function changePanel(panel){
-  return{
-    type: CHANGE_PANEL,
-    payload: panel
+export const changePanel = (panel) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: CHANGE_PANEL,
+      payload: panel
+    });
   }
 }
 
 export const actions = {
-  initialState,
   authenticate,
   changePanel
 }
@@ -68,10 +61,6 @@ const initState = () => {
 }
 
 const ACTION_HANDLERS = {
-  INITIAL_STATE: (state, action) => {
-    return initState();
-  },
-
   INIT_LOG_OUT_TIMER: (state, action) => {
     return {
       ...state,

@@ -3,15 +3,27 @@ import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
 import dateformat from 'dateformat';
+import { linkTo } from 'routes/root/routes/Banking/modules/banking';
+import {
+  getDebitAccount,
+  getDebitAccountAvailableBalance,
+  isValidInstallmentPaymentAmount,
+  isValidDate,
+  isValidInstallmentPaymentForm,
+} from 'routes/root/routes/Banking/routes/utils/commonUtils';
+import {
+  handleRequestException,
+  handleTransactionException
+} from 'routes/root/routes/Banking/routes/utils/commonActions';
+import {
+  getActiveLoan,
+  getUpdatedLoans
+ } from '../utils/loanUtils'
 import _ from 'underscore'
-import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
-import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 
-const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
-const REQUESTING = 'REQUESTING';
-const RECEIVE_LOANS = 'RECEIVE_LOANS';
-const RECEIVE_LOAN = 'RECEIVE_LOAN';
-const RECEIVE_LOAN_TRANSACTION_HISTORY = 'RECEIVE_LOAN_TRANSACTION_HISTORY';
+const RECEIVED_LOANS = 'RECEIVED_LOANS';
+const RECEIVED_LOAN = 'RECEIVED_LOAN';
+const RECEIVED_LOAN_TRANSACTION_HISTORY = 'RECEIVED_LOAN_TRANSACTION_HISTORY';
 const INIT_LOAN_TRANSACTION_FORM = 'INIT_LOAN_TRANSACTION_FORM';
 const SET_LOAN_DEBIT_ACCOUNT = 'SET_LOAN_DEBIT_ACCOUNT';
 const SET_LOAN_PAYMENT_AMOUNT = 'SET_LOAN_PAYMENT_AMOUNT';
@@ -25,23 +37,8 @@ const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_LOAN = 'SET_ACTIVE_LOAN';
 const DEACTIVATE_LOAN = 'DEACTIVATE_LOAN';
 
-export const linkTo = (route) => {
-  localStorage.setItem('path', route);
-  browserHistory.push(route);
-  return (dispatch, getState) => {
-    dispatch({
-      type: CHANGE_ACTIVE_TAB,
-      payload: route
-    });
-  }
-}
-
 export const getLoans = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: REQUESTING
-    });
-
     return axios({
       method: 'get',
       url: 'http://localhost:26353/api/loan/GetAllCustomerLoans',
@@ -49,29 +46,16 @@ export const getLoans = () => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_LOANS,
+        type    : RECEIVED_LOANS,
         payload : response.data
       })
     })
-    .catch(( exception )  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
 export const getLoanById = (id) => {
   return (dispatch, getState) => {
-    dispatch({
-      type: REQUESTING
-    });
-
     return axios({
       method: 'get',
       url: 'http://localhost:26353/api/loan/GetLoanById/' + id,
@@ -79,20 +63,11 @@ export const getLoanById = (id) => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_LOAN,
+        type    : RECEIVED_LOAN,
         payload : response.data
       })
     })
-    .catch(( exception )  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -105,20 +80,11 @@ export const getLoanTransactionHistory = (loanId) => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_LOAN_TRANSACTION_HISTORY,
+        type    : RECEIVED_LOAN_TRANSACTION_HISTORY,
         payload : response.data
       })
     })
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -154,76 +120,19 @@ export const loanPayment = () => {
     .then(() => {
       dispatch({
         type    : SET_ACTIVE_LOAN,
-        payload : _.filter(getState().loans.loans, (loan) => loan.id == getState().loans.activeLoan.id)[0]
+        payload : getActiveLoan(getState().loans.loans, getState().loans.activeLoan.id)
       })
     })
     .then(() => getLoanTransactionHistory(transactionForm.loanId)(dispatch, getState))
     .then(() => linkTo('/banking/loans/loan/payment/result'))
-    .then(() => {
-      switch (transactionForm.debitAccount.type) {
-        case "isAccount":
-          getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isLoan":
-          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isCreditCard":
-          getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isPrepaidCard":
-          getPrepaidCardById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-      }
-    })
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_TRANSACTION,
-        payload : {
-          exception,
-          linkToStart: '/banking/loans/loan/payment'
-        }
-      })
-    })
+    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value))    .catch((exception) => handleTransactionException(exception, '/banking/loans/loan/payment', dispatch))
     .then(() => linkTo('/banking/loans/loan/payment/result'))
   }
 }
 
 export const setDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
-
-    let availableBalance = 0;
-
-    switch (debitAccountType) {
-      case "isAccount":
-        availableBalance = _.chain(getState().accounts.accounts)
-          .filter((account) => account.id == debitAccount)
-          .first()
-          .value().ledgerBalance;
-        break;
-      case "isLoan":
-        availableBalance = _.chain(getState().loans.loans)
-          .filter((loan) => loan.id == debitAccount)
-          .first()
-          .value().availableBalance;
-        break;
-      case "isCreditCard":
-        availableBalance = _.chain(getState().cards.creditCards)
-          .filter((creditCard) => creditCard.id == debitAccount)
-          .first()
-          .value().availableBalance;
-        break;
-      case "isPrepaidCard":
-        availableBalance = _.chain(getState().cards.prepaidCards)
-          .filter((prepaidCard) => prepaidCard.id == debitAccount)
-          .first()
-          .value().availableBalance;
-        break;
-    }
-
+    const availableBalance = getDebitAccountAvailableBalance(debitAccountType, debitAccount, getState())
     dispatch({
       type: SET_LOAN_DEBIT_ACCOUNT,
       payload: {
@@ -284,7 +193,7 @@ export function setActiveLoan(loan){
   }
 }
 
-export function deactivateLoan(){
+export function deactivateLoan() {
   return {
     type: DEACTIVATE_LOAN
   }
@@ -296,7 +205,7 @@ export const initLoanTransactionForm = () => {
   }
 }
 
-export function clearLoanTransactionForm(){
+export function clearLoanTransactionForm() {
   return {
     type: CLEAR_LOAN_TRANSACTION_FORM,
   }
@@ -319,33 +228,35 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-
-  INITIAL_STATE: (state, action) => {
-    return {};
-  },
-
-  REQUESTING: (state, action) => {
-    return {
-      ...state,
-      phase: 'REQUESTING'
-    }
-  },
-
-  RECEIVE_LOANS: (state, action) => {
+  RECEIVED_LOANS: (state, action) => {
     return {
       ...state,
       loans: action.payload,
     }
   },
 
-  RECEIVE_LOAN: (state, action) => {
+  RECEIVED_LOAN: (state, action) => {
     return {
       ...state,
-      loans: _.map(state.loans, (loan) => loan.id == action.payload.id ? action.payload : loan)
+      loans: getUpdatedLoans(state.loans, action.payload)
     }
   },
 
-  RECEIVE_LOAN_TRANSACTION_HISTORY: (state, action) => {
+  SET_ACTIVE_LOAN: (state, action) => {
+    return {
+      ...state,
+      activeLoan: action.payload
+    }
+  },
+
+  DEACTIVATE_LOAN: (state, action) => {
+    return {
+      ...state,
+      activeLoan: undefined
+    }
+  },
+
+  RECEIVED_LOAN_TRANSACTION_HISTORY: (state, action) => {
     return {
       ...state,
       activeLoan: {
@@ -353,11 +264,6 @@ const ACTION_HANDLERS = {
         transactionHistory: action.payload
       }
     }
-  },
-
-  REQUEST_ERROR: (state, action) => {
-    console.log(action.payload)
-    return state;
   },
 
   INIT_LOAN_TRANSACTION_FORM: (state, action) => {
@@ -396,10 +302,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         amount: {
           value: action.payload,
-          correct: action.payload > 0 &&
-          (parseFloat(action.payload) <= state.activeLoan.nextInstallmentAmount ||
-           parseFloat(action.payload) <= state.activeLoan.debt) &&
-           parseFloat(action.payload) <= state.transactionForm.debitAccount.availableBalance
+          correct: isValidInstallmentPaymentAmount(state.activeLoan, action.payload, state.transactionForm.debitAccount.availableBalance)
         }
       }
     }
@@ -432,7 +335,7 @@ const ACTION_HANDLERS = {
           asapTransaction: false,
           asapText: undefined,
           view: action.payload.formattedDate,
-          correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
+          correct: isValidDate(action.payload.date)
         }
       }
     }
@@ -443,9 +346,7 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        shouldProcess: state.transactionForm.debitAccount.correct &&
-        state.transactionForm.amount.correct &&
-        state.transactionForm.date.correct
+        shouldProcess: isValidInstallmentPaymentForm(state.transactionForm)
       }
     }
   },
@@ -469,7 +370,6 @@ const ACTION_HANDLERS = {
   },
 
   UNSUCCESSFUL_TRANSACTION: (state, action) => {
-    console.log(action.payload.exception)
     return {
       ...state,
       transactionForm: {
@@ -481,17 +381,10 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_ACTIVE_LOAN: (state, action) => {
+  REQUEST_ERROR: (state, action) => {
     return {
       ...state,
-      activeLoan: action.payload
-    }
-  },
-
-  DEACTIVATE_LOAN: (state, action) => {
-    return {
-      ...state,
-      activeLoan: undefined
+      returnedError: action.payload
     }
   },
 }

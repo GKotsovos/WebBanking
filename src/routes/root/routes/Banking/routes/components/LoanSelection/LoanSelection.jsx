@@ -10,7 +10,7 @@ export class LoanSelection extends Component {
     $('.selectpicker.paymentLoan').selectpicker('val', [selectedLoan.value])
   }
 
-  render(){
+  render() {
     const {
       loans,
       selectedLoan,

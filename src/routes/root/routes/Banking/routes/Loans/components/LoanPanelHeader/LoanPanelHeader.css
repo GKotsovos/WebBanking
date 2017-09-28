@@ -1,0 +1,29 @@
+.panel-default> .loanTitle {
+  background-color: #003cb3;
+  color: #EEEEEE;
+}
+
+.loanCode {
+  float: right;
+  margin-top: 2px;
+}
+
+.titles {
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  .titles {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 359px) {
+  .titles {
+    font-size: 11px;
+  }
+
+  .loanCode {
+    margin-top: 5px;
+  }
+}

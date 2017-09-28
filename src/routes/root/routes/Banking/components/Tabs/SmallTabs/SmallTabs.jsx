@@ -18,7 +18,11 @@ export const SmallTabs = ({
 }) => (
   <div id="smallT">
 
-    <button id="humButton" className="btn" data-toggle="collapse" data-target="#smallTabs">
+    <button
+      id="humButton"
+      className="btn"
+      data-toggle="collapse"
+      data-target="#smallTabs">
       <FontAwesome name="bars" className="bars"/>
     </button>
 

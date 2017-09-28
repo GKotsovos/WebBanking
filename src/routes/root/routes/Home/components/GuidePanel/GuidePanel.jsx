@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
 import './GuidePanel.css'
 
-const GuidePanel = ({ changePanel }) => (
+export const GuidePanel = ({ changePanel }) => (
   <div id="guidePanel" className="panel panel-default verticalCenter" onClick={() => changePanel('GUIDE')}>
     <div className="panel-body text-center">
       <FontAwesome id="bookIcon" name="book" />

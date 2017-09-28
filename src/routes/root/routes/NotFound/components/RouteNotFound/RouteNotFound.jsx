@@ -1,10 +1,13 @@
 import React from 'react';
 import { browserHistory } from 'react-router'
-import './RouteNotFound.css';
+import cookie from 'react-cookie';
 
 export const RouteNotFound = () => (
   <div>
-    {browserHistory.push('/')}
+    {
+      cookie.remove('access_token'),
+      browserHistory.push('/')
+    }
   </div>
 )
 

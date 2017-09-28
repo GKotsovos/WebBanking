@@ -2,30 +2,17 @@ import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
+import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
 
-const INITIAL_STATE = 'INITIAL_STATE';
-const REQUESTING = 'REQUESTING';
-const RECEIVE_CUSTOMER_NAME = 'RECEIVE_CUSTOMER_NAME';
+const RECEIVED_CUSTOMER_NAME = 'RECEIVED_CUSTOMER_NAME';
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const UPDATE_LOG_OUT_TIMER = 'UPDATE_LOG_OUT_TIMER';
 const SHOW_LOG_OUT_MODAL = 'SHOW_LOG_OUT_MODAL';
 const LOG_OUT = 'LOG_OUT';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 
-export const initialState = () => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: INITIAL_STATE
-    });
-  }
-}
-
 export const getCustomerName = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: REQUESTING
-    });
-
     return axios({
       method: 'get',
       url: 'http://localhost:26353/api/customer/GetCustomerName',
@@ -33,18 +20,11 @@ export const getCustomerName = () => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_CUSTOMER_NAME,
+        type    : RECEIVED_CUSTOMER_NAME,
         payload : response.data
       })
     })
-    .catch((exception)  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      logOut() :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -99,19 +79,7 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-
-  INITIAL_STATE: (state, action) => {
-    return {};
-  },
-
-  REQUESTING: (state, action) => {
-    return {
-      ...state,
-      phase: 'REQUESTING'
-    }
-  },
-
-  RECEIVE_CUSTOMER_NAME: (state, action) => {
+  RECEIVED_CUSTOMER_NAME: (state, action) => {
     return {
       ...state,
       customerName: action.payload
@@ -143,6 +111,7 @@ const ACTION_HANDLERS = {
 
   LOG_OUT: (state, action) => {
     cookie.remove('access_token');
+    localStorage.clear();
     window.location.href = '/';
     return {};
   },

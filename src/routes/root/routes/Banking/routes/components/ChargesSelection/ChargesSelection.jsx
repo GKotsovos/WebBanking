@@ -9,7 +9,11 @@ export class ChargesSelection extends Component {
     $('.selectpicker.transferSelectCharges').selectpicker('val', [chargesBeneficiary.selection]);
   }
 
-  render(){
+  componentWillReceiveProps() {
+    setTimeout(() => $(".selectpicker.transferSelectCharges").selectpicker('refresh'), 350);
+  }
+
+  render() {
     const { chargesBeneficiary, setChargesBeneficiary } = this.props;
     return (
       <div className="form-group">
