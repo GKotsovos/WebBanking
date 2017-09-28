@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
   getCustomerName,
   logOut,
+  logOutCountDown,
 } from '../modules/banking';
 import { getAccounts } from '../routes/Accounts/modules/accounts';
 import { getCards } from '../routes/Cards/modules/cards';
@@ -20,6 +21,7 @@ const mapActionCreators = {
   getCards: () => getCards(),
   getLoans: () => getLoans(),
   logOut: () => logOut(),
+  logOutCountDown: () => logOutCountDown()
 };
 
 export default connect(mapStateToProps, mapActionCreators)(Banking);

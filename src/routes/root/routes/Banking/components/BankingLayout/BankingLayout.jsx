@@ -11,11 +11,13 @@ class BankingLayout extends Component {
       getAccounts,
       getCards,
       getLoans,
+      logOutCountDown
     } = this.props;
     getCustomerName();
     getAccounts();
     getCards();
     getLoans();
+    logOutCountDown();
   }
 
   render() {
@@ -25,7 +27,7 @@ class BankingLayout extends Component {
       logOut
      } = this.props;
     return (
-      <div id="bankingLayout" className="container">
+      <div id="bankingLayout" className="container" onClick={() => $('.collapse').collapse('hide')}>
         <Tabs />
         <div>
           {children}

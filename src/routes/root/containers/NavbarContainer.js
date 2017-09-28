@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 
 const mapStateToProps = (state) => ({
   customer: state.banking.customerName,
-  timeLeftToLogOut: !state.banking.timeLeftToLogOut ? '10:00' : state.banking.timeLeftToLogOut
+  timeLeftToLogOut: !state.banking.timeLeftToLogOut ? localStorage.secondsToLogOut : state.banking.timeLeftToLogOut
 });
 
 const mapActionCreators = {

@@ -42,18 +42,16 @@ export const linkTo = (route) => {
 
 export const logOutCountDown = () => {
   return (dispatch, getState) => {
-    let secondsLeft = getState().home.secondsToLogOut;
     const interval = setInterval(function() {
-      secondsLeft--;
-
+      localStorage.secondsLeft--;
       const date = new Date(null);
-      date.setSeconds(secondsLeft);
+      date.setSeconds(localStorage.secondsLeft);
       dispatch({
         type    : UPDATE_LOG_OUT_TIMER,
         payload : date.toISOString().substr(14, 5)
       });
 
-      if (secondsLeft == 0) {
+      if (localStorage.secondsLeft == 0 || localStorage.secondsLeft > 600 || localStorage.secondsLeft < 0) {
         clearInterval(interval);
         dispatch({
           type    : SHOW_LOG_OUT_MODAL

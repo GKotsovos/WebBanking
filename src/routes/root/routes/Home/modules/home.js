@@ -62,10 +62,8 @@ const initState = () => {
 
 const ACTION_HANDLERS = {
   INIT_LOG_OUT_TIMER: (state, action) => {
-    return {
-      ...state,
-      secondsToLogOut: action.payload
-    }
+    localStorage.setItem('secondsLeft', action.payload);
+    return state;
   },
 
   AUTHENTICATED: (state, action) => {
