@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectBankType from 'routes/root/routes/Banking/routes/components/SelectBankType';
-import SelectCustomerAccounts from '../SelectCustomerAccounts';
+import CreditAgileAccountSelection from 'routes/root/routes/Banking/routes/components/CreditAgileAccountSelection';
 import CreditAccountInput from 'routes/root/routes/Banking/routes/components/CreditAccountInput';
 import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
@@ -16,7 +16,11 @@ import './NewTransferOrderFormLayout.css';
 
 class NewTransferOrderFormLayout extends Component {
   clearForm() {
-    $('.selectpicker').selectpicker('val', [''])
+    $('.selectpicker.transactionDebitAccount').selectpicker('val', [''])
+    $('.selectpicker.transferBankSelect').selectpicker('val', [''])
+    $('.selectpicker.transferCreditAccountType').selectpicker('val', [''])
+    $('.selectpicker.transferSelectCharges').selectpicker('val', [''])
+    $('.selectpicker.transferBankSelect').selectpicker('val', [''])
     this.props.initNewTransferOrderForm();
   }
 
@@ -60,13 +64,23 @@ class NewTransferOrderFormLayout extends Component {
         />
         {
           !_.isEmpty(newOrderForm) && newOrderForm.beneficiaryBankType.value ? [
-            newOrderForm.beneficiaryBankType.value == 'agileBank' ? (
-              <SelectCustomerAccounts
+            newOrderForm.beneficiaryBankType.value == 'agileBank' ? [
+              <CreditAgileAccountSelection
                 accounts={_.filter(accounts, (account) => account.id != newOrderForm.debitAccount.value)}
                 creditAccount={newOrderForm.beneficiaryAccount}
                 setCreditAccount={setTransferOrderBeneficiaryAccount}
-              />
-            ) : [
+              />,
+              newOrderForm.beneficiaryAccount.type == 'other' ? [
+                <CreditAccountInput
+                  creditAccount={newOrderForm.beneficiaryAccount}
+                  setCreditAccount={setTransferOrderBeneficiaryAccount}
+                />,
+                <BeneficiaryFullNameInput
+                  fullName={newOrderForm.beneficiaryFullName}
+                  setCreditFullName={setTransferOrderBeneficiaryName}
+                />
+              ] : null
+            ] : [
               <CreditAccountInput
                 creditAccount={newOrderForm.beneficiaryAccount}
                 setCreditAccount={setTransferOrderBeneficiaryAccount}
@@ -74,7 +88,7 @@ class NewTransferOrderFormLayout extends Component {
               <BeneficiaryFullNameInput
                 fullName={newOrderForm.beneficiaryFullName}
                 setCreditFullName={setTransferOrderBeneficiaryName}
-              />,
+              />
             ],
               <AmountInput
                 title='Ποσό'

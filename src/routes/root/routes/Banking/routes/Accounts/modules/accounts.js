@@ -1,23 +1,17 @@
 import axios from 'axios';
 import querystring from 'querystring';
 import _ from 'underscore'
+import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
 
-const INITIAL_STATE = 'INITIAL_STATE';
-const LOG_OUT = 'LOG_OUT';
-const REQUESTING = 'REQUESTING';
-const RECEIVE_ACCOUNTS = 'RECEIVE_ACCOUNTS';
-const RECEIVE_ACCOUNT = 'RECEIVE_ACCOUNT';
-const RECEIVE_ACCOUNT_TRANSACTION_HISTORY = 'RECEIVE_ACCOUNT_TRANSACTION_HISTORY';
+const RECEIVED_ACCOUNTS = 'RECEIVED_ACCOUNTS';
+const RECEIVED_ACCOUNT = 'RECEIVED_ACCOUNT';
+const RECEIVED_ACCOUNT_TRANSACTION_HISTORY = 'RECEIVED_ACCOUNT_TRANSACTION_HISTORY';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT';
 const DEACTIVE_ACCOUNT = 'DEACTIVE_ACCOUNT';
 
 export const getAccounts = () => {
   return (dispatch, getState) => {
-    dispatch({
-      type: REQUESTING
-    });
-
     return axios({
       method: 'get',
       url: 'http://localhost:26353/api/account/GetAllCustomerAccounts',
@@ -25,29 +19,16 @@ export const getAccounts = () => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_ACCOUNTS,
+        type    : RECEIVED_ACCOUNTS,
         payload : response.data
       })
     })
-    .catch((exception)  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
 export const getAccountById = (accountId) => {
   return (dispatch, getState) => {
-    dispatch({
-      type: REQUESTING
-    });
-
     return axios({
       method: 'get',
       url: 'http://localhost:26353/api/account/GetAccountById/' + accountId,
@@ -55,20 +36,11 @@ export const getAccountById = (accountId) => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_ACCOUNT,
+        type    : RECEIVED_ACCOUNT,
         payload : response.data
       })
     })
-    .catch((exception)  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
@@ -81,31 +53,22 @@ export const getAccountTransactionHistory = (productId) => {
     })
     .then((response) => {
       dispatch({
-        type    : RECEIVE_ACCOUNT_TRANSACTION_HISTORY,
+        type    : RECEIVED_ACCOUNT_TRANSACTION_HISTORY,
         payload : response.data
       })
     })
-    .catch(( exception )  => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : REQUEST_ERROR,
-        payload : exception
-      })
-    })
+    .catch((exception) => handleRequestException(exception, dispatch))
   }
 }
 
-export function setActiveAccount(account){
+export function setActiveAccount(account) {
   return {
     type: SET_ACTIVE_ACCOUNT,
     payload: account
   }
 }
 
-export function deactiveAccount(){
+export function deactiveAccount() {
   return {
     type: DEACTIVE_ACCOUNT,
   }
@@ -120,45 +83,17 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-  INITIAL_STATE: (state, action) => {
-    return {};
-  },
-
-  REQUESTING: (state, action) => {
+  RECEIVED_ACCOUNT: (state, action) => {
     return {
       ...state,
-      phase: 'REQUESTING'
+      accounts: getUpdatedAccounts(state.accounts, action.payload)
     }
   },
 
-  RECEIVE_ACCOUNT: (state, action) => {
-    return {
-      ...state,
-      accounts: _.map(state.accounts, (account) => account.id == action.payload.id ? action.payload : account)
-    }
-  },
-
-  RECEIVE_ACCOUNTS: (state, action) => {
+  RECEIVED_ACCOUNTS: (state, action) => {
     return {
       ...state,
       accounts: action.payload
-    }
-  },
-
-  RECEIVE_ACCOUNT_TRANSACTION_HISTORY: (state, action) => {
-    return {
-      ...state,
-      activeAccount: {
-        ...state.activeAccount,
-        transactionHistory: action.payload
-      }
-    }
-  },
-
-  REQUEST_ERROR: (state, action) => {
-    console.log(action.payload)
-    return {
-      ...state
     }
   },
 
@@ -169,10 +104,27 @@ const ACTION_HANDLERS = {
     }
   },
 
+  RECEIVED_ACCOUNT_TRANSACTION_HISTORY: (state, action) => {
+    return {
+      ...state,
+      activeAccount: {
+        ...state.activeAccount,
+        transactionHistory: action.payload
+      }
+    }
+  },
+
   DEACTIVE_ACCOUNT: (state, action) => {
     return {
       ...state,
       activeAccount: undefined
+    }
+  },
+
+  REQUEST_ERROR: (state, action) => {
+    return {
+      ...state,
+      returnedError: action.payload
     }
   },
 }

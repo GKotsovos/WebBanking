@@ -3,19 +3,32 @@ import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router';
 import dateformat from 'dateformat';
-import _ from 'underscore'
 import IBAN from 'iban';
 import bic from 'bic';
-import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
-import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
-import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
+import _ from 'underscore'
+import { linkTo } from 'routes/root/routes/Banking/modules/banking';
+import {
+  getDebitAccount,
+  getDebitAccountAvailableBalance,
+  getDebitAccountCurrency,
+  getCustomerName,
+  getActualFullName,
+  findTransferCharges,
+  isValidFullName,
+  isValidDebitAmount,
+  isValidDate,
+  isValidChargesBeneficiary,
+} from 'routes/root/routes/Banking/routes/utils/commonUtils';
+import {
+  handleRequestException,
+  handleTransactionException
+} from 'routes/root/routes/Banking/routes/utils/commonActions';
+import { linkToProperTransferForm } from '../utils/transferUtils';
 
-const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const INIT_TRANSFER_TRANSACTION_FORM = 'INIT_TRANSFER_TRANSACTION_FORM';
 const INIT_TRANSFER_TO_AGILE_TRANSACTION_FORM = 'INIT_TRANSFER_TO_AGILE_TRANSACTION_FORM';
 const INIT_TRANSFER_TO_DOMESTIC_TRANSACTION_FORM = 'INIT_TRANSFER_TO_DOMESTIC_TRANSACTION_FORM';
 const INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM = 'INIT_TRANSFER_TO_FOREIGN_TRANSACTION_FORM';
-const FETCHING_DOMESTIC_BANKS = 'FETCHING_DOMESTIC_BANKS';
 const SET_DOMESTIC_BANKS = 'SET_DOMESTIC_BANKS';
 const SET_TRANSFER_DEBIT_ACCOUNT = 'SET_TRANSFER_DEBIT_ACCOUNT';
 const SET_TRANSFER_CURRENCY = 'SET_TRANSFER_CURRENCY';
@@ -26,6 +39,7 @@ const SET_TRANSFER_CREDIT_BANK = 'SET_TRANSFER_CREDIT_BANK';
 const SET_TRANSFER_CREDIT_BANK_BIC = 'SET_TRANSFER_CREDIT_BANK_BIC';
 const SET_TRANSFER_AMOUNT = 'SET_TRANSFER_AMOUNT';
 const SET_TRANSFER_CHARGES_BENEFICIARY = 'SET_TRANSFER_CHARGES_BENEFICIARY';
+const SET_TRANSFER_CHARGES = 'SET_TRANSFER_CHARGES';
 const SET_TRANSFER_COMMENTS = 'SET_TRANSFER_COMMENTS';
 const SET_ASAP_TRANSFER = 'SET_ASAP_TRANSFER';
 const SET_TRANSFER_TRANSACTION_DATE = 'SET_TRANSFER_TRANSACTION_DATE';
@@ -34,24 +48,9 @@ const CLEAR_TRANSFER_TRANSACTION_FORM = 'CLEAR_TRANSFER_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 
-const linkTo = (route) => {
-  localStorage.setItem('path', route);
-  browserHistory.push(route);
-  return (dispatch, getState) => {
-    dispatch({
-      type: CHANGE_ACTIVE_TAB,
-      payload: route
-    });
-  }
-}
-
 export const getDomesticBanks = () => {
   return (dispatch, getState) => {
     if (_.isEmpty(getState().transfers.transactionForm.domesticBanks)) {
-      dispatch({
-        type    : FETCHING_DOMESTIC_BANKS
-      });
-
       return axios({
         method: 'get',
         url: 'http://localhost:26353/api/Bank/GetAllDomesticBanks',
@@ -63,19 +62,7 @@ export const getDomesticBanks = () => {
           payload : response
         })
       })
-      .catch((exception) => {
-        !_.isEmpty(exception.response) && exception.response.status == 401 ?
-        dispatch({
-          type    : 'LOG_OUT',
-        }) :
-        dispatch({
-          type    : UNSUCCESSFUL_TRANSACTION,
-          payload : {
-            exception,
-            linkToStart: '/banking/transfers'
-          }
-        })
-      })
+      .catch((exception) => handleRequestException(exception, dispatch))
     }
   }
 }
@@ -108,72 +95,14 @@ export const transfer = (transactionForm) => {
       })
     })
     .then(() => linkTo('/banking/transfers/result'))
-    .then(() => {
-      switch (transactionForm.debitAccount.type) {
-        case "isAccount":
-          getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isLoan":
-          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isCreditCard":
-          getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isPrepaidCard":
-          getPrepaidCardById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-      }
-    })
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_TRANSACTION,
-        payload : {
-          exception,
-          linkToStart: '/banking/transfers'
-        }
-      })
-    })
+    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value)) .catch((exception) => handleTransactionException(exception, '/banking/transfers', dispatch))
   }
 }
 
 export const setDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
-
-    let innerDebitAccount = '';
-
-    switch (debitAccountType) {
-      case "isAccount":
-        innerDebitAccount =  _.chain(getState().accounts.accounts)
-          .filter((account) => account.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isLoan":
-        innerDebitAccount = _.chain(getState().loans.loans)
-          .filter((loan) => loan.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isCreditCard":
-        innerDebitAccount = _.chain(getState().cards.creditCards)
-          .filter((creditCard) => creditCard.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isPrepaidCard":
-        innerDebitAccount = _.chain(getState().cards.prepaidCards)
-          .filter((prepaidCard) => prepaidCard.id == debitAccount)
-          .first()
-          .value();
-        break;
-    }
-    const availableBalance = innerDebitAccount.availableBalance
-    const currency = innerDebitAccount.currency
-
+    const availableBalance = getDebitAccountAvailableBalance(debitAccountType, debitAccount, getState())
+    const currency = getDebitAccountCurrency(debitAccountType, debitAccount, getState())
     dispatch({
       type: SET_TRANSFER_DEBIT_ACCOUNT,
       payload: {
@@ -221,15 +150,6 @@ export const setCreditFullName = (fullName) => {
 
 export const setCreditBankType = (selection, bankType) => {
   return (dispatch, getState) => {
-    const customerName = (getState().banking.customerName.firstName + ' ' + getState().banking.customerName.lastName)
-    .replace('ά', 'α')
-    .replace('έ', 'ε')
-    .replace('ί', 'ι')
-    .replace('ή', 'η')
-    .replace('ό', 'ο')
-    .replace('ύ', 'υ')
-    .replace('ώ', 'ω');
-
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
       payload: {
@@ -237,11 +157,14 @@ export const setCreditBankType = (selection, bankType) => {
         bankType
       }
     });
+
     const bic = bankType == 'agileBank' ? 'AGILGRAA - AGILE BANK' : ''
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK,
       payload: bic
     });
+
+    const customerName = getCustomerName(getState().banking.customerName)
     const fullName = bankType == 'agileBank' ? customerName : ''
     dispatch({
       type: SET_TRANSFER_CREDIT_FULL_NAME,
@@ -250,50 +173,10 @@ export const setCreditBankType = (selection, bankType) => {
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
     });
-    switch (bankType) {
-      case 'agileBank':
-        linkTo('/banking/transfers/toAgileBank')
-        break;
-      case 'domesticBank':
-        linkTo('/banking/transfers/toDomesticBank')
-        break;
-      case 'foreignBank':
-        linkTo('/banking/transfers/toForeignBank')
-        break;
-    }
+
+    linkToProperTransferForm(bankType);
   }
 }
-
-// export const setCreditBankType = (selection, bankType) => {
-//   return (dispatch, getState) => {
-//     dispatch({
-//       type: SET_TRANSFER_CREDIT_BANK_TYPE,
-//       payload: {
-//         selection,
-//         bankType
-//       }
-//     });
-//     const bic = bankType == 'agileBank' ? 'AGILGRAA' : ''
-//     dispatch({
-//       type: SET_TRANSFER_CREDIT_BANK,
-//       payload: bic
-//     });
-//     dispatch({
-//       type: VALIDATE_TRANSFER_TRANSACTION_FORM
-//     });
-//     switch (bankType) {
-//       case 'agileBank':
-//         linkTo('/banking/transfers/toAgileBank')
-//         break;
-//       case 'domesticBank':
-//         linkTo('/banking/transfers/toDomesticBank')
-//         break;
-//       case 'foreignBank':
-//         linkTo('/banking/transfers/toForeignBank')
-//         break;
-//     }
-//   }
-// }
 
 export const setCreditBank = (bank) => {
   return (dispatch, getState) => {
@@ -339,6 +222,9 @@ export const setChargesBeneficiary = (selection, beneficiary) => {
         selection,
         beneficiary
       }
+    });
+    dispatch({
+      type: SET_TRANSFER_CHARGES
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -448,11 +334,6 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-
-  INITIAL_STATE: (state, action) => {
-    return {};
-  },
-
   INIT_TRANSFER_TRANSACTION_FORM: (state, action) => {
     return {
       ...state,
@@ -464,7 +345,7 @@ const ACTION_HANDLERS = {
         bankType: {},
         bank: {},
         amount: {},
-        charges: 5,
+        charges: {},
         chargesBeneficiary: {},
         comments: {
           value: '',
@@ -483,7 +364,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         creditAccount: {},
         amount: {},
-        charges: 5,
+        charges: {},
         chargesBeneficiary: {},
         comments: {
           value: '',
@@ -503,7 +384,7 @@ const ACTION_HANDLERS = {
         fullName: {},
         bank: {},
         amount: {},
-        charges: 5,
+        charges: {},
         chargesBeneficiary: {},
         comments: {
           value: '',
@@ -523,7 +404,7 @@ const ACTION_HANDLERS = {
         fullName: {},
         bank: {},
         amount: {},
-        charges: 5,
+        charges: {},
         chargesBeneficiary: {},
         comments: {
           value: '',
@@ -577,15 +458,14 @@ const ACTION_HANDLERS = {
   },
 
   SET_TRANSFER_CREDIT_FULL_NAME: (state, action) => {
-    const correctPattern = new RegExp("^[A-Za-zΑ-Ωα-ω ]+$");
-    const fullName = action.payload.toUpperCase()
+    const creditFullName = getActualFullName(action.payload);
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         fullName: {
-          value: correctPattern.test(fullName) || fullName == '' ? fullName : state.transactionForm.fullName.value,
-          correct: fullName.split(' ').length == 2,
+          value: creditFullName,
+          correct: isValidFullName(creditFullName)
         }
       }
     }
@@ -651,8 +531,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         amount: {
           value: action.payload,
-          correct: action.payload > 0 &&
-           (parseFloat(action.payload)) <= state.transactionForm.debitAccount.availableBalance
+          correct: isValidDebitAmount(action.payload, tate.transactionForm.debitAccount.availableBalance)
         }
       }
     }
@@ -666,7 +545,20 @@ const ACTION_HANDLERS = {
         chargesBeneficiary: {
           value: action.payload.beneficiary,
           selection: action.payload.selection,
-          correct: action.payload.beneficiary == 'both' || action.payload.beneficiary == 'sender' || action.payload.beneficiary == 'beneficiary',
+          correct: isValidChargesBeneficiary(action.payload.beneficiary)
+        }
+      }
+    }
+  },
+
+  SET_TRANSFER_CHARGES: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        charges: {
+          value: findTransferCharges(state.transactionForm.chargesBeneficiary.value),
+          correct: true
         }
       }
     }
@@ -713,7 +605,7 @@ const ACTION_HANDLERS = {
           asapTransaction: false,
           asapText: undefined,
           view: action.payload.formattedDate,
-          correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
+          correct: isValidDate(action.payload.date)
         }
       }
     }
@@ -759,7 +651,6 @@ const ACTION_HANDLERS = {
   },
 
   UNSUCCESSFUL_TRANSACTION: (state, action) => {
-    console.log(action.payload.exception)
     return {
       ...state,
       transactionForm: {

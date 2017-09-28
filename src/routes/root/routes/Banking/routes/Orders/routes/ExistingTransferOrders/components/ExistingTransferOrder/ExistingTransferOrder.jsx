@@ -2,6 +2,7 @@ import React from 'react';
 import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
 import ExistingOrderTitle from '../../../components/ExistingOrderTitle';
+import CancelOrderButton from '../../../components/CancelOrderButton';
 import './ExistingTransferOrder.css';
 
 export const ExistingTransferOrder = ({ transferOrder, cancelTransferOrder }) => (
@@ -40,11 +41,11 @@ export const ExistingTransferOrder = ({ transferOrder, cancelTransferOrder }) =>
           <span className="col-xs-6 text-right">Εναπομείναντες Εκτελέσεις</span>
         </span>
       </div>
-      <button
-        className="btn btn-default orderCancel"
-        onClick={() => cancelTransferOrder(transferOrder.id)}>
-        Ακύρωση
-      </button>
+      <CancelOrderButton
+        orderName={transferOrder.customTitle}
+        orderId={transferOrder.id}
+        cancelOrder={cancelTransferOrder}
+      />
     </div>
   </div>
 )

@@ -6,7 +6,7 @@ import _ from 'underscore';
 import './CreditCardSelection.css';
 
 export class CreditCardSelection extends Component {
-  render(){
+  render() {
     const {
       creditCardType,
       creditCards,

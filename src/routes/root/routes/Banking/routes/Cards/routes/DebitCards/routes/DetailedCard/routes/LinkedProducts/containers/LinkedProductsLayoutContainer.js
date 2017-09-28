@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
 import _ from 'underscore'
-import { deleteLinkedProduct } from '../../../../../../../modules/cards'
-import LinkedProducts from '../components';
+import { deleteLinkedProduct } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
+import LinkedProductsLayout from '../components/LinkedProductsLayout';
 
 const mapStateToProps = (state) => ({
+  debitCardId: state.cards.activeCard.id,
   linkedProducts: _.find(state.cards.debitCards, (debitCard) => debitCard.debitCard.id == state.cards.activeCard.id).accounts
 });
 
@@ -12,4 +13,4 @@ const mapActionCreators = {
 };
 
 
-export default connect(mapStateToProps, mapActionCreators)(LinkedProducts);
+export default connect(mapStateToProps, mapActionCreators)(LinkedProductsLayout);

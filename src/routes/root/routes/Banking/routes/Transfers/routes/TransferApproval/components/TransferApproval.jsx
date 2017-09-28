@@ -46,12 +46,12 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
           />
           <MoneyTransactionApprovalRow
             title='Έξοδα εμβάσματος'
-            amount={transactionForm.charges}
+            amount={transactionForm.charges.value}
             currency={transactionForm.currency.value}
           />
           <MoneyTransactionApprovalRow
             title='Σύνολο χρέωσης λογαριασμού'
-            amount={parseFloat(transactionForm.amount.value) + parseFloat(transactionForm.charges)}
+            amount={parseFloat(transactionForm.amount.value) + parseFloat(transactionForm.charges.value)}
             currency={transactionForm.currency.value}
           />
           <SimpleTransactionApprovalRow

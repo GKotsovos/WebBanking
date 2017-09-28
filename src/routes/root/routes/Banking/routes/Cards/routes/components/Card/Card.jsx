@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
+import React from 'react';
+import CardPanelHeader from '../CardPanelHeader';
+import CardPanelBody from '../CardPanelBody';
 import './Card.css';
 
 const paths = {
@@ -15,44 +15,14 @@ export const Card = ({ card, type, setActiveCard, getCardTransactionHistory, lin
     getCardTransactionHistory(card.id);
     linkTo(paths[type]);
   }}>
-    <div className="cardTitle panel-heading">
-      <h3 className="panel-title">
-        <span className="titles">
-          ({currencyFormatter.findCurrency(card.currency).symbol}) {type} {card.brand}
-        </span>
-        <span className="titles cardNumber">
-          {_.map(card.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}
-        </span>
-      </h3>
-    </div>
-    <div className="panel-body">
-      <span className="row">
-        {
-          type != 'PREPAID' ?
-            <span className="col-xs-3 col-sm-2 text-right">
-              {card[type == 'DEBIT' ? 'dailyLimit' : 'limit'].toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
-            </span>
-            : <span className="col-xs-3 col-sm-2 text-right"></span>
-        }
-        <span className="col-xs-4 col-sm-5 text-right">
-          {card.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
-        </span>
-        <span className="col-xs-offset-1 col-xs-4 text-right">
-          {card.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
-        </span>
-      </span>
-      <span className="row cardSummary">
-        {
-          type != 'PREPAID' ?
-            <span className="col-xs-3 col-sm-2 text-right">
-              { type == 'DEBIT' ? 'Ημερήσιο' : 'Συνολικό' } Όριο
-            </span>
-            : <span className="col-xs-3 col-sm-2 text-right"></span>
-        }
-        <span className="col-xs-4 col-sm-5 text-right">Διαθέσιμο Όριο</span>
-        <span className="col-xs-offset-1 col-xs-4 text-right">Λογιστικό Υπόλοιπο</span>
-      </span>
-    </div>
+    <CardPanelHeader
+      card={card}
+      type={type}
+    />
+    <CardPanelBody
+      card={card}
+      type={type}
+    />
   </div>
 )
 

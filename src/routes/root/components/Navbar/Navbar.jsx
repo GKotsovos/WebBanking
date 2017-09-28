@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome'
 import _ from 'underscore';
 import './Navbar.css'
 
-export const Navbar = ({ customer, logOut }) => (
+export const Navbar = ({ customer, timeLeftToLogOut, logOut }) => (
   <nav id="navbar" className="navbar navbar-default navbar-fixed-top">
     <div className="container">
 
@@ -38,7 +38,10 @@ export const Navbar = ({ customer, logOut }) => (
                 <a id="changeLang" href="javascript:;">
                   <FontAwesome className="logoff" name="sign-out"/>Αποσύνδεση
                 </a>
-              </li>
+              </li>,
+              <li className="active">
+                <a id="counter" >Υπόλοιπο Χρόνου<br/>{timeLeftToLogOut}</a>
+              </li>,
             ]
           }
         </ul>

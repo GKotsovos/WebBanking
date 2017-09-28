@@ -40,7 +40,6 @@
   background-color: #003399;
 }
 
-
 .navbar-default .navbar-nav>.active>a:hover {
   background-color: #003cb3;
 }
@@ -53,4 +52,16 @@
 .user {
   font-size: 25px;
   margin-right: 5px;
+}
+
+#counter {
+  padding: 7px 5px;
+  color: #EEEEEE;
+  text-align: center;
+}
+
+.navbar-default .navbar-nav>.active>a#counter:hover,
+.navbar-default .navbar-nav>.active>a#counter:focus,
+.navbar-default .navbar-nav>.active>a#counter:visited {
+  background-color: #003399;
 }

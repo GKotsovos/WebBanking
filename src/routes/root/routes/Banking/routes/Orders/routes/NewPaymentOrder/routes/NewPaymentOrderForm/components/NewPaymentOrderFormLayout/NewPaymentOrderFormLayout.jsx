@@ -10,7 +10,10 @@ import './NewPaymentOrderFormLayout.css';
 
 class NewPaymentOrderFormLayout extends Component {
   clearForm() {
-    $('.selectpicker').selectpicker('val', [''])
+    $('.selectpicker.transactionDebitAccount').selectpicker('val', [''])
+    $('.selectpicker.searchPayment').selectpicker('val', [''])
+    $('.selectpicker.paymentCreditCard').selectpicker('val', [''])
+    $('.selectpicker.paymentLoan').selectpicker('val', [''])
     this.props.initNewPaymentOrderForm();
   }
 
@@ -40,7 +43,7 @@ class NewPaymentOrderFormLayout extends Component {
         />
         <SearchPaymentMethod
           availablePaymentMethods={newOrderForm.availablePaymentMethods}
-          activeMethod={newOrderForm.activeMethod}
+          activeMethod={newOrderForm.paymentSelections.paymentMethod}
           setActivePaymentMethod={setPaymentOrderPaymentMethod}
         />
         {

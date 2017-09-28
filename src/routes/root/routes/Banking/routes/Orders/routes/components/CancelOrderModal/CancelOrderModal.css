@@ -1,0 +1,56 @@
+.modal {
+  text-align: center;
+  padding: 0!important;
+  bottom: 150px;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  max-width: 450px;
+}
+
+.modal-header {
+  text-shadow: 1px 1px 4px #000000;
+  background-color: #003090;
+  color: #EEEEEE;
+  font-size: 17px;
+  padding: 10px 10px 10px 15px;
+}
+
+.close {
+  color: #EEEEEE;
+}
+
+.modal-body {
+  font-size: 15px;
+}
+
+.strong {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.modal-footer {
+  border: none;
+}
+
+#cancel {
+  margin-right: 4px;
+  background-color: #990000;
+  color: #EEEEEE;
+}
+
+#accept {
+  background-color: #0044cc;
+  color: #EEEEEE;
+}

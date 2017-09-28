@@ -4,7 +4,7 @@ import OrderSelect from '../../containers/OrderSelectContainer'
 import './OrdersLayout.css';
 
 class OrdersLayout extends Component {
-  componentWillMount(){
+  componentWillMount() {
     const {
       orderState,
       initializeState,

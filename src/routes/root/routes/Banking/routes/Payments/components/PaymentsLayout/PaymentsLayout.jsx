@@ -1,14 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
 import './PaymentsLayout.css';
 
 class PaymentsLayout extends Component {
   componentWillMount() {
-    const { transactionForm, initPaymentTransactionForm } = this.props;
-    if (_.isEmpty(transactionForm)) {
-      initPaymentTransactionForm();
-      setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
-    }
+    setTimeout(() => $('.selectpicker').selectpicker('val', ['']), 350);
+    this.props.initPaymentTransactionForm();
   }
 
   render() {

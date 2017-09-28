@@ -3,9 +3,8 @@ import _ from 'underscore';
 
 class DomesticBankSelection extends Component {
   componentDidMount() {
-    const { bank } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.domesticBankSelect').selectpicker('val', [bank.selection]);
+    $('.selectpicker.domesticBankSelect').selectpicker('val', [this.props.bank.selection]);
   }
 
   render() {

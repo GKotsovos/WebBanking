@@ -4,25 +4,44 @@ import querystring from 'querystring';
 import { browserHistory } from 'react-router';
 import dateformat from 'dateformat';
 import _ from 'underscore'
-import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
-import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
-import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
+import { linkTo } from 'routes/root/routes/Banking/modules/banking';
+import {
+  getDebitAccount,
+  getDebitAccountAvailableBalance,
+  getDebitAccountCurrency,
+  getPaymentType,
+  findPaymentCharges,
+  isValidDebitAmount,
+  isValidDate,
+} from 'routes/root/routes/Banking/routes/utils/commonUtils';
+import {
+  handleRequestException,
+  handleTransactionException,
+} from 'routes/root/routes/Banking/routes/utils/commonActions';
+import {
+  getPayentBank,
+  getPaymentBeneficiary,
+  getCreditProductType,
+  getPaymentUrl,
+  getPaymentSubCategories,
+  getAvailablePaymentMethods,
+} from '../utils/paymentUtils';
 
-const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const INIT_PAYMENT_TRANSACTION_FORM = 'INIT_PAYMENT_TRANSACTION_FORM';
 const SET_PAYMENT_DEBIT_ACCOUNT = 'SET_PAYMENT_DEBIT_ACCOUNT';
 const SET_PAYMENT_CURRENCY = 'SET_PAYMENT_CURRENCY';
-const FETCHING_PAYMENT_METHODS = 'FETCHING_PAYMENT_METHODS';
 const SET_PAYMENT_METHODS = 'SET_PAYMENT_METHODS';
 const SET_AVAILABLE_PAYMENT_CATEGORIES = 'SET_AVAILABLE_PAYMENT_CATEGORIES';
 const SET_WAY_OF_SELECTION = 'SET_WAY_OF_SELECTION';
 const CLEAR_PAYMENT_SELECTIONS = 'CLEAR_PAYMENT_SELECTIONS';
 const SET_ACTIVE_PAYMENT_CATEGORY = 'SET_ACTIVE_PAYMENT_CATEGORY';
+const CLEAR_PAYMENT_CHARGES = 'CLEAR_PAYMENT_CHARGES';
 const SET_AVAILABLE_PAYMENT_SUBCATEGORIES = 'SET_AVAILABLE_PAYMENT_SUBCATEGORIES';
 const SET_ACTIVE_PAYMENT_SUBCATEGORY = 'SET_ACTIVE_PAYMENT_SUBCATEGORY';
 const SET_PAYMENT_TYPE = 'SET_PAYMENT_TYPE';
 const SET_AVAILABLE_PAYMENT_METHODS = 'SET_AVAILABLE_PAYMENT_METHODS';
 const SET_ACTIVE_PAYMENT_METHOD = 'SET_ACTIVE_PAYMENT_METHOD';
+const SET_PAYMENT_CHARGES = 'SET_PAYMENT_CHARGES';
 const SET_PAYMENT_CODE = 'SET_PAYMENT_CODE';
 const SET_PAYMENT_AMOUNT = 'SET_PAYMENT_AMOUNT';
 const SET_ASAP_PAYMENT = 'SET_ASAP_PAYMENT';
@@ -31,24 +50,9 @@ const VALIDATE_PAYMENT_TRANSACTION_FORM = 'VALIDATE_PAYMENT_TRANSACTION_FORM';
 const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 
-const linkTo = (route) => {
-  localStorage.setItem('path', route);
-  browserHistory.push(route);
-  return (dispatch, getState) => {
-    dispatch({
-      type: CHANGE_ACTIVE_TAB,
-      payload: route
-    });
-  }
-}
-
 export const getPaymentMethods = () => {
   return (dispatch, getState) => {
     if (_.isEmpty(getState().payments.transactionForm.paymentMethods)) {
-      dispatch({
-        type    : FETCHING_PAYMENT_METHODS
-      });
-
       return axios({
         method: 'get',
         url: 'http://localhost:26353/api/Payment/GetPaymentMethods',
@@ -65,19 +69,7 @@ export const getPaymentMethods = () => {
           type    : SET_AVAILABLE_PAYMENT_CATEGORIES,
         })
       })
-      .catch((exception) => {
-        !_.isEmpty(exception.response) && exception.response.status == 401 ?
-        dispatch({
-          type    : 'LOG_OUT',
-        }) :
-        dispatch({
-          type    : UNSUCCESSFUL_TRANSACTION,
-          payload : {
-            exception,
-            linkToStart: '/banking/payments'
-          }
-        })
-      })
+      .catch((exception) => handleRequestException(exception, dispatch))
     }
   }
 }
@@ -105,6 +97,9 @@ export const setActivePaymentCategory = (category) => {
     dispatch({
       type: SET_ACTIVE_PAYMENT_CATEGORY,
       payload: category
+    });
+    dispatch({
+      type: CLEAR_PAYMENT_CHARGES,
     });
     dispatch({
       type: SET_AVAILABLE_PAYMENT_SUBCATEGORIES,
@@ -145,23 +140,13 @@ export const setActivePaymentMethod = (paymentMethod) => {
       type: SET_ACTIVE_PAYMENT_METHOD,
       payload: paymentMethod
     });
-    let paymentType = '';
-    switch (paymentMethod) {
-      case 'ΚΑΡΤΑ AGILE BANK':
-        paymentType = 'isCreditCardAgile';
-        break;
-      case 'ΚΑΡΤΑ ΑΛΛΗΣ ΤΡΑΠΕΖΗΣ':
-        paymentType = 'isCreditCardThirdParty';
-        break;
-      case 'ΔΑΝΕΙΟ AGILE BANK':
-        paymentType = 'isLoan';
-        break;
-      default:
-        paymentType = 'thirdPartyPayment';
-    }
+    const paymentType = getPaymentType(paymentMethod);
     dispatch({
       type: SET_PAYMENT_TYPE,
       payload: paymentType
+    });
+    dispatch({
+      type: SET_PAYMENT_CHARGES
     });
     dispatch({
       type: SET_PAYMENT_CODE,
@@ -174,26 +159,11 @@ export const setActivePaymentMethod = (paymentMethod) => {
 }
 
 export const payment = (transactionForm) => {
-  let bank = '';
   const paymentMethod = transactionForm.paymentSelections.paymentMethod;
-  let beneficiary = paymentMethod;
-  if (paymentMethod.toUpperCase().includes('AGILE')) {
-    bank = 'AGILE BANK';
-    beneficiary = 'AGILE BANK';
-  }
-
-  let creditProductType = '';
-  if (paymentMethod.includes('ΚΑΡΤΑ')) {
-    creditProductType = 'isCreditCard';
-  } else if (paymentMethod.includes('ΔΑΝΕΙΟ')) {
-    creditProductType = 'isLoan';
-  }
-  let url = 'http://localhost:26353/api/Payment/ThirdPartyPayment';
-  if (bank == 'AGILE BANK' && creditProductType == 'isCreditCard') {
-    url = 'http://localhost:26353/api/Payment/CreditCardPayment';
-  } else if (bank == 'AGILE BANK' && creditProductType == 'isLoan') {
-    url = 'http://localhost:26353/api/Payment/LoanPayment';
-  }
+  const bank = getPayentBank(paymentMethod);
+  const beneficiary = getPaymentBeneficiary(paymentMethod);
+  const creditProductType = getCreditProductType(paymentMethod);
+  const url = getPaymentUrl(bank, creditProductType)
   return (dispatch, getState) => {
     return axios({
       method: 'post',
@@ -209,7 +179,7 @@ export const payment = (transactionForm) => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency.value,
         date: transactionForm.date.value,
-        expenses: 0,
+        expenses: transactionForm.charges.value,
         comments: '',
       }),
       withCredentials: true,
@@ -221,72 +191,15 @@ export const payment = (transactionForm) => {
       })
     })
     .then(() => linkTo('/banking/payments/result'))
-    .then(() => {
-      switch (transactionForm.debitAccount.type) {
-        case "isAccount":
-          getAccountById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isLoan":
-          getLoanById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isCreditCard":
-          getCreditCardById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-        case "isPrepaidCard":
-          getPrepaidCardById(transactionForm.debitAccount.value)(dispatch, getState)
-          break;
-      }
-    })
-    .catch((exception) => {
-      !_.isEmpty(exception.response) && exception.response.status == 401 ?
-      dispatch({
-        type    : 'LOG_OUT',
-      }) :
-      dispatch({
-        type    : UNSUCCESSFUL_TRANSACTION,
-        payload : {
-          exception,
-          linkToStart: '/banking/payments'
-        }
-      })
-    })
+    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value)) .catch((exception) => handleTransactionException(exception, '/banking/payments', dispatch))
+    .then(() => linkTo('/banking/payments/result'))
   }
 }
 
 export const setDebitAccount = (debitAccount, debitAccountType) => {
   return (dispatch, getState) => {
-
-    let innerDebitAccount = '';
-
-    switch (debitAccountType) {
-      case "isAccount":
-        innerDebitAccount =  _.chain(getState().accounts.accounts)
-          .filter((account) => account.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isLoan":
-        innerDebitAccount = _.chain(getState().loans.loans)
-          .filter((loan) => loan.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isCreditCard":
-        innerDebitAccount = _.chain(getState().cards.creditCards)
-          .filter((creditCard) => creditCard.id == debitAccount)
-          .first()
-          .value();
-        break;
-      case "isPrepaidCard":
-        innerDebitAccount = _.chain(getState().cards.prepaidCards)
-          .filter((prepaidCard) => prepaidCard.id == debitAccount)
-          .first()
-          .value();
-        break;
-    }
-    const availableBalance = innerDebitAccount.availableBalance
-    const currency = innerDebitAccount.currency
-
+    const availableBalance = getDebitAccountAvailableBalance(debitAccountType, debitAccount, getState());
+    const currency = getDebitAccountCurrency(debitAccountType, debitAccount, getState());
     dispatch({
       type: SET_PAYMENT_DEBIT_ACCOUNT,
       payload: {
@@ -399,7 +312,7 @@ const ACTION_HANDLERS = {
         paymentSelections: {},
         amount: {},
         paymentCode: {},
-        charges: 0,
+        charges: {},
         date: {},
         shouldProcess: false
       }
@@ -464,13 +377,18 @@ const ACTION_HANDLERS = {
     }
   },
 
+  CLEAR_PAYMENT_CHARGES: (state, action) => {
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        charges: {}
+      }
+    }
+  },
+
   SET_AVAILABLE_PAYMENT_SUBCATEGORIES: (state, action) => {
-    const subCategories =
-      _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
-       .filter((payment) => payment.subCategory != " ")
-       .map((payment) => payment.subCategory)
-       .uniq()
-       .value();
+    const subCategories = getPaymentSubCategories(state.transactionForm);
     return {
       ...state,
       transactionForm: {
@@ -507,31 +425,26 @@ const ACTION_HANDLERS = {
     }
   },
 
-  SET_AVAILABLE_PAYMENT_METHODS: (state, action) => {
-    let payments = [];
-    if (state.transactionForm.shouldSearch) {
-      payments = _.chain(state.transactionForm.paymentMethods)
-        .map((paymentMethod) => _.map(paymentMethod, (method) => method.name))
-        .flatten()
-        .value();
-    } else if (state.transactionForm.availableSubCategories.length > 0) {
-      payments =
-        _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
-         .filter((payment) => payment.subCategory == state.transactionForm.paymentSelections.subCategory)
-         .map((payment) => payment.name)
-         .value();
-    } else {
-      payments =
-        _.chain(state.transactionForm.paymentMethods[state.transactionForm.paymentSelections.category])
-         .filter((payment) => payment.category == state.transactionForm.paymentSelections.category)
-         .map((payment) => payment.name)
-         .value();
-    }
+  SET_PAYMENT_CHARGES: (state, action) => {
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        availablePaymentMethods: payments
+        charges: {
+          value: findPaymentCharges(state.transactionForm.paymentMethods, state.transactionForm.paymentSelections.paymentMethod),
+          correct: true
+        }
+      }
+    }
+  },
+
+  SET_AVAILABLE_PAYMENT_METHODS: (state, action) => {
+    const availablePaymentMethods = getAvailablePaymentMethods(state.transactionForm);
+    return {
+      ...state,
+      transactionForm: {
+        ...state.transactionForm,
+        availablePaymentMethods
       }
     }
   },
@@ -584,8 +497,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         amount: {
           value: action.payload,
-          correct: action.payload > 0 &&
-           (parseFloat(action.payload)) <= state.transactionForm.debitAccount.availableBalance
+          correct: isValidDebitAmount(action.payload, state.transactionForm.debitAccount.availableBalance)
         }
       }
     }
@@ -598,8 +510,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         paymentCode: {
           value: action.payload,
-          correct: !!action.payload == undefined ? undefined : true,
-          //TODO
+          correct: action.payload == undefined ? undefined : true,
         }
       }
     }
@@ -633,7 +544,7 @@ const ACTION_HANDLERS = {
           asapTransaction: false,
           asapText: undefined,
           view: action.payload.formattedDate,
-          correct: new Date(action.payload.date).setHours(0,0,0,0) >= new Date(dateformat()).setHours(0,0,0,0)
+          correct: isValidDate(action.payload.date)
         }
       }
     }
@@ -666,7 +577,6 @@ const ACTION_HANDLERS = {
   },
 
   UNSUCCESSFUL_TRANSACTION: (state, action) => {
-    console.log(action.payload.exception)
     return {
       ...state,
       transactionForm: {

@@ -2,15 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import _ from 'underscore';
 
 class NewPaymentOrderLayout extends Component {
-  componentWillMount(){
+  componentWillMount() {
     const { newOrderForm, initNewPaymentOrderForm } = this.props;
     $('.selectpicker').selectpicker();
-    // if (_.isEmpty(newOrderForm)) {
-      initNewPaymentOrderForm();
-    // }
+    initNewPaymentOrderForm();
   }
 
-  render(){
+  render() {
     return (
       <div>
         {this.props.children}

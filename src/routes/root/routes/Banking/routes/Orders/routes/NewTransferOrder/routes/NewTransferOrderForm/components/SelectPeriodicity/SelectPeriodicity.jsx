@@ -9,6 +9,10 @@ class SelectPeriodicity extends Component {
     $('.selectpicker.transferBankSelect').selectpicker('val', [periodicity ? periodicity.selection : ''])
   }
 
+  componentWillReceiveProps() {
+    setTimeout(() => $(".selectpicker.transferBankSelect").selectpicker('refresh'), 350);
+  }
+
   render() {
     const {
       periodicity,

@@ -9,7 +9,7 @@ export class SelectBankType extends Component {
     $('.selectpicker.transferBankSelect').selectpicker('val', [bankType.selection])
   }
 
-  render(){
+  render() {
     const {
       bankType,
       setCreditBankType

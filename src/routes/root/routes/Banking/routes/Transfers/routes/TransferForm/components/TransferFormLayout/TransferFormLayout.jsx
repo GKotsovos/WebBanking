@@ -9,15 +9,13 @@ import './TransferFormLayout.css';
 
 class TransferFormLayout extends Component {
   componentDidMount() {
-    const { initTransferTransactionForm } = this.props;
     $('.selectpicker').selectpicker();
-    initTransferTransactionForm();
+    this.props.initTransferTransactionForm();
   }
 
   clearForm() {
-    const { initTransferTransactionForm } = this.props;
     $('.selectpicker').selectpicker('val', [''])
-    initTransferTransactionForm();
+    this.props.initTransferTransactionForm();
   }
 
   render() {

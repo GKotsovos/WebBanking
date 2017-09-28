@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import LogOutModal from '../LogOutModal'
 import _ from 'underscore'
 import Tabs from '../Tabs'
 import './BankingLayout.css';
@@ -10,26 +11,31 @@ class BankingLayout extends Component {
       getAccounts,
       getCards,
       getLoans,
+      logOutCountDown
     } = this.props;
     getCustomerName();
     getAccounts();
     getCards();
     getLoans();
-  }
-
-  componentDidMount() {
-    const { timeOutLogOut } = this.props;
-    timeOutLogOut(500000);
+    logOutCountDown();
   }
 
   render() {
-    const { children } = this.props;
+    const {
+      children,
+      shouldShowLogOutModal,
+      logOut
+     } = this.props;
     return (
-      <div id="bankingLayout" className="container">
+      <div id="bankingLayout" className="container" onClick={() => $('.collapse').collapse('hide')}>
         <Tabs />
         <div>
           {children}
         </div>
+        <LogOutModal
+          shouldShow={shouldShowLogOutModal}
+          logOut={logOut}
+        />
       </div>
     )
   }
