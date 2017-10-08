@@ -8,7 +8,8 @@ import {
   TransfersRoute,
   OrdersRoute,
 } from './routes'
-import banking from './modules/banking'
+import banking, { linkTo } from './modules/banking'
+import cookie from 'react-cookie'
 
 export const BankingRoute = (store) => {
   injectReducer(store, { key: 'banking', reducer: banking });
@@ -17,6 +18,7 @@ export const BankingRoute = (store) => {
     path        : '/banking',
     component   : BankingLayout,
     indexRoute  : AccountsRoute(store),
+    onEnter     : () => !cookie.load('access_token') ? linkTo('/') : null,
     childRoutes : [
       CardsRoute(store),
       LoansRoute(store),

@@ -1,10 +1,10 @@
-import RouteNotFound from './components/RouteNotFound'
+import { linkTo } from 'routes/root/routes/Banking/modules/banking';
+import cookie from 'react-cookie'
 
 export default (store) => ({
   path: '*',
-  getComponent (nextState, cb) {
-    require.ensure([], (require) => {
-      cb(null, RouteNotFound)
-    })
+  onEnter(nextState, replace) {
+    linkTo('/');
+    cookie.remove('access_token');
   }
 })
