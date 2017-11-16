@@ -10,8 +10,9 @@ class PaymentCodeSelection extends Component {
       creditCards,
       loans,
       paymentCode,
+      language,
+      paymentType,
       setPaymentCode,
-      paymentType
     } = this.props;
 
     let paymentView;
@@ -23,6 +24,7 @@ class PaymentCodeSelection extends Component {
             creditCardType={paymentType}
             creditCards={creditCards}
             selectedCreditCard={paymentCode}
+            language={language}
             setCreditCardForPayment={setPaymentCode}
           />
         )
@@ -32,6 +34,7 @@ class PaymentCodeSelection extends Component {
         <LoanSelection
           loans={loans}
           selectedLoan={paymentCode}
+          language={language}
           setLoanForPayment={setPaymentCode}
         />
         break;
@@ -39,6 +42,7 @@ class PaymentCodeSelection extends Component {
         paymentView = (
           <PaymentCodeInput
             paymentCode={paymentCode}
+            language={language}
             setPaymentCode={setPaymentCode}
           />
         )

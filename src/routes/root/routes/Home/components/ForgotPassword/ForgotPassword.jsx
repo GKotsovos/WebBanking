@@ -1,13 +1,14 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
+import localizationText from './localizationText'
 import './ForgotPassword.css'
 
-export const ForgotPassword = ({ changePanel }) => (
+export const ForgotPassword = ({ language, changePanel }) => (
   <p
     id="forgotP"
     onClick={() => changePanel('FOTGOT_PASSWORD')}>
     <FontAwesome name="question-circle" />
-    Ξεχάσατε το Όνομα Χρήστη / Κωδικό;
+    {localizationText[language].forgotPassword}
   </p>
 )
 

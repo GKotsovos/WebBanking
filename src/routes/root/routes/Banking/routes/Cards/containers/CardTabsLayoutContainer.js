@@ -4,7 +4,8 @@ import { deactivateCard } from '../modules/cards';
 import CardsTabsLayout from '../components/CardsTabsLayout';
 
 const mapStateToProps = (state) => ({
-  activeRoute: state.banking.activeRoute
+  activeRoute: state.banking.activeRoute,
+  language: state.root.language
 });
 
 const mapActionCreators = {

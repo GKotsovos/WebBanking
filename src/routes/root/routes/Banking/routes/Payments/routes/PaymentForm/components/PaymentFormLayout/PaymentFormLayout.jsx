@@ -6,6 +6,7 @@ import PaymentCodeSelection from 'routes/root/routes/Banking/routes/components/P
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
+import localizationText from './localizationText';
 import './PaymentFormLayout.css';
 
 class PaymentFormLayout extends Component {
@@ -27,6 +28,7 @@ class PaymentFormLayout extends Component {
       creditCards,
       prepaidCards,
       transactionForm,
+      language,
       setDebitAccount,
       setSearchPayment,
       setActivePaymentCategory,
@@ -40,15 +42,17 @@ class PaymentFormLayout extends Component {
     return (
       <form className="paymentContainer">
         <SelectDebitAccount
-          label='Λογαριασμός Χρέωσης'
+          label={localizationText[language].debitAccount}
           debitAccount={!_.isEmpty(transactionForm) ? transactionForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
           prepaidCards={prepaidCards}
+          language={language}
           setDebitAccount={setDebitAccount}
         />
         <SelectPayment
+          language={language}
           setSearchPayment={setSearchPayment}
           shouldSearch={transactionForm.shouldSearch}
           availableCategories={transactionForm.availableCategories}
@@ -69,23 +73,26 @@ class PaymentFormLayout extends Component {
               loans={loans}
               paymentType={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentType}
               paymentCode={transactionForm.paymentCode}
+              language={language}
               setPaymentCode={setPaymentCode}
             />,
             <AmountInput
-              title='Ποσό'
+              title={localizationText[language].amount}
               amount={transactionForm.amount}
               setTransactionAmount={setPaymentAmount}
             />,
             <SelectTransactionDate
               key='date'
-              title='Εκτέλεση Συναλλαγής'
+              title={localizationText[language].executionDate}
               date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
+              language={language}
               setAsapTransaction={setAsapTransaction}
               setTransactionDate={setTransactionDate}
             />,
             <FormCompletionButtons
               key='completion'
               shouldProcess={!!transactionForm.shouldProcess}
+              language={language}
               clearForm={this.clearForm.bind(this)}
               linkToApprovalForm='/banking/payments/approval'
             />

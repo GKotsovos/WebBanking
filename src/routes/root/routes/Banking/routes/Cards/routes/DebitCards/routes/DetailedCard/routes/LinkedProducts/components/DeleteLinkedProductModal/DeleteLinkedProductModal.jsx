@@ -1,9 +1,11 @@
 import React from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 
 export const DeleteLinkedProductModal = ({
   debitCardId,
   linkedProductId,
+  language,
   deleteLinkedProduct
 }) => (
   <div
@@ -15,10 +17,10 @@ export const DeleteLinkedProductModal = ({
     <div className="modal-dialog">
       <div className="modal-content">
         <div className="modal-header">
-          <span className="modal-title">Επιβεβαίωση</span>
+          <span className="modal-title">{localizationText[language].confirmationTitle}</span>
         </div>
         <div className="modal-body">
-          Είστε βέβαιος ότι θέλετε να διαγράψετε την σύνδεση μεταξύ της <span className="strong">«{_.map(debitCardId, ((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num ))}»</span> και του <span className="strong">«{linkedProductId}»</span>;
+          {localizationText[language].confirmationPartOne}<span className="strong">«{_.map(debitCardId, ((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num ))}»</span>{localizationText[language].confirmationPartTwo}<span className="strong">«{linkedProductId}»</span>;
         </div>
         <div className="modal-footer">
           <button
@@ -26,7 +28,7 @@ export const DeleteLinkedProductModal = ({
             type="button"
             className="btn btn-default"
             data-dismiss="modal">
-            Ακύρωση
+            {localizationText[language].cancel}
           </button>
           <button
             id="accept"
@@ -36,7 +38,7 @@ export const DeleteLinkedProductModal = ({
               deleteLinkedProduct(linkedProductId);
               $('#deleteLinkedProductModal').modal('hide');
             }}>
-            Αποδοχή
+            {localizationText[language].accept}
           </button>
         </div>
       </div>

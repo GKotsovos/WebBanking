@@ -39,7 +39,11 @@ const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_CARD = 'SET_ACTIVE_CARD';
+const SET_CARD_TRANSACTION_HISTORY_START_DATE = 'SET_CARD_TRANSACTION_HISTORY_START_DATE';
+const SET_CARD_TRANSACTION_HISTORY_END_DATE = 'SET_CARD_TRANSACTION_HISTORY_END_DATE';
+const VALIDATE_CARD_TRANSACTION_HISTORY_TIME_PERIOD = 'VALIDATE_CARD_TRANSACTION_HISTORY_TIME_PERIOD';
 const DEACTIVATE_CARD = 'DEACTIVATE_CARD';
+const CLEAR_ERROR_MESSAGE = 'CLEAR_ERROR_MESSAGE';
 
 export const getCards = () => {
   return (dispatch, getState) => {
@@ -113,7 +117,30 @@ export const getCardTransactionHistory = (productId) => {
   return (dispatch, getState) => {
     return axios({
       method: 'get',
-      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistory/' + productId,
+      url: 'http://localhost:26353/api/Transaction/GetCurrentMonthProductTransactionHistory/' + productId,
+      withCredentials: true
+    })
+    .then((response) => {
+      dispatch({
+        type    : RECEIVED_CARD_TRANSACTION_HISTORY,
+        payload : response.data
+      })
+    })
+    .catch((exception) => handleRequestException(exception, dispatch))
+  }
+}
+
+export const getTransactionHistoryByTimePeriod = (startDate, endDate) => {
+  return (dispatch, getState) => {
+    const productId = getState().cards.activeCard.id;
+    return axios({
+      method: 'post',
+      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistoryByTimePeriod',
+      data: querystring.stringify({
+        productId,
+        startDate,
+        endDate
+      }),
       withCredentials: true
     })
     .then((response) => {
@@ -308,6 +335,30 @@ export function setActiveCard(card){
   }
 }
 
+export const setTransactionHistoryStartDate = (startDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_CARD_TRANSACTION_HISTORY_START_DATE,
+      payload: startDate
+    });
+    dispatch({
+      type: VALIDATE_CARD_TRANSACTION_HISTORY_TIME_PERIOD
+    });
+  }
+}
+
+export const setTransactionHistoryEndDate = (endDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_CARD_TRANSACTION_HISTORY_END_DATE,
+      payload: endDate
+    });
+    dispatch({
+      type: VALIDATE_CARD_TRANSACTION_HISTORY_TIME_PERIOD
+    });
+  }
+}
+
 export function deactivateCard() {
   return {
     type: DEACTIVATE_CARD
@@ -320,6 +371,12 @@ export function clearCardTransactionForm() {
   }
 }
 
+export function clearErrorMessage() {
+  return {
+    type: CLEAR_ERROR_MESSAGE,
+  }
+}
+
 export const actions = {
   linkTo,
   getCards,
@@ -327,6 +384,8 @@ export const actions = {
   getCreditCardById,
   getPrepaidCardById,
   setActiveCard,
+  setTransactionHistoryStartDate,
+  setTransactionHistoryEndDate,
   deactivateCard,
   getCardTransactionHistory,
   deleteLinkedProduct,
@@ -339,6 +398,7 @@ export const actions = {
   creditCardPayment,
   prepaidCardLoad,
   clearCardTransactionForm,
+  clearErrorMessage
 }
 
 const ACTION_HANDLERS = {
@@ -376,6 +436,54 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       activeCard: action.payload
+    }
+  },
+
+  SET_CARD_TRANSACTION_HISTORY_START_DATE: (state, action) => {
+    return {
+      ...state,
+      activeCard: {
+        ...state.activeCard,
+        transactionHistoryTimePeriod: {
+          ...state.activeCard.transactionHistoryTimePeriod,
+          startDate: {
+            value: action.payload,
+            valid: action.payload > '0'
+          }
+        }
+      }
+    }
+  },
+
+  SET_CARD_TRANSACTION_HISTORY_END_DATE: (state, action) => {
+    return {
+      ...state,
+      activeCard: {
+        ...state.activeCard,
+        transactionHistoryTimePeriod: {
+          ...state.activeCard.transactionHistoryTimePeriod,
+          endDate: {
+            value: action.payload,
+            valid: state.activeCard.transactionHistoryTimePeriod.startDate.value <= action.payload
+          }
+        }
+      }
+    }
+  },
+
+  VALIDATE_CARD_TRANSACTION_HISTORY_TIME_PERIOD: (state, action) => {
+    return {
+      ...state,
+      activeCard: {
+        ...state.activeCard,
+        transactionHistoryTimePeriod: {
+          ...state.activeCard.transactionHistoryTimePeriod,
+          valid: state.activeCard.transactionHistoryTimePeriod.startDate &&
+            state.activeCard.transactionHistoryTimePeriod.startDate.valid &&
+            state.activeCard.transactionHistoryTimePeriod.endDate &&
+            state.activeCard.transactionHistoryTimePeriod.endDate.valid
+        }
+      }
     }
   },
 
@@ -526,11 +634,23 @@ const ACTION_HANDLERS = {
   },
 
   REQUEST_ERROR: (state, action) => {
+    let errorMessage = '';
+    if (action.payload.response) {
+      errorMessage = action.payload.response.data;
+    }
     return {
       ...state,
-      returnedError: action.payload
+      errorMessage
     }
   },
+
+  CLEAR_ERROR_MESSAGE: (state, action) => {
+    return {
+      ...state,
+      errorMessage: undefined
+    }
+  },
+
 }
 
 export default function cardsReducer (state = {}, action) {

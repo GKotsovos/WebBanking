@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SelectPaymentCategory.css';
 
 export class SelectPaymentCategory extends Component {
@@ -17,6 +18,7 @@ export class SelectPaymentCategory extends Component {
     const {
       availableCategories,
       activeCategory,
+      language,
       setActivePaymentCategory,
     } = this.props;
     return (
@@ -25,9 +27,8 @@ export class SelectPaymentCategory extends Component {
           id="paymentCategory"
           className={`selectpicker paymentCategory form-control ${_.isEmpty(activeCategory) || activeCategory.correct ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε Κατηγορία"
-          onChange={(e) => setActivePaymentCategory(e.target.value)}
-        >
+          title={localizationText[language].selectPaymentCategory}
+          onChange={(e) => setActivePaymentCategory(e.target.value)}>
           {
             _.map(availableCategories, (category) => (
               <option key={category}>

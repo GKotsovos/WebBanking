@@ -23,6 +23,7 @@ const mapStateToProps = (state) => ({
   creditCards: state.cards.creditCards,
   prepaidCards: state.cards.prepaidCards,
   newOrderForm: state.orders.newOrderForm || {},
+  language: state.root.language,
 });
 
 const mapActionCreators = {

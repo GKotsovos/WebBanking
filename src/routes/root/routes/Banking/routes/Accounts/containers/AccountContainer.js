@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
-import { setActiveAccount, getAccountTransactionHistory } from '../modules/accounts'
+import { setActiveAccount, getAccountCurrentMonthTransactionHistory } from '../modules/accounts'
 import Account from '../components/Account';
+
+const mapStateToProps = (state) => ({
+  language: state.root.language
+});
 
 const mapActionCreators = {
   setActiveAccount: (account) => setActiveAccount(account),
-  getAccountTransactionHistory: (productId) => getAccountTransactionHistory(productId),
+  getAccountCurrentMonthTransactionHistory: (productId) => getAccountCurrentMonthTransactionHistory(productId),
 };
 
-
-export default connect(null, mapActionCreators)(Account);
+export default connect(mapStateToProps, mapActionCreators)(Account);

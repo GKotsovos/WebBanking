@@ -1,12 +1,16 @@
 import React from 'react';
 import DeleteLinkedProductModal from '../DeleteLinkedProductModal';
+import ErrorMessageModal from 'routes/root/routes/Banking/routes/components/ErrorMessageModal';
 import FontAwesome from 'react-fontawesome';
 import './DeleteLinkedProduct.css';
 
 export const DeleteLinkedProduct = ({
   debitCardId,
   linkedProductId,
-  deleteLinkedProduct
+  errorMessage,
+  language,
+  deleteLinkedProduct,
+  clearErrorMessage
 }) => (
   <div>
     <FontAwesome
@@ -18,7 +22,13 @@ export const DeleteLinkedProduct = ({
     <DeleteLinkedProductModal
       debitCardId={debitCardId}
       linkedProductId={linkedProductId}
+      language={language}
       deleteLinkedProduct={deleteLinkedProduct}
+    />
+    <ErrorMessageModal
+      errorMessage={errorMessage}
+      language={language}
+      clearErrorMessage={clearErrorMessage}
     />
   </div>
 )

@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginForm from '../LoginForm';
-import ForgotPassword from '../ForgotPassword';
+import LoginForm from '../../containers/LoginFormContainer';
+import ForgotPassword from '../../containers/ForgotPasswordContainer';
 import ReturnedError from '../ReturnedError';
 import './LoginPanelBody.css'
 

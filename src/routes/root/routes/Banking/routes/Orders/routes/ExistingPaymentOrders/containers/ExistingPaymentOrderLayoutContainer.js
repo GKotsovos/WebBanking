@@ -4,6 +4,7 @@ import ExistingPaymentOrderLayout from '../components/ExistingPaymentOrderLayout
 
 const mapStateToProps = (state) => ({
   paymentOrders: state.orders.paymentOrders,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

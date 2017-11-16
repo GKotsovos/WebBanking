@@ -3,9 +3,10 @@ import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
 import ExistingOrderTitle from '../../../components/ExistingOrderTitle';
 import CancelOrderButton from '../../../components/CancelOrderButton';
+import localizationText from './localizationText';
 import './ExistingTransferOrder.css';
 
-export const ExistingTransferOrder = ({ transferOrder, cancelTransferOrder }) => (
+export const ExistingTransferOrder = ({ transferOrder, language, cancelTransferOrder }) => (
   <div className="panel panel-default existingOrderContainer">
     <ExistingOrderTitle
       orderTitle={transferOrder.customTitle}
@@ -26,9 +27,9 @@ export const ExistingTransferOrder = ({ transferOrder, cancelTransferOrder }) =>
           </span>
         </span>
         <span className="summary">
-          <span className="col-xs-6 text-right">Λογαριασμός Πίστωσης</span>
-          <span className="col-xs-2 text-right">Ποσό</span>
-          <span className="col-xs-4 text-right">Ημ/νία Επόμενης Εκτέλεσης</span>
+          <span className="col-xs-6 text-right">{localizationText[language].debitAccount}</span>
+          <span className="col-xs-2 text-right">{localizationText[language].amount}</span>
+          <span className="col-xs-4 text-right">{localizationText[language].nextExecutionDate}</span>
         </span>
       </div>
       <div className="row secondRow">
@@ -37,13 +38,14 @@ export const ExistingTransferOrder = ({ transferOrder, cancelTransferOrder }) =>
           <span className="col-xs-6 text-right">{transferOrder.executionsLeft}</span>
         </span>
         <span className="summary">
-          <span className="col-xs-6 text-right">Περιοδικότητα Εκτέλεσης</span>
-          <span className="col-xs-6 text-right">Εναπομείναντες Εκτελέσεις</span>
+          <span className="col-xs-6 text-right">{localizationText[language].executionFrequency}</span>
+          <span className="col-xs-6 text-right">{localizationText[language].executionsLeft}</span>
         </span>
       </div>
       <CancelOrderButton
         orderName={transferOrder.customTitle}
         orderId={transferOrder.id}
+        language={language}
         cancelOrder={cancelTransferOrder}
       />
     </div>

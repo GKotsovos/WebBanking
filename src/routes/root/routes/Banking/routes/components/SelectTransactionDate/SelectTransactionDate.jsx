@@ -1,11 +1,13 @@
 import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SelectTransactionDate.css';
 
 export const SelectTransactionDate = ({
   title,
   date,
+  language,
   setAsapTransaction,
   setTransactionDate,
 }) => (
@@ -24,7 +26,7 @@ export const SelectTransactionDate = ({
         <span
           id="amesa"
           onClick={() => setAsapTransaction(true)}>
-          Άμεσα
+          {localizationText[language].asap}
         </span>
       </span>
       <span
@@ -39,14 +41,14 @@ export const SelectTransactionDate = ({
         <span
           id="stis"
           onClick={() => setAsapTransaction(false)}>
-          Στις
+          {localizationText[language].on}
         </span>
         <DatePicker
           id="transactionDatePicker"
           className={`form-control text-right ${_.isEmpty(date) || date.correct ? "" : "notValid"}`}
           weekStartsOnMonday
           calendarPlacement="top"
-          placeholder="ΗΗ/ΜΜ/ΕΕΕΕ"
+          placeholder={localizationText[language].selectDatePlaceholder}
           value={date? date.value : ''}
           onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
           disabled={_.isEmpty(date) || date.asapTransaction}

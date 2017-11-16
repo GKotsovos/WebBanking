@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
+import localizationText from './localizationText';
 import _ from 'underscore';
 
 class CreditAgileAccountSelection extends Component {
@@ -17,18 +18,19 @@ class CreditAgileAccountSelection extends Component {
     const {
       accounts,
       creditAccount,
+      language,
       setCreditAccount,
     } = this.props;
 
     return (
       <div
         className="form-group">
-        <label htmlFor="transferCreditAccountType">Προς</label>
+        <label htmlFor="transferCreditAccountType">{localizationText[language].to}</label>
         <select
           id="transferCreditAccountType"
           className={`selectpicker transferCreditAccountType form-control ${_.isEmpty(creditAccount) || creditAccount.type != "" ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Λογαριασμός πίστωσης"
+          title={localizationText[language].selectAccountTitle}
           onChange={
             (e) => setCreditAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)
           }
@@ -46,7 +48,7 @@ class CreditAgileAccountSelection extends Component {
               </option>
             ))
           }
-          <option className="other" value="">Λογαριασμός Τρίτου</option>
+          <option className="other" value="">{localizationText[language].thirdPartyLanguage}</option>
         </select>
       </div>
     )

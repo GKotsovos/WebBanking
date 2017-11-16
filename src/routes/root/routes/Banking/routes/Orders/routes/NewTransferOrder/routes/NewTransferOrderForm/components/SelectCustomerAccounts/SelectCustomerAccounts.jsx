@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SelectCustomerAccounts.css';
 
 export class SelectCustomerAccounts extends Component {
@@ -18,16 +19,17 @@ export class SelectCustomerAccounts extends Component {
     const {
       accounts,
       creditAccount,
+      language,
       setCreditAccount
     } = this.props;
     return (
       <div className="form-group">
-        <label htmlFor="transferOrderCreditAccount">Πρός</label>
+        <label htmlFor="transferOrderCreditAccount">{localizationText[language].to}</label>
         <select
           id="transferOrderCreditAccount"
           className={`selectpicker transferOrderCreditAccount form-control ${_.isEmpty(creditAccount) || creditAccount.correct ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε λογαριασμό"
+          title={localizationText[language].selectAccountTitle}
           onChange={
             (e) => setCreditAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)
           }

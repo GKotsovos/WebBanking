@@ -1,12 +1,13 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome'
+import localizationText from './localizationText';
 import './TransactionSuccess.css';
 
-export const TransactionSuccess = ({ linkTo, linkToStart, clearTransactionForm }) => (
+export const TransactionSuccess = ({ linkTo, linkToStart, language, clearTransactionForm }) => (
   <div className="panel panel-default" id="transactionSuccess">
     <div id="transactionSuccessPanelBody" className="panel-body text-center">
       <FontAwesome id="transactionSuccessIcon" name="check" size="3x"/>
-      <p id="transactionSuccessText">Η συναλλαγή σας ολοκληρώθηκε με επιτυχία</p>
+      <p id="transactionSuccessText">{localizationText[language].transactionSuccess}</p>
       <button
         id="finishTransaction"
         type="button"
@@ -14,7 +15,8 @@ export const TransactionSuccess = ({ linkTo, linkToStart, clearTransactionForm }
         onClick={() => {
           clearTransactionForm();
           linkTo(linkToStart);
-        }}>Τέλος
+        }}>
+        {localizationText[language].finish}
       </button>
     </div>
   </div>

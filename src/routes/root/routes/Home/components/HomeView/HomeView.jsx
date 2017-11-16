@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from '../../containers/LoginContainer';
 import InformationPanel from '../../containers/InformationPanelContainer';
-import ContactPanel from '../ContactPanel';
+import ContactPanel from '../../containers/ContactPanelContainer';
 import GuidePanel from '../../containers/GuidePanelContainer';
 import MainPanel from '../../containers/MainPanelContainer';
 import './HomeView.css';

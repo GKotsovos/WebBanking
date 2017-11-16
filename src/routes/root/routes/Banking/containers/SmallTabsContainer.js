@@ -9,7 +9,8 @@ import { initializeOrderState } from '../routes/Orders/modules/orders';
 import SmallTabs from '../components/Tabs/SmallTabs';
 
 const mapStateToProps = (state) => ({
-  activeRoute: state.banking.activeRoute
+  activeRoute: state.banking.activeRoute,
+  language: state.root.language
 });
 
 const mapActionCreators = {

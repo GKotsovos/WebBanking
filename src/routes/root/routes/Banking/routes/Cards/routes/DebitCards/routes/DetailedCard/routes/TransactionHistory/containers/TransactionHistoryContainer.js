@@ -1,8 +1,21 @@
 import { connect } from 'react-redux';
-import TransactionHistory from '../components/TransactionHistory';
+import {
+  setTransactionHistoryStartDate,
+  setTransactionHistoryEndDate,
+  getTransactionHistoryByTimePeriod
+} from 'routes/root/routes/Banking/routes/Cards/modules/cards';
+import TransactionHistory from 'routes/root/routes/Banking/routes/components/TransactionsHistory';
 
 const mapStateToProps = (state) => ({
-  transactionHistory: state.cards.activeCard.transactionHistory
+  transactionHistory: state.cards.activeCard.transactionHistory,
+  transactionHistoryTimePeriod: state.cards.activeCard.transactionHistoryTimePeriod,
+  language: state.root.language,
 });
 
-export default connect(mapStateToProps, null)(TransactionHistory);
+const mapActionCreators = {
+  setTransactionHistoryStartDate: (startDate) => setTransactionHistoryStartDate(startDate),
+  setTransactionHistoryEndDate: (endDate) => setTransactionHistoryEndDate(endDate),
+  getTransactionHistoryByTimePeriod: (startDate, endDate) => getTransactionHistoryByTimePeriod(startDate, endDate)
+};
+
+export default connect(mapStateToProps, mapActionCreators)(TransactionHistory);

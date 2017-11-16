@@ -11,6 +11,7 @@ export class CreditCardSelection extends Component {
       creditCardType,
       creditCards,
       selectedCreditCard,
+      language,
       setCreditCardForPayment
     } = this.props;
 
@@ -21,6 +22,7 @@ export class CreditCardSelection extends Component {
           <CustomerCreditCards
             creditCards={creditCards}
             selectedCreditCard={selectedCreditCard}
+            language={language}
             setCreditCardForPayment={setCreditCardForPayment}
           />
         break;
@@ -28,6 +30,7 @@ export class CreditCardSelection extends Component {
         creditCardView =
           <CreditCardInput
             selectedCreditCard={selectedCreditCard}
+            language={language}
             setCreditCardForPayment={setCreditCardForPayment}
           />
     }

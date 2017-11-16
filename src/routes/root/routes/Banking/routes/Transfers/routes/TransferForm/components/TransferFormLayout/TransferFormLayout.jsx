@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import SelectBankType from 'routes/root/routes/Banking/routes/components/SelectBankType';
 import Comments from 'routes/root/routes/Banking/routes/components/Comments';
-import _ from 'underscore';
+import localizationText from './localizationText';
 import './TransferFormLayout.css';
 
 class TransferFormLayout extends Component {
@@ -25,6 +26,7 @@ class TransferFormLayout extends Component {
       creditCards,
       prepaidCards,
       transactionForm,
+      language,
       setDebitAccount,
       setCreditBankType,
       setAsapTransfer,
@@ -37,16 +39,18 @@ class TransferFormLayout extends Component {
     return (
       <form id="transferCompletionForm" className="transfersContainer">
         <SelectDebitAccount
-          label='Aπό'
+          label={localizationText[language].from}
           debitAccount={!_.isEmpty(transactionForm) ? transactionForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
           prepaidCards={prepaidCards}
+          language={language}
           setDebitAccount={setDebitAccount}
         />
         <SelectBankType
           bankType={!_.isEmpty(transactionForm) ? transactionForm.bankType : {}}
+          language={language}
           setCreditBankType={setCreditBankType}
         />
         {
@@ -55,18 +59,21 @@ class TransferFormLayout extends Component {
             <Comments
               key='comments'
               comments={!_.isEmpty(transactionForm) ? transactionForm.comments : {}}
+              language={language}
               setTransferComments={setTransferComments}
             />,
             <SelectTransactionDate
               key='date'
-              title='Εκτέλεση Συναλλαγής'
+              title={localizationText[language].executionDate}
               date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
+              language={language}
               setAsapTransaction={setAsapTransfer}
               setTransactionDate={setTransactionDate}
             />,
             <FormCompletionButtons
               key='completion'
               shouldProcess={!_.isEmpty(transactionForm) ? transactionForm.shouldProcess : false}
+              language={language}
               clearForm={this.clearForm.bind(this)}
               linkToApprovalForm='/banking/transfers/approval'
             />,

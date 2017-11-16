@@ -1,8 +1,9 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
+import localizationText from './localizationText';
 import './LoanPanelBody.css';
 
-export const LoanPanelBody = ({ loan }) => (
+export const LoanPanelBody = ({ loan, language }) => (
   <div className="panel-body">
     <div className="row">
       <span>
@@ -17,9 +18,9 @@ export const LoanPanelBody = ({ loan }) => (
         </span>
       </span>
       <span className="summary">
-        <span className="col-xs-3 text-right">Τύπος Δανείου</span>
-        <span className="col-xs-offset-1 col-xs-4 text-right">Αρχικό Ποσό</span>
-        <span className="col-xs-offset-1 col-xs-3 text-right">Λογιστικό Υπόλοιπο</span>
+        <span className="col-xs-3 text-right">{localizationText[language].typeOfLoan}</span>
+        <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].initialAmount}</span>
+        <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].ledgerBalance}</span>
       </span>
     </div>
   </div>

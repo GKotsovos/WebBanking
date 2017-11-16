@@ -1,11 +1,10 @@
 #creditCardServicesTabs {
-  min-width: 100px;
-  max-width: 200px;
   margin-bottom: 5%;
+  border-bottom: none;
 }
 
 .serviceTab {
-  width: 100px;
+  min-width: 110px;
   background-color: #b0c6f2;
   color: #111111;
   font-size: 14px;

@@ -1,9 +1,16 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './Navbar.css'
 
-export const Navbar = ({ customer, timeLeftToLogOut, logOut }) => (
+export const Navbar = ({
+  customer,
+  timeLeftToLogOut,
+  language,
+  setLanguage,
+  logOut
+}) => (
   <nav id="navbar" className="navbar navbar-default navbar-fixed-top">
     <div className="container">
 
@@ -22,11 +29,19 @@ export const Navbar = ({ customer, timeLeftToLogOut, logOut }) => (
         <ul className="nav navbar-nav navbar-right">
           {
             _.isEmpty(customer) ? [
-              <li>
-                <a id="changeLang" href="javascript:;">EN</a>
-              </li>,
               <li id="aa" className="active">
-                <a id="changeLang" href="javascript:;">GR</a>
+                <a
+                  id="changeLang"
+                  href="javascript:;"
+                  onClick={() => setLanguage('greek')}>GR
+                </a>
+              </li>,
+              <li>
+                <a
+                  id="changeLang"
+                  href="javascript:;"
+                  onClick={() => setLanguage('english')}>EN
+                </a>
               </li>
             ] : [
               <li>
@@ -36,11 +51,11 @@ export const Navbar = ({ customer, timeLeftToLogOut, logOut }) => (
               </li>,
               <li id="aa" className="active" onClick={() => logOut()}>
                 <a id="changeLang" href="javascript:;">
-                  <FontAwesome className="logoff" name="sign-out"/>Αποσύνδεση
+                  <FontAwesome className="logoff" name="sign-out"/>{localizationText[language].signOut}
                 </a>
               </li>,
               <li className="active">
-                <a id="counter" >Υπόλοιπο Χρόνου<br/>{timeLeftToLogOut}</a>
+                <a id="counter" >{localizationText[language].timeLeft}<br/>{timeLeftToLogOut}</a>
               </li>,
             ]
           }

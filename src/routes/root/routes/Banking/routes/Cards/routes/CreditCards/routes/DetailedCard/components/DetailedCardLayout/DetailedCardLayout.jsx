@@ -3,10 +3,10 @@ import DetailedCard from '../../../../../containers/DetailedCardContainer'
 import CreditCardServicesTabs from '../../containers/CreditCardServicesContainer'
 import './DetailedCardLayout.css';
 
-export const DetailedCardLayout = ({ children }) => (
+export const DetailedCardLayout = ({ children, language }) => (
   <div>
-    <DetailedCard type="CREDIT"/>
-    <CreditCardServicesTabs />
+    <DetailedCard type="CREDIT" language={language} />
+    <CreditCardServicesTabs language={language} />
     {children}
   </div>
 )

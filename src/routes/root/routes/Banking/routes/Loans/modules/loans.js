@@ -35,6 +35,9 @@ const SUCCESSFUL_TRANSACTION = 'SUCCESSFUL_TRANSACTION';
 const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_LOAN = 'SET_ACTIVE_LOAN';
+const SET_LOAN_TRANSACTION_HISTORY_START_DATE = 'SET_LOAN_TRANSACTION_HISTORY_START_DATE';
+const SET_LOAN_TRANSACTION_HISTORY_END_DATE = 'SET_LOAN_TRANSACTION_HISTORY_END_DATE';
+const VALIDATE_LOAN_TRANSACTION_HISTORY_TIME_PERIOD = 'VALIDATE_LOAN_TRANSACTION_HISTORY_TIME_PERIOD';
 const DEACTIVATE_LOAN = 'DEACTIVATE_LOAN';
 
 export const getLoans = () => {
@@ -75,7 +78,30 @@ export const getLoanTransactionHistory = (loanId) => {
   return (dispatch, getState) => {
     return axios({
       method: 'get',
-      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistory/' + loanId,
+      url: 'http://localhost:26353/api/Transaction/GetCurrentMonthProductTransactionHistory/' + loanId,
+      withCredentials: true
+    })
+    .then((response) => {
+      dispatch({
+        type    : RECEIVED_LOAN_TRANSACTION_HISTORY,
+        payload : response.data
+      })
+    })
+    .catch((exception) => handleRequestException(exception, dispatch))
+  }
+}
+
+export const getTransactionHistoryByTimePeriod = (startDate, endDate) => {
+  return (dispatch, getState) => {
+    const productId = getState().loans.activeLoan.id;
+    return axios({
+      method: 'post',
+      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistoryByTimePeriod',
+      data: querystring.stringify({
+        productId,
+        startDate,
+        endDate
+      }),
       withCredentials: true
     })
     .then((response) => {
@@ -193,6 +219,30 @@ export function setActiveLoan(loan){
   }
 }
 
+export const setTransactionHistoryStartDate = (startDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_LOAN_TRANSACTION_HISTORY_START_DATE,
+      payload: startDate
+    });
+    dispatch({
+      type: VALIDATE_LOAN_TRANSACTION_HISTORY_TIME_PERIOD
+    });
+  }
+}
+
+export const setTransactionHistoryEndDate = (endDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_LOAN_TRANSACTION_HISTORY_END_DATE,
+      payload: endDate
+    });
+    dispatch({
+      type: VALIDATE_LOAN_TRANSACTION_HISTORY_TIME_PERIOD
+    });
+  }
+}
+
 export function deactivateLoan() {
   return {
     type: DEACTIVATE_LOAN
@@ -216,6 +266,8 @@ export const actions = {
   getLoans,
   getLoanById,
   setActiveLoan,
+  setTransactionHistoryStartDate,
+  setTransactionHistoryEndDate,
   deactivateLoan,
   initLoanTransactionForm,
   getLoanTransactionHistory,
@@ -246,6 +298,54 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       activeLoan: action.payload
+    }
+  },
+
+  SET_LOAN_TRANSACTION_HISTORY_START_DATE: (state, action) => {
+    return {
+      ...state,
+      activeLoan: {
+        ...state.activeLoan,
+        transactionHistoryTimePeriod: {
+          ...state.activeLoan.transactionHistoryTimePeriod,
+          startDate: {
+            value: action.payload,
+            valid: action.payload > '0'
+          }
+        }
+      }
+    }
+  },
+
+  SET_LOAN_TRANSACTION_HISTORY_END_DATE: (state, action) => {
+    return {
+      ...state,
+      activeLoan: {
+        ...state.activeLoan,
+        transactionHistoryTimePeriod: {
+          ...state.activeLoan.transactionHistoryTimePeriod,
+          endDate: {
+            value: action.payload,
+            valid: state.activeLoan.transactionHistoryTimePeriod.startDate.value <= action.payload
+          }
+        }
+      }
+    }
+  },
+
+  VALIDATE_LOAN_TRANSACTION_HISTORY_TIME_PERIOD: (state, action) => {
+    return {
+      ...state,
+      activeLoan: {
+        ...state.activeLoan,
+        transactionHistoryTimePeriod: {
+          ...state.activeLoan.transactionHistoryTimePeriod,
+          valid: state.activeLoan.transactionHistoryTimePeriod.startDate &&
+            state.activeLoan.transactionHistoryTimePeriod.startDate.valid &&
+            state.activeLoan.transactionHistoryTimePeriod.endDate &&
+            state.activeLoan.transactionHistoryTimePeriod.endDate.valid
+        }
+      }
     }
   },
 

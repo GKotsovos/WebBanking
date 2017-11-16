@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 
 class DomesticBankSelection extends Component {
   componentDidMount() {
@@ -11,6 +12,7 @@ class DomesticBankSelection extends Component {
     const {
       bank,
       domesticBanks,
+      language,
       setCreditBank,
     } = this.props;
 
@@ -20,12 +22,9 @@ class DomesticBankSelection extends Component {
         <select
           className={`selectpicker domesticBankSelect form-control ${_.isEmpty(bank) || bank.correct ? "" : "notValid"} `}
           data-show-subtext="true"
-          title="Επιλέξτε Τράπεζα Δικαιούχου"
+          title={localizationText[language].selectBeneficiaryBank}
           value={bank.selection || ""}
-          onChange={
-            (e) => setCreditBank(e.target.value)
-          }
-        >
+          onChange={(e) => setCreditBank(e.target.value)}>
           {
             _.map(domesticBanks, (domesticBank) => (
               <option className="isDomesticBank">

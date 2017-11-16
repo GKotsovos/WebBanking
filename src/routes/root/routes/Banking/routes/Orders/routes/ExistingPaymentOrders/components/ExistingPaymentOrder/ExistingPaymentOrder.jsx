@@ -3,9 +3,10 @@ import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
 import ExistingOrderTitle from '../../../components/ExistingOrderTitle';
 import CancelOrderButton from '../../../components/CancelOrderButton';
+import localizationText from './localizationText';
 import './ExistingPaymentOrder.css';
 
-export const ExistingPaymentOrder = ({ paymentOrder, cancelPaymentOrder }) => (
+export const ExistingPaymentOrder = ({ paymentOrder, language, cancelPaymentOrder }) => (
   <div className="panel panel-default existingOrderContainer">
     <ExistingOrderTitle
       orderTitle={paymentOrder.paymentMethod}
@@ -25,9 +26,9 @@ export const ExistingPaymentOrder = ({ paymentOrder, cancelPaymentOrder }) => (
           </span>
         </span>
         <span className="summary">
-          <span className="col-xs-6 text-right">Λογαριασμός Χρέωσης</span>
-          <span className="col-xs-3 text-right">Ημ/νία Λήξης</span>
-          <span className="col-xs-3 text-right">Κατάσταση</span>
+          <span className="col-xs-6 text-right">{localizationText[language].debitAccount}</span>
+          <span className="col-xs-3 text-right">{localizationText[language].expirationDate}</span>
+          <span className="col-xs-3 text-right">{localizationText[language].state}</span>
         </span>
       </div>
       <div className="row secondRow">
@@ -41,13 +42,14 @@ export const ExistingPaymentOrder = ({ paymentOrder, cancelPaymentOrder }) => (
           </span>
         </span>
         <span className="summary">
-          <span className="col-xs-6 text-right">Ανώτατο ποσό χρέωσης</span>
-          <span className="col-xs-6 text-right">Ημ/νία τελευταίας εκτέλεσης</span>
+          <span className="col-xs-6 text-right">{localizationText[language].maxPaymentAmount}</span>
+          <span className="col-xs-6 text-right">{localizationText[language].previousExecutionDate}</span>
         </span>
       </div>
       <CancelOrderButton
         orderName={paymentOrder.paymentMethod}
         orderId={paymentOrder.id}
+        language={language}
         cancelOrder={cancelPaymentOrder}
       />
     </div>

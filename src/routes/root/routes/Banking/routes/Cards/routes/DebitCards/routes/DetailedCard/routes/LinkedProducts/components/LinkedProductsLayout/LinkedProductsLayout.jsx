@@ -1,21 +1,22 @@
 import React from 'react';
-import DeleteLinkedProduct from '../DeleteLinkedProduct'
+import DeleteLinkedProduct from '../../containers/DeleteLinkedProductContainer';
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './LinkedProductsLayout.css';
 
 export const LinkedProductsLayout = ({
   debitCardId,
   linkedProducts,
-  deleteLinkedProduct
+  language,
 }) => (
   <div role="tabpanel" className="tab-pane" id="cardProducts">
     <table id="linkedProductsTable" className="table">
       <thead>
         <tr className="tableHead titles">
-          <th className="col-xs-2 text-center">Προϊόν</th>
-          <th className="col-xs-4 text-center">Αριθμός Προϊόντος</th>
-          <th className="col-xs-2 text-center">Υπόλοιπο</th>
+          <th className="col-xs-2 text-center">{localizationText[language].productHeader}</th>
+          <th className="col-xs-4 text-center">{localizationText[language].productNumber}</th>
+          <th className="col-xs-2 text-center">{localizationText[language].balance}</th>
           <th className="col-xs-1 text-center"></th>
         </tr>
       </thead>
@@ -34,7 +35,6 @@ export const LinkedProductsLayout = ({
                   key={key++}
                   debitCardId={debitCardId}
                   linkedProductId={linkedProduct.id}
-                  deleteLinkedProduct={deleteLinkedProduct}
                 />
               </td>
             </tr>

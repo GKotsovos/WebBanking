@@ -12,31 +12,35 @@ export const SelectPayment = ({
   shouldSearch,
   availableCategories,
   activeCategory,
-  setActivePaymentCategory,
   availableSubCategories,
   paymentSubCategories,
   activeSubCategory,
-  setActivePaymentSubCategory,
   availablePaymentMethods,
   activeMethod,
+  language,
+  setActivePaymentCategory,
+  setActivePaymentSubCategory,
   setActivePaymentMethod,
 }) => (
   <div>
     <SelectWayOfSelection
-      setSearchPayment={setSearchPayment}
       shouldSearch={shouldSearch}
+      language={language}
+      setSearchPayment={setSearchPayment}
     />
     {
       shouldSearch ? (
         <SearchPaymentMethod
           availablePaymentMethods={availablePaymentMethods}
           activeMethod={activeMethod}
+          language={language}
           setActivePaymentMethod={setActivePaymentMethod}
         />
       ) : [
         <SelectPaymentCategory
           availableCategories={availableCategories}
           activeCategory={activeCategory}
+          language={language}
           setActivePaymentCategory={setActivePaymentCategory}
         />,
           !_.isEmpty(activeCategory) ? (
@@ -44,17 +48,20 @@ export const SelectPayment = ({
               <SelectPaymentSubCategory
                 availableSubCategories={availableSubCategories}
                 activeSubCategory={activeSubCategory}
+                language={language}
                 setActivePaymentSubCategory={setActivePaymentSubCategory}
               />,
               <SelectPaymentMethod
                 availablePaymentMethods={availablePaymentMethods}
                 activeMethod={activeMethod}
+                language={language}
                 setActivePaymentMethod={setActivePaymentMethod}
               />
             ] :
             <SelectPaymentMethod
               availablePaymentMethods={availablePaymentMethods}
               activeMethod={activeMethod}
+              language={language}
               setActivePaymentMethod={setActivePaymentMethod}
             />
           ) : null

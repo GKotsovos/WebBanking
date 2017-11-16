@@ -8,26 +8,26 @@ import './MainPanel.css'
 
 class MainPanel extends Component {
   panelView = () => {
-    const { activePanel, changePanel } = this.props;
+    const { activePanel, language, changePanel } = this.props;
 
     switch(activePanel) {
       case 'NEWS':
-        return <News />
+        return <News language={language} />
         break;
       case 'INFORMATION':
-        return <Information changePanel={changePanel}/>
+        return <Information language={language} changePanel={changePanel}/>
         break;
       case 'GUIDE':
-        return <Guide changePanel={changePanel}/>
+        return <Guide language={language} changePanel={changePanel}/>
         break;
       case 'FOTGOT_PASSWORD':
-        return <ForgotPassword changePanel={changePanel}/>
+        return <ForgotPassword language={language} changePanel={changePanel}/>
         break;
       case 'NEW_APPLICATION':
-        return <NewApplication changePanel={changePanel}/>
+        return <NewApplication language={language} changePanel={changePanel}/>
         break;
       default:
-        return <Information changePanel={changePanel}/>
+        return <Information language={language} changePanel={changePanel}/>
     }
   }
   render = () => this.panelView()
@@ -35,6 +35,7 @@ class MainPanel extends Component {
 
 MainPanel.PropTypes = {
   activePanel: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,  
   changePanel: PropTypes.func.isRequired
 };
 

@@ -1,10 +1,11 @@
 import React from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './PaymentCodeInput.css';
 
-export const PaymentCodeInput = ({ paymentCode, setPaymentCode }) => (
+export const PaymentCodeInput = ({ paymentCode, language, setPaymentCode }) => (
   <div>
-    <label htmlFor="paymentCode">Κωδικός Πληρωμής</label>
+    <label htmlFor="paymentCode">{localizationText[language].paymentCodeLabel}</label>
     <input
       id="paymentCode"
       className={`form-control ${_.isEmpty(paymentCode) || paymentCode.correct ? "" : "notValid"}`}

@@ -3,37 +3,38 @@ import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/compone
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
+import localizationText from './localizationText';
 import './CardPaymentApproval.css';
 
-export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
+export const CardPaymentApproval = ({ transactionForm, language, creditCardPayment }) => (
   <form id="cardPaymentApprovalForm">
     <div id="cardPaymentApprovalTable" className="form-group">
       <table className="table table-bordered">
         <TransactionApprovalHeader
-          title='Στοιχεία Πληρωμής'
+          title={localizationText[language].paymentDetails}
         />
         <tbody>
           <SimpleTransactionApprovalRow
-            title='Λογαριασμός χρέωσης'
+            title={localizationText[language].debitAccount}
             value={transactionForm.debitAccount.value}
           />
           <MoneyTransactionApprovalRow
-            title='Ποσό πληρωμής'
+            title={localizationText[language].amount}
             amount={transactionForm.amount.value}
             currency={transactionForm.currency}
           />
           <MoneyTransactionApprovalRow
-            title='Έξοδα πληρωμής'
+            title={localizationText[language].charges}
             amount={transactionForm.expenses}
             currency={transactionForm.currency}
           />
           <MoneyTransactionApprovalRow
-            title='Σύνολο χρέωσης λογαριασμού'
+            title={localizationText[language].totalDebit}
             amount={transactionForm.amount.value}
             currency={transactionForm.currency}
           />
           <SimpleTransactionApprovalRow
-            title='Ημερομηνία εκτέλεσης'
+            title={localizationText[language].executionDate}
             value={transactionForm.date.asapTransaction ? transactionForm.date.asapText : transactionForm.date.view}
           />
         </tbody>
@@ -41,6 +42,7 @@ export const CardPaymentApproval = ({ transactionForm, creditCardPayment }) => (
     </div>
 
     <TransactionApprovalButtons
+      language={language}
       completeTransaction={creditCardPayment}
     />
 

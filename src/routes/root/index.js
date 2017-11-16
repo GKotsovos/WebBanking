@@ -1,19 +1,24 @@
 // We only need to import the modules necessary for initial render
+import { injectReducer } from 'store/reducers'
 import CoreLayout from './components/CoreLayout'
 import { HomeRoute, BankingRoute, RouteNotFound } from './routes'
+import root from './modules/root'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
-export const RootRoute = (store) => ({
-  path        : '/',
-  component   : CoreLayout,
-  indexRoute  : HomeRoute(store),
-  childRoutes : [
-    BankingRoute(store),
-    RouteNotFound(store)
-  ]
-})
+export const RootRoute = (store) => {
+  injectReducer(store, { key: 'root', reducer: root });
+  return {
+    path        : '/',
+    component   : CoreLayout,
+    indexRoute  : HomeRoute(store),
+    childRoutes : [
+      BankingRoute(store),
+      RouteNotFound(store)
+    ]
+  }
+}
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
     using getChildRoutes with the following signature:

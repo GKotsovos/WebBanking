@@ -14,6 +14,7 @@ const mapStateToProps = (state) => ({
   creditAccount: state.transfers.transactionForm.creditAccount,
   fullName: state.transfers.transactionForm.fullName,
   amount: state.transfers.transactionForm.amount,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

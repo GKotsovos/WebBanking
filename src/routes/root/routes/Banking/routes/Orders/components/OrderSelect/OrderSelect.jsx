@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import localizationText from './localizationText';
 import './OrderSelect.css';
 
 class OrderSelect extends Component {
@@ -26,27 +27,28 @@ class OrderSelect extends Component {
   render() {
     const {
       activeOrder,
+      language,
       changeActiveOrderType,
       linkToNewOrder
     } = this.props;
     return (
       <div id="orderSelectContainer">
-        <label htmlFor="orderSelect">Τύπος πάγιας εντολής</label>
+        <label htmlFor="orderSelect">{localizationText[language].typeOfOder}</label>
         <div id="newOrderChoice">
           <select
             id="orderSelect"
             className="selectpicker orderSelect form-control"
-            title="Επιλέξτε τύπο πάγιας εντολής"
+            title={localizationText[language].selectTypeOfOderTitle}
             onChange={(e) => changeActiveOrderType(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>
-            <option className="transfer">Μεταφορά</option>
-            <option className="payment">Πληρωμή</option>
+            <option className="transfer">{localizationText[language].transferOption}</option>
+            <option className="payment">{localizationText[language].paymentOption}</option>
           </select>
           <button
             id="newOrderButton"
             type="button"
             className="btn btn-default"
             onClick={() => linkToNewOrder(activeOrder)}>
-            Νέα εντολή
+            {localizationText[language].newOrder}
           </button>
         </div>
       </div>

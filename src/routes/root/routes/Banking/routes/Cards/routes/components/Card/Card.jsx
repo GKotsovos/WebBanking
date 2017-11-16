@@ -9,7 +9,14 @@ const paths = {
   PREPAID: '/banking/cards/prepaidcards/card',
 }
 
-export const Card = ({ card, type, setActiveCard, getCardTransactionHistory, linkTo }) => (
+export const Card = ({
+  card,
+  type,
+  language,
+  setActiveCard,
+  getCardTransactionHistory,
+  linkTo
+}) => (
   <div className="panel panel-default cardContainer" onClick={() => {
     setActiveCard(card);
     getCardTransactionHistory(card.id);
@@ -18,10 +25,12 @@ export const Card = ({ card, type, setActiveCard, getCardTransactionHistory, lin
     <CardPanelHeader
       card={card}
       type={type}
+      language={language}
     />
     <CardPanelBody
       card={card}
       type={type}
+      language={language}
     />
   </div>
 )

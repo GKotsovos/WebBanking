@@ -1,7 +1,7 @@
 import React from 'react';
-import LoginPanelHeader from '../LoginPanelHeader';
+import LoginPanelHeader from '../../containers/LoginPanelHeaderContainer';
 import LoginPanelBody from '../LoginPanelBody';
-import NewApplicationPanel from '../NewApplicationPanel';
+import NewApplicationPanel from '../../containers/NewApplicationPanelContainer';
 import './Login.css'
 
 export const Login = ({ authenticate, changePanel, returnedError  }) => (

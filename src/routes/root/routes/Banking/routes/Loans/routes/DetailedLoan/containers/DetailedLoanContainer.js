@@ -3,7 +3,8 @@ import { getLoanTransactionHistory } from 'routes/root/routes/Banking/routes/Loa
 import DetailedLoan from '../components/DetailedLoan';
 
 const mapStateToProps = (state) => ({
-  activeLoan: state.loans.activeLoan
+  activeLoan: state.loans.activeLoan,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

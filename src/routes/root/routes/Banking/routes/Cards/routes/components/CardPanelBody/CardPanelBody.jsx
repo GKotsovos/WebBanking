@@ -1,9 +1,10 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './CardPanelBody.css';
 
-export const CardPanelBody = ({ card, type }) => (
+export const CardPanelBody = ({ card, type, language }) => (
   <div className="panel-body">
     <span className="row">
       {
@@ -24,12 +25,12 @@ export const CardPanelBody = ({ card, type }) => (
       {
         type != 'PREPAID' ?
           <span className="col-xs-3 col-sm-2 text-right">
-            { type == 'DEBIT' ? 'Ημερήσιο' : 'Συνολικό' } Όριο
+            {type == 'DEBIT' ? localizationText[language].dailyLimit : localizationText[language].totalLimit}
           </span>
           : <span className="col-xs-3 col-sm-2 text-right"></span>
       }
-      <span className="col-xs-4 col-sm-5 text-right">Διαθέσιμο Όριο</span>
-      <span className="col-xs-offset-1 col-xs-4 text-right">Λογιστικό Υπόλοιπο</span>
+      <span className="col-xs-4 col-sm-5 text-right">{localizationText[language].availableLimit}</span>
+      <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].ledgerBalance}</span>
     </span>
   </div>
 )

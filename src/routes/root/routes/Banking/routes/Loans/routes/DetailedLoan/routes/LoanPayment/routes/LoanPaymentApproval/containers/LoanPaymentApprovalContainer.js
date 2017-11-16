@@ -4,6 +4,7 @@ import LoanPaymentApproval from '../components';
 
 const mapStateToProps = (state) => ({
   transactionForm: state.loans.transactionForm,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

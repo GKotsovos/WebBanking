@@ -6,4 +6,8 @@ const mapActionCreators = {
   changePanel: (panel) => changePanel(panel)
 };
 
-export default connect(null, mapActionCreators)(InformationPanel);
+const mapStateToProps = (state) => ({
+  language: state.root.language
+});
+
+export default connect(mapStateToProps, mapActionCreators)(InformationPanel);

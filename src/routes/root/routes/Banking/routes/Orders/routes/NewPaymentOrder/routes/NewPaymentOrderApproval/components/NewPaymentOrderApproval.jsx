@@ -3,35 +3,37 @@ import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/compone
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
+import localizationText from './localizationText';
 import './NewPaymentOrderApproval.css';
 
-export const NewPaymentOrderApproval = ({ newOrderForm, createPaymentOrder }) => (
+export const NewPaymentOrderApproval = ({ newOrderForm, language, createPaymentOrder }) => (
   <form className="newOrderApprovalTable">
     <table className="table table-bordered newOrderApprovalTable">
       <TransactionApprovalHeader
-        title='Στοιχεία Πάγιας Εντολής'
+        title={localizationText[language].orderDetails}
       />
       <tbody>
         <SimpleTransactionApprovalRow
-          title='Λογαριασμός χρέωσης'
+          title={localizationText[language].debitAccount}
           value={newOrderForm.debitAccount.value}
         />
         <SimpleTransactionApprovalRow
-          title='Όνομα πληρωμής'
+          title={localizationText[language].orderName}
           value={newOrderForm.paymentSelections.paymentMethod}
         />
         <MoneyTransactionApprovalRow
-          title='Έξοδα εντολής'
+          title={localizationText[language].orderCharges}
           amount={newOrderForm.charges.value}
           currency={newOrderForm.currency.value}
         />
         <SimpleTransactionApprovalRow
-          title='Ημερομηνία λήξης'
+          title={localizationText[language].expirationDate}
           value={newOrderForm.endDate.asapOrder ? newOrderForm.endDate.asapText : newOrderForm.endDate.view}
         />
       </tbody>
     </table>
     <TransactionApprovalButtons
+      language={language}
       completeTransaction={() => createPaymentOrder(newOrderForm)}
     />
   </form>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import localizationText from './localizationText';
 
 class LogOutModal extends Component {
   componentDidUpdate() {
@@ -9,7 +10,7 @@ class LogOutModal extends Component {
   }
 
   render() {
-    const { logOut } = this.props;
+    const { language, logOut } = this.props;
     return (
       <div
         id="logOutModal"
@@ -20,10 +21,10 @@ class LogOutModal extends Component {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <span className="modal-title">Ενημέρωση</span>
+            <span className="modal-title">{localizationText[language].autoSignOutTitle}</span>
           </div>
           <div className="modal-body">
-            Έχετε αποσυνδεθεί. Για λόγους ασφαλείας το σύστημα σας αποσυνδέει μετά από 10 λεπτά.
+            {localizationText[language].autoSignOutText}
           </div>
           <div className="modal-footer">
             <button
@@ -34,7 +35,7 @@ class LogOutModal extends Component {
                 $('#logOutModal').modal('hide');
                 logOut();
               }}>
-              Αποδοχή
+              {localizationText[language].acceptText}
             </button>
           </div>
         </div>
