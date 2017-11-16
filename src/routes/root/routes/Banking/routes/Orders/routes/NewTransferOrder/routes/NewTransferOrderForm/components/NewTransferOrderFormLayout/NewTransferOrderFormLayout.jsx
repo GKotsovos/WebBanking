@@ -12,6 +12,7 @@ import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/
 import SelectPeriodicityAndTimesOfExecution from '../SelectPeriodicityAndTimesOfExecution';
 import CustomTitleInput from '../CustomTitleInput';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
+import localizationText from './localizationText';
 import './NewTransferOrderFormLayout.css';
 
 class NewTransferOrderFormLayout extends Component {
@@ -31,6 +32,7 @@ class NewTransferOrderFormLayout extends Component {
       creditCards,
       prepaidCards,
       newOrderForm,
+      language,
       setOrderDebitAccount,
       setTransferOrderBeneficiaryName,
       setTransferOrderBeneficiaryAccount,
@@ -50,16 +52,18 @@ class NewTransferOrderFormLayout extends Component {
     return (
       <form className="newOrderForm">
         <SelectDebitAccount
-          label='Λογαριασμός Χρέωσης'
+          label={localizationText[language].debitAccount}
           debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
           prepaidCards={prepaidCards}
+          language={language}
           setDebitAccount={setOrderDebitAccount}
         />
         <SelectBankType
           bankType={newOrderForm.beneficiaryBankType}
+          language={language}
           setCreditBankType={setTransferOrderBeneficiaryBankType}
         />
         {
@@ -68,46 +72,57 @@ class NewTransferOrderFormLayout extends Component {
               <CreditAgileAccountSelection
                 accounts={_.filter(accounts, (account) => account.id != newOrderForm.debitAccount.value)}
                 creditAccount={newOrderForm.beneficiaryAccount}
+                language={language}
                 setCreditAccount={setTransferOrderBeneficiaryAccount}
               />,
               newOrderForm.beneficiaryAccount.type == 'other' ? [
                 <CreditAccountInput
                   creditAccount={newOrderForm.beneficiaryAccount}
+                  language={language}
                   setCreditAccount={setTransferOrderBeneficiaryAccount}
                 />,
                 <BeneficiaryFullNameInput
                   fullName={newOrderForm.beneficiaryFullName}
+                  language={language}
                   setCreditFullName={setTransferOrderBeneficiaryName}
                 />
               ] : null
             ] : [
               <CreditAccountInput
                 creditAccount={newOrderForm.beneficiaryAccount}
+                language={language}
                 setCreditAccount={setTransferOrderBeneficiaryAccount}
               />,
               <BeneficiaryFullNameInput
                 fullName={newOrderForm.beneficiaryFullName}
+                language={language}
                 setCreditFullName={setTransferOrderBeneficiaryName}
               />
             ],
               <AmountInput
-                title='Ποσό'
+                title={localizationText[language].amount}
                 amount={newOrderForm.amount}
+                language={language}
                 setTransactionAmount={setTransferOrderAmount}
               />,
               newOrderForm.beneficiaryBankType.value != 'agileBank' ? (
                 <ChargesSelection
                   chargesBeneficiary={newOrderForm.chargesBeneficiary}
+                  language={language}
                   setChargesBeneficiary={setTransferOrderChargesBeneficiary}
                 />
               ) : null,
               <Comments
                 comments={!_.isEmpty(newOrderForm) ? newOrderForm.comments : {}}
+                amount={newOrderForm.amount}
+                language={language}
                 setTransferComments={setTransferOrderComments}
               />,
               <SelectTransactionDate
-                title='Έναρξη Εκτέλεσης'
+                title={localizationText[language].startDate}
                 date={newOrderForm.startDate}
+                amount={newOrderForm.amount}
+                language={language}
                 setAsapTransaction={setTransferOrderAsapStart}
                 setTransactionDate={setTransferOrderStartDate}
               />,
@@ -115,14 +130,17 @@ class NewTransferOrderFormLayout extends Component {
                 periodicity={newOrderForm.periodicity}
                 setPeriodicity={setPeriodicity}
                 timesOfExecution={newOrderForm.timesOfExecution}
+                language={language}
                 setTimesOfExecution={setTimesOfExecution}
               />,
               <CustomTitleInput
                 customTitle={newOrderForm.customTitle}
+                language={language}
                 setTransferOrderCustomTitle={setTransferOrderCustomTitle}
               />,
               <FormCompletionButtons
                 shouldProcess={newOrderForm.shouldProcess}
+                language={language}
                 clearForm={this.clearForm.bind(this)}
                 linkToApprovalForm='/banking/orders/transfer/new/approval'
               />

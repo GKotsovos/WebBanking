@@ -14,7 +14,8 @@ const mapStateToProps = (state) => ({
   creditCards: state.cards.creditCards,
   prepaidCards: _.filter(state.cards.prepaidCards, (prepaidCard) => prepaidCard.id != state.cards.activeCard.id),
   loans: state.loans.loans,
-  transactionForm: state.cards.transactionForm
+  transactionForm: state.cards.transactionForm,
+  language: state.root.language
 });
 
 const mapActionCreators = {

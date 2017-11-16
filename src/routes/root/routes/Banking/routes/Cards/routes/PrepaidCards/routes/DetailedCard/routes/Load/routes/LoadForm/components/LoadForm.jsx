@@ -1,5 +1,6 @@
 import React from 'react'
 import SimpleTransactionForm from 'routes/root/routes/Banking/routes/components/SimpleTransactionForm';
+import localizationText from './localizationText';
 
 export const LoadForm = ({
   accounts,
@@ -7,6 +8,7 @@ export const LoadForm = ({
   prepaidCards,
   loans,
   transactionForm,
+  language,
   setDebitAccount,
   setPrepaidCardLoadAmount,
   setAsapCardTransaction,
@@ -14,7 +16,7 @@ export const LoadForm = ({
   initCardTransactionForm
  }) => (
   <SimpleTransactionForm
-    label='Λογαριασμός Χρέωσης'
+    label={localizationText[language].debitAccountLabel}
     debitAccount={transactionForm.debitAccount}
     accounts={accounts}
     loans={loans}
@@ -22,8 +24,9 @@ export const LoadForm = ({
     prepaidCards={prepaidCards}
     setDebitAccount={setDebitAccount}
     amount={transactionForm.amount}
-    setTransactionAmount={setPrepaidCardLoadAmount}
     date={transactionForm.date}
+    language={language}
+    setTransactionAmount={setPrepaidCardLoadAmount}
     setAsapTransaction={setAsapCardTransaction}
     setTransactionDate={setTransactionDate}
     shouldProcess={transactionForm.shouldProcess}

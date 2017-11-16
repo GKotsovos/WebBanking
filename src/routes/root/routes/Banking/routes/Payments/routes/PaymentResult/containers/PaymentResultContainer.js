@@ -6,6 +6,7 @@ const mapStateToProps = (state) => ({
   result: state.payments.transactionForm.result,
   errorMessage: state.payments.transactionForm.errorMessage,
   linkToStart: state.payments.transactionForm.linkToStart,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

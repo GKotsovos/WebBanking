@@ -1,10 +1,11 @@
 import React from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SelectWayOfSelection.css';
 
-export const SelectWayOfSelection = ({ setSearchPayment, shouldSearch }) => (
+export const SelectWayOfSelection = ({ setSearchPayment, language, shouldSearch }) => (
   <div id="wayOfSelection" className="form-group">
-    <label htmlFor="selectWayOfSelection">Πληρωμή</label>
+    <label htmlFor="selectWayOfSelection">{localizationText[language].paymentLabel}</label>
     <div id="selectWayOfSelection">
       <span
         id="select"
@@ -15,7 +16,7 @@ export const SelectWayOfSelection = ({ setSearchPayment, shouldSearch }) => (
           onChange={() => setSearchPayment(false)}
           checked={!shouldSearch}
         />
-        Επιλογή
+        {localizationText[language].select}
       </span>
       <span
         id="search"
@@ -26,7 +27,7 @@ export const SelectWayOfSelection = ({ setSearchPayment, shouldSearch }) => (
           onChange={() => setSearchPayment(true)}
           checked={shouldSearch}
         />
-        Αναζήτηση
+        {localizationText[language].search}
       </span>
     </div>
   </div>

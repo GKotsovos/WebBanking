@@ -7,23 +7,29 @@ import './BankingLayout.css';
 class BankingLayout extends Component {
   componentWillMount() {
     const {
+      initLoad,
+      setInitLoad,
       getCustomerName,
       getAccounts,
       getCards,
       getLoans,
       logOutCountDown
     } = this.props;
+    if (!initLoad) {
+      setInitLoad();
+      logOutCountDown();
+    }
     getCustomerName();
     getAccounts();
     getCards();
     getLoans();
-    logOutCountDown();
   }
 
   render() {
     const {
       children,
       shouldShowLogOutModal,
+      language,
       logOut
      } = this.props;
     return (
@@ -34,6 +40,7 @@ class BankingLayout extends Component {
         </div>
         <LogOutModal
           shouldShow={shouldShowLogOutModal}
+          language={language}
           logOut={logOut}
         />
       </div>

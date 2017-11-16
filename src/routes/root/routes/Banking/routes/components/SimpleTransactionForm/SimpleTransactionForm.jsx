@@ -3,6 +3,7 @@ import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/Sel
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
+import localizationText from './localizationText';
 import './SimpleTransactionForm.css';
 
 class SimpleTransactionForm extends Component {
@@ -29,6 +30,7 @@ class SimpleTransactionForm extends Component {
       amount,
       setTransactionAmount,
       date,
+      language,
       setAsapTransaction,
       setTransactionDate,
       shouldProcess,
@@ -43,21 +45,24 @@ class SimpleTransactionForm extends Component {
           loans={loans}
           creditCards={creditCards}
           prepaidCards={prepaidCards}
+          language={language}
           setDebitAccount={setDebitAccount}
         />
         <AmountInput
-          title='Ποσό'
+          title={localizationText[language].amount}
           amount={amount}
           setTransactionAmount={setTransactionAmount}
         />
         <SelectTransactionDate
-          title='Εκτέλεση Συναλλαγής'
+          title={localizationText[language].transactionExecution}
           date={date}
+          language={language}
           setAsapTransaction={setAsapTransaction}
           setTransactionDate={setTransactionDate}
         />
         <FormCompletionButtons
           shouldProcess={shouldProcess}
+          language={language}
           clearForm={this.clearForm.bind(this)}
           linkToApprovalForm={linkToApprovalForm}
         />

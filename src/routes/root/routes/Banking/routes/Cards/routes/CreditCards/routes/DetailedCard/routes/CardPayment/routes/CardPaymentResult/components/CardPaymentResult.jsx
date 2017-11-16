@@ -5,12 +5,14 @@ export const CardPaymentResult = ({
   result,
   errorMessage,
   linkToStart,
+  language,
   clearCardTransactionForm
 }) => (
   <TransactionResult
     result={result}
     linkToStart={linkToStart}
     errorMessage={errorMessage}
+    language={language}
     clearTransactionForm={clearCardTransactionForm}
   />
 )

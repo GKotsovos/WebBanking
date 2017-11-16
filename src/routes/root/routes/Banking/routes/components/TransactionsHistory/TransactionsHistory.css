@@ -3,33 +3,3 @@
   margin: 0 auto 7% auto;
   display: block;
 }
-
-#history {
-  max-height: 242px;
-  overflow-y: auto;
-}
-
-.transactionsTable {
-  margin-bottom: 0;
-  width: 100%
-}
-
-th {
-  font-weight: normal;
-}
-
-.cell {
-  background-color: white;
-}
-
-.table>thead>tr>th {
-  vertical-align: middle;
-}
-
-.debit {
-  color: red;
-}
-
-.credit {
-  color: green;
-}

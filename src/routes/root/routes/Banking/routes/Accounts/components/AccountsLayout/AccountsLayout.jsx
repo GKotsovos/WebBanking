@@ -5,14 +5,28 @@ import DetailedAccount from '../../containers/DetailedAccountContainer';
 import TransactionsHistory from 'routes/root/routes/Banking/routes/components/TransactionsHistory';
 import './AccountsLayout.css';
 
-export const AccountsLayout = ({ accounts, activeAccount }) => (
+export const AccountsLayout = ({
+  accounts,
+  activeAccount,
+  language,
+  setTransactionHistoryStartDate,
+  setTransactionHistoryEndDate,
+  getTransactionHistoryByTimePeriod
+}) => (
   <div id="accounts" role="tabpanel" className="tab-pane active">
     {
       _.isEmpty(activeAccount) ?
         _.map(accounts, (account) => <Account account={account} />)
       : [
           <DetailedAccount />,
-          <TransactionsHistory transactionHistory={activeAccount.transactionHistory} />
+          <TransactionsHistory
+            transactionHistory={activeAccount.transactionHistory}
+            transactionHistoryTimePeriod={activeAccount.transactionHistoryTimePeriod}
+            language={language}
+            setTransactionHistoryStartDate={setTransactionHistoryStartDate}
+            setTransactionHistoryEndDate={setTransactionHistoryEndDate}
+            getTransactionHistoryByTimePeriod={getTransactionHistoryByTimePeriod}
+          />
         ]
     }
   </div>

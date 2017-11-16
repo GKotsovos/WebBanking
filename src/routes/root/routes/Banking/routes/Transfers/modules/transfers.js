@@ -364,7 +364,10 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         creditAccount: {},
         amount: {},
-        charges: {},
+        charges: {
+          value: 0,
+          correct: true,
+        },
         chargesBeneficiary: {},
         comments: {
           value: '',
@@ -531,7 +534,7 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         amount: {
           value: action.payload,
-          correct: isValidDebitAmount(action.payload, tate.transactionForm.debitAccount.availableBalance)
+          correct: isValidDebitAmount(action.payload, state.transactionForm.debitAccount.availableBalance)
         }
       }
     }

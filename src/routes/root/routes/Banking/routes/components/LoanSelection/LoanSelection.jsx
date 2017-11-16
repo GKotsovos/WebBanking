@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './LoanSelection.css';
 
 export class LoanSelection extends Component {
@@ -14,26 +15,25 @@ export class LoanSelection extends Component {
     const {
       loans,
       selectedLoan,
+      language,
       setLoanForPayment
     } = this.props;
     return (
       <div className="form-group">
-        <label htmlFor="paymentLoan">Δάνειο</label>
+        <label htmlFor="paymentLoan">{localizationText[language].loanTitle}</label>
         <select
           id="paymentLoan"
           className={`selectpicker paymentLoan form-control ${!_.isEmpty(selectedLoan) || selectedLoan.correct ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε δάνειο"
-          onChange={(e) => setLoanForPayment(e.target.value)}
-        >
+          title={localizationText[language].selectLoanTitle}
+          onChange={(e) => setLoanForPayment(e.target.value)}>
           {
             _.map(loans, (loan) => (
               <option
                 key={loan.id}
                 data-subtext={
                   `${loan.customTitle} ${loan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
-                }
-              >
+                }>
                 {loan.id}
               </option>
             ))

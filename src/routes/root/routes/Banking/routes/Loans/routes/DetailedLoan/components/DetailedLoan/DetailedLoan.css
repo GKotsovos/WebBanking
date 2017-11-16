@@ -2,11 +2,11 @@
   min-width: 300px;
   max-width: 500px;
   border: none;
-  margin: 0 auto 10% auto;
+  margin: 0 auto 7% auto;
 }
 
 @media (max-width: 767px) {
   .detailedLoanContainer {
-    margin: 0 auto 10% auto;
+    margin: 0 auto 7% auto;
   }
 }

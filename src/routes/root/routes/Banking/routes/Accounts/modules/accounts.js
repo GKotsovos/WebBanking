@@ -8,6 +8,9 @@ const RECEIVED_ACCOUNT = 'RECEIVED_ACCOUNT';
 const RECEIVED_ACCOUNT_TRANSACTION_HISTORY = 'RECEIVED_ACCOUNT_TRANSACTION_HISTORY';
 const REQUEST_ERROR = 'REQUEST_ERROR';
 const SET_ACTIVE_ACCOUNT = 'SET_ACTIVE_ACCOUNT';
+const SET_ACCOUNT_TRANSACTION_HISTORY_START_DATE = 'SET_ACCOUNT_TRANSACTION_HISTORY_START_DATE';
+const SET_ACCOUNT_TRANSACTION_HISTORY_END_DATE = 'SET_ACCOUNT_TRANSACTION_HISTORY_END_DATE';
+const VALIDATE_TRANSACTION_HISTORY_TIME_PERIOD = 'VALIDATE_TRANSACTION_HISTORY_TIME_PERIOD';
 const DEACTIVE_ACCOUNT = 'DEACTIVE_ACCOUNT';
 
 export const getAccounts = () => {
@@ -44,11 +47,34 @@ export const getAccountById = (accountId) => {
   }
 }
 
-export const getAccountTransactionHistory = (productId) => {
+export const getAccountCurrentMonthTransactionHistory = (productId) => {
   return (dispatch, getState) => {
     return axios({
       method: 'get',
-      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistory/' + productId,
+      url: 'http://localhost:26353/api/Transaction/GetCurrentMonthProductTransactionHistory/' + productId,
+      withCredentials: true
+    })
+    .then((response) => {
+      dispatch({
+        type    : RECEIVED_ACCOUNT_TRANSACTION_HISTORY,
+        payload : response.data
+      })
+    })
+    .catch((exception) => handleRequestException(exception, dispatch))
+  }
+}
+
+export const getTransactionHistoryByTimePeriod = (startDate, endDate) => {
+  return (dispatch, getState) => {
+    const productId = getState().accounts.activeAccount.id;
+    return axios({
+      method: 'post',
+      url: 'http://localhost:26353/api/Transaction/GetProductTransactionHistoryByTimePeriod',
+      data: querystring.stringify({
+        productId,
+        startDate,
+        endDate
+      }),
       withCredentials: true
     })
     .then((response) => {
@@ -68,6 +94,30 @@ export function setActiveAccount(account) {
   }
 }
 
+export const setTransactionHistoryStartDate = (startDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ACCOUNT_TRANSACTION_HISTORY_START_DATE,
+      payload: startDate
+    });
+    dispatch({
+      type: VALIDATE_TRANSACTION_HISTORY_TIME_PERIOD
+    });
+  }
+}
+
+export const setTransactionHistoryEndDate = (endDate) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_ACCOUNT_TRANSACTION_HISTORY_END_DATE,
+      payload: endDate
+    });
+    dispatch({
+      type: VALIDATE_TRANSACTION_HISTORY_TIME_PERIOD
+    });
+  }
+}
+
 export function deactiveAccount() {
   return {
     type: DEACTIVE_ACCOUNT,
@@ -77,8 +127,10 @@ export function deactiveAccount() {
 export const actions = {
   getAccounts,
   getAccountById,
-  getAccountTransactionHistory,
+  getAccountCurrentMonthTransactionHistory,
   setActiveAccount,
+  setTransactionHistoryStartDate,
+  setTransactionHistoryEndDate,
   deactiveAccount,
 }
 
@@ -101,6 +153,54 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       activeAccount: action.payload
+    }
+  },
+
+  SET_ACCOUNT_TRANSACTION_HISTORY_START_DATE: (state, action) => {
+    return {
+      ...state,
+      activeAccount: {
+        ...state.activeAccount,
+        transactionHistoryTimePeriod: {
+          ...state.activeAccount.transactionHistoryTimePeriod,
+          startDate: {
+            value: action.payload,
+            valid: action.payload > '0'
+          }
+        }
+      }
+    }
+  },
+
+  SET_ACCOUNT_TRANSACTION_HISTORY_END_DATE: (state, action) => {
+    return {
+      ...state,
+      activeAccount: {
+        ...state.activeAccount,
+        transactionHistoryTimePeriod: {
+          ...state.activeAccount.transactionHistoryTimePeriod,
+          endDate: {
+            value: action.payload,
+            valid: state.activeAccount.transactionHistoryTimePeriod.startDate.value <= action.payload
+          }
+        }
+      }
+    }
+  },
+
+  VALIDATE_TRANSACTION_HISTORY_TIME_PERIOD: (state, action) => {
+    return {
+      ...state,
+      activeAccount: {
+        ...state.activeAccount,
+        transactionHistoryTimePeriod: {
+          ...state.activeAccount.transactionHistoryTimePeriod,
+          valid: state.activeAccount.transactionHistoryTimePeriod.startDate &&
+            state.activeAccount.transactionHistoryTimePeriod.startDate.valid &&
+            state.activeAccount.transactionHistoryTimePeriod.endDate &&
+            state.activeAccount.transactionHistoryTimePeriod.endDate.valid
+        }
+      }
     }
   },
 

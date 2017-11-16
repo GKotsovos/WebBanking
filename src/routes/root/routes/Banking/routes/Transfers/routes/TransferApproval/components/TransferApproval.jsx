@@ -3,65 +3,66 @@ import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/compone
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
+import localizationText from './localizationText';
 import './TransferApproval.css';
 
-export const TransferApproval = ({ transactionForm, transfer }) => (
+export const TransferApproval = ({ transactionForm, language, transfer }) => (
   <form id="transferApprovalForm">
 
     <div id="transferApprovalTable" className="form-group">
       <table className="table table-bordered">
         <TransactionApprovalHeader
-          title='Στοιχεία Εμβάσματος'
+          title={localizationText[language].transferDetails}
         />
         <tbody>
           <SimpleTransactionApprovalRow
-            title='Λογαριασμός χρέωσης'
+            title={localizationText[language].debitAccount}
             value={transactionForm.debitAccount.value}
           />
           <SimpleTransactionApprovalRow
-            title='Λογαριασμός πίστωσης'
+            title={localizationText[language].creditAccount}
             value={transactionForm.creditAccount.value}
           />
           {
             transactionForm.creditAccount.type != 'isAccount' ?
             <SimpleTransactionApprovalRow
-              title='Όνομα δικαιούχου'
+              title={localizationText[language].beneficiary}
               value={transactionForm.fullName.value}
             /> : null
           }
           {
             transactionForm.bankType.value == 'foreignBank' ?
             <SimpleTransactionApprovalRow
-              title='BIC Τράπεζας'
+              title={localizationText[language].bic}
               value={transactionForm.bank.bic}
             /> : <SimpleTransactionApprovalRow
-              title='Τράπεζα'
+              title={localizationText[language].bank}
               value={transactionForm.bank.name}
             />
           }
           <MoneyTransactionApprovalRow
-            title='Καθαρό ποσό εμβάσματος'
+            title={localizationText[language].amount}
             amount={transactionForm.amount.value}
             currency={transactionForm.currency.value}
           />
           <MoneyTransactionApprovalRow
-            title='Έξοδα εμβάσματος'
+            title={localizationText[language].charges}
             amount={transactionForm.charges.value}
             currency={transactionForm.currency.value}
           />
           <MoneyTransactionApprovalRow
-            title='Σύνολο χρέωσης λογαριασμού'
+            title={localizationText[language].totalDebit}
             amount={parseFloat(transactionForm.amount.value) + parseFloat(transactionForm.charges.value)}
             currency={transactionForm.currency.value}
           />
           <SimpleTransactionApprovalRow
-            title='Ημερομηνία εκτέλεσης'
+            title={localizationText[language].executionDate}
             value={transactionForm.date.asapTransaction ? transactionForm.date.asapText : transactionForm.date.view}
           />
           {
             transactionForm.comments.value != '' ?
             <SimpleTransactionApprovalRow
-              title='Σχόλια'
+              title={localizationText[language].comments}
               value={transactionForm.comments.value}
             /> : null
           }
@@ -71,6 +72,7 @@ export const TransferApproval = ({ transactionForm, transfer }) => (
     </div>
 
     <TransactionApprovalButtons
+      language={language}
       completeTransaction={() => transfer(transactionForm)}
     />
 

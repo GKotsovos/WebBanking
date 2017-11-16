@@ -1,15 +1,16 @@
 import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
+import localizationText from './localizationText';
 import './NewApplication.css'
 
-export const NewApplication = ({ changePanel }) => (
+export const NewApplication = ({ language, changePanel }) => (
   <div id="newApplication" className="">
     <FontAwesome className="closePanel" name="window-close-o" onClick={() => changePanel('NEWS')} />
-    <h3 id="newApplicationTitle">Aίτηση Εγγραφής</h3>
-    <p>Για δωρεάν πρόσβαση στην υπηρεσία Web Banking της Agile Bank είναι απαραίτητη η χρήση του Ονόματος Χρήστη και του Κωδικού. Μπορείτε να υποβάλετε την αίτησή σας με τους παρακάτω τρόπους:</p>
+    <h3 id="newApplicationTitle">{localizationText[language].newApplicationTitle}</h3>
+    <p>{localizationText[language].firstParagraph}</p>
     <ul>
-      <li>τηλεφωνώντας μεταξύ των ωρών 08:00 και 21:00 (Δευτέρα έως Παρασκευή) στο 14587 ή +302115456981 (για κλήσεις από το εξωτερικό)</li>
-      <li>μέσω οποιουδήποτε καταστήματός μας (κατά προτίμηση στο κατάστημα στο οποίο τηρείται ο λογαριασμός σας)</li>
+      <li>{localizationText[language].phoneApplicationText}</li>
+      <li>{localizationText[language].visitingBranchApplicationText}</li>
     </ul>
   </div>
 )

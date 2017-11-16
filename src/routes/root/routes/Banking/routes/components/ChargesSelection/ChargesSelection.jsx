@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './ChargesSelection.css';
 
 export class ChargesSelection extends Component {
@@ -14,33 +15,33 @@ export class ChargesSelection extends Component {
   }
 
   render() {
-    const { chargesBeneficiary, setChargesBeneficiary } = this.props;
+    const { chargesBeneficiary, language, setChargesBeneficiary } = this.props;
     return (
       <div className="form-group">
-        <label htmlFor="transferSelectCharges">Επιβάρυνση Εξόδων</label>
+        <label htmlFor="transferSelectCharges">{localizationText[language].charges}</label>
         <select
           id="transferSelectCharges"
           className={`selectpicker transferSelectCharges form-control ${_.isEmpty(chargesBeneficiary) || chargesBeneficiary.correct ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε επιβάρυνση εξόδων"
+          title={localizationText[language].selectChargesTitle}
           onChange={(e) => setChargesBeneficiary(e.target.value, e.target.options[e.target.options.selectedIndex].id)}>
           <option
             id="both"
             className="chargesText"
             data-subtext="3,00€">
-            Να επιβαρυνθώ μόνο με τα έξοδα της τράπεζας μου
+            {localizationText[language].chargeBoth}
           </option>
           <option
             id="sender"
             className="chargesText"
             data-subtext="6,00€">
-            Να επιβαρυνθώ με όλα τα έξοδα
+            {localizationText[language].chargeSender}
           </option>
           <option
             id="beneficiary"
             className="chargesText"
             data-subtext="0,00€">
-            Να επιβαρυνθεί ο δικαιούχος με όλα τα έξοδα
+            {localizationText[language].chargeBeneficiary}
           </option>
         </select>
       </div>

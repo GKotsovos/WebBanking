@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SelectDebitAccount.css';
 
 export class SelectDebitAccount extends Component {
@@ -22,6 +23,7 @@ export class SelectDebitAccount extends Component {
       loans,
       creditCards,
       prepaidCards,
+      language,
       setDebitAccount
     } = this.props;
     return (
@@ -31,11 +33,8 @@ export class SelectDebitAccount extends Component {
           id="transactionDebitAccount"
           className={`selectpicker transactionDebitAccount form-control ${_.isEmpty(debitAccount) || debitAccount.correct ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε λογαριασμό"
-          onChange={
-            (e) => setDebitAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)
-          }
-        >
+          title={localizationText[language].selectAccountTitle}
+          onChange={(e) => setDebitAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>
           {
             _.map(accounts, (account) => (
               <option
@@ -43,8 +42,7 @@ export class SelectDebitAccount extends Component {
                 className="isAccount"
                 data-subtext={
                   `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
-                }
-              >
+                }>
                 {account.id}
               </option>
             ))
@@ -56,8 +54,7 @@ export class SelectDebitAccount extends Component {
                 className="isLoan"
                 data-subtext={
                   `${loan.customTitle} ${loan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
-                }
-              >
+                }>
                 {loan.id}
               </option>
             ))
@@ -70,8 +67,7 @@ export class SelectDebitAccount extends Component {
                 data-subtext={
                   `Credit Card ${creditCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
                 }
-                value={creditCard.id}
-              >
+                value={creditCard.id}>
                 {_.map(creditCard.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}
               </option>
             ))
@@ -84,8 +80,7 @@ export class SelectDebitAccount extends Component {
                 data-subtext={
                   `Prepaid Card ${prepaidCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
                 }
-                value={prepaidCard.id}
-              >
+                value={prepaidCard.id}>
                 {_.map(prepaidCard.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}
               </option>
             ))

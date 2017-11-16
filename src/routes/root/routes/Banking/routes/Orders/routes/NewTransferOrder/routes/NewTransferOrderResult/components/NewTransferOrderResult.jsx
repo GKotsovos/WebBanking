@@ -5,12 +5,14 @@ export const NewTransferOrderResult = ({
   result,
   errorMessage,
   linkToStart,
+  language,
   clearNewOrderForm
 }) => (
   <TransactionResult
     result={result}
     linkToStart={linkToStart}
     errorMessage={errorMessage}
+    language={language}
     clearTransactionForm={clearNewOrderForm}
   />
 )

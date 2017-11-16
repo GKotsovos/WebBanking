@@ -4,7 +4,8 @@ import { initLoanTransactionForm } from 'routes/root/routes/Banking/routes/Loans
 import LoanServicesTabs from '../components/LoanServicesTabs';
 
 const mapStateToProps = (state) => ({
-  activeRoute: state.banking.activeRoute
+  activeRoute: state.banking.activeRoute,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

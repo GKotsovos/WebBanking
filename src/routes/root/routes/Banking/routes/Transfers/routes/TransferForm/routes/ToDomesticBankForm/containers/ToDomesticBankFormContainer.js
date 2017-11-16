@@ -16,6 +16,7 @@ const mapStateToProps = (state) => ({
   fullName: state.transfers.transactionForm.fullName,
   amount: state.transfers.transactionForm.amount,
   chargesBeneficiary: state.transfers.transactionForm.chargesBeneficiary,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

@@ -3,12 +3,14 @@ import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/compone
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
+import localizationText from './localizationText';
 import './PaymentApproval.css';
 
 class PaymentApproval extends Component {
   render() {
     const {
       transactionForm,
+      language,
       payment
     } = this.props;
 
@@ -17,11 +19,11 @@ class PaymentApproval extends Component {
       beneficiary = 'AGILE BANK'
     }
 
-    let paymentCodeTitle = 'Κωδικός πληρωμής';
+    let paymentCodeTitle = localizationText[language].paymentCode;
     if (transactionForm.paymentSelections.paymentMethod.includes('ΚΑΡΤΑ')) {
-      paymentCodeTitle = 'Αριθμός κάρτας'
+      paymentCodeTitle = localizationText[language].cardNumber
     } else if (transactionForm.paymentSelections.paymentMethod.includes('ΔΑΝΕΙΟ')) {
-      paymentCodeTitle = 'Αριθμός δανείου'
+      paymentCodeTitle = localizationText[language].loanNumber
     }
 
     return (
@@ -30,15 +32,15 @@ class PaymentApproval extends Component {
         <div id="paymentApprovalTable" className="form-group">
           <table className="table table-bordered">
             <TransactionApprovalHeader
-              title='Στοιχεία Πληρωμής'
+              title={localizationText[language].paymentDetails}
             />
             <tbody>
               <SimpleTransactionApprovalRow
-                title='Λογαριασμός χρέωσης'
+                title={localizationText[language].debitAccount}
                 value={transactionForm.debitAccount.value}
               />
               <SimpleTransactionApprovalRow
-                title='Δικαιούχος πληρωμής'
+                title={localizationText[language].beneficiary}
                 value={beneficiary}
               />
               <SimpleTransactionApprovalRow
@@ -46,22 +48,22 @@ class PaymentApproval extends Component {
                 value={transactionForm.paymentCode.value}
               />
               <MoneyTransactionApprovalRow
-                title='Ποσό πληρωμής'
+                title={localizationText[language].paymentAmount}
                 amount={transactionForm.amount.value}
                 currency={transactionForm.currency.value}
               />
               <MoneyTransactionApprovalRow
-                title='Έξοδα πληρωμής'
+                title={localizationText[language].charges}
                 amount={transactionForm.charges.value}
                 currency={transactionForm.currency.value}
               />
               <MoneyTransactionApprovalRow
-                title='Σύνολο χρέωσης λογαριασμού'
+                title={localizationText[language].totalDebit}
                 amount={parseFloat(transactionForm.amount.value) + parseFloat(transactionForm.charges.value)}
                 currency={transactionForm.currency.value}
               />
               <SimpleTransactionApprovalRow
-                title='Ημερομηνία εκτέλεσης'
+                title={localizationText[language].executionDate}
                 value={transactionForm.date.asapTransaction ? transactionForm.date.asapText : transactionForm.date.view}
               />
             </tbody>
@@ -69,6 +71,7 @@ class PaymentApproval extends Component {
         </div>
 
         <TransactionApprovalButtons
+          language={language}
           completeTransaction={() => payment(transactionForm)}
         />
 

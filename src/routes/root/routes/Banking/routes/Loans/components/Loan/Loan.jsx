@@ -3,14 +3,14 @@ import LoanPanelHeader from '../LoanPanelHeader';
 import LoanPanelBody from '../LoanPanelBody';
 import './Loan.css';
 
-export const Loan = ({ loan, setActiveLoan, getLoanTransactionHistory, linkTo }) => (
+export const Loan = ({ loan, language, setActiveLoan, getLoanTransactionHistory, linkTo }) => (
   <div className="panel panel-default loanContainer" onClick={() => {
     setActiveLoan(loan);
     getLoanTransactionHistory(loan.id);
     linkTo('/banking/loans/loan');
   }}>
     <LoanPanelHeader loan={loan} />
-    <LoanPanelBody loan={loan} />
+    <LoanPanelBody loan={loan} language={language} />
   </div>
 )
 

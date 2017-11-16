@@ -4,6 +4,7 @@ import ExistingTransferOrdersLayout from '../components/ExistingTransferOrdersLa
 
 const mapStateToProps = (state) => ({
   transferOrders: state.orders.transferOrders,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

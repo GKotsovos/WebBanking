@@ -1,10 +1,11 @@
 import React from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './CreditCardInput.css';
 
-export const CreditCardInput = ({ selectedCreditCard, setCreditCardForPayment }) => (
+export const CreditCardInput = ({ selectedCreditCard, language, setCreditCardForPayment }) => (
   <div>
-    <label htmlFor="paymentCreditCard">Αριθμός κάρτας</label>
+    <label htmlFor="paymentCreditCard">{localizationText[language].cardNumberTitle}</label>
     <input
       id="paymentCreditCard"
       className={`form-control ${_.isEmpty(selectedCreditCard) || selectedCreditCard.correct ? "" : "notValid"}`}

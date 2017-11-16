@@ -3,27 +3,28 @@ import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/compone
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
+import localizationText from './localizationText';
 import './LoanPaymentApproval.css';
 
-export const LoanPaymentApproval = ({ transactionForm, loanPayment }) => (
+export const LoanPaymentApproval = ({ transactionForm, language, loanPayment }) => (
   <form id="loanPaymentApprovalForm">
     <div id="loanPaymentApprovalTable" className="form-group">
       <table className="table table-bordered">
         <TransactionApprovalHeader
-          title='Στοιχεία Πληρωμής'
+          title={localizationText[language].paymentDetails}
         />
         <tbody>
           <SimpleTransactionApprovalRow
-            title='Λογαριασμός χρέωσης'
+            title={localizationText[language].debitAccount}
             value={transactionForm.debitAccount.value}
           />
           <MoneyTransactionApprovalRow
-            title='Ποσό πληρωμής'
+            title={localizationText[language].paymentAmount}
             amount={transactionForm.amount.value}
             currency={transactionForm.currency}
           />
           <SimpleTransactionApprovalRow
-            title='Ημερομηνία εκτέλεσης'
+            title={localizationText[language].executionDate}
             value={transactionForm.date.asapTransaction ? transactionForm.date.asapText : transactionForm.date.view}
           />
         </tbody>
@@ -31,6 +32,7 @@ export const LoanPaymentApproval = ({ transactionForm, loanPayment }) => (
     </div>
 
     <TransactionApprovalButtons
+      language={language}
       completeTransaction={loanPayment}
     />
 

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import {
+  setInitLoad,
   getCustomerName,
   logOut,
   logOutCountDown,
@@ -11,11 +12,13 @@ import Banking from '../components/BankingLayout';
 import _ from 'underscore';
 
 const mapStateToProps = (state) => ({
-  initialFetch: state.banking.initialFetch,
+  initLoad: state.banking.initLoad,
   shouldShowLogOutModal: _.isEmpty(state.banking.logOutModal) ? false : state.banking.logOutModal.shouldShow,
+  language: state.root.language
 });
 
 const mapActionCreators = {
+  setInitLoad: () => setInitLoad(),
   getCustomerName: () => getCustomerName(),
   getAccounts: () => getAccounts(),
   getCards: () => getCards(),

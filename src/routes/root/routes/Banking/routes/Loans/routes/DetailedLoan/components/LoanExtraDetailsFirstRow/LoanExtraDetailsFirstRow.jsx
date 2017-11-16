@@ -1,9 +1,10 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import dateformat from 'dateformat';
+import localizationText from './localizationText';
 import './LoanExtraDetailsFirstRow.css';
 
-export const LoanExtraDetailsFirstRow = ({ activeLoan }) => (
+export const LoanExtraDetailsFirstRow = ({ activeLoan, language }) => (
   <ul className="list-group">
     <li className="cellRow list-group-item">
       <div className="row">
@@ -19,9 +20,9 @@ export const LoanExtraDetailsFirstRow = ({ activeLoan }) => (
           </span>
         </span>
         <span className="summary">
-          <span className="col-xs-3 text-right">Τρέχων Δόση</span>
-          <span className="col-xs-offset-1 col-xs-4 text-right">Σύνολο Οφειλών</span>
-          <span className="col-xs-offset-1 col-xs-3 text-right">Ημ/νία Δόσης</span>
+          <span className="col-xs-3 text-right">{localizationText[language].currentInstallment}</span>
+          <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].totalDebt}</span>
+          <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].installmentDate}</span>
         </span>
       </div>
     </li>

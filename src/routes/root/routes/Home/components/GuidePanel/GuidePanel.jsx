@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
+import localizationText from './localizationText';
 import './GuidePanel.css'
 
-export const GuidePanel = ({ changePanel }) => (
+export const GuidePanel = ({ language, changePanel }) => (
   <div id="guidePanel" className="panel panel-default verticalCenter" onClick={() => changePanel('GUIDE')}>
     <div className="panel-body text-center">
       <FontAwesome id="bookIcon" name="book" />
-      <p id="guideText">Agile Web Banking οδηγίες</p>
+      <p id="guideText">{localizationText[language].guideText}</p>
     </div>
   </div>
 )

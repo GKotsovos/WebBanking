@@ -1,25 +1,29 @@
 import React from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './CancelOrderModal.css';
 
 export const CancelOrderModal = ({
   orderName,
   orderId,
+  language,
   cancelOrder
 }) => (
   <div
   id="cancelOrderModal"
     className="modal fade"
-    aria-labelledby="myModalLabel" 
+    aria-labelledby="myModalLabel"
     data-backdrop="static"
     data-keyboard="false">
     <div className="modal-dialog">
       <div className="modal-content">
         <div className="modal-header">
-          <span className="modal-title">Επιβεβαίωση</span>
+          <span className="modal-title">
+            {localizationText[language].confrimation}
+          </span>
         </div>
         <div className="modal-body">
-          Είστε βέβαιος ότι θέλετε να ακυρώσετε την πάγια εντολή <span className="strong">«{orderName}»</span>;
+          {localizationText[language].cancelOrderText}<span className="strong">«{orderName}»</span>;
         </div>
         <div className="modal-footer">
           <button
@@ -27,7 +31,7 @@ export const CancelOrderModal = ({
             type="button"
             className="btn btn-default"
             data-dismiss="modal">
-            Ακύρωση
+            {localizationText[language].cancel}
           </button>
           <button
             id="accept"
@@ -37,7 +41,7 @@ export const CancelOrderModal = ({
               cancelOrder(orderId);
               $('#cancelOrderModal').modal('hide');
             }}>
-            Αποδοχή
+            {localizationText[language].accept}
           </button>
         </div>
       </div>

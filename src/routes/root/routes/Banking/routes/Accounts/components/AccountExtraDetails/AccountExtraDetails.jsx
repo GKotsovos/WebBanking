@@ -1,8 +1,9 @@
 import React from 'react';
 import dateformat from 'dateformat';
+import localizationText from './localizationText';
 import './AccountExtraDetails.css';
 
-export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state }) => (
+export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state, language }) => (
   <ul className="list-group">
     <li className="cellRow list-group-item">
       <div className="row">
@@ -18,9 +19,9 @@ export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state }) =>
           </span>
         </span>
         <span className="summary">
-          <span className="col-xs-3 text-right">Ημ/νία Ανοίγματος</span>
-          <span className="col-xs-offset-1 col-xs-4 text-right">Τελευταία Κίνηση</span>
-          <span className="col-xs-offset-1 col-xs-3 text-right">Κατάσταση</span>
+          <span className="col-xs-3 text-right">{localizationText[language].dateCreated}</span>
+          <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].lastMovementDate}</span>
+          <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].state}</span>
         </span>
       </div>
     </li>

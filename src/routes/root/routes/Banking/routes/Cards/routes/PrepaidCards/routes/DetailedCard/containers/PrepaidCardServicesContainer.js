@@ -4,7 +4,8 @@ import { initCardTransactionForm } from 'routes/root/routes/Banking/routes/Cards
 import PrepaidCardServicesTabs from '../components/PrepaidCardServicesTabs';
 
 const mapStateToProps = (state) => ({
-  activeRoute: state.banking.activeRoute
+  activeRoute: state.banking.activeRoute,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

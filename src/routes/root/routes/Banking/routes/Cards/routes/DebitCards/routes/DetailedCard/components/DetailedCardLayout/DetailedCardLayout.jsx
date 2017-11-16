@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import DetailedCard from '../../../../../containers/DetailedCardContainer'
 import DebitCardServicesTabs from '../../containers/DebitCardServicesContainer'
 
-export const DetailedCardLayout = ({ children }) => (
+export const DetailedCardLayout = ({ children, language }) => (
   <div>
-    <DetailedCard type="DEBIT"/>
+    <DetailedCard type="DEBIT" language={language} />
     <DebitCardServicesTabs />
     {children}
   </div>

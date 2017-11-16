@@ -4,6 +4,7 @@ import NewTransferOrderApproval from '../components/NewTransferOrderApproval';
 
 const mapStateToProps = (state) => ({
   newOrderForm: state.orders.newOrderForm,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

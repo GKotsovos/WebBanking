@@ -4,6 +4,7 @@ import OrderSelect from '../components/OrderSelect';
 
 const mapStateToProps = (state) => ({
   activeOrder: state.orders.activeOrder,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

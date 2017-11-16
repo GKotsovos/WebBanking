@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SearchPaymentMethod.css';
 
 export class SearchPaymentMethod extends Component {
@@ -18,6 +19,7 @@ export class SearchPaymentMethod extends Component {
     const {
       availablePaymentMethods,
       activeMethod,
+      language,
       setActivePaymentMethod
     } = this.props;
     return (
@@ -26,7 +28,7 @@ export class SearchPaymentMethod extends Component {
           id="searchPayment"
           className={`selectpicker searchPayment form-control ${_.isEmpty(activeMethod) ? "" : "notValid"}`}
           data-live-search="true"
-          title="Αναζητήστε πληρωμή"
+          title={localizationText[language].selectPaymentTitle}
           onChange={
             (e) => setActivePaymentMethod(e.target.value)
           }

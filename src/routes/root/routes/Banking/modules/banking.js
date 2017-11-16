@@ -4,12 +4,21 @@ import querystring from 'querystring';
 import { browserHistory } from 'react-router'
 import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
 
+const SET_INIT_LOAD = 'SET_INIT_LOAD';
 const RECEIVED_CUSTOMER_NAME = 'RECEIVED_CUSTOMER_NAME';
 const CHANGE_ACTIVE_TAB = 'CHANGE_ACTIVE_TAB';
 const UPDATE_LOG_OUT_TIMER = 'UPDATE_LOG_OUT_TIMER';
 const SHOW_LOG_OUT_MODAL = 'SHOW_LOG_OUT_MODAL';
 const LOG_OUT = 'LOG_OUT';
 const REQUEST_ERROR = 'REQUEST_ERROR';
+
+export const setInitLoad = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type    : SET_INIT_LOAD
+    });
+  }
+}
 
 export const getCustomerName = () => {
   return (dispatch, getState) => {
@@ -44,19 +53,18 @@ export const logOutCountDown = () => {
   return (dispatch, getState) => {
     const interval = setInterval(function() {
       localStorage.secondsLeft--;
-      const date = new Date(null);
-      date.setSeconds(localStorage.secondsLeft);
-      dispatch({
-        type    : UPDATE_LOG_OUT_TIMER,
-        payload : date.toISOString().substr(14, 5)
-      });
-
       if (localStorage.secondsLeft == 0 || localStorage.secondsLeft > 600 || localStorage.secondsLeft < 0) {
         clearInterval(interval);
         dispatch({
           type    : SHOW_LOG_OUT_MODAL
         });
       }
+      const date = new Date(null);
+      date.setSeconds(localStorage.secondsLeft);
+      dispatch({
+        type    : UPDATE_LOG_OUT_TIMER,
+        payload : date.toISOString().substr(14, 5)
+      });
     }, 1000);
   }
 }
@@ -70,6 +78,7 @@ export const logOut = () => {
 }
 
 export const actions = {
+  setInitLoad,
   getCustomerName,
   linkTo,
   logOutCountDown,
@@ -77,6 +86,13 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
+  SET_INIT_LOAD: (state, action) => {
+    return {
+      ...state,
+      initLoad: true
+    }
+  },
+  
   RECEIVED_CUSTOMER_NAME: (state, action) => {
     return {
       ...state,
@@ -109,7 +125,9 @@ const ACTION_HANDLERS = {
 
   LOG_OUT: (state, action) => {
     cookie.remove('access_token');
+    const language = localStorage.language;
     localStorage.clear();
+    localStorage.setItem('language', language);
     window.location.href = '/';
     return {};
   },

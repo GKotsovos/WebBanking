@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
+import localizationText from './localizationText';
 import './SelectPaymentMethod.css';
 
 export class SelectPaymentMethod extends Component {
@@ -18,6 +19,7 @@ export class SelectPaymentMethod extends Component {
     const {
       availablePaymentMethods,
       activeMethod,
+      language,
       setActivePaymentMethod,
     } = this.props;
     return (
@@ -26,9 +28,8 @@ export class SelectPaymentMethod extends Component {
           id="paymentMethod"
           className={`selectpicker paymentMethod form-control ${_.isEmpty(activeMethod) ? "" : "notValid"}`}
           data-show-subtext="true"
-          title="Επιλέξτε Πληρωμή"
-          onChange={(e) => setActivePaymentMethod(e.target.value)}
-        >
+          title={localizationText[language].selectPayment}
+          onChange={(e) => setActivePaymentMethod(e.target.value)}>
           {
             _.map(availablePaymentMethods, (method) => (
               <option key={method}>

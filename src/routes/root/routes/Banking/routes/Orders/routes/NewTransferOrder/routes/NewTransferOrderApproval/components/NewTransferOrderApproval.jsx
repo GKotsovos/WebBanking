@@ -3,60 +3,61 @@ import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/compone
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
+import localizationText from './localizationText';
 import './NewTransferOrderApproval.css';
 
-export const NewTransferOrderApproval = ({ newOrderForm, createTransferOrder }) => (
+export const NewTransferOrderApproval = ({ newOrderForm, language, createTransferOrder }) => (
   <form>
     <table className="table table-bordered newOrderApprovalTable">
       <TransactionApprovalHeader
-        title='Στοιχεία Πάγιας Εντολής'
+        title={localizationText[language].orderDetails}
       />
       <tbody>
         <SimpleTransactionApprovalRow
-          title='Ονομασία εντολής'
+          title={localizationText[language].orderTitle}
           value={newOrderForm.customTitle.value}
         />
         <SimpleTransactionApprovalRow
-          title='Λογαριασμός χρέωσης'
+          title={localizationText[language].debitAccount}
           value={newOrderForm.debitAccount.value}
         />
         <SimpleTransactionApprovalRow
-          title='Λογαριασμός πίστωσης'
+          title={localizationText[language].beneficiaryAccount}
           value={newOrderForm.beneficiaryAccount.value}
         />
         <SimpleTransactionApprovalRow
-          title='Όνομα δικαιούχου'
+          title={localizationText[language].beneficiaryFullName}
           value={newOrderForm.beneficiaryFullName.value}
         />
         <MoneyTransactionApprovalRow
-          title='Ποσό εντολής'
+          title={localizationText[language].orderAmount}
           amount={newOrderForm.amount.value}
           currency={newOrderForm.currency.value}
         />
         {
           newOrderForm.beneficiaryBankType.value != 'agileBank' ? (
             <SimpleTransactionApprovalRow
-              title='Επιβάρυνση εξόδων'
+              title={localizationText[language].chargesBeneficiary}
               value={newOrderForm.chargesBeneficiary.selection}
             />
           ) : null
         }
         <SimpleTransactionApprovalRow
-          title='Ημερομηνία ενεργοποίησης'
+          title={localizationText[language].startDate}
           value={newOrderForm.startDate.asapTransaction ? newOrderForm.startDate.asapText : newOrderForm.startDate.view}
         />
         <SimpleTransactionApprovalRow
-          title='Περιοδικότητα'
+          title={localizationText[language].executionFrequency}
           value={newOrderForm.periodicity.value}
         />
         <SimpleTransactionApprovalRow
-          title='Πλήθος εκτελέσεων'
+          title={localizationText[language].timesOfExecution}
           value={newOrderForm.timesOfExecution.value}
         />
         {
           newOrderForm.comments.value != '' ? (
             <SimpleTransactionApprovalRow
-              title='Σχόλια'
+              title={localizationText[language].comments}
               value={newOrderForm.comments.value}
             />
           ) : null
@@ -64,6 +65,7 @@ export const NewTransferOrderApproval = ({ newOrderForm, createTransferOrder }) 
       </tbody>
     </table>
     <TransactionApprovalButtons
+      language={language}
       completeTransaction={() => createTransferOrder(newOrderForm)}
     />
   </form>

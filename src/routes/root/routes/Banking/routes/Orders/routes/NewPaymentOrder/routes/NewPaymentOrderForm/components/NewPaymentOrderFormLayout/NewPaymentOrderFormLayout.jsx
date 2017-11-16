@@ -6,6 +6,7 @@ import PaymentCodeSelection from 'routes/root/routes/Banking/routes/components/P
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectPaymentOrderEndDate from '../SelectPaymentOrderEndDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
+import localizationText from './localizationText';
 import './NewPaymentOrderFormLayout.css';
 
 class NewPaymentOrderFormLayout extends Component {
@@ -24,6 +25,7 @@ class NewPaymentOrderFormLayout extends Component {
       loans,
       creditCards,
       prepaidCards,
+      language,
       setOrderDebitAccount,
       setPaymentOrderPaymentMethod,
       setPaymentOrderPaymentCode,
@@ -33,17 +35,19 @@ class NewPaymentOrderFormLayout extends Component {
     return (
       <div className="newOrderForm">
         <SelectDebitAccount
-          label='Λογαριασμός Χρέωσης'
+          label={localizationText[language].debitAccount}
           debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
           prepaidCards={prepaidCards}
+          language={language}
           setDebitAccount={setOrderDebitAccount}
         />
         <SearchPaymentMethod
           availablePaymentMethods={newOrderForm.availablePaymentMethods}
           activeMethod={newOrderForm.paymentSelections.paymentMethod}
+          language={language}
           setActivePaymentMethod={setPaymentOrderPaymentMethod}
         />
         {
@@ -53,21 +57,24 @@ class NewPaymentOrderFormLayout extends Component {
               loans={loans}
               paymentType={_.isEmpty(newOrderForm.paymentSelections) ? {} : newOrderForm.paymentSelections.paymentType}
               paymentCode={newOrderForm.paymentCode}
+              language={language}
               setPaymentCode={setPaymentOrderPaymentCode}
             />,
             <AmountInput
-              title='Ανώτατο ποσό χρέωσης'
+              title={localizationText[language].maxPaymentAmount}
               amount={newOrderForm.maxAmount}
               setTransactionAmount={setPaymentOrderMaxAmount}
             />,
             <SelectPaymentOrderEndDate
               key='date'
+              language={language}
               endDate={!_.isEmpty(newOrderForm) ? newOrderForm.endDate : {}}
               setPaymentOrderEndDate={setPaymentOrderEndDate}
             />,
             <FormCompletionButtons
               key='completion'
               shouldProcess={!!newOrderForm.shouldProcess}
+              language={language}
               clearForm={this.clearForm.bind(this)}
               linkToApprovalForm='/banking/orders/payment/new/approval'
             />

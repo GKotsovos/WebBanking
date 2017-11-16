@@ -4,6 +4,7 @@ import TransactionResult from 'routes/root/routes/Banking/routes/components/Tran
 export const NewPaymentOrderResult = ({
   result,
   errorMessage,
+  language,
   linkToStart,
   clearNewOrderForm
 }) => (
@@ -11,6 +12,7 @@ export const NewPaymentOrderResult = ({
     result={result}
     linkToStart={linkToStart}
     errorMessage={errorMessage}
+    language={language}
     clearTransactionForm={clearNewOrderForm}
   />
 )

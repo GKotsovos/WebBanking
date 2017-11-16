@@ -15,6 +15,7 @@ const mapStateToProps = (state) => ({
   loans: state.loans.loans,
   creditCards: state.cards.creditCards,
   prepaidCards: state.cards.prepaidCards,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

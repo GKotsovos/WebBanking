@@ -10,5 +10,4 @@ const mapActionCreators = {
   getCardTransactionHistory: (productId) => getCardTransactionHistory(productId),
 };
 
-
 export default connect(mapStateToProps, mapActionCreators)(DetailedCardLayout);

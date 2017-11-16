@@ -4,6 +4,7 @@ import CreditAccountInput from 'routes/root/routes/Banking/routes/components/Cre
 import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput'
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import ChargesSelection from 'routes/root/routes/Banking/routes/components/ChargesSelection'
+import localizationText from './localizationText';
 
 class ToDomesticBankForm extends Component {
   componentWillMount() {
@@ -18,6 +19,7 @@ class ToDomesticBankForm extends Component {
       fullName,
       amount,
       chargesBeneficiary,
+      language,
       setCreditBank,
       setCreditAccount,
       setCreditFullName,
@@ -29,23 +31,27 @@ class ToDomesticBankForm extends Component {
        <DomesticBankSelection
          bank={bank}
          domesticBanks={domesticBanks}
+         language={language}
          setCreditBank={setCreditBank}
        />
        <CreditAccountInput
          creditAccount={creditAccount}
+         language={language}
          setCreditAccount={setCreditAccount}
        />
        <BeneficiaryFullNameInput
          fullName={fullName}
+         language={language}
          setCreditFullName={setCreditFullName}
        />
        <AmountInput
-         title='Ποσό'
+         title={localizationText[language].amount}
          amount={amount}
          setTransactionAmount={setTransferAmount}
        />
        <ChargesSelection
          chargesBeneficiary={chargesBeneficiary}
+         language={language}
          setChargesBeneficiary={setChargesBeneficiary}
        />
      </div>

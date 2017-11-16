@@ -3,7 +3,8 @@ import { getCardTransactionHistory } from '../../../../../modules/cards'
 import DetailedCardLayout from '../components/DetailedCardLayout';
 
 const mapStateToProps = (state) => ({
-  activeCard: state.cards.activeCard
+  activeCard: state.cards.activeCard,
+  language: state.root.language,
 });
 
 const mapActionCreators = {

@@ -1,6 +1,6 @@
 #loanServicesTabs {
-  max-width: 200px;
   margin-bottom: 5%;
+  border-bottom: none;
 }
 
 #loanProductsTab {
