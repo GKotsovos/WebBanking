@@ -77,6 +77,7 @@ class NewTransferOrderFormLayout extends Component {
               />,
               newOrderForm.beneficiaryAccount.type == 'other' ? [
                 <CreditAccountInput
+                  showTitle={true}
                   creditAccount={newOrderForm.beneficiaryAccount}
                   language={language}
                   setCreditAccount={setTransferOrderBeneficiaryAccount}
@@ -89,6 +90,7 @@ class NewTransferOrderFormLayout extends Component {
               ] : null
             ] : [
               <CreditAccountInput
+                showTitle={true}
                 creditAccount={newOrderForm.beneficiaryAccount}
                 language={language}
                 setCreditAccount={setTransferOrderBeneficiaryAccount}

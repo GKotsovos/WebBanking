@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import CreditAgileAccountSelection from 'routes/root/routes/Banking/routes/components/CreditAgileAccountSelection';
+import CreditAccountInput from 'routes/root/routes/Banking/routes/components/CreditAccountInput';
 import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import localizationText from './localizationText';
 
 class ToAgileBankForm extends Component {
   componentWillMount() {
-    this.props.initTransferToAgileTransactionForm();
+    $('.selectpicker.transferCreditAccountType').selectpicker('val', '');
   }
 
   render() {
@@ -29,12 +30,19 @@ class ToAgileBankForm extends Component {
          setCreditAccount={setCreditAccount}
        />
        {
-         creditAccount.type == 'other' ?
+         creditAccount.type == 'other' ? [
+           <CreditAccountInput
+             showTitle={false}
+             creditAccount={creditAccount}
+             language={language}
+             setCreditAccount={setCreditAccount}
+           />,
            <BeneficiaryFullNameInput
              fullName={fullName}
              language={language}
              setCreditFullName={setCreditFullName}
-           /> : null
+           />
+         ] : null
        }
        <AmountInput
          title={localizationText[language].amount}

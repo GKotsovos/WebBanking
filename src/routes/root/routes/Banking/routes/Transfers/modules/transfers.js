@@ -134,6 +134,9 @@ export const setCreditAccount = (account, type) => {
         type
       }
     });
+    if (type === 'other') {
+      setCreditFullName('')(dispatch, getState);      
+    }
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
     });
@@ -154,6 +157,18 @@ export const setCreditFullName = (fullName) => {
 
 export const setCreditBankType = (selection, bankType) => {
   return (dispatch, getState) => {
+    switch (bankType) {
+      case "agileBank":
+        initTransferToAgileTransactionForm()(dispatch, getState);
+        break;
+      case "domesticBank":
+        initTransferToDomesticTransactionForm()(dispatch, getState);
+        break;
+      case "foreignBank":
+        initTransferToForeignTransactionForm()(dispatch, getState);
+        break;
+    }
+
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
       payload: {

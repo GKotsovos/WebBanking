@@ -11,7 +11,6 @@ import './TransferFormLayout.css';
 class TransferFormLayout extends Component {
   componentDidMount() {
     $('.selectpicker').selectpicker();
-    this.props.initTransferTransactionForm();
   }
 
   clearForm() {

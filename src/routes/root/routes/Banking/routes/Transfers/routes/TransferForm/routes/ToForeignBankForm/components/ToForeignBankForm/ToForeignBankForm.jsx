@@ -7,10 +7,6 @@ import ChargesSelection from 'routes/root/routes/Banking/routes/components/Charg
 import localizationText from './localizationText';
 
 class ToForeignBankForm extends Component {
-  componentWillMount() {
-    this.props.initTransferToForeignTransactionForm();
-  }
-
   render() {
     const {
       bank,
@@ -33,6 +29,7 @@ class ToForeignBankForm extends Component {
          setCreditBankBIC={setCreditBankBIC}
        />
        <CreditAccountInput
+         showTitle={true}
          creditAccount={creditAccount}
          language={language}
          setCreditAccount={setCreditAccount}
