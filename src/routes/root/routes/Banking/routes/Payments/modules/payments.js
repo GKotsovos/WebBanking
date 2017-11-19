@@ -13,6 +13,7 @@ import {
   findPaymentCharges,
   isValidDebitAmount,
   isValidDate,
+  getImmediateText,
 } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import {
   handleRequestException,
@@ -245,9 +246,13 @@ export const setPaymentAmount = (amount) => {
 
 export const setAsapTransaction = (isAsap) => {
   return (dispatch, getState) => {
+    const immediateText = getImmediateText(getState().root.language);
     dispatch({
       type: SET_ASAP_PAYMENT,
-      payload: isAsap
+      payload: {
+        isAsap,
+        immediateText
+      }
     });
     dispatch({
       type: VALIDATE_PAYMENT_TRANSACTION_FORM
@@ -518,17 +523,16 @@ const ACTION_HANDLERS = {
   },
 
   SET_ASAP_PAYMENT: (state, action) => {
-
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         date: {
           ...state.transactionForm.date,
-          asapTransaction: action.payload,
-          correct: action.payload,
+          asapTransaction: action.payload.isAsap,
+          correct: action.payload.isAsap,
           value: undefined,
-          asapText: 'ΑΜΕΣΑ'
+          asapText: action.payload.immediateText,
         }
       }
     }

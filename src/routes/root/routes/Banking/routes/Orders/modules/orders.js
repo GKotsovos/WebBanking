@@ -18,6 +18,7 @@ import {
   isValidDebitAmount,
   isValidDate,
   isValidChargesBeneficiary,
+  getImmediateText,
 } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
 import {
@@ -327,9 +328,13 @@ export const setTransferOrderComments = (comments) => {
 
 export const setTransferOrderAsapStart = (isAsap) => {
   return (dispatch, getState) => {
+    const immediateText = getImmediateText(getState().root.language);
     dispatch({
       type: SET_TRANSFER_ORDER_ASAP_START,
-      payload: isAsap
+      payload: {
+        isAsap,
+        immediateText
+      }
     });
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
@@ -844,10 +849,10 @@ const ACTION_HANDLERS = {
         ...state.newOrderForm,
         startDate: {
           ...state.newOrderForm.date,
-          asapTransaction: action.payload,
-          correct: action.payload,
+          asapTransaction: action.payload.isAsap,
+          correct: action.payload.isAsap,
           value: undefined,
-          asapText: 'ΑΜΕΣΑ'
+          asapText: action.payload.immediateText,
         }
       }
     }

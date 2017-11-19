@@ -164,3 +164,16 @@ export const findTransferCharges = (beneficiary) => {
   }
   return charges;
 }
+
+export const getImmediateText = (language) => {
+  let immediateText = '';
+  switch (language) {
+    case 'greek':
+      immediateText = 'ΑΜΕΣΑ';
+      break;
+    case 'english':
+      immediateText = 'IMMEDIATE';
+      break;
+  }
+  return immediateText;
+}
