@@ -5,7 +5,7 @@ export const localizationText = {
   },
   english: {
     newUserTitle: 'New User',
-    applicationButton: 'Application for registration',
+    applicationButton: 'New application',
   }
 }
 
