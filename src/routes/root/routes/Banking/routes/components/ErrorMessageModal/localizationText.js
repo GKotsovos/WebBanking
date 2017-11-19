@@ -1,10 +1,10 @@
 export const localizationText = {
   greek: {
-    errorTitle: 'Σφάλμα',
+    errorTitle: 'Ειδοποίηση',
     accept: 'Αποδοχή',
   },
   english: {
-    errorTitle: 'Error',
+    errorTitle: 'Notification',
     accept: 'Accept',
   }
 }

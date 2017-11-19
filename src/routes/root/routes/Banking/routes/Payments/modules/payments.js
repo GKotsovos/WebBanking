@@ -181,6 +181,7 @@ export const payment = (transactionForm) => {
         date: transactionForm.date.value,
         expenses: transactionForm.charges.value,
         comments: '',
+        language: getState().root.language,
       }),
       withCredentials: true,
     })

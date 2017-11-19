@@ -22,7 +22,7 @@ export const ExistingPaymentOrder = ({ paymentOrder, language, cancelPaymentOrde
             {dateformat(paymentOrder.expirationDate, 'dd/mm/yyyy')}
           </span>
           <span className="col-xs-3 text-right orderDetails">
-            {paymentOrder.state ? 'Ενεργή' : 'Ανενεργή'}
+            {paymentOrder.state ? localizationText[language].active : localizationText[language].inactive}
           </span>
         </span>
         <span className="summary">

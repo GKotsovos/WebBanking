@@ -1,6 +1,6 @@
 export const localizationText = {
   greek: {
-    autoSignOutTitle: 'Ενημέρωση',
+    autoSignOutTitle: 'Ειδοποίηση',
     autoSignOutText: 'Έχετε αποσυνδεθεί. Για λόγους ασφαλείας το σύστημα σας αποσυνδέει μετά από 10 λεπτά.',
     acceptText: 'Αποδοχή',
   },

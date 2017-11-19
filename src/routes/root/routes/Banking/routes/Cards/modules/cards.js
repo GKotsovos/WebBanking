@@ -160,7 +160,8 @@ export const deleteLinkedProduct = (productId) => {
       url: 'http://localhost:26353/api/card/DeleteLinkedProduct',
       data: querystring.stringify({
         cardId: getState().cards.activeCard.id,
-        productId
+        productId,
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -186,6 +187,7 @@ export const creditCardPayment = () => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: transactionForm.expenses,
         comments: '',
       }),
@@ -229,8 +231,10 @@ export const prepaidCardLoad = () => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: transactionForm.expenses,
         comments: '',
+        language: getState().root.language,
       }),
       withCredentials: true,
     })

@@ -33,7 +33,10 @@ export const authenticate = (userId, password) => {
       .catch((exception) => {
         dispatch({
           type    : UNAUTHENTICATED,
-          payload : exception
+          payload : {
+            exception,
+            language: getState().root.language
+          }
         })
       })
   }
@@ -56,7 +59,6 @@ export const actions = {
 const initState = () => {
   return {
     activePanel: 'NEWS',
-    returnedError: 'none'
   }
 }
 
@@ -80,11 +82,11 @@ const ACTION_HANDLERS = {
   UNAUTHENTICATED: (state, action) => {
     let errorMessage = "";
 
-    if (_.has(action.payload.response, "status") &&
-        action.payload.response.status == 401) {
-      errorMessage = "Λάθος ID χρήστη ή κωδικός.";
+    if (_.has(action.payload.exception.response, "status") &&
+        action.payload.exception.response.status == 401) {
+      errorMessage = action.payload.language === "greek" ? "Λάθος ID Χρήστη ή Κωδικός." : "Incorrect User ID or Password";
     } else {
-      errorMessage = "Αυτή την στιγμή υπάρχει κάποιο πρόβλημα με το σύστημα. Προσπαθήστε ξανά αργότερα."
+      errorMessage = action.payload.language === "greek" ? "Αυτή την στιγμή υπάρχει κάποιο πρόβλημα με το σύστημα. Προσπαθήστε ξανά αργότερα." : "There seems to be a problem with the system at the moment. Please try again later."
     }
 
     return {

@@ -85,6 +85,7 @@ export const transfer = (transactionForm) => {
         date: transactionForm.date.value,
         expenses: transactionForm.expenses,
         comments: transactionForm.comments.value,
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -95,7 +96,6 @@ export const transfer = (transactionForm) => {
       })
     })
     .then(() => linkTo('/banking/transfers/result'))
-    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value)) .catch((exception) => handleTransactionException(exception, '/banking/transfers', dispatch))
   }
 }
 

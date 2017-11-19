@@ -6,7 +6,7 @@ export const localizationText = {
   },
   english: {
     to: 'To',
-    selectAccountTitle: 'Debit Account',
+    selectAccountTitle: 'Credit Account',
     thirdPartyLanguage: 'Third Party Account',
   }
 }

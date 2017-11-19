@@ -480,6 +480,7 @@ export const cancelTransferOrder = (orderId) => {
       url: 'http://localhost:26353/api/order/CancelTransferOrder',
       data: querystring.stringify({
         transferOrderId: Number(orderId),
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -532,6 +533,7 @@ export const createTransferOrder = (newOrderForm) => {
         executionFrequency: newOrderForm.periodicity.value,
         state: true,
         comments: newOrderForm.comments,
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -561,6 +563,7 @@ export const createPaymentOrder = (newOrderForm) => {
          maxPaymentAmount: newOrderForm.maxAmount.value,
          state: true,
          currency: newOrderForm.currency.value,
+         language: getState().root.language,
       }),
       withCredentials: true,
     })

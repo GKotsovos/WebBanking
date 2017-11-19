@@ -14,7 +14,7 @@ export const CardExtraDetails = ({ card, language }) => (
           {dateformat(card.expirationDate, 'dd/mm/yyyy')}
         </span>
         <span className="col-xs-offset-1 col-xs-4 text-right">
-          {card.status ? 'Ενεργή' : 'Ανενεργή'}
+          {card.status ? localizationText[language].active : localizationText[language].inactive}
         </span>
       </span>
       <span className="row cardSummary">

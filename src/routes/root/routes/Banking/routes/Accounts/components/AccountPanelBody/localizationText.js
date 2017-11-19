@@ -5,7 +5,7 @@ export const localizationText = {
     availableBalance: 'Διαθέσιμο Υπόλοιπο'
   },
   english: {
-    ledgerBalance: 'Ledger Balamce',
+    ledgerBalance: 'Ledger Balance',
     overdraft: 'Overdraft',
     availableBalance: 'Available Balance'
   }

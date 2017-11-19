@@ -133,6 +133,7 @@ export const loanPayment = () => {
         date: transactionForm.date.value,
         expenses: 0,
         comments: '',
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
