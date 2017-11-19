@@ -4,16 +4,15 @@
   align-items: center;
 }
 
-#guidePanel {
+#usefullLinksPanel {
   margin-left: 2%;
   margin-bottom: 60px;
-  min-width: 145px;
   min-height: 200px;
   background-color: #b0c6f2;
   border: none;
 }
 
-#guidePanel:hover {
+#usefullLinksPanel:hover {
   cursor: pointer;
 }
 
@@ -22,7 +21,7 @@
   font-size: 40px;
 }
 
-#guideText{
+#usefullLinksText{
   font-size: 15px;
   margin-bottom: 15%;
   margin-top: 5%;
@@ -30,9 +29,9 @@
 }
 
 @media (max-width: 767px) {
-  #guidePanel {
+  #usefullLinksPanel {
     font-size: 13px;
-    margin: 0 0 60px 0;
+    margin: 1% 0 60px 0;
     min-height: 100px;
   }
 
@@ -41,7 +40,7 @@
     margin-top: 5%;
   }
 
-  #guideText{
+  #usefullLinksText{
     margin-bottom: 10%;
     margin-top: 5%;
   }

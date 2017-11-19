@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
-import './Guide.css'
+import './UsefullLinks.css'
 
-export const Guide = ({ changePanel }) => (
+export const UsefullLinks = ({ changePanel }) => (
   <div id="" className="">
     <FontAwesome className="closePanel" name="window-close-o" onClick={() => changePanel('NEWS')} />
 
   </div>
 )
 
-Guide.PropTypes = {
+UsefullLinks.PropTypes = {
   changePanel: PropTypes.func.isRequired
 };
 
-export default Guide
+export default UsefullLinks

@@ -2,13 +2,13 @@ import React from 'react';
 import Login from '../../containers/LoginContainer';
 import InformationPanel from '../../containers/InformationPanelContainer';
 import ContactPanel from '../../containers/ContactPanelContainer';
-import GuidePanel from '../../containers/GuidePanelContainer';
+import UsefullLinksPanel from '../../containers/UsefullLinksPanelContainer';
 import MainPanel from '../../containers/MainPanelContainer';
 import './HomeView.css';
 
 export const HomeView = () => (
   <div>
-    <div id="homeContainer" className="container">
+    <div id="homeContainer" className="container" onClick={() => $('.collapse').collapse('hide')}>
       <div id="homeRow" className="row">
         <div id="login" className="col-sm-4">
           <Login />
@@ -23,7 +23,7 @@ export const HomeView = () => (
               <ContactPanel />
             </div>
             <div className="col-sm-4 col-xs-12">
-              <GuidePanel />
+              <UsefullLinksPanel />
             </div>
           </div>
         </div>
