@@ -92,7 +92,7 @@ const ACTION_HANDLERS = {
       initLoad: true
     }
   },
-  
+
   RECEIVED_CUSTOMER_NAME: (state, action) => {
     return {
       ...state,
