@@ -14,7 +14,7 @@ export const ContactPanel = ({ language }) => (
         </div>
         <div className="comments">({localizationText[language].noCharge})</div>
       </div>
-      
+
       <div className="phonesGroup">
         <div className="verticalCenter">
           <FontAwesome className="phoneIcon" name="phone" />

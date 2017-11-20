@@ -31,19 +31,13 @@ class CreditAgileAccountSelection extends Component {
           className={`selectpicker transferCreditAccountType form-control ${_.isEmpty(creditAccount) || creditAccount.type != "" ? "" : "notValid"}`}
           data-show-subtext="true"
           title={localizationText[language].selectAccountTitle}
-          onChange={
-            (e) => setCreditAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)
-          }
-        >
+          onChange={(e) => setCreditAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>
           {
             _.map(accounts, (account) => (
               <option
                 key={account.id}
                 className="isAccount"
-                data-subtext={
-                  `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
-                }
-              >
+                data-subtext={`${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`}>
                 {account.id}
               </option>
             ))

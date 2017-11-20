@@ -29,32 +29,40 @@ export const Navbar = ({
         <ul className="nav navbar-nav navbar-right">
           {
             _.isEmpty(customer) ? [
-              <li id="aa" className="active">
+              <li className={`${language === 'greek' ? 'active' : ''}`}>
                 <a
-                  id="changeLang"
+                  id="greekLanguage"
                   href="javascript:;"
-                  onClick={() => setLanguage('greek')}>GR
+                  onClick={() => {
+                    setLanguage('greek');
+                    $('.collapse').collapse('hide');
+                  }}>
+                  GR
                 </a>
               </li>,
-              <li>
+                <li className={`${language === 'english' ? 'active' : ''}`}>
                 <a
-                  id="changeLang"
+                  id="englishLanguage"
                   href="javascript:;"
-                  onClick={() => setLanguage('english')}>EN
+                  onClick={() => {
+                    setLanguage('english');
+                    $('.collapse').collapse('hide')
+                  }}>
+                  EN
                 </a>
               </li>
             ] : [
               <li>
-                <a id="changeLang" href="javascript:;">
+                <a id="customerName" href="javascript:;">
                   <FontAwesome className="user" name="user-circle"/>{`${customer.firstName} ${customer.lastName}`}
                 </a>
               </li>,
-              <li id="aa" className="active" onClick={() => logOut()}>
-                <a id="changeLang" href="javascript:;">
+              <li onClick={() => logOut()}>
+                <a id="logOut" href="javascript:;">
                   <FontAwesome className="logoff" name="sign-out"/>{localizationText[language].signOut}
                 </a>
               </li>,
-              <li className="active">
+              <li>
                 <a id="counter" >{localizationText[language].timeLeft}<br/>{timeLeftToLogOut}</a>
               </li>,
             ]

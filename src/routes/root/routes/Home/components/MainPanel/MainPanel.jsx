@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import News from './Panels/News';
 import Information from './Panels/Information';
-import Guide from './Panels/Guide';
+import UsefullLinks from './Panels/UsefullLinks';
 import ForgotPassword from './Panels/ForgotPassword';
 import NewApplication from './Panels/NewApplication';
 import './MainPanel.css'
@@ -18,7 +18,7 @@ class MainPanel extends Component {
         return <Information language={language} changePanel={changePanel}/>
         break;
       case 'GUIDE':
-        return <Guide language={language} changePanel={changePanel}/>
+        return <UsefullLinks language={language} changePanel={changePanel}/>
         break;
       case 'FOTGOT_PASSWORD':
         return <ForgotPassword language={language} changePanel={changePanel}/>

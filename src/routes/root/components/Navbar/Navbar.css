@@ -1,7 +1,8 @@
 #navbar {
+  height: 55px;
   margin: 0;
   background-color: #003399;
-  border-radius: 0;
+  border: none;
   color: #EEEEEE;
 }
 
@@ -15,6 +16,11 @@
 .btn-sample:active:active {
   background-color: #003399 !important;
 }
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active,
+.navbar-default .navbar-toggle:focus, {
+  background-color: #003399;
+}
 
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #EEEEEE;
@@ -26,22 +32,23 @@
   align-items: center;
 }
 
-#changeLang {
+#greekLanguage, #englishLanguage, #customerName, #logOut {
   color: #EEEEEE;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 20px;
   display: flex;
   align-items: center;
 }
 
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:visited {
   background-color: #003399;
 }
 
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
-  background-color: #003cb3;
+  background-color: #0041b2;
 }
 
 .logoff {
@@ -58,10 +65,4 @@
   padding: 7px 5px;
   color: #EEEEEE;
   text-align: center;
-}
-
-.navbar-default .navbar-nav>.active>a#counter:hover,
-.navbar-default .navbar-nav>.active>a#counter:focus,
-.navbar-default .navbar-nav>.active>a#counter:visited {
-  background-color: #003399;
 }

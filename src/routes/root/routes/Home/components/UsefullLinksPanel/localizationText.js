@@ -1,9 +1,9 @@
 export const localizationText = {
   greek: {
-    guideText: 'Agile Web Banking οδηγίες',
+    usefullLinksText: 'Χρήσιμοι συνδέσμοι',
   },
   english: {
-    guideText: 'Agile Web Banking guide',
+    usefullLinksText: 'Usefull links',
   }
 }
 

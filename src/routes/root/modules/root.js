@@ -10,8 +10,10 @@ export const setLanguage = (language) => {
 }
 
 const initState = () => {
+  const language = localStorage.language === 'greek' || localStorage.language === 'english' ? localStorage.language : 'greek';
+  localStorage.setItem('language', language);
   return {
-    language: localStorage.language ? localStorage.language : 'greek'
+    language
   }
 }
 

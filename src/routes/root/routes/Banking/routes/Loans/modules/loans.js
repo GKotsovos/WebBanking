@@ -10,6 +10,7 @@ import {
   isValidInstallmentPaymentAmount,
   isValidDate,
   isValidInstallmentPaymentForm,
+  getImmediateText,
 } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import {
   handleRequestException,
@@ -131,8 +132,10 @@ export const loanPayment = () => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: 0,
         comments: '',
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -187,9 +190,13 @@ export const setLoanPaymentAmount = (amount) => {
 
 export const setAsapLoanTransaction = (isAsap) => {
   return (dispatch, getState) => {
+    const immediateText = getImmediateText(getState().root.language);
     dispatch({
       type: SET_ASAP_LOAN_TRANSACTION_DATE,
-      payload: isAsap
+      payload: {
+        isAsap,
+        immediateText
+      }
     });
     dispatch({
       type: VALIDATE_LOANS_TRANSACTION_FORM
@@ -415,10 +422,10 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         date: {
           ...state.transactionForm.date,
-          asapTransaction: action.payload,
-          correct: action.payload,
+          asapTransaction: action.payload.isAsap,
+          correct: action.payload.isAsap,
           value: undefined,
-          asapText: 'ΑΜΕΣΑ'
+          asapText: action.payload.immediateText
         }
       }
     }

@@ -2,12 +2,16 @@ export const localizationText = {
   greek: {
     issueDate: 'Ημ/νία Έκδοσης',
     expirationDate: 'Ημ/νία Λήξης',
-    state: 'Κατάσταση'
+    state: 'Κατάσταση',
+    active: 'Ενεργή',
+    inactive: 'Ανενεργή'
   },
   english: {
     issueDate: 'Issue Date',
     expirationDate: 'Expiration Date',
-    state: 'State'
+    state: 'State',
+    active: 'Active',
+    inactive: 'Inactive'
   }
 }
 

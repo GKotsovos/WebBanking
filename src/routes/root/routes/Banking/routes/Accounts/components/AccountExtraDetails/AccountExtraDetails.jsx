@@ -15,7 +15,7 @@ export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state, lang
             {dateformat(lastMovementDate, 'dd/mm/yyyy')}
           </span>
           <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
-            {state ? 'Ενεργός' : 'Ανενεργός'}
+            {state ? localizationText[language].active : localizationText[language].inactive}
           </span>
         </span>
         <span className="summary">

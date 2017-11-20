@@ -6,8 +6,8 @@ import './InformationPanel.css'
 export const InformationPanel = ({ language, changePanel }) => (
   <div id="infoPanel" className="panel panel-default verticalCenter" onClick={() => changePanel('INFORMATION')}>
     <div className="panel-body text-center">
-          <FontAwesome id="infoIcon" name="info-circle" size="3x" />
-          <div id="infoText">{localizationText[language].information}</div>
+      <FontAwesome id="infoIcon" name="info-circle" size="3x" />
+      <div id="infoText">{localizationText[language].information}</div>
     </div>
   </div>
 )

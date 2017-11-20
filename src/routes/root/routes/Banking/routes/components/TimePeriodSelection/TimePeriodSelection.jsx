@@ -14,36 +14,48 @@ export const TimePeriodSelection = ({
   getTransactionHistoryByTimePeriod,
 }) => (
   <div className="timePeriodSelectionContainer">
-    <span id="timePeriodGroup">
-      <label className="timePeriodLabel">{localizationText[language].fromTimePeriodLabel}</label>
-      <DatePicker
-        id="timePeriodPicker"
-        className={`text-right ${_.isEmpty(startDate) || startDate.valid ? "" : "notValid"}`}
-        weekStartsOnMonday
-        calendarPlacement="top"
-        placeholder={localizationText[language].datePickerPlaceholder}
-        value={startDate ? startDate.value : ''}
-        onChange={(value, formattedValue) => setTransactionHistoryStartDate(value)}
-      />
-      <label className="timePeriodLabel">{localizationText[language].untilTimePeriodLabel}</label>
-      <DatePicker
-        id="timePeriodPicker"
-        className={`text-right ${_.isEmpty(endDate) || endDate.valid ? "" : "notValid"}`}
-        weekStartsOnMonday
-        calendarPlacement="top"
-        placeholder={localizationText[language].datePickerPlaceholder}
-        value={endDate ? endDate.value : ''}
-        onChange={(value, formattedValue) => setTransactionHistoryEndDate(value)}
-      />
-      <button
-        id="submitTransaction"
-        type="button"
-        className="btn btn-default"
-        disabled={!validSelection}
-        onClick={() => getTransactionHistoryByTimePeriod(startDate.value, endDate.value)}>
-        {localizationText[language].search}
-      </button>
-    </span>
+    <div id="timePeriodGroup" className="row">
+      <div className="col-xs-12">
+
+        <div className="periodSelection col-xs-12 col-sm-4 verticalCenter">
+          <label className="fromPeriodLabel">{localizationText[language].fromTimePeriodLabel}</label>
+          <DatePicker
+            id="timePeriodPicker"
+            className={`text-right ${_.isEmpty(startDate) || startDate.valid ? "" : "notValid"}`}
+            weekStartsOnMonday
+            calendarPlacement="top"
+            placeholder={localizationText[language].datePickerPlaceholder}
+            value={startDate ? startDate.value : ''}
+            onChange={(value, formattedValue) => setTransactionHistoryStartDate(value)}
+          />
+        </div>
+
+        <div className="periodSelection col-sm-offset-1 col-xs-12 col-sm-4 verticalCenter">
+          <label className="untilPeriodLabel">{localizationText[language].untilTimePeriodLabel}</label>
+          <DatePicker
+            id="timePeriodPicker"
+            className={`text-right ${_.isEmpty(endDate) || endDate.valid ? "" : "notValid"}`}
+            weekStartsOnMonday
+            calendarPlacement="top"
+            placeholder={localizationText[language].datePickerPlaceholder}
+            value={endDate ? endDate.value : ''}
+            onChange={(value, formattedValue) => setTransactionHistoryEndDate(value)}
+          />
+        </div>
+
+        <div className="col-sm-offset-1 col-xs-12 col-sm-2 verticalCenter">
+          <button
+            id="searchTransacrion"
+            type="button"
+            className="btn btn-default"
+            disabled={!validSelection}
+            onClick={() => getTransactionHistoryByTimePeriod(startDate.value, endDate.value)}>
+            {localizationText[language].search}
+          </button>
+        </div>
+
+      </div>
+    </div>
   </div>
 )
 

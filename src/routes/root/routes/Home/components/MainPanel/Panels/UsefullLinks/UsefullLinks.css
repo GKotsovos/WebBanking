@@ -4,35 +4,41 @@
   align-items: center;
 }
 
-#forgotPassword {
-  max-height: auto;
+#usefullLinks {
   min-height: 300px;
-  padding: 5%;
+  padding: 4.1%;
   font-size: 13px;
   background-color: #d4e0f7;
   margin-bottom: 3%;
 }
 
-.closePanel {
+#closeInfoPanel {
   font-size: 18px;
   float: right;
-  margin-top: -3%;
-  margin-right: -3%;
+  margin-top: -2%;
+  margin-right: -2%;
   color: #555555;
 }
 
-.closePanel:hover {
+#closeInfoPanel:hover {
   cursor: pointer;
 }
 
-#forgotTitle {
+#infoTittle {
   margin-top: 0;
 }
 
+#lastPInfo{
+  margin-bottom: 0;
+}
+
 @media (max-width: 767px) {
-  #forgotPassword {
+  #information {
     margin: 0 auto 3% auto;
-    min-height: auto;
     max-width: 450px;
+  }
+
+  #infoTittle {
+    font-size: 21px;
   }
 }

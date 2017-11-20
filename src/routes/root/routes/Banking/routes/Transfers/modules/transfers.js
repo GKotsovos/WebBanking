@@ -18,6 +18,7 @@ import {
   isValidDebitAmount,
   isValidDate,
   isValidChargesBeneficiary,
+  getImmediateText,
 } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import {
   handleRequestException,
@@ -83,8 +84,10 @@ export const transfer = (transactionForm) => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency.value,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: transactionForm.expenses,
         comments: transactionForm.comments.value,
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -94,8 +97,9 @@ export const transfer = (transactionForm) => {
         payload : '/banking/transfers'
       })
     })
+    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value))
     .then(() => linkTo('/banking/transfers/result'))
-    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value)) .catch((exception) => handleTransactionException(exception, '/banking/transfers', dispatch))
+    .catch((exception) => handleTransactionException(exception, '/banking/transfers', dispatch))
   }
 }
 
@@ -130,6 +134,9 @@ export const setCreditAccount = (account, type) => {
         type
       }
     });
+    if (type === 'other') {
+      setCreditFullName('')(dispatch, getState);      
+    }
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
     });
@@ -150,6 +157,18 @@ export const setCreditFullName = (fullName) => {
 
 export const setCreditBankType = (selection, bankType) => {
   return (dispatch, getState) => {
+    switch (bankType) {
+      case "agileBank":
+        initTransferToAgileTransactionForm()(dispatch, getState);
+        break;
+      case "domesticBank":
+        initTransferToDomesticTransactionForm()(dispatch, getState);
+        break;
+      case "foreignBank":
+        initTransferToForeignTransactionForm()(dispatch, getState);
+        break;
+    }
+
     dispatch({
       type: SET_TRANSFER_CREDIT_BANK_TYPE,
       payload: {
@@ -261,9 +280,13 @@ export const setTransactionDate = (date, formattedDate) => {
 
 export const setAsapTransfer = (isAsap) => {
   return (dispatch, getState) => {
+    const immediateText = getImmediateText(getState().root.language);
     dispatch({
       type: SET_ASAP_TRANSFER,
-      payload: isAsap
+      payload:  {
+        isAsap,
+        immediateText
+      }
     });
     dispatch({
       type: VALIDATE_TRANSFER_TRANSACTION_FORM
@@ -581,17 +604,16 @@ const ACTION_HANDLERS = {
   },
 
   SET_ASAP_TRANSFER: (state, action) => {
-
     return {
       ...state,
       transactionForm: {
         ...state.transactionForm,
         date: {
           ...state.transactionForm.date,
-          asapTransaction: action.payload,
-          correct: action.payload,
+          asapTransaction: action.payload.isAsap,
+          correct: action.payload.isAsap,
           value: undefined,
-          asapText: 'ΑΜΕΣΑ'
+          asapText: action.payload.immediateText,
         }
       }
     }

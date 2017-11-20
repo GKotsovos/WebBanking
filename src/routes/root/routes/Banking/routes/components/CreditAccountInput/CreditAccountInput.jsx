@@ -3,13 +3,15 @@ import _ from 'underscore';
 import localizationText from './localizationText';
 import './CreditAccountInput.css';
 
-export const CreditAccountInput = ({ creditAccount, language, setCreditAccount}) => (
+export const CreditAccountInput = ({ showTitle, creditAccount, language, setCreditAccount}) => (
   <div className="form-group bottomOfTwoDivs">
-    <label htmlFor="transferIBAN">{localizationText[language].to}</label>
+    {
+      showTitle ? <label htmlFor="transferIBAN">{localizationText[language].to}</label> : null
+    }
     <input
       id="transferIBAN"
       className={`form-control ${_.isEmpty(creditAccount) || creditAccount.correct ? "" : "notValid"}`}
-      value={creditAccount? creditAccount.value : ""}
+      value={creditAccount.value ? creditAccount.value : ""}
       onChange={(e) => setCreditAccount(e.target.value)}
       placeholder="IBAN"
     />

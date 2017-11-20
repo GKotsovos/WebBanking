@@ -18,6 +18,7 @@ import {
   isValidDebitAmount,
   isValidDate,
   isValidChargesBeneficiary,
+  getImmediateText,
 } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
 import {
@@ -327,9 +328,13 @@ export const setTransferOrderComments = (comments) => {
 
 export const setTransferOrderAsapStart = (isAsap) => {
   return (dispatch, getState) => {
+    const immediateText = getImmediateText(getState().root.language);
     dispatch({
       type: SET_TRANSFER_ORDER_ASAP_START,
-      payload: isAsap
+      payload: {
+        isAsap,
+        immediateText
+      }
     });
     dispatch({
       type: VALIDATE_TRANSFER_ORDER_FORM
@@ -480,6 +485,7 @@ export const cancelTransferOrder = (orderId) => {
       url: 'http://localhost:26353/api/order/CancelTransferOrder',
       data: querystring.stringify({
         transferOrderId: Number(orderId),
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -532,6 +538,7 @@ export const createTransferOrder = (newOrderForm) => {
         executionFrequency: newOrderForm.periodicity.value,
         state: true,
         comments: newOrderForm.comments,
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -561,6 +568,7 @@ export const createPaymentOrder = (newOrderForm) => {
          maxPaymentAmount: newOrderForm.maxAmount.value,
          state: true,
          currency: newOrderForm.currency.value,
+         language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -841,10 +849,10 @@ const ACTION_HANDLERS = {
         ...state.newOrderForm,
         startDate: {
           ...state.newOrderForm.date,
-          asapTransaction: action.payload,
-          correct: action.payload,
+          asapTransaction: action.payload.isAsap,
+          correct: action.payload.isAsap,
           value: undefined,
-          asapText: 'ΑΜΕΣΑ'
+          asapText: action.payload.immediateText,
         }
       }
     }

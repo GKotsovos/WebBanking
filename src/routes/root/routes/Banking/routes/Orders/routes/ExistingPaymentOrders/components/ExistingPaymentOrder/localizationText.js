@@ -5,6 +5,8 @@ export const localizationText = {
     state: 'Κατάσταση',
     maxPaymentAmount: 'Ανώτατο ποσό χρέωσης',
     previousExecutionDate: 'Ημ/νία τελευταίας εκτέλεσης',
+    active: 'Ενεργή',
+    inactive: 'Ανενεργή'
   },
   english: {
     debitAccount: 'Debit Account',
@@ -12,6 +14,8 @@ export const localizationText = {
     state: 'State',
     maxPaymentAmount: 'Max payment amount',
     previousExecutionDate: 'Previous execution date',
+    active: 'Active',
+    inactive: 'Inactive'
   }
 }
 

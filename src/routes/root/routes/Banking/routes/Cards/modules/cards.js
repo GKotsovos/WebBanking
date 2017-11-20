@@ -12,6 +12,7 @@ import {
   isValidDebitAmount,
   isValidDate,
   isValidInstallmentPaymentForm,
+  getImmediateText,
 } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import {
   handleRequestException,
@@ -160,7 +161,8 @@ export const deleteLinkedProduct = (productId) => {
       url: 'http://localhost:26353/api/card/DeleteLinkedProduct',
       data: querystring.stringify({
         cardId: getState().cards.activeCard.id,
-        productId
+        productId,
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -186,6 +188,7 @@ export const creditCardPayment = () => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: transactionForm.expenses,
         comments: '',
       }),
@@ -229,8 +232,10 @@ export const prepaidCardLoad = () => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: transactionForm.expenses,
         comments: '',
+        language: getState().root.language,
       }),
       withCredentials: true,
     })
@@ -303,9 +308,13 @@ export const setPrepaidCardLoadAmount = (amount) => {
 
 export const setAsapCardTransaction = (isAsap) => {
   return (dispatch, getState) => {
+    const immediateText = getImmediateText(getState().root.language);
     dispatch({
       type: SET_ASAP_CARD_TRANSACTION_DATE,
-      payload: isAsap
+      payload: {
+        isAsap,
+        immediateText
+      }
     });
     dispatch({
       type: VALIDATE_CARDS_TRANSACTION_FORM
@@ -567,10 +576,10 @@ const ACTION_HANDLERS = {
         ...state.transactionForm,
         date: {
           ...state.transactionForm.date,
-          asapTransaction: action.payload,
-          correct: action.payload,
+          asapTransaction: action.payload.isAsap,
+          correct: action.payload.isAsap,
           value: undefined,
-          asapText: 'ΑΜΕΣΑ'
+          asapText: action.payload.immediateText
         }
       }
     }
