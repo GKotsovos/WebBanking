@@ -3,6 +3,15 @@
   margin: 0 auto 4% auto;
 }
 
+.popover-title {
+  background-color: #003cb3;
+  color: #eee;
+}
+
+.popover-title > .text-center > .text-muted {
+  color: #eee;
+}
+
 #timePeriodGroup {
   display: flex;
   align-items: center;
