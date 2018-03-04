@@ -49,7 +49,7 @@ export const SelectTransactionDate = ({
           weekStartsOnMonday
           calendarPlacement="top"
           placeholder={localizationText[language].selectDatePlaceholder}
-          value={date? date.value : ''}
+          value={date ? date.value : ''}
           onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
           disabled={_.isEmpty(date) || date.asapTransaction}
         />

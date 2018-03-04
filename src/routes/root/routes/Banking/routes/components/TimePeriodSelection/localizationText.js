@@ -2,7 +2,7 @@ export const localizationText = {
   greek: {
     fromTimePeriodLabel: 'Από',
     datePickerPlaceholder: 'ΗΗ/ΜΜ/ΕΕΕΕ',
-    toTimePeriodLabel: 'Εώς',
+    untilTimePeriodLabel: 'Εώς',
     search: 'Αναζήτηση',
   },
   english: {
