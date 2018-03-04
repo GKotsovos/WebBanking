@@ -17,6 +17,8 @@ export const DefaultTabs = ({
   initTransferTransactionForm,
   initPaymentTransactionForm,
   initializeOrderState,
+  getTransferOrders,
+  getPaymentOrders,
 }) => (
   <div>
     <ul id="tabs" className="nav nav-tabs text-center" role="tablist">
@@ -73,6 +75,8 @@ export const DefaultTabs = ({
       <li className={`defaultTab ${window.location.href.includes('/banking/orders') ? 'active' : ''}`}
         onClick={() => {
           initializeOrderState();
+          getTransferOrders();
+          getPaymentOrders();
           $('.selectpicker').selectpicker('val', [''])
           linkTo('/banking/orders');
         }}>

@@ -180,6 +180,7 @@ export const payment = (transactionForm) => {
         amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency.value,
         date: transactionForm.date.value,
+        isAsap: transactionForm.date.asapTransaction,
         expenses: transactionForm.charges.value,
         comments: '',
         language: getState().root.language,

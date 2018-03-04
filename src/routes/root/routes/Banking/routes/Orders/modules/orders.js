@@ -533,7 +533,7 @@ export const createTransferOrder = (newOrderForm) => {
         amount: newOrderForm.amount.value,
         currency: newOrderForm.currency.value,
         chargesBeneficiary: newOrderForm.chargesBeneficiary.value,
-        nextExecutionDate: newOrderForm.startDate.value,
+        nextExecutionDate: newOrderForm.startDate.asapTransaction ? dateformat(new Date(), 'dd/mm/yyyy') : newOrderForm.startDate.value,
         executionsLeft: newOrderForm.timesOfExecution.value,
         executionFrequency: newOrderForm.periodicity.value,
         state: true,
@@ -593,8 +593,8 @@ export const clearNewOrderForm = () => {
 
 export const actions = {
   initializeOrderState,
-  linkToNewOrder,
   changeActiveOrderType,
+  linkToNewOrder,
   initNewTransferOrderForm,
   initNewPaymentOrderForm,
   getTransferOrders,

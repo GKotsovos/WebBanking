@@ -90,6 +90,7 @@
     "bootstrap-select": "^1.12.2",
     "bootstrap-validator": "^0.11.9",
     "compression": "^1.6.2",
+    "cors": "^2.8.4",
     "css-loader": "^0.26.0",
     "cssnano": "^3.7.4",
     "currency-formatter": "^1.2.1",

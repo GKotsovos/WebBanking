@@ -5,7 +5,7 @@ import { getCards, deactivateCard } from '../routes/Cards/modules/cards';
 import { getLoans, deactivateLoan } from '../routes/Loans/modules/loans';
 import { initTransferTransactionForm } from '../routes/Transfers/modules/transfers';
 import { initPaymentTransactionForm } from '../routes/Payments/modules/payments';
-import { initializeOrderState } from '../routes/Orders/modules/orders';
+import { initializeOrderState, getTransferOrders, getPaymentOrders } from '../routes/Orders/modules/orders';
 import DefaultTabs from '../components/Tabs/DefaultTabs';
 
 const mapStateToProps = (state) => ({
@@ -24,6 +24,8 @@ const mapActionCreators = {
   initTransferTransactionForm: ()=> initTransferTransactionForm(),
   initPaymentTransactionForm: () => initPaymentTransactionForm(),
   initializeOrderState: () => initializeOrderState(),
+  getTransferOrders: () => getTransferOrders(),
+  getPaymentOrders: () => getPaymentOrders(),
 }
 
 export default connect(mapStateToProps, mapActionCreators)(DefaultTabs);
