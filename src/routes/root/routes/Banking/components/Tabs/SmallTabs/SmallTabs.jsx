@@ -17,6 +17,8 @@ export const SmallTabs = ({
   initTransferTransactionForm,
   initPaymentTransactionForm,
   initializeOrderState,
+  getTransferOrders,
+  getPaymentOrders,
 }) => (
   <div id="smallT">
     <button
@@ -77,6 +79,8 @@ export const SmallTabs = ({
         <li className={`defaultTab ${window.location.href.includes('/banking/orders') ? 'active' : ''}`}
           onClick={() => {
             initializeOrderState();
+            getTransferOrders();
+            getPaymentOrders();
             $('.selectpicker').selectpicker('val', [''])
             linkTo('/banking/orders');
           }}>

@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { changeActiveOrderType, linkToNewOrder } from 'routes/root/routes/Banking/routes/Orders/modules/orders';
+import {
+  changeActiveOrderType,
+  linkToNewOrder
+} from 'routes/root/routes/Banking/routes/Orders/modules/orders';
 import OrderSelect from '../components/OrderSelect';
 
 const mapStateToProps = (state) => ({

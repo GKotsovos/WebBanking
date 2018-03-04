@@ -7,11 +7,12 @@ class OrdersLayout extends Component {
   componentWillMount() {
     const {
       orderState,
-      initializeState,
+      initializeOrderState,
       getTransferOrders,
       getPaymentOrders,
     } = this.props;
     if (_.isEmpty(orderState)) {
+      initializeOrderState();
       getTransferOrders();
       getPaymentOrders();
     }

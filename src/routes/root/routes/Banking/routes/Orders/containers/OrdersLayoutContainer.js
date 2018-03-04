@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  initializeState,
+  initializeOrderState,
   getTransferOrders,
   getPaymentOrders,
 } from 'routes/root/routes/Banking/routes/Orders/modules/orders';
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionCreators = {
-  initializeState: () => initializeState(),
+  initializeOrderState: () => initializeOrderState(),
   getTransferOrders: () => getTransferOrders(),
   getPaymentOrders: () => getPaymentOrders(),
 };

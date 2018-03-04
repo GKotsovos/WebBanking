@@ -4,20 +4,8 @@ import './OrderSelect.css';
 
 class OrderSelect extends Component {
   componentDidMount() {
-    let { activeOrder, changeActiveOrderType } = this.props;
-    if (!activeOrder) {
-      if (localStorage.path.includes('transfer')) {
-        activeOrder = 'Μεταφορά';
-        changeActiveOrderType(activeOrder, 'transfer')
-      } else if (localStorage.path.includes('payment')) {
-        activeOrder = 'Πληρωμή';
-        changeActiveOrderType(activeOrder, 'payment')
-      } else {
-        activeOrder = '';
-      }
-    }
     $('.selectpicker').selectpicker();
-    $('.selectpicker.orderSelect').selectpicker('val', [activeOrder]);
+    $('.selectpicker.orderSelect').selectpicker('val', [this.props.activeOrder]);
   }
 
   componentWillReceiveProps() {
