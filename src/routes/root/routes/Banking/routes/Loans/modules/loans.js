@@ -152,7 +152,6 @@ export const loanPayment = () => {
         payload : getActiveLoan(getState().loans.loans, getState().loans.activeLoan.id)
       })
     })
-    .then(() => getLoanTransactionHistory(transactionForm.loanId)(dispatch, getState))
     .then(() => linkTo('/banking/loans/loan/payment/result'))
     .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value))    .catch((exception) => handleTransactionException(exception, '/banking/loans/loan/payment', dispatch))
     .then(() => linkTo('/banking/loans/loan/payment/result'))
