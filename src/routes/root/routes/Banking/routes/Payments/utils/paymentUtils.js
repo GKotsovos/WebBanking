@@ -5,7 +5,7 @@ export const getPayentBank = (paymentMethod) => {
 }
 
 export const getPaymentBeneficiary = (paymentMethod) => {
-  return paymentMethod.toUpperCase().includes('AGILE') ? 'AGILE BANK' : ''
+  return paymentMethod.toUpperCase().includes('AGILE') ? 'AGILE BANK' : paymentMethod
 }
 
 export const getCreditProductType = (paymentMethod) => {
