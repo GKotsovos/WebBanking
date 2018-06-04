@@ -41,7 +41,7 @@ export class SelectDebitAccount extends Component {
                 key={account.id}
                 className="isAccount"
                 data-subtext={
-                  `${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
+                  `${account.type} ${account.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
                 }>
                 {account.id}
               </option>
@@ -53,7 +53,7 @@ export class SelectDebitAccount extends Component {
                 key={loan.id}
                 className="isLoan"
                 data-subtext={
-                  `${loan.customTitle} ${loan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
+                  `${loan.customTitle} ${loan.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
                 }>
                 {loan.id}
               </option>
@@ -65,7 +65,7 @@ export class SelectDebitAccount extends Component {
                 key={creditCard.id}
                 className="isCreditCard"
                 data-subtext={
-                  `Credit Card ${creditCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
+                  `Credit Card ${creditCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
                 }
                 value={creditCard.id}>
                 {_.map(creditCard.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}
@@ -78,7 +78,7 @@ export class SelectDebitAccount extends Component {
                 key={prepaidCard.id}
                 className="isPrepaidCard"
                 data-subtext={
-                  `Prepaid Card ${prepaidCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
+                  `Prepaid Card ${prepaidCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
                 }
                 value={prepaidCard.id}>
                 {_.map(prepaidCard.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}

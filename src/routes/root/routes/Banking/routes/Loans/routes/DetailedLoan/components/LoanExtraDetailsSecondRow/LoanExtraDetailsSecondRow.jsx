@@ -16,7 +16,7 @@ export const LoanExtraDetailsSecondRow = ({ activeLoan, language }) => (
             {dateformat(activeLoan.repaymentDate, 'dd/mm/yyyy')}
           </span>
           <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
-            {activeLoan.repaymentBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
+            {activeLoan.repaymentBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
           </span>
         </span>
         <span className="summary">

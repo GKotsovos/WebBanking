@@ -8,15 +8,15 @@ export const AccountPanelBody = ({ ledgerBalance, currency, overdraft, available
     <div className="row">
       <span>
         <span className="col-xs-3 text-right">
-          {ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          {ledgerBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}
           {currencyFormatter.findCurrency(currency).symbol}
         </span>
         <span className="col-xs-offset-1 col-xs-4 text-right">
-          {overdraft.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          {overdraft.toLocaleString('el-GR', {minimumFractionDigits: 2})}
           {currencyFormatter.findCurrency(currency).symbol}
         </span>
         <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
-          {availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+          {availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}
           {currencyFormatter.findCurrency(currency).symbol}
         </span>
       </span>

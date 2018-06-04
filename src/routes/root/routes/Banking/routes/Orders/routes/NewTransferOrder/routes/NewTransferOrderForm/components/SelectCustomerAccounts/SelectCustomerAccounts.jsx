@@ -39,7 +39,7 @@ export class SelectCustomerAccounts extends Component {
               <option
                 key={account.id}
                 className="isAccount"
-                data-subtext={`${account.type} ${account.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(account.currency).symbol}`}>
+                data-subtext={`${account.type} ${account.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}${currencyFormatter.findCurrency(account.currency).symbol}`}>
                 {account.id}
               </option>
             ))

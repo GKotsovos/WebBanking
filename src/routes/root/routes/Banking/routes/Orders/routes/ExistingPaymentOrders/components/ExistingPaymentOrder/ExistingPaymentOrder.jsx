@@ -34,7 +34,7 @@ export const ExistingPaymentOrder = ({ paymentOrder, language, cancelPaymentOrde
       <div className="row secondRow">
         <span>
           <span className="col-xs-6 text-right orderDetails">
-            {paymentOrder.maxPaymentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+            {paymentOrder.maxPaymentAmount.toLocaleString('el-GR', {minimumFractionDigits: 2})}
             {currencyFormatter.findCurrency(paymentOrder.currency).symbol}
           </span>
           <span className="col-xs-offset-2 col-xs-4 text-right orderDetails">

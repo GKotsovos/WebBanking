@@ -10,10 +10,10 @@ export const LoanExtraDetailsFirstRow = ({ activeLoan, language }) => (
       <div className="row">
         <span>
           <span className="col-xs-3 text-right">
-            {activeLoan.nextInstallmentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
+            {activeLoan.nextInstallmentAmount.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
           </span>
           <span className="col-xs-offset-1 col-xs-4 text-right">
-            {activeLoan.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
+            {activeLoan.debt.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
           </span>
           <span className="col-sm-offset-1 col-xs-4 col-sm-3 text-right">
             {dateformat(activeLoan.nextInstallmentDate, 'dd/mm/yyyy')}
