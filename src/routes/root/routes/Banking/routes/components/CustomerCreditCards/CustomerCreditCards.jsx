@@ -36,7 +36,7 @@ export class CustomerCreditCards extends Component {
               key={creditCard.id}
               className="isCreditCard"
               data-subtext={
-                `Credit Card ${creditCard.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
+                `Credit Card ${creditCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
               }
               value={creditCard.id}
             >

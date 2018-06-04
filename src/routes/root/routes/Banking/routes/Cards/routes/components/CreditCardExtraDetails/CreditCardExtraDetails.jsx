@@ -9,10 +9,10 @@ export const CreditCardExtraDetails = ({ card, language }) => (
     <li className="list-group-item">
       <span className="row">
         <span className="col-xs-3 col-sm-3 text-right">
-          {card.nextInstallmentAmount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
+          {card.nextInstallmentAmount.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
         </span>
         <span className="col-xs-4 col-sm-4 text-right">
-          {card.debt.toLocaleString('gr-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
+          {card.debt.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
         </span>
         <span className="col-xs-offset-1 col-xs-4 text-right">
           {dateformat(card.nextInstallmentDate, 'dd/mm/yyyy')}

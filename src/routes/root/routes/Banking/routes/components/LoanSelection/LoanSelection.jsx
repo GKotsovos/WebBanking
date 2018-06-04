@@ -32,7 +32,7 @@ export class LoanSelection extends Component {
               <option
                 key={loan.id}
                 data-subtext={
-                  `${loan.customTitle} ${loan.availableBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
+                  `${loan.customTitle} ${loan.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
                 }>
                 {loan.id}
               </option>

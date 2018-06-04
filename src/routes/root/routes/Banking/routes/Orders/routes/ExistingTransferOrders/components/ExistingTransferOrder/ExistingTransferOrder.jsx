@@ -19,7 +19,7 @@ export const ExistingTransferOrder = ({ transferOrder, language, cancelTransferO
             {transferOrder.debitProductId}
           </span>
           <span className="col-xs-2 text-right">
-            {transferOrder.amount.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+            {transferOrder.amount.toLocaleString('el-GR', {minimumFractionDigits: 2})}
             {currencyFormatter.findCurrency(transferOrder.currency).symbol}
           </span>
           <span className="col-xs-4 text-right">

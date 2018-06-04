@@ -81,7 +81,7 @@ export const transfer = (transactionForm) => {
         beneficiary: transactionForm.fullName.value,
         bank: transactionForm.bank.bic,
         isTransfer: true,
-        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
+        amount: Number(transactionForm.amount.value).toLocaleString('el-GR', {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency.value,
         date: transactionForm.date.value,
         isAsap: transactionForm.date.asapTransaction,

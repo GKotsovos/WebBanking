@@ -129,7 +129,7 @@ export const loanPayment = () => {
         beneficiary: 'AGILE BANK',
         bank: 'AGILE BANK',
         isTransfer: false,
-        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
+        amount: Number(transactionForm.amount.value).toLocaleString('el-GR', {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency,
         date: transactionForm.date.value,
         isAsap: transactionForm.date.asapTransaction,

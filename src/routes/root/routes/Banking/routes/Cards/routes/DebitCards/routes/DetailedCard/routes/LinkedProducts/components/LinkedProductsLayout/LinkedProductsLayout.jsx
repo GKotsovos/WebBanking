@@ -27,7 +27,7 @@ export const LinkedProductsLayout = ({
               <td key={key++} className="cell col-xs-2 text-center">{linkedProduct.type}</td>
               <td key={key++} className="cell col-xs-4 text-center">{linkedProduct.id}</td>
               <td key={key++} className="cell col-xs-2 text-center">
-                {linkedProduct.ledgerBalance.toLocaleString('gr-GR', {minimumFractionDigits: 2})}
+                {linkedProduct.ledgerBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}
                 {currencyFormatter.findCurrency(linkedProduct.currency).symbol}
               </td>
               <td key={key++} className="cell col-xs-1 text-center">

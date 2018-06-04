@@ -177,7 +177,7 @@ export const payment = (transactionForm) => {
         beneficiary,
         bank,
         isPayment: true,
-        amount: Number(transactionForm.amount.value).toLocaleString(undefined, {minimumFractionDigits: 2}).replace('.', ''),
+        amount: Number(transactionForm.amount.value).toLocaleString('el-GR', {minimumFractionDigits: 2}).replace('.', ''),
         currency: transactionForm.currency.value,
         date: transactionForm.date.value,
         isAsap: transactionForm.date.asapTransaction,
