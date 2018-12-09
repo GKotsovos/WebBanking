@@ -1,7 +1,6 @@
 import React from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './CancelOrderModal.css';
 
 export const CancelOrderModal = ({
   orderName,

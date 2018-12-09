@@ -3,7 +3,6 @@ import _ from 'underscore';
 import Account from '../../containers/AccountContainer';
 import DetailedAccount from '../../containers/DetailedAccountContainer';
 import TransactionsHistory from 'routes/root/routes/Banking/routes/components/TransactionsHistory';
-import './AccountsLayout.css';
 
 export const AccountsLayout = ({
   accounts,

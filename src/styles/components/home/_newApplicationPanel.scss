@@ -1,0 +1,33 @@
+.buttons {
+  width: 100%;
+  height: 40px;
+}
+
+#newUser {
+  padding: 4% 13.5% 10% 13.5%;
+  background-color: #3764bf;
+  border: none;
+}
+
+#newUserTitle {
+  margin-left: -5%;
+  margin-bottom: 8%;
+}
+
+#userIcon {
+  font-size: 30px;
+  margin-right: 5%;
+}
+
+#newUserButton {
+  background-color: $yellow;
+  color: #262626;
+  text-shadow: 1px 1px 3px #d1d1d1;
+  font-weight: bold;
+}
+
+@include not-desktop {
+  #newUser {
+    padding: 5% 10% 10% 10%;
+  }
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import ExistingPaymentOrder from '../ExistingPaymentOrder';
 import _ from 'underscore';
-import './ExistingPaymentOrdersLayout.css';
 
 export const ExistingPaymentOrdersLayout = ({ paymentOrders, language, cancelPaymentOrder }) => (
   <div>

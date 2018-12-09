@@ -2,7 +2,6 @@ import React from 'react';
 import DeleteLinkedProductModal from '../DeleteLinkedProductModal';
 import ErrorMessageModal from 'routes/root/routes/Banking/routes/components/ErrorMessageModal';
 import FontAwesome from 'react-fontawesome';
-import './DeleteLinkedProduct.css';
 
 export const DeleteLinkedProduct = ({
   debitCardId,

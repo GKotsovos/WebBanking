@@ -1,0 +1,23 @@
+.formControls {
+  height: 40px;
+}
+
+#loginForm {
+  padding: 8% 13.5% 5% 13.5%;
+}
+
+#loginButton {
+  margin-top: 4%;
+  background-color: $button-blue;
+  color: $white-text;
+}
+
+@include not-desktop {
+  #loginForm {
+    padding: 5% 10% 5% 10%;
+  }
+
+  #newUser {
+    padding: 5% 10% 10% 10%;
+  }
+}

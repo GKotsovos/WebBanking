@@ -1,7 +1,6 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText'
-import './ForgotPassword.css'
 
 export const ForgotPassword = ({ language, changePanel }) => (
   <p

@@ -1,0 +1,13 @@
+.small {
+  display: none;
+}
+
+@include phone {
+  .default {
+    display: none;
+  }
+
+  .small {
+    display: inline;
+  }
+}

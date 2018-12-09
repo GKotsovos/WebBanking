@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
 import Link from './Link';
 import localizationText from './localizationText';
-import './UsefullLinks.css'
 
 export const UsefullLinks = ({ language, changePanel }) => (
   <div id="usefullLinks" className="">

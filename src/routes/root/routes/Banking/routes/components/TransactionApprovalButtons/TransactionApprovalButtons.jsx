@@ -1,7 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router'
 import localizationText from './localizationText';
-import './TransactionApprovalButtons.css';
 
 export const TransactionApprovalButtons = ({ language, completeTransaction }) => (
   <div id="formApprovalButtons" className="form-group">

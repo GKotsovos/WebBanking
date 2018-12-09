@@ -2,7 +2,6 @@ import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './CardPanelBody.css';
 
 export const CardPanelBody = ({ card, type, language }) => (
   <div className="panel-body">

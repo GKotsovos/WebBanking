@@ -1,7 +1,6 @@
 import React from 'react';
 import dateformat from 'dateformat';
 import localizationText from './localizationText';
-import './CardExtraDetails.css';
 
 export const CardExtraDetails = ({ card, language }) => (
   <ul className="list-group">

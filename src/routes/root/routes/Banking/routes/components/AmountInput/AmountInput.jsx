@@ -1,6 +1,5 @@
 import React from 'react'
 import _ from 'underscore';
-import './AmountInput.css';
 
 export const AmountInput = ({ title, amount, setTransactionAmount}) => (
   <div className="form-group bottomOfTwoDivs">

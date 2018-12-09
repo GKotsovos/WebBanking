@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText';
-import './NewApplication.css'
 
 export const NewApplication = ({ language, changePanel }) => (
   <div id="newApplication" className="">

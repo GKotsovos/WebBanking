@@ -1,7 +1,6 @@
 import React from 'react';
 import dateformat from 'dateformat';
 import localizationText from './localizationText';
-import './AccountExtraDetails.css';
 
 export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state, language }) => (
   <ul className="list-group">

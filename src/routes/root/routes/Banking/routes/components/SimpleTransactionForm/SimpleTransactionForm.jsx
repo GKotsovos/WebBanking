@@ -4,7 +4,6 @@ import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInpu
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import localizationText from './localizationText';
-import './SimpleTransactionForm.css';
 
 class SimpleTransactionForm extends Component {
   componentDidMount() {

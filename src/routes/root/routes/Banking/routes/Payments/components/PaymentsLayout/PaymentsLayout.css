@@ -1,9 +1,0 @@
-#payments {
-  margin-top: 100px;
-}
-
-@media (max-width: 767px) {
-  #payments {
-    margin-top: 0;
-  }
-}

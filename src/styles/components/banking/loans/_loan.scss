@@ -1,0 +1,16 @@
+.loanContainer {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
+}
+
+.loanContainer:hover {
+  cursor: pointer;
+}
+
+@include phone {
+  .loanContainer {
+    margin: 0 auto 7.5% auto;
+  }
+}
+

@@ -2,7 +2,6 @@ import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './SelectPaymentOrderEndDate.css';
 
 export const SelectPaymentOrderEndDate = ({
   endDate,

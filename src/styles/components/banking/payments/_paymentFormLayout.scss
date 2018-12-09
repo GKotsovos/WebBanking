@@ -1,0 +1,49 @@
+.paymentContainer {
+  max-width: 400px;
+  margin: 0 auto 4% auto;
+}
+
+.btn-group.bootstrap-select.paymentAccount.form-control{
+  max-width: 500px;
+}
+
+#organizationSelect {
+  max-width: 200px;
+  margin-bottom: 10px;
+}
+
+#organizationSelect:hover {
+  cursor: pointer;
+}
+
+#paymentDatePicker_group {
+  max-width: 170px;
+}
+
+#savePayment {
+  display: flex;
+  align-items: center;
+}
+
+#savePaymentCheckBox {
+  margin-right: 5px;
+}
+
+#completionPaymentButtons {
+  margin: 5% auto 0 auto;
+  max-width: 210px;
+}
+
+#clearPaymentForm {
+  width: 102px;
+  margin-right: 3px;
+  background-color: #a6a6a6;
+  color: $white-text;
+}
+
+#nextPaymentForm {
+  width: 102px;
+  margin-left: 3px;
+  background-color: $button-blue;
+  color: $white-text;
+}

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './ChargesSelection.css';
 
 export class ChargesSelection extends Component {
   componentDidMount() {

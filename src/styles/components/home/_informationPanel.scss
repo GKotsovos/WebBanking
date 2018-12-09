@@ -1,0 +1,47 @@
+#infoPanel {
+  margin-right: 2%;
+  height: 200px;
+  background-color: $light-blue;
+  border: none;
+}
+
+#infoPanel:hover {
+  cursor: pointer;
+}
+
+#infoText {
+  font-size: 15px;
+  margin-bottom: 5%;
+  user-select : none;
+}
+
+#infoIcon {
+  margin-bottom: 5%;
+}
+
+#panelRow {
+  margin: 0;
+}
+
+@include not-desktop {
+  #infoIcon {
+    margin-left: 0;
+  }
+}
+
+@include phone {
+  #infoPanel {
+    margin: 0 auto 1% auto;
+    height: 100px;
+  }
+
+  #infoIcon {
+    margin-bottom: 0;
+  }
+
+  #infoText {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+}

@@ -4,7 +4,6 @@ import Information from './Panels/Information';
 import UsefullLinks from './Panels/UsefullLinks';
 import ForgotPassword from './Panels/ForgotPassword';
 import NewApplication from './Panels/NewApplication';
-import './MainPanel.css'
 
 class MainPanel extends Component {
   panelView = () => {
@@ -35,7 +34,7 @@ class MainPanel extends Component {
 
 MainPanel.PropTypes = {
   activePanel: PropTypes.string.isRequired,
-  language: PropTypes.string.isRequired,  
+  language: PropTypes.string.isRequired,
   changePanel: PropTypes.func.isRequired
 };
 

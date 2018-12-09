@@ -7,7 +7,6 @@ import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInpu
 import SelectPaymentOrderEndDate from '../SelectPaymentOrderEndDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import localizationText from './localizationText';
-import './NewPaymentOrderFormLayout.css';
 
 class NewPaymentOrderFormLayout extends Component {
   clearForm() {

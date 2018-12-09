@@ -1,5 +1,4 @@
 import React from 'react'
-import './SimpleTransactionApprovalRow.css';
 
 export const SimpleTransactionApprovalRow = ({ title, value}) => (
   <tr>

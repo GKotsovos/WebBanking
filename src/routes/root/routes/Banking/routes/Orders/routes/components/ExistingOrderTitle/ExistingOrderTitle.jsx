@@ -1,5 +1,4 @@
 import React from 'react';
-import './ExistingOrderTitle.css';
 
 export const ExistingOrderTitle = ({ orderTitle, orderTo }) => (
   <div className="orderTitle panel-heading">

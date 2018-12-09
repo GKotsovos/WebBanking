@@ -2,7 +2,6 @@ import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './TimePeriodSelection.css';
 
 export const TimePeriodSelection = ({
   startDate,
@@ -17,7 +16,7 @@ export const TimePeriodSelection = ({
     <div id="timePeriodGroup" className="row">
       <div className="col-xs-12">
 
-        <div className="periodSelection col-xs-12 col-sm-4 verticalCenter">
+        <div className="periodSelection col-xs-12 col-sm-4 vertical-align">
           <label className="fromPeriodLabel">{localizationText[language].fromTimePeriodLabel}</label>
           <DatePicker
             id="timePeriodPicker"
@@ -30,7 +29,7 @@ export const TimePeriodSelection = ({
           />
         </div>
 
-        <div className="periodSelection col-sm-offset-1 col-xs-12 col-sm-4 verticalCenter">
+        <div className="periodSelection col-sm-offset-1 col-xs-12 col-sm-4 vertical-align">
           <label className="untilPeriodLabel">{localizationText[language].untilTimePeriodLabel}</label>
           <DatePicker
             id="timePeriodPicker"
@@ -43,7 +42,7 @@ export const TimePeriodSelection = ({
           />
         </div>
 
-        <div className="col-sm-offset-1 col-xs-12 col-sm-2 verticalCenter">
+        <div className="col-sm-offset-1 col-xs-12 col-sm-2 vertical-align">
           <button
             id="searchTransacrion"
             type="button"

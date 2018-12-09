@@ -1,7 +1,6 @@
 import React from 'react';
 import CardPanelHeader from '../CardPanelHeader';
 import CardPanelBody from '../CardPanelBody';
-import './Card.css';
 
 const paths = {
   DEBIT: '/banking/cards/debitcards/card',

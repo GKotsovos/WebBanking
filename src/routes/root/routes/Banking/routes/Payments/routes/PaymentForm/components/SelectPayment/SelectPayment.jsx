@@ -5,7 +5,6 @@ import SearchPaymentMethod from 'routes/root/routes/Banking/routes/components/Se
 import SelectPaymentCategory from '../SelectPaymentCategory';
 import SelectPaymentSubCategory from '../SelectPaymentSubCategory';
 import SelectPaymentMethod from '../SelectPaymentMethod';
-import './SelectPayment.css';
 
 export const SelectPayment = ({
   setSearchPayment,

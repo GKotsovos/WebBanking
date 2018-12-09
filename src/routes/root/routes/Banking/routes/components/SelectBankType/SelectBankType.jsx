@@ -1,7 +1,6 @@
 import React, { Component, PropTypes }  from 'react';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './SelectBankType.css';
 
 export class SelectBankType extends Component {
   componentDidMount() {

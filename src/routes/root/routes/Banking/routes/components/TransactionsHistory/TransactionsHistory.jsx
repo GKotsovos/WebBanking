@@ -1,7 +1,6 @@
 import React from 'react';
 import TimePeriodSelection from '../TimePeriodSelection';
 import TransactionsTable from '../TransactionsTable';
-import './TransactionsHistory.css';
 
 export const TransactionsHistory = ({
   transactionHistory,

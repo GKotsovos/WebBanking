@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './TransfersLayout.css';
 
 class TransfersLayout extends Component {
   componentWillMount() {

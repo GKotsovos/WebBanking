@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './SelectDebitAccount.css';
 
 export class SelectDebitAccount extends Component {
   componentDidMount() {

@@ -1,0 +1,9 @@
+#transfers {
+  margin-top: 100px;
+}
+
+@include phone {
+  #transfers {
+    margin-top: 0;
+  }
+}

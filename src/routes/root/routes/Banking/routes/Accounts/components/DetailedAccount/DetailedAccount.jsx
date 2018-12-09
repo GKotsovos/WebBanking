@@ -2,7 +2,6 @@ import React from 'react';
 import AccountPanelHeader from '../AccountPanelHeader';
 import AccountPanelBody from '../AccountPanelBody';
 import AccountExtraDetails from '../AccountExtraDetails';
-import './DetailedAccount.css';
 
 export const DetailedAccount = ({ activeAccount, language }) => (
   <div className="panel panel-default detailedAccountContainer">

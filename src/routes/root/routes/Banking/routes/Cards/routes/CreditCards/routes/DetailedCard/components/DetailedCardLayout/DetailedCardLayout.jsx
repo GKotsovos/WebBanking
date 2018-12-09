@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DetailedCard from '../../../../../containers/DetailedCardContainer'
 import CreditCardServicesTabs from '../../containers/CreditCardServicesContainer'
-import './DetailedCardLayout.css';
 
 export const DetailedCardLayout = ({ children, language }) => (
   <div>

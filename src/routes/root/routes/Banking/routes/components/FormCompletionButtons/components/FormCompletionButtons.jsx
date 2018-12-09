@@ -1,6 +1,5 @@
 import React from 'react';
 import localizationText from './localizationText';
-import './FormCompletionButtons.css';
 
 export const FormCompletionButtons = ({ shouldProcess, language, linkTo, clearForm, linkToApprovalForm }) => (
   <div id="formCompletionButtons" className="form-group">

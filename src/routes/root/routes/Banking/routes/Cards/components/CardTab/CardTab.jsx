@@ -1,5 +1,4 @@
 import React from 'react'
-import './CardTab.css'
 
 export const CardTab = ({ type, text, deactivateCard, linkTo }) => (
   <li className={`cardTypeTab ${window.location.href.includes('/' + type + 'cards') ? 'active' : ''}`}

@@ -4,7 +4,6 @@ import InformationPanel from '../../containers/InformationPanelContainer';
 import ContactPanel from '../../containers/ContactPanelContainer';
 import UsefullLinksPanel from '../../containers/UsefullLinksPanelContainer';
 import MainPanel from '../../containers/MainPanelContainer';
-import './HomeView.css';
 
 export const HomeView = () => (
   <div>

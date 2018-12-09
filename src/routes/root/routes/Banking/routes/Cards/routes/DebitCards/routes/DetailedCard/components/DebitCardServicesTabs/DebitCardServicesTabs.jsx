@@ -1,6 +1,5 @@
 import React from 'react';
 import localizationText from './localizationText';
-import './DebitCardServicesTabs.css';
 
 export const DebitCardServicesTabs = ({ language, linkTo }) => (
   <div className="">

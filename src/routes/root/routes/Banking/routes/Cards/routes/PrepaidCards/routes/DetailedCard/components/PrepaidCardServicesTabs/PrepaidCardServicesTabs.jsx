@@ -1,6 +1,5 @@
 import React from 'react';
 import localizationText from './localizationText';
-import './PrepaidCardServicesTabs.css';
 
 export const PrepaidCardServicesTabs = ({ activeRoute, initCardTransactionForm, language, linkTo }) => (
   <div>

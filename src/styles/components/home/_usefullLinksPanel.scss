@@ -1,0 +1,41 @@
+#usefullLinksPanel {
+  margin-left: 2%;
+  margin-bottom: 60px;
+  min-height: 200px;
+  background-color: $light-blue;
+  border: none;
+}
+
+#usefullLinksPanel:hover {
+  cursor: pointer;
+}
+
+#bookIcon {
+  font-size: 40px;
+}
+
+#usefullLinksText{
+  font-size: 15px;
+  margin-bottom: 15%;
+  margin-top: 5%;
+  user-select : none;
+}
+
+@include phone {
+  #usefullLinksPanel {
+    font-size: 13px;
+    margin: 1% 0 60px 0;
+    min-height: 100px;
+  }
+
+  #bookIcon {
+    font-size: 35px;
+    margin-top: 5%;
+  }
+
+  #usefullLinksText{
+    margin-bottom: 10%;
+    margin-top: 5%;
+  }
+}
+

@@ -1,7 +1,6 @@
 import React from 'react';
 import ExistingTransferOrder from '../ExistingTransferOrder';
 import _ from 'underscore';
-import './ExistingTransferOrdersLayout.css';
 
 export const ExistingTransferOrdersLayout = ({ transferOrders, language, cancelTransferOrder }) => (
   <div>

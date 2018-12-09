@@ -1,6 +1,5 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
-import './AccountPanelHeader.css';
 
 export const AccountPanelHeader = ({ currency, type, iban }) => (
   <div className="panel-heading accountTitle">

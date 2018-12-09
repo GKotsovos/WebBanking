@@ -1,6 +1,5 @@
 import React from 'react';
 import localizationText from './localizationText';
-import './LoanServicesTabs.css';
 
 export const LoanServicesTabs = ({ activeRoute, language, initLoanTransactionForm, linkTo }) => (
   <div className="">

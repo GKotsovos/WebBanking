@@ -3,7 +3,6 @@ import currencyFormatter from 'currency-formatter';
 import CustomerCreditCards from '../CustomerCreditCards';
 import CreditCardInput from '../CreditCardInput';
 import _ from 'underscore';
-import './CreditCardSelection.css';
 
 export class CreditCardSelection extends Component {
   render() {

@@ -1,6 +1,5 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
-import './LoanPanelHeader.css';
 
 export const LoanPanelHeader = ({ loan }) => (
   <div className="panel-heading loanTitle">

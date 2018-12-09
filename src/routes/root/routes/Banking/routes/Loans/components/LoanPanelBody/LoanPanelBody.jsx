@@ -1,7 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import localizationText from './localizationText';
-import './LoanPanelBody.css';
 
 export const LoanPanelBody = ({ loan, language }) => (
   <div className="panel-body">

@@ -1,0 +1,15 @@
+.accountContainer {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
+}
+
+.accountContainer:hover {
+  cursor: pointer;
+}
+
+@include phone {
+  .accountContainer {
+    margin: 0 auto 7.5% auto;
+  }
+}

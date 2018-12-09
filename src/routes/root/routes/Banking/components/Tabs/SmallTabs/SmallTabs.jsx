@@ -2,14 +2,13 @@ import React from 'react'
 import FontAwesome from 'react-fontawesome'
 import { browserHistory } from 'react-router'
 import localizationText from '../localizationText';
-import './SmallTabs.css'
 
 export const SmallTabs = ({
   activeRoute,
   language,
   linkTo,
   getAccounts,
-  deactiveAccount,
+  deactivateAccount,
   getCards,
   deactivateCard,
   getLoans,
@@ -34,7 +33,7 @@ export const SmallTabs = ({
         <li className={`defaultTab ${window.location.href == "/banking" ? 'active' : ''}`}
           onClick={() => {
             getAccounts();
-            deactiveAccount();
+            deactivateAccount();
             linkTo('/banking');
         }}>
           <a href="#accounts" className="mainTab" aria-controls="accounts" role="tab" data-toggle="tab">

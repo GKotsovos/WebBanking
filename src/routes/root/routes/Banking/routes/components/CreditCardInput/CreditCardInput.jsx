@@ -1,7 +1,6 @@
 import React from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './CreditCardInput.css';
 
 export const CreditCardInput = ({ selectedCreditCard, language, setCreditCardForPayment }) => (
   <div>

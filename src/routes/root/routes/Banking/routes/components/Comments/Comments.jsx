@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './Comments.css';
 
 export const Comments = ({
   comments,

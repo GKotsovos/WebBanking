@@ -4,7 +4,6 @@ import currencyFormatter from 'currency-formatter';
 import ExistingOrderTitle from '../../../components/ExistingOrderTitle';
 import CancelOrderButton from '../../../components/CancelOrderButton';
 import localizationText from './localizationText';
-import './ExistingTransferOrder.css';
 
 export const ExistingTransferOrder = ({ transferOrder, language, cancelTransferOrder }) => (
   <div className="panel panel-default existingOrderContainer">

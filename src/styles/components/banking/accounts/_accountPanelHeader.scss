@@ -1,0 +1,29 @@
+.panel-default> .accountTitle {
+  background-color: $secondary-blue;
+  color: $white-text;
+}
+
+.titles {
+  font-size: 14px;
+}
+
+.IBAN {
+  float: right;
+  margin-top: 2px;
+}
+
+@include phone {
+  .titles {
+    font-size: 12px;
+  }
+}
+
+@include smallest-supported-screen {
+  .titles {
+    font-size: 11px;
+  }
+
+  .IBAN {
+    margin-top: 5px;
+  }
+}

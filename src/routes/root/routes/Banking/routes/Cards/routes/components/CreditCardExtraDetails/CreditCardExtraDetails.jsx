@@ -2,7 +2,6 @@ import React from 'react';
 import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
 import localizationText from './localizationText';
-import './CreditCardExtraDetails.css';
 
 export const CreditCardExtraDetails = ({ card, language }) => (
   <ul className="list-group">

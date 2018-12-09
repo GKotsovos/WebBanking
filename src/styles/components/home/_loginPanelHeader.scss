@@ -1,0 +1,31 @@
+#loginHead {
+  background-color: $secondary-blue;
+  border: none;
+}
+
+.titles {
+  margin: 2%;
+  color: $white-text;
+  text-shadow: 1px 1px 4px $shadow;
+  border:none;
+  font-size: 17px;
+}
+
+.verticalCenterLogin {
+  display: flex;
+  align-items: center;
+}
+
+#lockIcon {
+  margin-left:0;
+  font-size: 35px;
+  margin-right: 5%;
+  color: $white-text;
+  text-shadow: 1px 1px 4px $shadow;
+}
+
+@include not-desktop {
+  .titles {
+    margin: 1%;
+  }
+}

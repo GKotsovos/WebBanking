@@ -3,7 +3,6 @@ import LoanPanelHeader from 'routes/root/routes/Banking/routes/Loans/components/
 import LoanPanelBody from 'routes/root/routes/Banking/routes/Loans/components/LoanPanelBody';
 import LoanExtraDetailsFirstRow from '../LoanExtraDetailsFirstRow'
 import LoanExtraDetailsSecondRow from '../LoanExtraDetailsSecondRow'
-import './DetailedLoan.css';
 
 export const DetailedLoan = ({ activeLoan, language }) => (
   <div className="panel panel-default detailedLoanContainer">

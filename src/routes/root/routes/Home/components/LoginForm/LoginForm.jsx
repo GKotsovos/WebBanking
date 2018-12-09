@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 require('bootstrap-validator');
 import localizationText from './localicationText'
-import './LoginForm.css'
 
 class LoginForm extends Component {
   validateForm = () => {

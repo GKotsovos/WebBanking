@@ -2,7 +2,6 @@ import React from 'react'
 import FontAwesome from 'react-fontawesome'
 import CardTab from '../CardTab'
 import localizationText from './localizationText';
-import './CardsTabs.css'
 
 export const CardsTabs = ({ language, linkTo, deactivateCard }) => (
   <div>

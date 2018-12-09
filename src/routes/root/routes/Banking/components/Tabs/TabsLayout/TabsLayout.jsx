@@ -2,7 +2,6 @@ import React from 'react'
 import DefaultTabs from '../../../containers/DefaultTabsContainer'
 import SmallTabs from '../../../containers/SmallTabsContainer'
 import FontAwesome from 'react-fontawesome'
-import './TabsLayout.css'
 
 export const TabsLayout = () => (
   <div id="menuTabs">

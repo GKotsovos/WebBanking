@@ -1,7 +1,6 @@
 import React from 'react';
 import LoanPanelHeader from '../LoanPanelHeader';
 import LoanPanelBody from '../LoanPanelBody';
-import './Loan.css';
 
 export const Loan = ({ loan, language, setActiveLoan, getLoanTransactionHistory, linkTo }) => (
   <div className="panel panel-default loanContainer" onClick={() => {

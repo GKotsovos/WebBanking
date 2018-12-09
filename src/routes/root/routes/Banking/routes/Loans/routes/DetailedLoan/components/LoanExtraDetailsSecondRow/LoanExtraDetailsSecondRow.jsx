@@ -2,7 +2,6 @@ import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import dateformat from 'dateformat';
 import localizationText from './localizationText';
-import './LoanExtraDetailsSecondRow.css';
 
 export const LoanExtraDetailsSecondRow = ({ activeLoan, language }) => (
   <ul className="list-group">

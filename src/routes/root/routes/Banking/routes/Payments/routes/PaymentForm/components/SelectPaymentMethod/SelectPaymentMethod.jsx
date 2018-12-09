@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './SelectPaymentMethod.css';
 
 export class SelectPaymentMethod extends Component {
   componentDidMount() {

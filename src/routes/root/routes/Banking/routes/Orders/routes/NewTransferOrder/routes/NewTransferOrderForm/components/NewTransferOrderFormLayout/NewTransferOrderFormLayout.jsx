@@ -13,7 +13,6 @@ import SelectPeriodicityAndTimesOfExecution from '../SelectPeriodicityAndTimesOf
 import CustomTitleInput from '../CustomTitleInput';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import localizationText from './localizationText';
-import './NewTransferOrderFormLayout.css';
 
 class NewTransferOrderFormLayout extends Component {
   clearForm() {

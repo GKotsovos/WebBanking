@@ -1,7 +1,6 @@
 import React from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './SelectTimesOfExecution.css';
 
 export const SelectTimesOfExecution = ({ timesOfExecution, language, setTimesOfExecution}) => (
   <div className="form-group col-xs-6">

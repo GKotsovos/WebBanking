@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import localizationText from './localizationText';
-import './OrderSelect.css';
 
 class OrderSelect extends Component {
   componentDidMount() {

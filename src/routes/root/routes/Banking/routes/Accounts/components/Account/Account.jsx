@@ -1,7 +1,6 @@
 import React from 'react';
 import AccountPanelHeader from '../AccountPanelHeader';
 import AccountPanelBody from '../AccountPanelBody';
-import './Account.css';
 
 export const Account = ({ account, language, setActiveAccount, getAccountCurrentMonthTransactionHistory }) => (
   <div

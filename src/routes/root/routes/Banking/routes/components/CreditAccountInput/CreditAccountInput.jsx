@@ -1,7 +1,6 @@
 import React from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './CreditAccountInput.css';
 
 export const CreditAccountInput = ({ showTitle, creditAccount, language, setCreditAccount}) => (
   <div className="form-group bottomOfTwoDivs">

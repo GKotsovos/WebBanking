@@ -10,7 +10,7 @@ require('bootstrap/dist/js/bootstrap.min.js')
 require('font-awesome/css/font-awesome.min.css')
 require('bootstrap-select/dist/css/bootstrap-select.min.css')
 require('bootstrap-select/dist/js/bootstrap-select.min')
-require('styles/google-fonts/Roboto/roboto.css')
+require('styles/fonts/Roboto/roboto.css')
 
 // ========================================================
 // Store Instantiation

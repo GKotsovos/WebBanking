@@ -1,7 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
-import './CardPanelHeader.css';
 
 export const CardPanelHeader = ({ card, type }) => (
   <div className="cardTitle panel-heading">

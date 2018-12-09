@@ -1,7 +1,6 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText';
-import './TransactionSuccess.css';
 
 export const TransactionSuccess = ({ linkTo, linkToStart, language, clearTransactionForm }) => (
   <div className="panel panel-default" id="transactionSuccess">

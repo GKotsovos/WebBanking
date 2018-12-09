@@ -1,0 +1,18 @@
+#formApprovalButtons {
+  width: 226px;
+  margin: 0 auto;
+}
+
+#previousForm {
+  width: 110px;
+  margin-right: 3px;
+  background-color: $red;
+  color: $white-text;
+}
+
+#submitTransaction {
+  width: 110px;
+  margin-left: 3px;
+  background-color: $button-blue;
+  color: $white-text;
+}

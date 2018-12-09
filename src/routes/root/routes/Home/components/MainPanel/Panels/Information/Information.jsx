@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText';
-import './Information.css'
 
 export const Information = ({ language, changePanel }) => (
   <div id="information" className="">

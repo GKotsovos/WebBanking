@@ -2,14 +2,13 @@ import React from 'react'
 import { browserHistory } from 'react-router'
 import FontAwesome from 'react-fontawesome'
 import localizationText from '../localizationText';
-import './DefaultTabs.css'
 
 export const DefaultTabs = ({
   activeRoute,
   language,
   linkTo,
   getAccounts,
-  deactiveAccount,
+  deactivateAccount,
   getCards,
   deactivateCard,
   getLoans,
@@ -25,7 +24,7 @@ export const DefaultTabs = ({
       <li className={`defaultTab ${window.location.href.endsWith("/banking") ? 'active' : ''}`}
         onClick={() => {
           getAccounts();
-          deactiveAccount();
+          deactivateAccount();
           linkTo('/banking');
       }}>
         <a href="#accounts" className="mainTab" data-toggle="tab">

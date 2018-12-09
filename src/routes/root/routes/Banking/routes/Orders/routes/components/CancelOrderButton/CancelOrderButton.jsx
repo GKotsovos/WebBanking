@@ -2,7 +2,6 @@ import React from 'react';
 import CancelOrderModal from '../CancelOrderModal';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './CancelOrderButton.css';
 
 export const CancelOrderButton = ({
   orderName,

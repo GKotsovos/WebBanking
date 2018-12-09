@@ -3,7 +3,6 @@ import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './TransactionsTable.css';
 
 const sign = {
   credit: '',

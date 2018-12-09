@@ -1,0 +1,16 @@
+.existingOrderContainer {
+  margin: 0 auto 20px auto;
+}
+
+.secondRow {
+  margin-top: 10px;
+}
+
+@include phone {
+  .orderDetails {
+    font-size: 12px;
+  }
+  .existingOrderPanelBody {
+    padding: 10px;
+  }
+}

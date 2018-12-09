@@ -1,0 +1,9 @@
+#payments {
+  margin-top: 100px;
+}
+
+@include phone {
+  #payments {
+    margin-top: 0;
+  }
+}

@@ -4,7 +4,6 @@ import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/comp
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
 import localizationText from './localizationText';
-import './LoanPaymentApproval.css';
 
 export const LoanPaymentApproval = ({ transactionForm, language, loanPayment }) => (
   <form id="loanPaymentApprovalForm">

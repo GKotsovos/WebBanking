@@ -1,7 +1,6 @@
 import React from 'react';
 import SelectTimesOfExecution from '../SelectTimesOfExecution';
 import SelectPeriodicity from '../SelectPeriodicity';
-import './SelectPeriodicityAndTimesOfExecution.css';
 
 export const SelectPeriodicityAndTimesOfExecution = ({
   periodicity,

@@ -118,7 +118,7 @@ export const setTransactionHistoryEndDate = (endDate) => {
   }
 }
 
-export function deactiveAccount() {
+export function deactivateAccount() {
   return {
     type: DEACTIVE_ACCOUNT,
   }
@@ -131,7 +131,7 @@ export const actions = {
   setActiveAccount,
   setTransactionHistoryStartDate,
   setTransactionHistoryEndDate,
-  deactiveAccount,
+  deactivateAccount,
 }
 
 const ACTION_HANDLERS = {

@@ -1,7 +1,6 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText';
-import './TransactionFailure.css';
 
 export const TransactionFailure = ({ linkTo, errorMessage, language, linkToStart }) => (
   <div className="panel panel-default" id="transactionFailure">

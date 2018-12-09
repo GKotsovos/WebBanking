@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import CreditCardSelection from '../CreditCardSelection'
 import LoanSelection from '../LoanSelection'
 import PaymentCodeInput from '../PaymentCodeInput'
-import './PaymentCodeSelection.css';
 
 class PaymentCodeSelection extends Component {
   render() {

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import './PaymentsLayout.css';
 
 class PaymentsLayout extends Component {
   componentWillMount() {

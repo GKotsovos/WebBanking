@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import LogOutModal from '../LogOutModal'
 import _ from 'underscore'
 import Tabs from '../Tabs'
-import './BankingLayout.css';
 
 class BankingLayout extends Component {
   componentWillMount() {

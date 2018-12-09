@@ -6,7 +6,6 @@ import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/
 import SelectBankType from 'routes/root/routes/Banking/routes/components/SelectBankType';
 import Comments from 'routes/root/routes/Banking/routes/components/Comments';
 import localizationText from './localizationText';
-import './TransferFormLayout.css';
 
 class TransferFormLayout extends Component {
   componentDidMount() {

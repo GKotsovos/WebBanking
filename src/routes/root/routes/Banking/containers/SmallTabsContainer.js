@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { linkTo } from '../modules/banking';
-import { getAccounts, deactiveAccount } from '../routes/Accounts/modules/accounts';
+import { getAccounts, deactivateAccount } from '../routes/Accounts/modules/accounts';
 import { getCards, deactivateCard } from '../routes/Cards/modules/cards';
 import { getLoans, deactivateLoan } from '../routes/Loans/modules/loans';
 import { initTransferTransactionForm } from '../routes/Transfers/modules/transfers'
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
 const mapActionCreators = {
   linkTo: (route) => linkTo(route),
   getAccounts: () => getAccounts(),
-  deactiveAccount: () => deactiveAccount(),
+  deactivateAccount: () => deactivateAccount(),
   getCards: () => getCards(),
   deactivateCard: ()=> deactivateCard(),
   getLoans: () => getLoans(),

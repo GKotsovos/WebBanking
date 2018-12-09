@@ -3,7 +3,6 @@ import DeleteLinkedProduct from '../../containers/DeleteLinkedProductContainer';
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
-import './LinkedProductsLayout.css';
 
 export const LinkedProductsLayout = ({
   debitCardId,

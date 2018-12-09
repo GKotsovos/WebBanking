@@ -1,6 +1,5 @@
 import React from 'react'
 import currencyFormatter from 'currency-formatter';
-import './MoneyTransactionApprovalRow.css';
 
 export const MoneyTransactionApprovalRow = ({ title, amount, currency }) => (
   <tr>

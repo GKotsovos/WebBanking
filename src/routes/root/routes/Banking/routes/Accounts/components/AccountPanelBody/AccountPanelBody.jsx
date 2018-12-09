@@ -1,7 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import localizationText from './localizationText';
-import './AccountPanelBody.css';
 
 export const AccountPanelBody = ({ ledgerBalance, currency, overdraft, availableBalance, language }) => (
   <div className="panel-body">
