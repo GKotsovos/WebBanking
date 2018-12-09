@@ -4,15 +4,14 @@ import localizationText from './localizationText';
 
 export const NewApplicationPanel = ({ language, changePanel }) => (
   <ul className="list-group">
-    <li id="newUser" className="list-group-item">
-      <h3 id="newUserTitle" className="panel-title titles vertical-alignLogin">
-        <FontAwesome id="userIcon" name="user" />
+    <li className="new-user-panel list-group-item">
+      <h3 className="panel-title vertical-alignLogin">
+        <FontAwesome id="userIcon" className="new-user-panel__icon" name="user" />
         <span>{localizationText[language].newUserTitle}</span>
       </h3>
       <button
         onClick={() => changePanel('NEW_APPLICATION')}
-        id="newUserButton"
-        className="btn btn-default buttons"
+        className="new-user-panel__button btn btn-default"
         type="submit">
         {localizationText[language].applicationButton}
       </button>

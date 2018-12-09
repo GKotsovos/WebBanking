@@ -1,20 +1,18 @@
-#newApplication {
+.new-application-panel {
   height: auto;
   min-height: 300px;
   padding: 5%;
   font-size: 13px;
-  background-color: #d4e0f7;
+  background-color: #D4E0F7;
   margin-bottom: 3%;
-}
 
-#newApplicationTitle {
-  margin-top: 0;
-}
-
-@include phone {
-  #newApplication {
+  @include phone {
     min-height: auto;
     margin: 0 auto 3% auto;
     max-width: 450px;
+  }
+
+  &__title {
+    margin-top: 0;
   }
 }

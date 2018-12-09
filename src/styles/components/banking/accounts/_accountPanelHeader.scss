@@ -1,29 +1,19 @@
-.panel-default> .accountTitle {
-  background-color: $secondary-blue;
-  color: $white-text;
-}
+.account-panel-header {
+  &__title {
+    font-size: 14px;
+    margin: 0;
 
-.titles {
-  font-size: 14px;
-}
+    @include phone {
+      font-size: 12px;
+    }
 
-.IBAN {
-  float: right;
-  margin-top: 2px;
-}
+    @include smallest-supported-screen {
+      font-size: 11px;
+    }
+  }
 
-@include phone {
-  .titles {
-    font-size: 12px;
+  &__iban {
+    float: right;
   }
 }
 
-@include smallest-supported-screen {
-  .titles {
-    font-size: 11px;
-  }
-
-  .IBAN {
-    margin-top: 5px;
-  }
-}

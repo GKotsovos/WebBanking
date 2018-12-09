@@ -4,7 +4,7 @@ import AccountPanelBody from '../AccountPanelBody';
 import AccountExtraDetails from '../AccountExtraDetails';
 
 export const DetailedAccount = ({ activeAccount, language }) => (
-  <div className="panel panel-default detailedAccountContainer">
+  <div className="detailed-account-container panel panel-default">
     <AccountPanelHeader
       currency={activeAccount.currency}
       type={activeAccount.type}

@@ -4,7 +4,7 @@ import LoginPanelBody from '../LoginPanelBody';
 import NewApplicationPanel from '../../containers/NewApplicationPanelContainer';
 
 export const Login = ({ authenticate, changePanel, returnedError  }) => (
-  <div id="loginPanel" className="panel panel-default">
+  <div className="login-panel panel panel-default">
     <LoginPanelHeader />
     <LoginPanelBody
       authenticate={authenticate}

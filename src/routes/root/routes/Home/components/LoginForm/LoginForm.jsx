@@ -5,7 +5,7 @@ import localizationText from './localicationText'
 class LoginForm extends Component {
   validateForm = () => {
     const { authenticate } = this.props;
-    $('#loginForm').validator().on('submit', (e) => {
+    $('.login-form').validator().on('submit', (e) => {
       if (!e.isDefaultPrevented()) {
         e.preventDefault();
         authenticate(this.userId.value, this.password.value)
@@ -17,13 +17,13 @@ class LoginForm extends Component {
     const { language } = this.props;
     return (
       <form
-        id="loginForm"
+        className="login-form"
         data-toggle="validator"
         onSubmit={this.validateForm}>
         <div className="form-group">
           <input
             type="text"
-            className="form-control formControls"
+            className="form-control login-form__input"
             placeholder={localizationText[language].userIdPlaceholder}
             ref={ node => this.userId = node }
             data-error={localizationText[language].mandatoryUserId}
@@ -34,7 +34,7 @@ class LoginForm extends Component {
         <div className="form-group">
           <input
             type="password"
-            className="form-control formControls"
+            className="form-control login-form__input"
             placeholder={localizationText[language].passwordPlaceholder}
             ref={ node => this.password = node }
             data-error={localizationText[language].mandatoryPassword}
@@ -43,9 +43,8 @@ class LoginForm extends Component {
           <div className="help-block with-errors"></div>
         </div>
         <button
-          id="loginButton"
           type="submit"
-          className="btn btn-default buttons">
+          className="login-form__button btn btn-default">
           {localizationText[language].logIn}
         </button>
       </form>

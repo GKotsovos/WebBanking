@@ -27,9 +27,8 @@ class ErrorMessageModal extends Component {
             <div className="modal-body">{errorMessage}</div>
             <div className="modal-footer">
               <button
-                id="accept"
                 type="button"
-                className="btn btn-default accept"
+                className="modal__accept-button btn btn-default"
                 onClick={() => {
                   $('#errorMessageModal').modal('hide');
                   clearErrorMessage();

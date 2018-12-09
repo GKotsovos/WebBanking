@@ -1,7 +1,10 @@
-.row {
-  margin: 0;
-  padding: 0;
-}
-.summary {
-  font-size: 11px;
+.account-panel-body {
+  .row {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__summary {
+    font-size: 11px;
+  }
 }

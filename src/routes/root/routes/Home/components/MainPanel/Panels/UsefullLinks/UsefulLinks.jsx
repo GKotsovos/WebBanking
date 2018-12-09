@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react'
-import FontAwesome from 'react-fontawesome'
+import React  from 'react';
 import Link from './Link';
+import ClosePanelButton from 'routes/root/routes/Home/containers/ClosePanelButtonContainer';
 import localizationText from './localizationText';
 
-export const UsefullLinks = ({ language, changePanel }) => (
-  <div id="usefullLinks" className="">
-    <FontAwesome className="closePanel" name="window-close-o" onClick={() => changePanel('NEWS')} />
-    <h3 id="infoTittle">{localizationText[language].usefullLinksTitle}</h3>
+export const UsefulLinks = ({ language }) => (
+  <div className="useful-links-panel">
+    <ClosePanelButton />
+    <h3 className="useful-links-panel__title" id="infoTittle">{localizationText[language].usefullLinksTitle}</h3>
     <ul>
       <Link
         title={localizationText[language].bankOfGreece}
@@ -32,8 +32,4 @@ export const UsefullLinks = ({ language, changePanel }) => (
   </div>
 )
 
-UsefullLinks.PropTypes = {
-  changePanel: PropTypes.func.isRequired
-};
-
-export default UsefullLinks
+export default UsefulLinks

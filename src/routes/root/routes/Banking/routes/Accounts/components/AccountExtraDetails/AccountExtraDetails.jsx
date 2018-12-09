@@ -4,7 +4,7 @@ import localizationText from './localizationText';
 
 export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state, language }) => (
   <ul className="list-group">
-    <li className="cellRow list-group-item">
+    <li className="list-group-item">
       <div className="row">
         <span>
           <span className="col-xs-3 text-right">
@@ -17,7 +17,7 @@ export const AccountExtraDetails = ({ dateCreated, lastMovementDate, state, lang
             {state ? localizationText[language].active : localizationText[language].inactive}
           </span>
         </span>
-        <span className="summary">
+        <span className="account-panel-body__summary">
           <span className="col-xs-3 text-right">{localizationText[language].dateCreated}</span>
           <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].lastMovementDate}</span>
           <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].state}</span>

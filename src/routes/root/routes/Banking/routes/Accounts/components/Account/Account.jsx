@@ -2,12 +2,17 @@ import React from 'react';
 import AccountPanelHeader from '../AccountPanelHeader';
 import AccountPanelBody from '../AccountPanelBody';
 
-export const Account = ({ account, language, setActiveAccount, getAccountCurrentMonthTransactionHistory }) => (
+export const Account = ({
+  account,
+  language,
+  setActiveAccount,
+  getAccountCurrentMonthTransactionHistory
+}) => (
   <div
-    className="panel panel-default accountContainer"
+    className="account-panel panel panel-default"
     onClick={() => {
-    setActiveAccount(account);
-    getAccountCurrentMonthTransactionHistory(account.id);
+      setActiveAccount(account);
+      getAccountCurrentMonthTransactionHistory(account.id);
   }}>
     <AccountPanelHeader
       currency={account.currency}

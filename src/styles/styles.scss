@@ -3,13 +3,15 @@
 @import 'core/media-queries';
 @import 'core/common';
 
+// overrides
+@import 'overrides/bootstrap';
+
 // components
 @import "components/root/coreLayout";
 @import "components/root/footer";
 @import "components/root/navbar";
 @import "components/amountInput/amountInput";
 @import "components/banking/accounts/account";
-@import "components/banking/accounts/accountExtraDetails";
 @import "components/banking/accounts/accountPanelBody";
 @import "components/banking/accounts/accountPanelHeader";
 @import "components/banking/accounts/accountsLayout";
@@ -58,9 +60,9 @@
 @import "components/banking/payments/selectPayment";
 @import "components/banking/payments/selectPaymentCategory";
 @import "components/banking/payments/selectWayOfSelection";
-@import "components/banking/tabs/defaultTabs";
-@import "components/banking/tabs/smallTabs";
-@import "components/banking/tabs/tabsLayout";
+@import "components/banking/navigationTabs/desktopNavigationTabs";
+@import "components/banking/navigationTabs/mobileNavigationTabs";
+@import "components/banking/navigationTabs/navigationTabsLayout";
 @import "components/banking/transfers/bicInput";
 @import "components/banking/transfers/transferApproval";
 @import "components/banking/transfers/transferFormLayout";
@@ -68,9 +70,9 @@
 @import "components/banking/bankingLayout";
 @import "components/chargesSelection/chargesSelection";
 @import "components/formCompletionButtons/formCompletionButtons";
+@import "components/home/panels/closeButton";
 @import "components/home/panels/forgotPassword";
 @import "components/home/panels/information";
-@import "components/home/panels/mainPanel";
 @import "components/home/panels/newApplication";
 @import "components/home/panels/news";
 @import "components/home/panels/usefullLinks";
@@ -102,6 +104,3 @@
 @import "components/transactionResult/transactionSuccess";
 @import "components/transactionsHistory/transactionsHistory";
 @import "components/transactionsTable/transactionsTable";
-
-// overrides
-@import 'overrides/bootstrap';

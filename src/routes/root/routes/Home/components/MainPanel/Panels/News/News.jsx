@@ -7,7 +7,7 @@ class News extends Component {
 
   render() {
     return (
-      <div id="myCarousel" className="carousel slide hidden-xs" data-ride="carousel">
+      <div className="news-panel carousel slide hidden-xs" data-ride="carousel">
 
         <ol className="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" className="active" data-interval="5000"></li>

@@ -1,12 +1,6 @@
-.detailedAccountContainer {
+.detailed-account-container {
   min-width: 300px;
   max-width: 500px;
   border: none;
   margin: 0 auto 7% auto;
-}
-
-@include phone {
-  .detailedAccountContainer {
-    margin: 0 auto 7% auto;
-  }
 }

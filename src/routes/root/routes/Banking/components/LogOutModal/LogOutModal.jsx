@@ -18,29 +18,28 @@ class LogOutModal extends Component {
         aria-labelledby="myModalLabel"
         data-backdrop="static"
         data-keyboard="false">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <span className="modal-title">{localizationText[language].autoSignOutTitle}</span>
-          </div>
-          <div className="modal-body">
-            {localizationText[language].autoSignOutText}
-          </div>
-          <div className="modal-footer">
-            <button
-              id="accept"
-              type="button"
-              className="btn btn-default accept"
-              onClick={() => {
-                $('#logOutModal').modal('hide');
-                logOut();
-              }}>
-              {localizationText[language].acceptText}
-            </button>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <span className="modal-title">{localizationText[language].autoSignOutTitle}</span>
+            </div>
+            <div className="modal-body">
+              {localizationText[language].autoSignOutText}
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="modal__accept-button btn btn-default"
+                onClick={() => {
+                  $('#logOutModal').modal('hide');
+                  logOut();
+                }}>
+                {localizationText[language].acceptText}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     )
   }
 }

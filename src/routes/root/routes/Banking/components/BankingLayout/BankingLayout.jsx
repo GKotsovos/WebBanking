@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import LogOutModal from '../LogOutModal'
-import _ from 'underscore'
-import Tabs from '../Tabs'
+import LogOutModal from '../LogOutModal';
+import NavigationTabs from '../NavigationTabs'
 
 class BankingLayout extends Component {
   componentWillMount() {
@@ -31,9 +30,10 @@ class BankingLayout extends Component {
       language,
       logOut
      } = this.props;
+
     return (
-      <div id="bankingLayout" className="container" onClick={() => $('.collapse').collapse('hide')}>
-        <Tabs />
+      <div className="banking-layout container" onClick={() => $('.collapse').collapse('hide')}>
+        <NavigationTabs />
         <div>
           {children}
         </div>
@@ -48,7 +48,7 @@ class BankingLayout extends Component {
 }
 
 BankingLayout.propTypes = {
-  children : React.PropTypes.element.isRequired
+  children : PropTypes.element.isRequired
 }
 
 export default BankingLayout

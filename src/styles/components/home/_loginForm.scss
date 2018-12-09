@@ -1,23 +1,27 @@
-.formControls {
-  height: 40px;
-}
+.login-form {
+  margin: 8% 13.5% 5% 13.5%;
 
-#loginForm {
-  padding: 8% 13.5% 5% 13.5%;
-}
-
-#loginButton {
-  margin-top: 4%;
-  background-color: $button-blue;
-  color: $white-text;
-}
-
-@include not-desktop {
-  #loginForm {
-    padding: 5% 10% 5% 10%;
+  @include not-desktop {
+    margin: 5% 10% 5% 10%;
   }
 
-  #newUser {
-    padding: 5% 10% 10% 10%;
+  &__input {
+    height: 40px;
+  }
+
+  & &__button {
+    margin-top: 4%;
+    width: 100%;
+    height: 40px;
+    color: $white-text;
+    background-color: $button-blue;
+
+    &,
+    &:hover,
+    &:active {
+      color: $white-text;
+      background-color: $button-blue;
+    }
   }
 }
+

@@ -1,3 +1,7 @@
+[className*='col-'] {
+  padding: 0;
+}
+
 .btn-sample:hover,
 .btn-sample:active:focus,
 .btn-sample:active:active {
@@ -23,9 +27,46 @@
   background-color: $active-blue;
 }
 
-@include phone {
-  .navbar-nav>li>a {
+.navbar-nav>li>a {
+  @include phone {
     background-color: $primary-blue;
   }
+}
 
+.nav-tabs>li>a {
+  border-radius: 0;
+}
+
+.nav-tabs>li>.navigation-tab__link {
+  padding: 3px 15px;
+}
+
+.nav-tabs>li>a:hover,
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:visited,
+.nav-tabs>li.active>a:focus {
+  cursor: pointer;
+  color: black;
+  background-color: #E9EFFC;
+  border-color: $light-blue;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a {
+  color: $black;
+}
+
+.panel-title {
+  text-shadow: 1px 1px 4px $shadow;
+  border: none;
+}
+
+.panel-title,
+.panel-heading.panel-title {
+  background-color: $secondary-blue;
+  color: $white-text;
+}
+.panel > .panel-body + .list-group .list-group-item {
+  border-top: 4px solid #E9EFFC;
 }

@@ -3,10 +3,10 @@ import { linkTo } from '../modules/banking';
 import { getAccounts, deactivateAccount } from '../routes/Accounts/modules/accounts';
 import { getCards, deactivateCard } from '../routes/Cards/modules/cards';
 import { getLoans, deactivateLoan } from '../routes/Loans/modules/loans';
-import { initTransferTransactionForm } from '../routes/Transfers/modules/transfers'
+import { initTransferTransactionForm } from '../routes/Transfers/modules/transfers';
 import { initPaymentTransactionForm } from '../routes/Payments/modules/payments';
 import { initializeOrderState, getTransferOrders, getPaymentOrders } from '../routes/Orders/modules/orders';
-import SmallTabs from '../components/Tabs/SmallTabs';
+import DesktopNavigationTabs from '../components/NavigationTabs/DesktopNavigationTabs';
 
 const mapStateToProps = (state) => ({
   activeRoute: state.banking.activeRoute,
@@ -28,4 +28,4 @@ const mapActionCreators = {
   getPaymentOrders: () => getPaymentOrders(),
 }
 
-export default connect(mapStateToProps, mapActionCreators)(SmallTabs);
+export default connect(mapStateToProps, mapActionCreators)(DesktopNavigationTabs);

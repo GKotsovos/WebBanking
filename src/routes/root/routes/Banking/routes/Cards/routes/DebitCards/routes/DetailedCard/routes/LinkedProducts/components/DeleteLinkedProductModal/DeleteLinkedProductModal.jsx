@@ -24,16 +24,14 @@ export const DeleteLinkedProductModal = ({
         </div>
         <div className="modal-footer">
           <button
-            id="cancel"
             type="button"
-            className="btn btn-default"
+            className="modal__cancel-button btn btn-default"
             data-dismiss="modal">
             {localizationText[language].cancel}
           </button>
           <button
-            id="accept"
             type="button"
-            className="btn btn-default accept"
+            className="modal__accept-button btn btn-default"
             onClick={() => {
               deleteLinkedProduct(linkedProductId);
               $('#deleteLinkedProductModal').modal('hide');

@@ -12,7 +12,7 @@ export const AccountsLayout = ({
   setTransactionHistoryEndDate,
   getTransactionHistoryByTimePeriod
 }) => (
-  <div id="accounts" role="tabpanel" className="tab-pane active">
+  <div id="accounts" role="tabpanel" className="accounts-container tab-pane active">
     {
       _.isEmpty(activeAccount) ?
         _.map(accounts, (account) => <Account account={account} />)

@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react'
-import FontAwesome from 'react-fontawesome'
+import React from 'react'
+import ClosePanelButton from 'routes/root/routes/Home/containers/ClosePanelButtonContainer';
 import localizationText from './localizationText';
 
-export const NewApplication = ({ language, changePanel }) => (
-  <div id="newApplication" className="">
-    <FontAwesome className="closePanel" name="window-close-o" onClick={() => changePanel('NEWS')} />
-    <h3 id="newApplicationTitle">{localizationText[language].newApplicationTitle}</h3>
+export const NewApplication = ({ language }) => (
+  <div className="new-application-panel">
+    <ClosePanelButton />
+    <h3 className="new-application-panel__title">{localizationText[language].newApplicationTitle}</h3>
     <p>{localizationText[language].firstParagraph}</p>
     <ul>
       <li>{localizationText[language].phoneApplicationText}</li>
@@ -13,9 +13,5 @@ export const NewApplication = ({ language, changePanel }) => (
     </ul>
   </div>
 )
-
-NewApplication.PropTypes = {
-  changePanel: PropTypes.func.isRequired
-};
 
 export default NewApplication
