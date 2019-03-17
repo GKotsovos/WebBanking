@@ -1,15 +1,9 @@
-.ordersContainer {
+.orders-container {
   min-width: 300px;
   max-width: 500px;
-  margin: 0 auto 4% auto;
-}
+  margin: 100px auto 4%;
 
-#orders {
-  margin-top: 100px;
-}
-
-@include phone {
-  #orders {
+  @include phone {
     margin-top: 0;
   }
 }

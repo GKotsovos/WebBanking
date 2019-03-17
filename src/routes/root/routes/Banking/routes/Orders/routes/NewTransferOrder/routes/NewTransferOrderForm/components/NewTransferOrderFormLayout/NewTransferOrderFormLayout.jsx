@@ -16,11 +16,10 @@ import localizationText from './localizationText';
 
 class NewTransferOrderFormLayout extends Component {
   clearForm() {
-    $('.selectpicker.transactionDebitAccount').selectpicker('val', [''])
-    $('.selectpicker.transferBankSelect').selectpicker('val', [''])
-    $('.selectpicker.transferCreditAccountType').selectpicker('val', [''])
-    $('.selectpicker.transferSelectCharges').selectpicker('val', [''])
-    $('.selectpicker.transferBankSelect').selectpicker('val', [''])
+    $('.selectpicker.select-debit-account__dropdown').selectpicker('val', [''])
+    $('.selectpicker.select-bank-type__dropdown').selectpicker('val', [''])
+    $('.selectpicker.credit-agile-account-selection__dropdown').selectpicker('val', [''])
+    $('.selectpicker.charges-selection__dropdown').selectpicker('val', [''])
     this.props.initNewTransferOrderForm();
   }
 
@@ -36,7 +35,6 @@ class NewTransferOrderFormLayout extends Component {
       setTransferOrderBeneficiaryName,
       setTransferOrderBeneficiaryAccount,
       setTransferOrderBeneficiaryBankType,
-      setTransferOrderBeneficiaryBankBic,
       setTransferOrderAmount,
       setTransferOrderChargesBeneficiary,
       setTransferOrderComments,
@@ -47,9 +45,9 @@ class NewTransferOrderFormLayout extends Component {
       setTransferOrderCustomTitle,
     } = this.props;
 
-    $(".selectpicker.transactionDebitAccount").selectpicker('refresh')
+    $(".selectpicker.select-debit-account__dropdown").selectpicker('refresh')
     return (
-      <form className="newOrderForm">
+      <form className="new-order-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
           debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}

@@ -5,7 +5,7 @@ import CardExtraDetails from '../CardExtraDetails';
 import CreditCardExtraDetails from '../CreditCardExtraDetails';
 
 export const DetailedCard = ({ activeCard, type, language }) => (
-  <div className="panel panel-default detailedCardContainer">
+  <div className="panel panel-default detailed-card">
     <CardPanelHeader
       card={activeCard}
       type={type}

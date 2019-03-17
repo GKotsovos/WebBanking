@@ -1,4 +1,4 @@
-import React, { Component, PropTypes }  from 'react';
+import React, { Component }  from 'react';
 import _ from 'underscore';
 import localizationText from './localizationText';
 
@@ -6,7 +6,7 @@ export class SelectBankType extends Component {
   componentDidMount() {
     const { bankType } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.transferBankSelect').selectpicker('val', [bankType.selection])
+    $('.selectpicker.select-bank-type__dropdown').selectpicker('val', [bankType.selection])
   }
 
   render() {
@@ -15,13 +15,14 @@ export class SelectBankType extends Component {
       language,
       setCreditBankType
     } = this.props;
-    setTimeout(() => $('.selectpicker.transferBankSelect').selectpicker('val', [bankType.selection]), 1);
+    setTimeout(() => $('.selectpicker.select-bank-type__dropdown').selectpicker('val', [bankType.selection]), 1);
     return (
-      <div id="bankDiv" className="form-group">
-        <label htmlFor="transferBankSelect">{localizationText[language].transferBankSelectLabel}</label>
+      <div className="form-group select-bank-type">
+        <label htmlFor="select-bank-type-dropdown">{localizationText[language].transferBankSelectLabel}</label>
         <div>
           <select
-            className={`selectpicker transferBankSelect form-control ${_.isEmpty(bankType) || bankType.correct ? "" : "notValid"}`}
+            id="select-bank-type-dropdown"
+            className={`selectpicker select-bank-type__dropdown form-control ${_.isEmpty(bankType) || bankType.correct ? "" : "invalid-value"}`}
             data-show-subtext="true"
             title={localizationText[language].transferBankSelectTitle}
             value={bankType ? bankType.value : ""}

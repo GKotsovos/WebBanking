@@ -5,7 +5,7 @@ import LoanExtraDetailsFirstRow from '../LoanExtraDetailsFirstRow'
 import LoanExtraDetailsSecondRow from '../LoanExtraDetailsSecondRow'
 
 export const DetailedLoan = ({ activeLoan, language }) => (
-  <div className="panel panel-default detailedLoanContainer">
+  <div className="panel panel-default detailed-loan-container">
     <LoanPanelHeader loan={activeLoan} />
     <LoanPanelBody loan={activeLoan} language={language} />
     <LoanExtraDetailsFirstRow activeLoan={activeLoan} language={language} />

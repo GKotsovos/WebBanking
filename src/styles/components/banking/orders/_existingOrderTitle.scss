@@ -1,9 +1,4 @@
-.panel-default > .orderTitle {
-  background-color: $secondary-blue;
-  color: $white-text;
-}
-
-.orderTo {
-  float: right;
-  margin-top: 2px;
+.existing-order-title {
+  display: flex;
+  justify-content: space-between;
 }

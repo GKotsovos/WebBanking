@@ -3,7 +3,7 @@ import Loan from '../../containers/LoanContainer';
 import _ from 'underscore';
 
 export const LoansLayout = ({ children, loans, activeLoan }) => (
-  <div role="tabpanel" className="tab-pane loansContainer" id="loans">
+  <div role="tabpanel" className="tab-pane loans-container" id="loans">
     {
       _.isEmpty(activeLoan) ?
         _.map(loans, (loan) => <Loan key={loan.id} loan={loan} />)

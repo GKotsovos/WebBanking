@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import CardsTabs from '../../containers/CardTabsLayoutContainer'
 
 export const CardsLayout = ({ children }) => (
-  <div id="cards" className="cardsContainer">
+  <div id="cards" className="cards-container">
     <CardsTabs />
     <div>
       {children}

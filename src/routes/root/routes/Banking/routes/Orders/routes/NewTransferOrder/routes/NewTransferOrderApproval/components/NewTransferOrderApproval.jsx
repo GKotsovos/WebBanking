@@ -7,7 +7,7 @@ import localizationText from './localizationText';
 
 export const NewTransferOrderApproval = ({ newOrderForm, language, createTransferOrder }) => (
   <form>
-    <table className="table table-bordered newOrderApprovalTable">
+    <table className="table table-bordered new-order-approval__table">
       <TransactionApprovalHeader
         title={localizationText[language].orderDetails}
       />

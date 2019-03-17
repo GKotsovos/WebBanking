@@ -4,11 +4,11 @@ import localizationText from './localizationText';
 
 export const BicInput = ({ bank, language, setCreditBankBIC }) => (
   <div
-    className="bottomOfTwoDivs">
-    <label htmlFor="transferBIC">{localizationText[language].bankBic}</label>
+    className="form-group">
+    <label htmlFor="bic">{localizationText[language].bankBic}</label>
     <input
-      id="transferBIC"
-      className={`form-control transferBIC ${_.isEmpty(bank) || bank.correct ? "" : "notValid"}`}
+      id="bic"
+      className={`form-control bic-input ${_.isEmpty(bank) || bank.correct ? "" : "invalid-value"}`}
       value={bank.bic || ""}
       placeholder="BIC"
       onChange={(e) => setCreditBankBIC(e.target.value)}

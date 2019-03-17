@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
 
@@ -6,11 +6,11 @@ export class SelectPaymentSubCategory extends Component {
   componentDidMount() {
     const { activeSubCategory } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.paymentSubCategory').selectpicker('val', [activeSubCategory])
+    $('.selectpicker.select-payment-subcategory__dropdown').selectpicker('val', [activeSubCategory])
   }
 
   componentWillReceiveProps() {
-    setTimeout(() => $(".selectpicker.paymentSubCategory").selectpicker('refresh'), 350);
+    setTimeout(() => $(".selectpicker.select-payment-subcategory__dropdown").selectpicker('refresh'), 350);
   }
 
   render() {
@@ -23,8 +23,7 @@ export class SelectPaymentSubCategory extends Component {
     return (
       <div className="form-group">
         <select
-          id="paymentSubCategory"
-          className={`selectpicker paymentSubCategory form-control ${_.isEmpty(activeSubCategory) || activeSubCategory.correct ? "" : "notValid"}`}
+          className={`selectpicker select-payment-subcategory__dropdown form-control ${_.isEmpty(activeSubCategory) || activeSubCategory.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectSubCategory}
           onChange={(e) => setActivePaymentSubCategory(e.target.value)}>

@@ -29,7 +29,7 @@
 }
 
 @mixin desktop {
-  @media screen and (min-width: $min-desktop-width) {
+  @media screen and (min-width: $max-tablet-width + 1) {
     @content;
   }
 }

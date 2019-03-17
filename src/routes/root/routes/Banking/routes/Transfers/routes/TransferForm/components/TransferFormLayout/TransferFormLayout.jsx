@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
@@ -33,9 +33,9 @@ class TransferFormLayout extends Component {
       children,
     } = this.props;
 
-    $(".selectpicker.transactionDebitAccount").selectpicker('refresh')
+    $(".selectpicker.select-debit-account__dropdown").selectpicker('refresh')
     return (
-      <form id="transferCompletionForm" className="transfersContainer">
+      <form className="transfer-form">
         <SelectDebitAccount
           label={localizationText[language].from}
           debitAccount={!_.isEmpty(transactionForm) ? transactionForm.debitAccount : {}}

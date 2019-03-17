@@ -13,7 +13,7 @@ export const DeleteLinkedProduct = ({
 }) => (
   <div>
     <FontAwesome
-      className="xIcon"
+      className="delete-linked-product__x-icon"
       name="times"
       data-toggle="modal"
       data-target="#deleteLinkedProductModal"

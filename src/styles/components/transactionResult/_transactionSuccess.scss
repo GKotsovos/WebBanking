@@ -1,18 +1,18 @@
-#transactionSuccessPanelBody {
+.transaction-success {
   padding-bottom: 20px;
-}
 
-#transactionSuccessIcon {
-  color: #00cc00;
-}
+  &__icon {
+    color: #00CC00;
+  }
 
-#transactionSuccessText {
-  margin: 10px 0 25px 0;
-  font-weight: 500;
-}
+  &__message {
+    margin: 10px 0 25px 0;
+    font-weight: 500;
+  }
 
-#finishTransaction {
-  min-width: 100px;
-  background-color: $button-blue;
-  color: $white-text;
+  &__complete {
+    min-width: 100px;
+    background-color: $button-blue;
+    color: $white-text;
+  }
 }

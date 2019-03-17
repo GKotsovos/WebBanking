@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import CreditAgileAccountSelection from 'routes/root/routes/Banking/routes/components/CreditAgileAccountSelection';
 import CreditAccountInput from 'routes/root/routes/Banking/routes/components/CreditAccountInput';
 import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';
@@ -7,7 +7,7 @@ import localizationText from './localizationText';
 
 class ToAgileBankForm extends Component {
   componentWillMount() {
-    $('.selectpicker.transferCreditAccountType').selectpicker('val', '');
+    $('.selectpicker.credit-agile-account-selection__dropdown').selectpicker('val', '');
   }
 
   render() {

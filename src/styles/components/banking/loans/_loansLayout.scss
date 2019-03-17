@@ -1,15 +1,9 @@
-.loansContainer {
+.loans-container {
   max-width: 760px;
-  margin: 0 auto 7% auto;
+  margin: 100px auto 7% auto;
   display: block;
-}
 
-#loans {
-  margin-top: 100px;
-}
-
-@include phone {
-  #loans {
+  @include phone {
     margin-top: 0;
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'underscore';
 import localizationText from './localizationText';
 
 export const CancelOrderModal = ({
@@ -11,7 +10,6 @@ export const CancelOrderModal = ({
   <div
   id="cancelOrderModal"
     className="modal fade"
-    aria-labelledby="myModalLabel"
     data-backdrop="static"
     data-keyboard="false">
     <div className="modal-dialog">
@@ -22,7 +20,7 @@ export const CancelOrderModal = ({
           </span>
         </div>
         <div className="modal-body">
-          {localizationText[language].cancelOrderText}<span className="strong">«{orderName}»</span>;
+          {localizationText[language].cancelOrderText}<strong>«{orderName}»</strong>;
         </div>
         <div className="modal-footer">
           <button

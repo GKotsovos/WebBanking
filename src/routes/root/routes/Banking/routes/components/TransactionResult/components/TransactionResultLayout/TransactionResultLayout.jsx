@@ -3,7 +3,7 @@ import TransactionSuccess from '../../containers/TransactionSuccessContainer'
 import TransactionFailed from '../../containers/TransactionFailedContainer'
 
 export const TransactionResultLayout = ({ result, errorMessage, language, linkToStart, clearTransactionForm }) => (
-  <div className="transactionResult" id="transactionResult">
+  <div className="transaction-result">
     {
       result ?
         <TransactionSuccess

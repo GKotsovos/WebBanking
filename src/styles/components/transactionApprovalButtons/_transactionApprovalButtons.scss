@@ -1,18 +1,20 @@
-#formApprovalButtons {
+.transaction-approval-buttons {
+  display: flex;
+  justify-content: space-between;
   width: 226px;
   margin: 0 auto;
-}
 
-#previousForm {
-  width: 110px;
-  margin-right: 3px;
-  background-color: $red;
-  color: $white-text;
-}
+  &__go-back-button,
+  &__submit-button {
+    width: 110px;
+    color: $white-text;
+  }
 
-#submitTransaction {
-  width: 110px;
-  margin-left: 3px;
-  background-color: $button-blue;
-  color: $white-text;
+  &__go-back-button {
+    background-color: $red;
+  }
+
+  &__submit-button {
+    background-color: $button-blue;
+  }
 }

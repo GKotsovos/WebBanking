@@ -1,29 +1,6 @@
-.panel-default> .loanTitle {
-  background-color: $secondary-blue;
-  color: $white-text;
-}
-
-.loanCode {
-  float: right;
-  margin-top: 2px;
-}
-
-.titles {
-  font-size: 14px;
-}
-
-@include phone {
-  .titles {
-    font-size: 12px;
-  }
-}
-
-@include smallest-supported-screen {
-  .titles {
-    font-size: 11px;
-  }
-
-  .loanCode {
-    margin-top: 5px;
+.loan-panel-header {
+  &__title {
+    display: flex;
+    justify-content: space-between;
   }
 }

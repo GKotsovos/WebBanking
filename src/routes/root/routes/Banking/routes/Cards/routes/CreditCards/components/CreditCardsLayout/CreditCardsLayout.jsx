@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Card from '../../../containers/CardContainer'
-import { browserHistory } from 'react-router'
 import _ from 'underscore';
 
 export const CreditCardsLayout = ({ children, creditCards, activeCard }) => (

@@ -1,25 +1,18 @@
-#transactionDate, #now, #later, #saveTransfer {
-  display: flex;
-  align-items: center;
-}
+.select-transaction-date {
+  max-width: 290px;
 
-.transactionDateRadio:hover {
-  cursor: default;
-}
+  &,
+  &__execution-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-#now {
-  margin-right: 15px;
-}
+  &__execution-type:hover {
+    cursor: default;
+  }
 
-#stis {
-  margin-left: 2px;
-  margin-right: 10px;
-}
-
-#amesa {
-  margin-left: 2px;
-}
-
-#transactionDatePicker_group {
-  max-width: 170px;
+  & &__radio {
+    margin: 0 2px 0 0;
+  }
 }

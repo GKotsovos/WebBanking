@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 class TransfersLayout extends Component {
   componentWillMount() {
@@ -7,7 +7,7 @@ class TransfersLayout extends Component {
 
   render() {
     return (
-      <div role="tabpanel" className="tab-pane" id="transfers">
+      <div role="tabpanel" className="tab-pane transfers-container" id="transfers">
       {this.props.children}
     </div>
     )

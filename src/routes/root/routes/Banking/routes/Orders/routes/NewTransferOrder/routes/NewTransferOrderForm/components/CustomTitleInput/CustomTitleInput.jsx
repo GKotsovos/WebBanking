@@ -4,10 +4,10 @@ import _ from 'underscore';
 
 export const CustomTitleInput = ({ customTitle, language, setTransferOrderCustomTitle }) => (
   <div className="form-group">
-    <label htmlFor="transferOrderTitle">{localizationText[language].title}</label>
+    <label htmlFor="transfer-order-title">{localizationText[language].title}</label>
     <input
-      id="transferOrderTitle"
-      className={`form-control ${_.isEmpty(customTitle) || customTitle.correct ? "" : "notValid"}`}
+      id="transfer-order-title"
+      className={`form-control ${_.isEmpty(customTitle) || customTitle.correct ? "" : "invalid-value"}`}
       value={customTitle ? customTitle.value : ""}
       placeholder={localizationText[language].titlePlaceholder}
       onChange={(e) => setTransferOrderCustomTitle(e.target.value)}

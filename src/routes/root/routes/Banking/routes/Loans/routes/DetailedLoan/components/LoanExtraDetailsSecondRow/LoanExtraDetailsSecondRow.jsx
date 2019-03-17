@@ -5,7 +5,7 @@ import localizationText from './localizationText';
 
 export const LoanExtraDetailsSecondRow = ({ activeLoan, language }) => (
   <ul className="list-group">
-    <li className="cellRow list-group-item">
+    <li className="list-group-item">
       <div className="row">
         <span>
           <span className="col-xs-3 text-right">
@@ -18,7 +18,7 @@ export const LoanExtraDetailsSecondRow = ({ activeLoan, language }) => (
             {activeLoan.repaymentBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(activeLoan.currency).symbol}
           </span>
         </span>
-        <span className="summary">
+        <span className="common-label">
           <span className="col-xs-3 text-right">{localizationText[language].issueDate}</span>
           <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].repaymentDate}</span>
           <span className="col-xs-4 text-right">{localizationText[language].repaymentBalance}</span>

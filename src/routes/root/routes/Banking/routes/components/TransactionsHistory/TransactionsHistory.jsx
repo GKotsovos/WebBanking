@@ -10,7 +10,7 @@ export const TransactionsHistory = ({
   setTransactionHistoryEndDate,
   getTransactionHistoryByTimePeriod
  }) => (
-  <div className="transactionsContainer">
+  <div className="transaction-history-container">
     <TimePeriodSelection
       startDate={transactionHistoryTimePeriod ? transactionHistoryTimePeriod.startDate : {}}
       endDate={transactionHistoryTimePeriod ? transactionHistoryTimePeriod.endDate : {}}

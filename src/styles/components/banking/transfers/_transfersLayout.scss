@@ -1,9 +1,7 @@
-#transfers {
+.transfers-container {
   margin-top: 100px;
-}
 
-@include phone {
-  #transfers {
+  @include phone {
     margin-top: 0;
   }
 }

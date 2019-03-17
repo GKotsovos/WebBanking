@@ -1,18 +1,18 @@
-#failPanelBody {
+.transaction-failure {
   padding-bottom: 20px;
-}
 
-#failIcon {
-  color: #FF0000;
-}
+  &__icon {
+    color: #FF0000;
+  }
 
-#failText {
-  margin: 10px 0 25px 0;
-  font-weight: 500;
-}
+  &__message {
+    margin: 10px 0 25px 0;
+    font-weight: 500;
+  }
 
-#returnToForm {
-  min-width: 100px;
-  background-color: $red;
-  color: $white-text;
+  &__return-to-form {
+    min-width: 100px;
+    background-color: $red;
+    color: $white-text;
+  }
 }

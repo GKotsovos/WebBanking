@@ -1,46 +1,29 @@
-.timePeriodSelectionContainer {
-  max-width: 550px;
+.time-period-selection {
+  @extend .vertical-align;
+  justify-content: space-between;
+  max-width: 580px;
   margin: 0 auto 4% auto;
-}
 
-.popover-title {
-  background-color: $secondary-blue;
-  color: $white-text;
-}
-
-.popover-title > .text-center > .text-muted {
-  color: $white-text;
-}
-
-#timePeriodGroup {
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-}
-
-.fromPeriodLabel, .untilPeriodLabel {
-  margin-right: 5px;
-  margin-top: 5px;
-}
-
-#timePeriodPicker_group {
-  max-width: 170px;
-}
-
-#searchTransacrion {
-  width: 110px;
-  background-color: $button-blue;
-  color: $white-text;
-}
-
-@include phone {
-  .periodSelection {
-    margin-bottom: 3%;
+  @include phone {
+    flex-direction: column;
   }
 
-  .untilPeriodLabel {
-    margin-right: 10px;
-    margin-top: 5px;
+  &-date-picker-container {
+    @extend .vertical-align;
+
+    @include phone {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__label {
+    margin: 0 5px 0 0;
+  }
+
+  &__search-button {
+    width: 110px;
+    background-color: $button-blue;
+    color: $white-text;
   }
 }
 

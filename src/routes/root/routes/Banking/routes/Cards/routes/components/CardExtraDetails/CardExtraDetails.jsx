@@ -16,7 +16,7 @@ export const CardExtraDetails = ({ card, language }) => (
           {card.status ? localizationText[language].active : localizationText[language].inactive}
         </span>
       </span>
-      <span className="row cardSummary">
+      <span className="row common-label">
         <span className="col-xs-3 col-sm-3 text-right">{localizationText[language].issueDate}</span>
         <span className="col-xs-4 col-sm-4 text-right">{localizationText[language].expirationDate}</span>
         <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].state}</span>

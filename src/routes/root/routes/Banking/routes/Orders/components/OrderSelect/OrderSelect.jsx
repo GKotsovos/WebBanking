@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import localizationText from './localizationText';
 
 class OrderSelect extends Component {
@@ -19,21 +19,20 @@ class OrderSelect extends Component {
       linkToNewOrder
     } = this.props;
     return (
-      <div id="orderSelectContainer">
-        <label htmlFor="orderSelect">{localizationText[language].typeOfOder}</label>
-        <div id="newOrderChoice">
+      <div className="select-order-container">
+        <label htmlFor="select-order-dropdown">{localizationText[language].typeOfOder}</label>
+        <div className="select-order__dropdown-container">
           <select
-            id="orderSelect"
-            className="selectpicker orderSelect form-control"
+            id="select-order-dropdown"
+            className="selectpicker select-order__dropdown form-control"
             title={localizationText[language].selectTypeOfOderTitle}
-            onChange={(e) => changeActiveOrderType(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>
-            <option className="transfer">{localizationText[language].transferOption}</option>
-            <option className="payment">{localizationText[language].paymentOption}</option>
+            onChange={(e) => changeActiveOrderType(e.target.value, e.target.options[e.target.options.selectedIndex].dataset.orderType)}>
+            <option data-order-type="transfer">{localizationText[language].transferOption}</option>
+            <option data-order-type="payment">{localizationText[language].paymentOption}</option>
           </select>
           <button
-            id="newOrderButton"
             type="button"
-            className="btn btn-default"
+            className="btn btn-default select-order__button"
             onClick={() => linkToNewOrder(activeOrder)}>
             {localizationText[language].newOrder}
           </button>

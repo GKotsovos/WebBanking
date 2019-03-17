@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
 
@@ -6,11 +6,11 @@ export class SelectPaymentCategory extends Component {
   componentDidMount() {
     const { activeCategory } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.paymentCategory').selectpicker('val', [activeCategory])
+    $('.selectpicker.select-payment-category__dropdown').selectpicker('val', [activeCategory])
   }
 
   componentWillReceiveProps() {
-    setTimeout(() => $(".selectpicker.paymentCategory").selectpicker('refresh'), 350);
+    setTimeout(() => $(".selectpicker.select-payment-category__dropdown").selectpicker('refresh'), 350);
   }
 
   render() {
@@ -23,8 +23,7 @@ export class SelectPaymentCategory extends Component {
     return (
       <div className="form-group">
         <select
-          id="paymentCategory"
-          className={`selectpicker paymentCategory form-control ${_.isEmpty(activeCategory) || activeCategory.correct ? "" : "notValid"}`}
+          className={`selectpicker select-payment-category__dropdown form-control ${_.isEmpty(activeCategory) || activeCategory.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectPaymentCategory}
           onChange={(e) => setActivePaymentCategory(e.target.value)}>

@@ -1,8 +1,10 @@
-.xIcon {
-  font-size: 20px;
-  color: red;
-}
+.delete-linked-product{
+  &__x-icon {
+    font-size: 20px;
+    color: red;
 
-.xIcon:hover {
-  cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

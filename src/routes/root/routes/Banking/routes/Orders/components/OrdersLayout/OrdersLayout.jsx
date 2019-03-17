@@ -19,7 +19,7 @@ class OrdersLayout extends Component {
 
   render() {
     return (
-      <div role="tabpanel" className="tab-pane ordersContainer" id="orders">
+      <div role="tabpanel" className="tab-pane orders-container" id="orders">
         <OrderSelect />
         {this.props.children}
       </div>

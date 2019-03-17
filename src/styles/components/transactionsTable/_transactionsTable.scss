@@ -1,29 +1,21 @@
-#transactionsTableContainer {
-  max-height: 242px;
-  overflow-y: auto;
-}
-
-.transactionsTable {
+.transaction-history-table {
   margin-bottom: 0;
-  width: 100%
-}
+  width: 100%;
 
-th {
-  font-weight: normal;
-}
+  &-container {
+    max-height: 242px;
+    overflow-y: auto;
+  }
 
-.cell {
-  background-color: white;
-}
+  &__head {
+    font-weight: normal;
+  }
 
-.table>thead>tr>th {
-  vertical-align: middle;
-}
+  &__transaction-type--debit {
+    color: red;
+  }
 
-.debit {
-  color: red;
-}
-
-.credit {
-  color: green;
+  &__transaction-type--credit {
+    color: green;
+  }
 }

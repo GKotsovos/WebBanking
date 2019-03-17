@@ -6,8 +6,8 @@ import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/compon
 import localizationText from './localizationText';
 
 export const LoanPaymentApproval = ({ transactionForm, language, loanPayment }) => (
-  <form id="loanPaymentApprovalForm">
-    <div id="loanPaymentApprovalTable" className="form-group">
+  <form className="loan-payment-approval">
+    <div className="form-group">
       <table className="table table-bordered">
         <TransactionApprovalHeader
           title={localizationText[language].paymentDetails}

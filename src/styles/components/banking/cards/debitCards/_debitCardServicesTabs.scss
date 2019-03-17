@@ -1,11 +1,10 @@
-#debitCardServicesTabs {
-  margin-bottom: 5%;
-  border-bottom: none;
-}
+.debit-card-services-tabs {
+  &__linked-products-tab {
+    font-size: 13px;
+  }
 
-#cardProductsTab {
-  padding: 0;
-  font-size: 13px;
-  height: 42px;
-  padding-top: 2%;
+  & &__linked-products-link {
+    height: 42px;
+    padding: 2% 0 0;
+  }
 }

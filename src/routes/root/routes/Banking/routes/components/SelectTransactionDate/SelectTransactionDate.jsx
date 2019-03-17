@@ -10,49 +10,46 @@ export const SelectTransactionDate = ({
   setAsapTransaction,
   setTransactionDate,
 }) => (
-  <div className="form-group">
-    <label htmlFor="transactionDate">{title}</label>
-    <div id="transactionDate">
-      <span
-        id="now"
-        className="transactionDateRadio">
+  <div className="form-group select-transaction-date-container">
+    <label htmlFor="select-transaction-date">{title}</label>
+    <div id="select-transaction-date" className="select-transaction-date">
+      <span className="select-transaction-date__execution-type">
         <input
           type="radio"
-          name="transactionDate"
+          name="transaction-execution-type"
+          className="select-transaction-date__radio"
           onChange={() => setAsapTransaction(true)}
           checked={date ? date.asapTransaction : false}
         />
         <span
-          id="amesa"
           onClick={() => setAsapTransaction(true)}>
           {localizationText[language].asap}
         </span>
       </span>
       <span
-        id="later"
-        className="transactionDateRadio">
+        className="select-transaction-date__execution-type">
         <input
           type="radio"
-          name="transactionDate"
+          name="transaction-execution-type"
+          className="select-transaction-date__radio"
           onChange={() => setAsapTransaction(false)}
           checked={!_.isEmpty(date) && !date.asapTransaction}
         />
         <span
-          id="stis"
           onClick={() => setAsapTransaction(false)}>
           {localizationText[language].on}
         </span>
-        <DatePicker
-          id="transactionDatePicker"
-          className={`form-control text-right ${_.isEmpty(date) || date.correct ? "" : "notValid"}`}
-          weekStartsOnMonday
-          calendarPlacement="top"
-          placeholder={localizationText[language].selectDatePlaceholder}
-          value={date ? date.value : ''}
-          onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
-          disabled={_.isEmpty(date) || date.asapTransaction}
-        />
       </span>
+      <DatePicker
+        id="transaction-date-picker"
+        className={`form-control text-right ${_.isEmpty(date) || date.correct ? "" : "invalid-value"}`}
+        weekStartsOnMonday
+        calendarPlacement="top"
+        placeholder={localizationText[language].selectDatePlaceholder}
+        value={date ? date.value : ''}
+        onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
+        disabled={_.isEmpty(date) || date.asapTransaction}
+      />
     </div>
   </div>
 )

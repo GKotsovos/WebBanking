@@ -1,16 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import _ from 'underscore';
 import localizationText from './localizationText';
 
 class SelectPeriodicity extends Component {
   componentDidMount() {
     const { periodicity } = this.props;
-    $('.selectpicker').selectpicker();
-    $('.selectpicker.transferBankSelect').selectpicker('val', [periodicity ? periodicity.selection : ''])
+    $('.select-period__dropdown').selectpicker();
+    $('.select-period__dropdown.select-bank-type__dropdown').selectpicker('val', [periodicity ? periodicity.selection : ''])
   }
 
   componentWillReceiveProps() {
-    setTimeout(() => $(".selectpicker.transferBankSelect").selectpicker('refresh'), 350);
+    setTimeout(() => $(".select-period__dropdown.select-bank-type__dropdown").selectpicker('refresh'), 350);
   }
 
   render() {
@@ -21,10 +21,10 @@ class SelectPeriodicity extends Component {
     } = this.props;
     return (
       <div className="form-group col-xs-6">
-        <label htmlFor="periodSelect">{localizationText[language].executionFrequency}</label>
+        <label htmlFor="select-period-dropdown">{localizationText[language].executionFrequency}</label>
         <select
-          id="periodSelect"
-          className={`selectpicker periodSelect form-control ${_.isEmpty(periodicity) || periodicity.correct ? "" : "notValid"}`}
+          id="select-period-dropdown"
+          className={`selectpicker select-period__dropdown form-control ${_.isEmpty(periodicity) || periodicity.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectExecutionFrequencyTitle}
           onChange={(e) => setPeriodicity(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>

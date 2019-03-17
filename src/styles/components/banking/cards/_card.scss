@@ -1,16 +1,13 @@
-.cardContainer {
+.card {
   min-width: 300px;
   max-width: 500px;
   margin: 0 auto 4% auto;
-}
 
-.cardContainer:hover {
-  cursor: pointer;
-}
+  &:hover {
+    cursor: pointer;
+  }
 
-@include phone {
-  .cardContainer {
+  @include phone {
     margin: 0 auto 7.5% auto;
   }
 }
-

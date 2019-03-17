@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import _ from 'underscore';
 import localizationText from './localizationText';
 
 class DomesticBankSelection extends Component {
   componentDidMount() {
     $('.selectpicker').selectpicker();
-    $('.selectpicker.domesticBankSelect').selectpicker('val', [this.props.bank.selection]);
+    $('.selectpicker.domestic-bank-selection__dropdown').selectpicker('val', [this.props.bank.selection]);
   }
 
   render() {
@@ -16,18 +16,18 @@ class DomesticBankSelection extends Component {
       setCreditBank,
     } = this.props;
 
-    $(".selectpicker.domesticBankSelect").selectpicker('refresh')
+    $(".selectpicker.domestic-bank-selection__dropdown").selectpicker('refresh')
     return (
-      <div className="bottomOfTwoDivs">
+      <div className="form-group">
         <select
-          className={`selectpicker domesticBankSelect form-control ${_.isEmpty(bank) || bank.correct ? "" : "notValid"} `}
+          className={`selectpicker domestic-bank-selection__dropdown form-control ${_.isEmpty(bank) || bank.correct ? "" : "invalid-value"} `}
           data-show-subtext="true"
           title={localizationText[language].selectBeneficiaryBank}
           value={bank.selection || ""}
           onChange={(e) => setCreditBank(e.target.value)}>
           {
             _.map(domesticBanks, (domesticBank) => (
-              <option className="isDomesticBank">
+              <option>
                 {domesticBank}
               </option>
             ))

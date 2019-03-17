@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import _ from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectPayment from '../SelectPayment';
@@ -10,7 +10,6 @@ import localizationText from './localizationText';
 
 class PaymentFormLayout extends Component {
   componentDidMount() {
-    const { initPaymentTransactionForm } = this.props;
     $('.selectpicker').selectpicker();
   }
 
@@ -39,7 +38,7 @@ class PaymentFormLayout extends Component {
       setTransactionDate,
     } = this.props;
     return (
-      <form className="paymentContainer">
+      <form className="payment-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
           debitAccount={!_.isEmpty(transactionForm) ? transactionForm.debitAccount : {}}

@@ -10,9 +10,9 @@ export const LinkedProductsLayout = ({
   language,
 }) => (
   <div role="tabpanel" className="tab-pane" id="cardProducts">
-    <table id="linkedProductsTable" className="table">
-      <thead>
-        <tr className="tableHead titles">
+    <table id="linkedProductsTable" className="table linked-products-table">
+      <thead className="common-table-header common-title">
+        <tr className>
           <th className="col-xs-2 text-center">{localizationText[language].productHeader}</th>
           <th className="col-xs-4 text-center">{localizationText[language].productNumber}</th>
           <th className="col-xs-2 text-center">{localizationText[language].balance}</th>
@@ -23,13 +23,13 @@ export const LinkedProductsLayout = ({
         {
           _.map(linkedProducts, (linkedProduct, key) => linkedProduct ? [
             <tr key={key}>
-              <td key={key++} className="cell col-xs-2 text-center">{linkedProduct.type}</td>
-              <td key={key++} className="cell col-xs-4 text-center">{linkedProduct.id}</td>
-              <td key={key++} className="cell col-xs-2 text-center">
+              <td key={key++} className="common-table-cell col-xs-2 text-center">{linkedProduct.type}</td>
+              <td key={key++} className="common-table-cell col-xs-4 text-center">{linkedProduct.id}</td>
+              <td key={key++} className="common-table-cell col-xs-2 text-center">
                 {linkedProduct.ledgerBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}
                 {currencyFormatter.findCurrency(linkedProduct.currency).symbol}
               </td>
-              <td key={key++} className="cell col-xs-1 text-center">
+              <td key={key++} className="common-table-cell col-xs-1 text-center">
                 <DeleteLinkedProduct
                   key={key++}
                   debitCardId={debitCardId}

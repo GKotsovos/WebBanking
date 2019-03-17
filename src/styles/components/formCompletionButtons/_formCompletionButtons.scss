@@ -1,18 +1,20 @@
-#formCompletionButtons {
-  margin: 5% auto 0 auto;
+.form-completion-buttons {
+  display: flex;
+  justify-content: space-between;
   max-width: 210px;
-}
+  margin: 5% auto 0 auto;
 
-#clearForm {
-  width: 102px;
-  margin-right: 3px;
-  background-color: #A6A6A6;
-  color: $white-text;
-}
+  &__clear-form-button,
+  &__continue-button {
+    width: 102px;
+    color: $white-text;
+  }
 
-#linkToApproval {
-  width: 102px;
-  margin-left: 3px;
-  background-color: $button-blue;
-  color: $white-text;
+  &__clear-form-button {
+    background-color: #A09F9F;
+  }
+
+  &__continue-button {
+    background-color: $button-blue;
+  }
 }

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import CreditCardSelection from '../CreditCardSelection'
 import LoanSelection from '../LoanSelection'
 import PaymentCodeInput from '../PaymentCodeInput'
@@ -47,7 +47,7 @@ class PaymentCodeSelection extends Component {
         )
     }
     return (
-      <div className="form-group bottomOfTwoDivs">
+      <div className="form-group">
         {paymentView}
       </div>
     )

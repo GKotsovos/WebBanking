@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
@@ -7,7 +7,7 @@ export class LoanSelection extends Component {
   componentDidMount() {
     const { selectedLoan } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.paymentLoan').selectpicker('val', [selectedLoan.value])
+    $('.selectpicker.loan-selection__dropdown').selectpicker('val', [selectedLoan.value])
   }
 
   render() {
@@ -19,10 +19,10 @@ export class LoanSelection extends Component {
     } = this.props;
     return (
       <div className="form-group">
-        <label htmlFor="paymentLoan">{localizationText[language].loanTitle}</label>
+        <label htmlFor="loan-selection-dropdown">{localizationText[language].loanTitle}</label>
         <select
-          id="paymentLoan"
-          className={`selectpicker paymentLoan form-control ${!_.isEmpty(selectedLoan) || selectedLoan.correct ? "" : "notValid"}`}
+          id="loan-selection-dropdown"
+          className={`selectpicker loan-selection__dropdown form-control ${!_.isEmpty(selectedLoan) || selectedLoan.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectLoanTitle}
           onChange={(e) => setLoanForPayment(e.target.value)}>

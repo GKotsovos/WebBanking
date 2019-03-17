@@ -1,8 +1,8 @@
 import React from 'react'
 
 export const TransactionApprovalHeader = ({ title }) => (
-  <thead>
-    <tr className="tableHead titles">
+  <thead className="common-table-header common-title">
+    <tr>
       <th colSpan="3" className="text-center">{title}</th>
     </tr>
   </thead>

@@ -1,23 +1,4 @@
-#loanPaymentApprovalForm {
+.loan-payment-approval {
   margin: 0 auto 5% auto;
   max-width: 420px;
-}
-
-#loanPaymentApprovalFormButtons {
-  width: 226px;
-  margin: 0 auto;
-}
-
-#previousPaymentForm {
-  width: 110px;
-  margin-right: 3px;
-  background-color: $red;
-  color: $white-text;
-}
-
-#submitLoanPaymentApprovalForm {
-  width: 110px;
-  margin-left: 3px;
-  background-color: $button-blue;
-  color: $white-text;
 }

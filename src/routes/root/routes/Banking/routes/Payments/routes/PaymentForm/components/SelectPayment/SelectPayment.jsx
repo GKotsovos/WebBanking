@@ -1,4 +1,4 @@
-import React, { Component, PropTypes }  from 'react';
+import React from 'react';
 import _ from 'underscore';
 import SelectWayOfSelection from '../SelectWayOfSelection';
 import SearchPaymentMethod from 'routes/root/routes/Banking/routes/components/SearchPaymentMethod';

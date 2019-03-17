@@ -9,11 +9,11 @@ export const SelectPaymentOrderEndDate = ({
   setPaymentOrderEndDate,
 }) => (
   <div className="form-group">
-    <label htmlFor="transactionDate">{localizationText[language].expirationDate}</label>
-    <div id="transactionDate">
+    <label htmlFor="transaction-date">{localizationText[language].expirationDate}</label>
+    <div id="transaction-date">
       <DatePicker
-        id="transactionDatePicker"
-        className={`form-control text-right ${_.isEmpty(endDate) || endDate.correct ? "" : "notValid"}`}
+        id="transaction-date-picker"
+        className={`form-control text-right ${_.isEmpty(endDate) || endDate.correct ? "" : "invalid-value"}`}
         weekStartsOnMonday
         calendarPlacement="top"
         placeholder={localizationText[language].datePlaceholder}

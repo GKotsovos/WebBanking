@@ -6,9 +6,9 @@ import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/compon
 import localizationText from './localizationText';
 
 export const LoadApproval = ({ transactionForm, language, prepaidCardLoad }) => (
-  <form id="loadApprovalForm" className="col-sm-offset-2 col-sm-8">
+  <form className="col-sm-offset-2 col-sm-8 load-approval">
 
-    <div id="loadApprovalTable" className="form-group">
+    <div className="form-group">
       <table className="table table-bordered">
         <TransactionApprovalHeader
           title={localizationText[language].loadDetailsTitle}

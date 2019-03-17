@@ -3,18 +3,16 @@ import { browserHistory } from 'react-router'
 import localizationText from './localizationText';
 
 export const TransactionApprovalButtons = ({ language, completeTransaction }) => (
-  <div id="formApprovalButtons" className="form-group">
+  <div className="form-group transaction-approval-buttons">
     <button
-      id="previousForm"
       type="button"
-      className="btn btn-default"
+      className="btn btn-default transaction-approval-buttons__go-back-button"
       onClick={() => browserHistory.goBack()}>
       {localizationText[language].goBack}
     </button>
     <button
-      id="submitTransaction"
       type="button"
-      className="btn btn-default"
+      className="btn btn-default transaction-approval-buttons__submit-button"
       onClick={() => completeTransaction()}>
       {localizationText[language].submit}
     </button>

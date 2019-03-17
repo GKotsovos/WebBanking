@@ -10,10 +10,10 @@ import localizationText from './localizationText';
 
 class NewPaymentOrderFormLayout extends Component {
   clearForm() {
-    $('.selectpicker.transactionDebitAccount').selectpicker('val', [''])
-    $('.selectpicker.searchPayment').selectpicker('val', [''])
-    $('.selectpicker.paymentCreditCard').selectpicker('val', [''])
-    $('.selectpicker.paymentLoan').selectpicker('val', [''])
+    $('.selectpicker.select-debit-account__dropdown').selectpicker('val', [''])
+    $('.selectpicker.search-payment-method__dropdown').selectpicker('val', [''])
+    $('.selectpicker.customer-credit-cards__dropdown').selectpicker('val', [''])
+    $('.selectpicker.loan-selection__dropdown').selectpicker('val', [''])
     this.props.initNewPaymentOrderForm();
   }
 
@@ -32,7 +32,7 @@ class NewPaymentOrderFormLayout extends Component {
       setPaymentOrderEndDate,
     } = this.props;
     return (
-      <div className="newOrderForm">
+      <div className="new-order-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
           debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}

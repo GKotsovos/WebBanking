@@ -2,11 +2,10 @@ import React from 'react'
 import _ from 'underscore';
 
 export const AmountInput = ({ title, amount, setTransactionAmount}) => (
-  <div className="form-group bottomOfTwoDivs">
-    <label htmlFor="transactionAmount">{title}</label>
+  <div className="form-group amount-input-container">
+    <label htmlFor="amount-input">{title}</label>
     <input
-      id="transactionAmount"
-      className={`form-control text-right ${_.isEmpty(amount) || amount.correct ? "" : "notValid"}`}
+      className={`form-control amount-input text-right ${_.isEmpty(amount) || amount.correct ? "" : "invalid-value"}`}
       value={_.isEmpty(amount) ? '' : amount.value}
       onChange={(e) => setTransactionAmount(e.target.value)}
       placeholder="€"

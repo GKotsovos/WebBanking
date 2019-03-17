@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
@@ -7,11 +7,11 @@ export class SelectDebitAccount extends Component {
   componentDidMount() {
     const { debitAccount } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.transactionDebitAccount').selectpicker('val', [debitAccount.value])
+    $('.selectpicker.select-debit-account__dropdown').selectpicker('val', [debitAccount.value])
   }
 
   componentWillReceiveProps() {
-    setTimeout(() => $(".selectpicker.transactionDebitAccount").selectpicker('refresh'), 350);
+    setTimeout(() => $(".selectpicker.select-debit-account__dropdown").selectpicker('refresh'), 350);
   }
 
   render() {
@@ -26,19 +26,19 @@ export class SelectDebitAccount extends Component {
       setDebitAccount
     } = this.props;
     return (
-      <div className="form-group">
-        <label htmlFor="transactionDebitAccount">{label}</label>
+      <div className="form-group select-debit-account">
+        <label htmlFor="select-debit-account-dropdown">{label}</label>
         <select
-          id="transactionDebitAccount"
-          className={`selectpicker transactionDebitAccount form-control ${_.isEmpty(debitAccount) || debitAccount.correct ? "" : "notValid"}`}
+          id="select-debit-account-dropdown"
+          className={`selectpicker select-debit-account__dropdown form-control ${_.isEmpty(debitAccount) || debitAccount.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectAccountTitle}
-          onChange={(e) => setDebitAccount(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>
+          onChange={(e) => setDebitAccount(e.target.value, e.target.options[e.target.options.selectedIndex].dataset.value)}>
           {
             _.map(accounts, (account) => (
               <option
                 key={account.id}
-                className="isAccount"
+                data-value="isAccount"
                 data-subtext={
                   `${account.type} ${account.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(account.currency).symbol}`
                 }>
@@ -50,7 +50,7 @@ export class SelectDebitAccount extends Component {
             _.map(loans, (loan) => (
               <option
                 key={loan.id}
-                className="isLoan"
+                data-value="isLoan"
                 data-subtext={
                   `${loan.customTitle} ${loan.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(loan.currency).symbol}`
                 }>
@@ -62,7 +62,7 @@ export class SelectDebitAccount extends Component {
             _.map(creditCards, (creditCard) => (
               <option
                 key={creditCard.id}
-                className="isCreditCard"
+                data-value="isCreditCard"
                 data-subtext={
                   `Credit Card ${creditCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
                 }
@@ -75,7 +75,7 @@ export class SelectDebitAccount extends Component {
             _.map(prepaidCards, (prepaidCard) => (
               <option
                 key={prepaidCard.id}
-                className="isPrepaidCard"
+                data-value="isPrepaidCard"
                 data-subtext={
                   `Prepaid Card ${prepaidCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
                 }

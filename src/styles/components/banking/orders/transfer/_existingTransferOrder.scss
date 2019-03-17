@@ -1,5 +1,7 @@
-@include phone {
-  .idOrder {
-    font-size: 12px;
+.existing-transfer-order {
+  &__debit-product-id {
+    @include phone {
+      font-size: 12px;
+    }
   }
 }

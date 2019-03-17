@@ -1,28 +1,27 @@
-#orderSelectContainer{
-  max-width: 400px;
-  margin: 0 auto 4% auto;
-}
+.select-order {
+  &-container {
+    max-width: 400px;
+    margin: 0 auto 4% auto;
+  }
 
-.btn-group.bootstrap-select.orderSelect.form-control{
-  max-width: 300px;
-}
+  &__dropdown-container {
+    display: flex;
+    align-items: center;
+  }
 
-#paymentAccount:hover, #orderSelect:hover {
-  cursor: pointer;
-}
+  &__dropdown,
+  &__button {
+    display: inline;
 
-#newOrderChoice {
-  display: flex;
-  align-items: center;
-}
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
-#orderSelect, #newOrderButton {
-  display: inline;
-}
-
-#newOrderButton {
-  width: 100px;
-  margin-left: 5%;
-  background-color: $button-blue;
-  color: $white-text;
+  &__button {
+    width: 100px;
+    margin-left: 5%;
+    background-color: $button-blue;
+    color: $white-text;
+  }
 }

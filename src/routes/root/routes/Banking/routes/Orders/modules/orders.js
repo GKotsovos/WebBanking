@@ -240,18 +240,6 @@ export const setTransferOrderBeneficiaryBankType = (selection, bankType) => {
   }
 }
 
-export const setTransferOrderBeneficiaryBankBic = (bankBIC) => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SET_TRANSFER_ORDER_BENEFICIARY_BANK_BIC,
-      payload: bankBIC
-    });
-    dispatch({
-      type: VALIDATE_TRANSFER_ORDER_FORM
-    });
-  }
-}
-
 export const setTransferOrderBeneficiaryName = (fullName) => {
   return (dispatch, getState) => {
     dispatch({
@@ -604,7 +592,6 @@ export const actions = {
   setTransferOrderBeneficiaryName,
   setTransferOrderBeneficiaryAccount,
   setTransferOrderBeneficiaryBankType,
-  setTransferOrderBeneficiaryBankBic,
   setTransferOrderAmount,
   setTransferOrderChargesBeneficiary,
   setTransferOrderComments,

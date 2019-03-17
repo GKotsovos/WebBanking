@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
 export const LoadLayout = ({ children }) => (
-  <div role="tabpanel" className="loadContainer tab-pane" id="load">
+  <div role="tabpanel" className="load-container tab-pane" id="load">
     {children}
   </div>
 )

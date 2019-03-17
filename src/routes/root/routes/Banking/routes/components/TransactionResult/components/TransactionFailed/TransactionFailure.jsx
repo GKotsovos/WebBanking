@@ -3,14 +3,13 @@ import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText';
 
 export const TransactionFailure = ({ linkTo, errorMessage, language, linkToStart }) => (
-  <div className="panel panel-default" id="transactionFailure">
-    <div id="failPanelBody" className="panel-body text-center">
-      <FontAwesome id="failIcon" name="times" size="3x"/>
-      <p id="failText">{errorMessage}</p>
+  <div className="panel panel-default">
+    <div className="panel-body text-center transaction-failure">
+      <FontAwesome name="times" size="3x" className="transaction-failure__icon"/>
+      <p className="transaction-failure__message">{errorMessage}</p>
       <button
-        id="returnToForm"
         type="button"
-        className="btn btn-default"
+        className="btn btn-default transaction-failure__return-to-form"
         onClick={() => linkTo(linkToStart)}>
         {localizationText[language].goBack}
       </button>

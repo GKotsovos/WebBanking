@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
 import _ from 'underscore';
 import localizationText from './localizationText';
@@ -7,7 +7,7 @@ export class CustomerCreditCards extends Component {
   componentDidMount() {
     const { selectedCreditCard } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.paymentCreditCard').selectpicker('val', [selectedCreditCard.value])
+    $('.selectpicker.customer-credit-cards__dropdown').selectpicker('val', [selectedCreditCard.value])
   }
 
   render() {
@@ -19,10 +19,10 @@ export class CustomerCreditCards extends Component {
     } = this.props;
     return (
       <div className="form-group">
-        <label htmlFor="paymentCreditCard">{localizationText[language].creditCardTitle}</label>
+        <label htmlFor="customer-credit-cards-dropdown">{localizationText[language].creditCardTitle}</label>
         <select
-          id="paymentCreditCard"
-          className={`selectpicker paymentCreditCard form-control ${_.isEmpty(selectedCreditCard) || selectedCreditCard.correct ? "" : "notValid"}`}
+          id="customer-credit-cards-dropdown"
+          className={`selectpicker customer-credit-cards__dropdown form-control ${_.isEmpty(selectedCreditCard) || selectedCreditCard.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectCreditCardTitle}
           onChange={

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Card from '../../../containers/CardContainer'
 import _ from 'underscore';
 

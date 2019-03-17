@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import DetailedLoan from '../../containers/DetailedLoanContainer'
 import LoanServicesTabs from '../../containers/LoanServicesTabsContainer'
 

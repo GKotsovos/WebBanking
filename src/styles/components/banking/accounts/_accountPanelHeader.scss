@@ -1,19 +1,7 @@
 .account-panel-header {
   &__title {
-    font-size: 14px;
-    margin: 0;
-
-    @include phone {
-      font-size: 12px;
-    }
-
-    @include smallest-supported-screen {
-      font-size: 11px;
-    }
-  }
-
-  &__iban {
-    float: right;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

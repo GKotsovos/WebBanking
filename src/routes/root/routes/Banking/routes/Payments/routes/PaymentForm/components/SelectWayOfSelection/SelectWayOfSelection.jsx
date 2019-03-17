@@ -1,28 +1,29 @@
 import React from 'react'
-import _ from 'underscore';
-import localizationText from './localizationText';
+import localizationText from './localizationText'
 
 export const SelectWayOfSelection = ({ setSearchPayment, language, shouldSearch }) => (
-  <div id="wayOfSelection" className="form-group">
-    <label htmlFor="selectWayOfSelection">{localizationText[language].paymentLabel}</label>
-    <div id="selectWayOfSelection">
+  <div className="form-group select-way-of-selection-container">
+    <label htmlFor="select-way-of-selection">{localizationText[language].paymentLabel}</label>
+    <div id="select-way-of-selection" className="select-way-of-selection">
       <span
-        id="select"
+        className="select-way-of-selection__radio-container"
         onClick={() => setSearchPayment(false)}>
         <input
           type="radio"
-          name="wayOfSelection"
+          name="way-of-selection"
+          className="select-way-of-selection__radio"
           onChange={() => setSearchPayment(false)}
           checked={!shouldSearch}
         />
         {localizationText[language].select}
       </span>
       <span
-        id="search"
+        className="select-way-of-selection__radio-container"
         onClick={() => setSearchPayment(true)}>
         <input
           type="radio"
-          name="wayOfSelection"
+          name="way-of-selection"
+          className="select-way-of-selection__radio"
           onChange={() => setSearchPayment(true)}
           checked={shouldSearch}
         />

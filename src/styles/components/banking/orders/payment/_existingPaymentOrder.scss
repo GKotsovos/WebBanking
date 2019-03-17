@@ -1,16 +1,23 @@
-.existingOrderContainer {
-  margin: 0 auto 20px auto;
-}
-
-.secondRow {
-  margin-top: 10px;
-}
-
-@include phone {
-  .orderDetails {
-    font-size: 12px;
+.existing-order {
+  &-container {
+    margin: 0 auto 20px auto;
   }
-  .existingOrderPanelBody {
-    padding: 10px;
+
+  &__second-row {
+    margin-top: 10px;
+  }
+}
+
+.existing-payment-order {
+  &-body {
+    @include phone {
+      padding: 10px;
+    }
+  }
+
+  &__data {
+    @include phone {
+      font-size: 12px;
+    }
   }
 }
