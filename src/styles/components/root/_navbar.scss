@@ -16,18 +16,22 @@
     }
   }
 
-  .navbar &-button {
+  & &-button {
     @extend .vertical-align;
-    display: flex;
-    align-items: center;
+    height: 55px;
     cursor: pointer;
     color: $white-text !important;
     padding-right: 10px;
-    padding-bottom: 20px;
     padding-left: 10px;
+
+    &__logout {
+      &:hover {
+        background-color: $active-blue !important;
+      }
+    }
   }
 
-  .navbar &-items {
+  & &-items {
     margin-top: 0;
 
     &__logout-icon {

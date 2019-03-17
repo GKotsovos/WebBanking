@@ -29,7 +29,7 @@ class LogOutModal extends Component {
             <div className="modal-footer">
               <button
                 type="button"
-                className="modal__accept-button btn btn-default"
+                className="common-button--blue btn"
                 onClick={() => {
                   $('#logOutModal').modal('hide');
                   logOut();

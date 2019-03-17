@@ -12,12 +12,15 @@ $light-blue: #B0C6F2;
 $white: #FFFFFF;
 $white-text: #EEEEEE;
 $black: #111111;
-$yellow: #FFC266;
+$yellow: #ffb547;
 $red: #990000;
+$gray: #848383;
 $shadow: #000000;
 
 // color transformations
-$lighten: 20%;
-$lighten-half: 40%;
-$darken: 20%;
-$darken-half: 40%;
+$lighten-half: 5%;
+$lighten: 10%;
+$lighten-double: 20%;
+$darken-half: 5%;
+$darken: 10%;
+$darken-double: 20%;

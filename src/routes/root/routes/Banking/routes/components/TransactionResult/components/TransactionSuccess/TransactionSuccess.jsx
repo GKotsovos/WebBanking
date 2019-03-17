@@ -9,7 +9,7 @@ export const TransactionSuccess = ({ linkTo, linkToStart, language, clearTransac
       <p className="transaction-success__message">{localizationText[language].transactionSuccess}</p>
       <button
         type="button"
-        className="btn btn-default transaction-success__complete"
+        className="common-button--blue btn transaction-success__complete"
         onClick={() => {
           clearTransactionForm();
           linkTo(linkToStart);

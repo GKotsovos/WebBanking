@@ -40,7 +40,7 @@ export const TimePeriodSelection = ({
 
     <button
       type="button"
-      className="btn btn-default time-period-selection__search-button"
+      className="common-button--blue btn time-period-selection__search-button"
       disabled={!validSelection}
       onClick={() => getTransactionHistoryByTimePeriod(startDate.value, endDate.value)}>
       {localizationText[language].search}

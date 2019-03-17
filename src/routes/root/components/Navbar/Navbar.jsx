@@ -54,7 +54,7 @@ export const Navbar = ({
                 </a>
               </li>,
               <li onClick={() => logOut()}>
-                <a className="navbar-button">
+                <a className="navbar-button navbar-button__logout">
                   <FontAwesome className="navbar-items__logout-icon" name="sign-out"/>{localizationText[language].signOut}
                 </a>
               </li>,

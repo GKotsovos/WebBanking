@@ -10,8 +10,7 @@ export const CancelOrderButton = ({
 }) => (
   <div>
     <button
-      id="orderCancel"
-      className="btn btn-default cancel-order-button"
+      className="common-button--red btn cancel-order-button"
       data-toggle="modal"
       data-target="#cancelOrderModal">
       {localizationText[language].delete}

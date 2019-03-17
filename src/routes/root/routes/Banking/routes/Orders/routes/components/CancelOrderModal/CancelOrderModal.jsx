@@ -25,13 +25,13 @@ export const CancelOrderModal = ({
         <div className="modal-footer">
           <button
             type="button"
-            className="modal__cancel-button btn btn-default"
+            className="common-button--red modal__cancel-button btn"
             data-dismiss="modal">
             {localizationText[language].cancel}
           </button>
           <button
             type="button"
-            className="modal__accept-button btn btn-default"
+            className="common-button--blue btn"
             onClick={() => {
               cancelOrder(orderId);
               $('#cancelOrderModal').modal('hide');

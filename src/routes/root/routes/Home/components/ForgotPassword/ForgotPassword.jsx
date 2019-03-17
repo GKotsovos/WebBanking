@@ -6,7 +6,7 @@ export const ForgotPassword = ({ language, changePanel }) => (
   <p
     className="forgot-password__text"
     onClick={() => changePanel('FORGOT_PASSWORD')}>
-    <FontAwesome name="question-circle" />
+    <FontAwesome name="question-circle" className="forgot-password__icon"/>
     {localizationText[language].forgotPassword}
   </p>
 )

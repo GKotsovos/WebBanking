@@ -9,7 +9,7 @@ export const TransactionFailure = ({ linkTo, errorMessage, language, linkToStart
       <p className="transaction-failure__message">{errorMessage}</p>
       <button
         type="button"
-        className="btn btn-default transaction-failure__return-to-form"
+        className="btn common-button--red transaction-failure__return-to-form"
         onClick={() => linkTo(linkToStart)}>
         {localizationText[language].goBack}
       </button>

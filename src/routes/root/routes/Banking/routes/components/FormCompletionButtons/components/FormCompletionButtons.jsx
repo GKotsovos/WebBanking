@@ -5,13 +5,13 @@ export const FormCompletionButtons = ({ shouldProcess, language, linkTo, clearFo
   <div className="form-group form-completion-buttons">
     <button
       type="button"
-      className="btn btn-default form-completion-buttons__clear-form-button"
+      className="common-button--gray btn form-completion-buttons__clear-form-button"
       onClick={() => clearForm()}>
       {localizationText[language].clear}
     </button>
     <button
       type="button"
-      className="btn btn-default form-completion-buttons__continue-button"
+      className="common-button--blue btn form-completion-buttons__continue-button"
       disabled={!shouldProcess}
       onClick={() => linkTo(linkToApprovalForm)}>
       {localizationText[language].continue}

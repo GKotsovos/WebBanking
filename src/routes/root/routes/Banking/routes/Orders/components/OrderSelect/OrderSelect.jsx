@@ -32,7 +32,7 @@ class OrderSelect extends Component {
           </select>
           <button
             type="button"
-            className="btn btn-default select-order__button"
+            className="btn common-button--blue select-order__button"
             onClick={() => linkToNewOrder(activeOrder)}>
             {localizationText[language].newOrder}
           </button>

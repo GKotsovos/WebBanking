@@ -11,7 +11,7 @@ export const NewApplicationPanel = ({ language, changePanel }) => (
       </h3>
       <button
         onClick={() => changePanel('NEW_APPLICATION')}
-        className="new-user-panel__button btn btn-default"
+        className="common-button--yellow new-user-panel__button btn"
         type="submit">
         {localizationText[language].applicationButton}
       </button>

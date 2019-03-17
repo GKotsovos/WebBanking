@@ -44,7 +44,7 @@ class LoginForm extends Component {
         </div>
         <button
           type="submit"
-          className="login-form__button btn btn-default">
+          className="common-button--blue login-form__button btn">
           {localizationText[language].logIn}
         </button>
       </form>
