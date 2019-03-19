@@ -1,11 +1,10 @@
 import React from 'react';
 import ExistingTransferOrder from '../ExistingTransferOrder';
-import _ from 'underscore';
 
 export const ExistingTransferOrdersLayout = ({ transferOrders, language, cancelTransferOrder }) => (
   <div>
     {
-      _.map(transferOrders, (transferOrder) =>
+      transferOrders.map(transferOrder =>
         <ExistingTransferOrder
           key={transferOrder.id}
           transferOrder={transferOrder}

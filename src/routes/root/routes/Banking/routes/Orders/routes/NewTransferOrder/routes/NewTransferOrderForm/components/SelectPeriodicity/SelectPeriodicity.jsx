@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 class SelectPeriodicity extends Component {
@@ -24,7 +24,7 @@ class SelectPeriodicity extends Component {
         <label htmlFor="select-period-dropdown">{localizationText[language].executionFrequency}</label>
         <select
           id="select-period-dropdown"
-          className={`selectpicker select-period__dropdown form-control ${_.isEmpty(periodicity) || periodicity.correct ? "" : "invalid-value"}`}
+          className={`selectpicker select-period__dropdown form-control ${isEmpty(periodicity) || periodicity.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectExecutionFrequencyTitle}
           onChange={(e) => setPeriodicity(e.target.value, e.target.options[e.target.options.selectedIndex].className)}>

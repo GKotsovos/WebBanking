@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export class SelectBankType extends Component {
@@ -22,7 +22,7 @@ export class SelectBankType extends Component {
         <div>
           <select
             id="select-bank-type-dropdown"
-            className={`selectpicker select-bank-type__dropdown form-control ${_.isEmpty(bankType) || bankType.correct ? "" : "invalid-value"}`}
+            className={`selectpicker select-bank-type__dropdown form-control ${isEmpty(bankType) || bankType.correct ? "" : "invalid-value"}`}
             data-show-subtext="true"
             title={localizationText[language].transferBankSelectTitle}
             value={bankType ? bankType.value : ""}

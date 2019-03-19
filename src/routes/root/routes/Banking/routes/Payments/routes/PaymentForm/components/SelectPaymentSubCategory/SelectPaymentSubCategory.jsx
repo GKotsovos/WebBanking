@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export class SelectPaymentSubCategory extends Component {
@@ -23,12 +23,12 @@ export class SelectPaymentSubCategory extends Component {
     return (
       <div className="form-group">
         <select
-          className={`selectpicker select-payment-subcategory__dropdown form-control ${_.isEmpty(activeSubCategory) || activeSubCategory.correct ? "" : "invalid-value"}`}
+          className={`selectpicker select-payment-subcategory__dropdown form-control ${isEmpty(activeSubCategory) || activeSubCategory.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectSubCategory}
           onChange={(e) => setActivePaymentSubCategory(e.target.value)}>
           {
-            _.map(availableSubCategories, (subCategory) => (
+            availableSubCategories.map(subCategory => (
               <option key={subCategory}>
                 {subCategory}
               </option>

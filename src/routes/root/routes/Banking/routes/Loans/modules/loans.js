@@ -1,8 +1,5 @@
-import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
-import { browserHistory } from 'react-router'
-import dateformat from 'dateformat';
 import { linkTo } from 'routes/root/routes/Banking/modules/banking';
 import {
   getDebitAccount,
@@ -20,7 +17,6 @@ import {
   getActiveLoan,
   getUpdatedLoans
  } from '../utils/loanUtils'
-import _ from 'underscore'
 
 const RECEIVED_LOANS = 'RECEIVED_LOANS';
 const RECEIVED_LOAN = 'RECEIVED_LOAN';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
-import _ from 'underscore';
 
 class CreditAgileAccountSelection extends Component {
   componentDidMount() {
@@ -28,12 +28,12 @@ class CreditAgileAccountSelection extends Component {
         <label htmlFor="credit-agile-account-selection-dropdown">{localizationText[language].to}</label>
         <select
           id="credit-agile-account-selection-dropdown"
-          className={`selectpicker credit-agile-account-selection__dropdown form-control ${_.isEmpty(creditAccount) || creditAccount.type != "" ? "" : "invalid-value"}`}
+          className={`selectpicker credit-agile-account-selection__dropdown form-control ${isEmpty(creditAccount) || creditAccount.type != "" ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectAccountTitle}
           onChange={(e) => setCreditAccount(e.target.value, e.target.options[e.target.options.selectedIndex].dataset.value)}>
           {
-            _.map(accounts, (account) => (
+            accounts.map(account => (
               <option
                 key={account.id}
                 data-value="isAccount"

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export class ChargesSelection extends Component {
@@ -20,7 +20,7 @@ export class ChargesSelection extends Component {
         <label htmlFor="charges-selection">{localizationText[language].charges}</label>
         <select
           id="charges-selection"
-          className={`selectpicker charges-selection__dropdown form-control ${_.isEmpty(chargesBeneficiary) || chargesBeneficiary.correct ? "" : "invalid-value"}`}
+          className={`selectpicker charges-selection__dropdown form-control ${isEmpty(chargesBeneficiary) || chargesBeneficiary.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectChargesTitle}
           onChange={(e) => setChargesBeneficiary(e.target.value, e.target.options[e.target.options.selectedIndex].dataset.value)}>

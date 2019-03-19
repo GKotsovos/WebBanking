@@ -1,9 +1,5 @@
-import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
-import { browserHistory } from 'react-router'
-import dateformat from 'dateformat';
-import _ from 'underscore'
 import { linkTo } from 'routes/root/routes/Banking/modules/banking';
 import {
   getDebitAccount,
@@ -19,15 +15,12 @@ import {
   handleTransactionException
 } from 'routes/root/routes/Banking/routes/utils/commonActions';
 import { getUpdatedCards, getUpdatedDebitCards } from '../utils/cardUtils';
-import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
-import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
 
 const RECEIVED_CARDS = 'RECEIVED_CARDS';
 const RECEIVED_DEBIT_CARD = 'RECEIVED_DEBIT_CARD';
 const RECEIVED_CREDIT_CARD = 'RECEIVED_CREDIT_CARD';
 const RECEIVED_PREPAID_CARD = 'RECEIVED_PREPAID_CARD';
 const RECEIVED_CARD_TRANSACTION_HISTORY = 'RECEIVED_CARD_TRANSACTION_HISTORY';
-const DELETE_LINKED_PRODUCT = 'DELETE_LINKED_PRODUCT';
 const INIT_CARD_TRANSACTION_FORM = 'INIT_CARD_TRANSACTION_FORM';
 const SET_CARD_DEBIT_ACCOUNT = 'SET_CARD_DEBIT_ACCOUNT';
 const SET_CREDIT_CARD_PAYMENT_AMOUNT = 'SET_CREDIT_CARD_PAYMENT_AMOUNT';
@@ -205,7 +198,7 @@ export const creditCardPayment = () => {
     .then(() => {
       dispatch({
         type    : SET_ACTIVE_CARD,
-        payload : _.filter(getState().cards.creditCards, (card) => card.id == getState().cards.activeCard.id)[0]
+        payload : getState().cards.creditCards.filter(card => card.id == getState().cards.activeCard.id)[0]
       })
     })
     .then(() => getCardTransactionHistory(transactionForm.cardId)(dispatch, getState))
@@ -250,12 +243,13 @@ export const prepaidCardLoad = () => {
     .then(() => {
       dispatch({
         type    : SET_ACTIVE_CARD,
-        payload : _.filter(getState().cards.prepaidCards, (card) => card.id == getState().cards.activeCard.id)[0]
+        payload : getState().cards.prepaidCards.filter(card => card.id == getState().cards.activeCard.id)[0]
       })
     })
     .then(() => getCardTransactionHistory(transactionForm.cardId)(dispatch, getState))
     .then(() => linkTo('/banking/cards/prepaidcards/card/load/result'))
-    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value))    .catch((exception) => handleTransactionException(exception, '/banking/cards/prepaidcards/card/load', dispatch))
+    .then(() => getDebitAccount(transactionForm.debitAccount.type, transactionForm.debitAccount.value))
+    .catch((exception) => handleTransactionException(exception, '/banking/cards/prepaidcards/card/load', dispatch))
     .then(() => linkTo('/banking/cards/prepaidcards/card/load/result'))
   }
 }

@@ -1,9 +1,6 @@
-import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
-import { browserHistory } from 'react-router';
-import dateformat from 'dateformat';
-import _ from 'underscore'
+import { isEmpty, groupBy } from 'underscore'
 import { linkTo } from 'routes/root/routes/Banking/modules/banking';
 import {
   getDebitAccount,
@@ -53,7 +50,7 @@ const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 
 export const getPaymentMethods = () => {
   return (dispatch, getState) => {
-    if (_.isEmpty(getState().payments.transactionForm.paymentMethods)) {
+    if (isEmpty(getState().payments.transactionForm.paymentMethods)) {
       return axios({
         method: 'get',
         url: 'http://localhost:26353/api/Payment/GetPaymentMethods',
@@ -331,7 +328,7 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        paymentMethods: _.groupBy(action.payload.data, 'category')
+        paymentMethods: groupBy(action.payload.data, 'category')
       }
     }
   },
@@ -341,7 +338,7 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        availableCategories: _.keys(state.transactionForm.paymentMethods),
+        availableCategories: Object.keys(state.transactionForm.paymentMethods),
       }
     }
   },

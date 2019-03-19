@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import _ from 'underscore';
+import React, { Component } from 'react'
+import { isEmpty } from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectBankType from 'routes/root/routes/Banking/routes/components/SelectBankType';
 import CreditAgileAccountSelection from 'routes/root/routes/Banking/routes/components/CreditAgileAccountSelection';
@@ -50,7 +50,7 @@ class NewTransferOrderFormLayout extends Component {
       <form className="new-order-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
-          debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
+          debitAccount={!isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
@@ -64,10 +64,10 @@ class NewTransferOrderFormLayout extends Component {
           setCreditBankType={setTransferOrderBeneficiaryBankType}
         />
         {
-          !_.isEmpty(newOrderForm) && newOrderForm.beneficiaryBankType.value ? [
+          !isEmpty(newOrderForm) && newOrderForm.beneficiaryBankType.value ? [
             newOrderForm.beneficiaryBankType.value == 'agileBank' ? [
               <CreditAgileAccountSelection
-                accounts={_.filter(accounts, (account) => account.id != newOrderForm.debitAccount.value)}
+                accounts={accounts.filter(account => account.id != newOrderForm.debitAccount.value)}
                 creditAccount={newOrderForm.beneficiaryAccount}
                 language={language}
                 setCreditAccount={setTransferOrderBeneficiaryAccount}
@@ -112,7 +112,7 @@ class NewTransferOrderFormLayout extends Component {
                 />
               ) : null,
               <Comments
-                comments={!_.isEmpty(newOrderForm) ? newOrderForm.comments : {}}
+                comments={!isEmpty(newOrderForm) ? newOrderForm.comments : {}}
                 amount={newOrderForm.amount}
                 language={language}
                 setTransferComments={setTransferOrderComments}

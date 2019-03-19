@@ -1,11 +1,10 @@
 import React from 'react';
 import ExistingPaymentOrder from '../ExistingPaymentOrder';
-import _ from 'underscore';
 
 export const ExistingPaymentOrdersLayout = ({ paymentOrders, language, cancelPaymentOrder }) => (
   <div>
     {
-      _.map(paymentOrders, (paymentOrder) =>
+      paymentOrders.map(paymentOrder =>
         <ExistingPaymentOrder
           key={paymentOrder.id}
           paymentOrder={paymentOrder}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 class DomesticBankSelection extends Component {
@@ -20,13 +20,13 @@ class DomesticBankSelection extends Component {
     return (
       <div className="form-group">
         <select
-          className={`selectpicker domestic-bank-selection__dropdown form-control ${_.isEmpty(bank) || bank.correct ? "" : "invalid-value"} `}
+          className={`selectpicker domestic-bank-selection__dropdown form-control ${isEmpty(bank) || bank.correct ? "" : "invalid-value"} `}
           data-show-subtext="true"
           title={localizationText[language].selectBeneficiaryBank}
           value={bank.selection || ""}
           onChange={(e) => setCreditBank(e.target.value)}>
           {
-            _.map(domesticBanks, (domesticBank) => (
+            domesticBanks.map(domesticBank => (
               <option>
                 {domesticBank}
               </option>

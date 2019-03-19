@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export class SelectPaymentMethod extends Component {
@@ -23,12 +23,12 @@ export class SelectPaymentMethod extends Component {
     return (
       <div className="form-group">
         <select
-          className={`selectpicker select-payment-method__dropdown form-control ${_.isEmpty(activeMethod) ? "" : "invalid-value"}`}
+          className={`selectpicker select-payment-method__dropdown form-control ${isEmpty(activeMethod) ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectPayment}
           onChange={(e) => setActivePaymentMethod(e.target.value)}>
           {
-            _.map(availablePaymentMethods, (method) => (
+            availablePaymentMethods.map(method => (
               <option key={method}>
                 {method}
               </option>

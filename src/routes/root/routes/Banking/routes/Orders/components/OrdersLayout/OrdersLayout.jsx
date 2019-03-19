@@ -1,5 +1,5 @@
-import React, { Component, PropTypes }  from 'react';
-import _ from 'underscore';
+import React, { Component }  from 'react';
+import { isEmpty } from 'underscore';
 import OrderSelect from '../../containers/OrderSelectContainer'
 
 class OrdersLayout extends Component {
@@ -10,7 +10,7 @@ class OrdersLayout extends Component {
       getTransferOrders,
       getPaymentOrders,
     } = this.props;
-    if (_.isEmpty(orderState)) {
+    if (isEmpty(orderState)) {
       initializeOrderState();
       getTransferOrders();
       getPaymentOrders();

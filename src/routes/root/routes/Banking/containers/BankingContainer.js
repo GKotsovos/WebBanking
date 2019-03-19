@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { isEmpty } from 'underscore';
 import {
   setInitLoad,
   getCustomerName,
@@ -9,11 +10,10 @@ import { getAccounts } from '../routes/Accounts/modules/accounts';
 import { getCards } from '../routes/Cards/modules/cards';
 import { getLoans } from '../routes/Loans/modules/loans';
 import Banking from '../components/BankingLayout';
-import _ from 'underscore';
 
 const mapStateToProps = (state) => ({
   initLoad: state.banking.initLoad,
-  shouldShowLogOutModal: _.isEmpty(state.banking.logOutModal) ? false : state.banking.logOutModal.shouldShow,
+  shouldShowLogOutModal: isEmpty(state.banking.logOutModal) ? false : state.banking.logOutModal.shouldShow,
   language: state.root.language
 });
 

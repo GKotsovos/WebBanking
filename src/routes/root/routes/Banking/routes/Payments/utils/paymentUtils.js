@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 export const getPayentBank = (paymentMethod) => {
   return paymentMethod.toUpperCase().includes('AGILE') ? 'AGILE BANK' : ''
 }
@@ -29,32 +27,27 @@ export const getPaymentUrl = (bank, creditProductType) => {
 }
 
 export const getPaymentSubCategories = (transactionForm) => {
-  return _.chain(transactionForm.paymentMethods[transactionForm.paymentSelections.category])
-   .filter((payment) => payment.subCategory != " ")
-   .map((payment) => payment.subCategory)
-   .uniq()
-   .value();
+  return [...new Set(
+    transactionForm.paymentMethods[transactionForm.paymentSelections.category]
+      .filter((payment) => payment.subCategory != " ")
+      .map((payment) => payment.subCategory)
+  )];
 }
 
 export const getAvailablePaymentMethods = (transactionForm) => {
   let payments = [];
   if (transactionForm.shouldSearch) {
-    payments = _.chain(transactionForm.paymentMethods)
-      .map((paymentMethod) => _.map(paymentMethod, (method) => method.name))
-      .flatten()
-      .value();
+    payments = transactionForm.paymentMethods
+      .map((paymentMethod) => paymentMethod.map(method => method.name))
+      .flatMap()
   } else if (transactionForm.availableSubCategories.length > 0) {
-    payments =
-      _.chain(transactionForm.paymentMethods[transactionForm.paymentSelections.category])
+    payments = transactionForm.paymentMethods[transactionForm.paymentSelections.category]
        .filter((payment) => payment.subCategory == transactionForm.paymentSelections.subCategory)
-       .map((payment) => payment.name)
-       .value();
+       .map((payment) => payment.name);
   } else {
-    payments =
-      _.chain(transactionForm.paymentMethods[transactionForm.paymentSelections.category])
+    payments = transactionForm.paymentMethods[transactionForm.paymentSelections.category]
        .filter((payment) => payment.category == transactionForm.paymentSelections.category)
        .map((payment) => payment.name)
-       .value();
   }
   return payments;
 }

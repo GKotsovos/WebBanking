@@ -1,11 +1,8 @@
-import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
-import { browserHistory } from 'react-router';
 import dateformat from 'dateformat';
 import IBAN from 'iban';
-import bic from 'bic';
-import _ from 'underscore'
+import { isEmpty, groupBy } from 'underscore'
 import { linkTo } from 'routes/root/routes/Banking/modules/banking';
 import {
   getDebitAccountAvailableBalance,
@@ -162,7 +159,7 @@ export const getPaymentOrders = () => {
 
 export const getDomesticBanks = () => {
   return (dispatch, getState) => {
-    if (_.isEmpty(getState().transfers.newOrderForm.domesticBanks)) {
+    if (isEmpty(getState().transfers.newOrderForm.domesticBanks)) {
       return axios({
         method: 'get',
         url: 'http://localhost:26353/api/Bank/GetAllDomesticBanks',
@@ -386,7 +383,7 @@ export const setTransferOrderCustomTitle = (title) => {
 
 export const getPaymentMethods = () => {
   return (dispatch, getState) => {
-    if (_.isEmpty(getState().orders.newOrderForm.availablePaymentMethods)) {
+    if (isEmpty(getState().orders.newOrderForm.availablePaymentMethods)) {
       return axios({
         method: 'get',
         url: 'http://localhost:26353/api/Payment/GetPaymentMethods',
@@ -907,8 +904,8 @@ const ACTION_HANDLERS = {
       ...state,
       newOrderForm: {
         ...state.newOrderForm,
-        paymentMethods: _.groupBy(action.payload, 'category'),
-        availablePaymentMethods: _.map(action.payload, (paymentMethod) => paymentMethod.name)
+        paymentMethods: groupBy(action.payload, 'category'),
+        availablePaymentMethods: action.payload.map(paymentMethod => paymentMethod.name)
       }
     }
   },

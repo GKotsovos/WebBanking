@@ -1,5 +1,5 @@
 import React, { Component, PropTypes }  from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SearchPaymentMethod from 'routes/root/routes/Banking/routes/components/SearchPaymentMethod';
 import PaymentCodeSelection from 'routes/root/routes/Banking/routes/components/PaymentCodeSelection';
@@ -35,7 +35,7 @@ class NewPaymentOrderFormLayout extends Component {
       <div className="new-order-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
-          debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
+          debitAccount={!isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
@@ -50,11 +50,11 @@ class NewPaymentOrderFormLayout extends Component {
           setActivePaymentMethod={setPaymentOrderPaymentMethod}
         />
         {
-          !_.isEmpty(newOrderForm) && newOrderForm.paymentSelections.paymentMethod ? [
+          !isEmpty(newOrderForm) && newOrderForm.paymentSelections.paymentMethod ? [
             <PaymentCodeSelection
               creditCards={creditCards}
               loans={loans}
-              paymentType={_.isEmpty(newOrderForm.paymentSelections) ? {} : newOrderForm.paymentSelections.paymentType}
+              paymentType={isEmpty(newOrderForm.paymentSelections) ? {} : newOrderForm.paymentSelections.paymentType}
               paymentCode={newOrderForm.paymentCode}
               language={language}
               setPaymentCode={setPaymentOrderPaymentCode}
@@ -67,7 +67,7 @@ class NewPaymentOrderFormLayout extends Component {
             <SelectPaymentOrderEndDate
               key='date'
               language={language}
-              endDate={!_.isEmpty(newOrderForm) ? newOrderForm.endDate : {}}
+              endDate={!isEmpty(newOrderForm) ? newOrderForm.endDate : {}}
               setPaymentOrderEndDate={setPaymentOrderEndDate}
             />,
             <FormCompletionButtons

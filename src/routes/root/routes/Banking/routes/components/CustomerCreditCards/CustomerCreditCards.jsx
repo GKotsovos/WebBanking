@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export class CustomerCreditCards extends Component {
@@ -22,7 +22,7 @@ export class CustomerCreditCards extends Component {
         <label htmlFor="customer-credit-cards-dropdown">{localizationText[language].creditCardTitle}</label>
         <select
           id="customer-credit-cards-dropdown"
-          className={`selectpicker customer-credit-cards__dropdown form-control ${_.isEmpty(selectedCreditCard) || selectedCreditCard.correct ? "" : "invalid-value"}`}
+          className={`selectpicker customer-credit-cards__dropdown form-control ${isEmpty(selectedCreditCard) || selectedCreditCard.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectCreditCardTitle}
           onChange={
@@ -30,7 +30,7 @@ export class CustomerCreditCards extends Component {
           }
         >
         {
-          _.map(creditCards, (creditCard) => (
+          creditCards.map(creditCard => (
             <option
               key={creditCard.id}
               className="isCreditCard"
@@ -39,7 +39,7 @@ export class CustomerCreditCards extends Component {
               }
               value={creditCard.id}
             >
-              {_.map(creditCard.id, ((num, key) =>  key % 4 == 0 ? ' ' + num : num ))}
+              {[...creditCard.id].map((num, key) =>  key % 4 == 0 ? ' ' + num : num )}
             </option>
           ))
         }

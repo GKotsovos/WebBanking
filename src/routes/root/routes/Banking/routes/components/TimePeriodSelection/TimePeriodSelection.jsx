@@ -1,6 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-bootstrap-date-picker'
-import _ from 'underscore'
+import { isEmpty } from 'underscore'
 import localizationText from './localizationText'
 
 export const TimePeriodSelection = ({
@@ -17,7 +17,7 @@ export const TimePeriodSelection = ({
       <label className="time-period-selection__label">{localizationText[language].fromTimePeriodLabel}</label>
       <DatePicker
         id="time-period-datepicker-start-date"
-        className={`text-right ${_.isEmpty(startDate) || startDate.valid ? '' : 'invalid-value'}`}
+        className={`text-right ${isEmpty(startDate) || startDate.valid ? '' : 'invalid-value'}`}
         weekStartsOnMonday
         calendarPlacement="top"
         placeholder={localizationText[language].datePickerPlaceholder}
@@ -29,7 +29,7 @@ export const TimePeriodSelection = ({
     <div className="time-period-selection-date-picker-container">
       <label className="time-period-selection__label">{localizationText[language].untilTimePeriodLabel}</label>
       <DatePicker
-        className={`text-right ${_.isEmpty(endDate) || endDate.valid ? '' : 'invalid-value'}`}
+        className={`text-right ${isEmpty(endDate) || endDate.valid ? '' : 'invalid-value'}`}
         weekStartsOnMonday
         calendarPlacement="top"
         placeholder={localizationText[language].datePickerPlaceholder}

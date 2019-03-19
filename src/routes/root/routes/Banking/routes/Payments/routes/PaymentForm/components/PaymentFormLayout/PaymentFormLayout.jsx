@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectPayment from '../SelectPayment';
 import PaymentCodeSelection from 'routes/root/routes/Banking/routes/components/PaymentCodeSelection';
@@ -41,7 +41,7 @@ class PaymentFormLayout extends Component {
       <form className="payment-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
-          debitAccount={!_.isEmpty(transactionForm) ? transactionForm.debitAccount : {}}
+          debitAccount={!isEmpty(transactionForm) ? transactionForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
@@ -54,22 +54,22 @@ class PaymentFormLayout extends Component {
           setSearchPayment={setSearchPayment}
           shouldSearch={transactionForm.shouldSearch}
           availableCategories={transactionForm.availableCategories}
-          activeCategory={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.category}
+          activeCategory={isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.category}
           setActivePaymentCategory={setActivePaymentCategory}
           availableSubCategories={transactionForm.availableSubCategories}
           paymentSubCategories={transactionForm.subCategories}
-          activeSubCategory={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.subCategory}
+          activeSubCategory={isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.subCategory}
           setActivePaymentSubCategory={setActivePaymentSubCategory}
           availablePaymentMethods={transactionForm.availablePaymentMethods}
-          activeMethod={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentMethod}
+          activeMethod={isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentMethod}
           setActivePaymentMethod={setActivePaymentMethod}
         />
         {
-          !_.isEmpty(transactionForm) && transactionForm.paymentSelections.paymentMethod ? [
+          !isEmpty(transactionForm) && transactionForm.paymentSelections.paymentMethod ? [
             <PaymentCodeSelection
               creditCards={creditCards}
               loans={loans}
-              paymentType={_.isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentType}
+              paymentType={isEmpty(transactionForm.paymentSelections) ? {} : transactionForm.paymentSelections.paymentType}
               paymentCode={transactionForm.paymentCode}
               language={language}
               setPaymentCode={setPaymentCode}
@@ -82,7 +82,7 @@ class PaymentFormLayout extends Component {
             <SelectTransactionDate
               key='date'
               title={localizationText[language].executionDate}
-              date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
+              date={!isEmpty(transactionForm) ? transactionForm.date : {}}
               language={language}
               setAsapTransaction={setAsapTransaction}
               setTransactionDate={setTransactionDate}

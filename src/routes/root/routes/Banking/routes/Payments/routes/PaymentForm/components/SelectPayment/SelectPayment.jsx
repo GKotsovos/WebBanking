@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import SelectWayOfSelection from '../SelectWayOfSelection';
 import SearchPaymentMethod from 'routes/root/routes/Banking/routes/components/SearchPaymentMethod';
 import SelectPaymentCategory from '../SelectPaymentCategory';
@@ -42,7 +42,7 @@ export const SelectPayment = ({
           language={language}
           setActivePaymentCategory={setActivePaymentCategory}
         />,
-          !_.isEmpty(activeCategory) ? (
+          !isEmpty(activeCategory) ? (
             availableSubCategories.length > 0 ? [
               <SelectPaymentSubCategory
                 availableSubCategories={availableSubCategories}

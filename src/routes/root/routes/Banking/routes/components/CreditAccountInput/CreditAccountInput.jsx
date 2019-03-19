@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export const CreditAccountInput = ({ showTitle, creditAccount, language, setCreditAccount}) => (
@@ -9,7 +9,7 @@ export const CreditAccountInput = ({ showTitle, creditAccount, language, setCred
     }
     <input
       id="credit-account-input"
-      className={`form-control ${_.isEmpty(creditAccount) || creditAccount.correct ? "" : "invalid-value"}`}
+      className={`form-control ${isEmpty(creditAccount) || creditAccount.correct ? "" : "invalid-value"}`}
       value={creditAccount.value ? creditAccount.value : ""}
       onChange={(e) => setCreditAccount(e.target.value)}
       placeholder="IBAN"

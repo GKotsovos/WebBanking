@@ -1,7 +1,7 @@
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 
 export const handleOrderTransactionException = (exception, redirectUrl, dispatch) => {
-  !_.isEmpty(exception.response) && exception.response.status == 401 ?
+  !isEmpty(exception.response) && exception.response.status == 401 ?
     dispatch({
       type    : 'LOG_OUT',
     }) :

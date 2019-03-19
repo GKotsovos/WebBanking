@@ -1,7 +1,6 @@
 import React from 'react';
 import DeleteLinkedProduct from '../../containers/DeleteLinkedProductContainer';
 import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
 import localizationText from './localizationText';
 
 export const LinkedProductsLayout = ({
@@ -21,7 +20,7 @@ export const LinkedProductsLayout = ({
       </thead>
       <tbody>
         {
-          _.map(linkedProducts, (linkedProduct, key) => linkedProduct ? [
+          [...linkedProducts].map((linkedProduct, key) => linkedProduct ? [
             <tr key={key}>
               <td key={key++} className="common-table-cell col-xs-2 text-center">{linkedProduct.type}</td>
               <td key={key++} className="common-table-cell col-xs-4 text-center">{linkedProduct.id}</td>

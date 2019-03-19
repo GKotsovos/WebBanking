@@ -1,6 +1,6 @@
 import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export const SelectTransactionDate = ({
@@ -33,7 +33,7 @@ export const SelectTransactionDate = ({
           name="transaction-execution-type"
           className="select-transaction-date__radio"
           onChange={() => setAsapTransaction(false)}
-          checked={!_.isEmpty(date) && !date.asapTransaction}
+          checked={!isEmpty(date) && !date.asapTransaction}
         />
         <span
           onClick={() => setAsapTransaction(false)}>
@@ -42,13 +42,13 @@ export const SelectTransactionDate = ({
       </span>
       <DatePicker
         id="transaction-date-picker"
-        className={`form-control text-right ${_.isEmpty(date) || date.correct ? "" : "invalid-value"}`}
+        className={`form-control text-right ${isEmpty(date) || date.correct ? "" : "invalid-value"}`}
         weekStartsOnMonday
         calendarPlacement="top"
         placeholder={localizationText[language].selectDatePlaceholder}
         value={date ? date.value : ''}
         onChange={(value, formattedValue) => setTransactionDate(value, formattedValue)}
-        disabled={_.isEmpty(date) || date.asapTransaction}
+        disabled={isEmpty(date) || date.asapTransaction}
       />
     </div>
   </div>

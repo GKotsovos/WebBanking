@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export class SelectCustomerAccounts extends Component {
@@ -26,7 +26,7 @@ export class SelectCustomerAccounts extends Component {
         <label htmlFor="transfer-order-credit-account">{localizationText[language].to}</label>
         <select
           id="transfer-order-credit-account"
-          className={`selectpicker transfer-order__credit-account form-control ${_.isEmpty(creditAccount) || creditAccount.correct ? "" : "invalid-value"}`}
+          className={`selectpicker transfer-order__credit-account form-control ${isEmpty(creditAccount) || creditAccount.correct ? "" : "invalid-value"}`}
           data-show-subtext="true"
           title={localizationText[language].selectAccountTitle}
           onChange={
@@ -34,7 +34,7 @@ export class SelectCustomerAccounts extends Component {
           }
         >
           {
-            _.map(accounts, (account) => (
+            accounts.map(account => (
               <option
                 key={account.id}
                 data-account-type="isAccount"

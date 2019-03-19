@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'underscore';
 import localizationText from './localizationText';
 
 export const DeleteLinkedProductModal = ({
@@ -19,7 +18,7 @@ export const DeleteLinkedProductModal = ({
           <span className="modal-title">{localizationText[language].confirmationTitle}</span>
         </div>
         <div className="modal-body">
-          {localizationText[language].confirmationPartOne}<strong>«{_.map(debitCardId, ((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num ))}»</strong>{localizationText[language].confirmationPartTwo}<span className="strong">«{linkedProductId}»</span>;
+          {localizationText[language].confirmationPartOne}<strong>«{[...debitCardId].map((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num )}»</strong>{localizationText[language].confirmationPartTwo}<span className="strong">«{linkedProductId}»</span>;
         </div>
         <div className="modal-footer">
           <button

@@ -1,7 +1,6 @@
 import React from 'react';
 import dateformat from 'dateformat';
 import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
 import localizationText from './localizationText';
 
 const sign = {
@@ -23,7 +22,7 @@ export const TransactionsTable = ({ transactionHistory, language }) => (
       </thead>
       <tbody>
         {
-          _.map(transactionHistory, (transaction, key) => [
+          transactionHistory.map((transaction, key) => [
             <tr key={key}>
               <td key={key++} className="common-table-cell col-sm-2 text-center">
                 {dateformat(transaction.date, 'dd/mm/yyyy')}

@@ -1,11 +1,8 @@
-import cookie from 'react-cookie';
 import axios from 'axios';
 import querystring from 'querystring';
-import { browserHistory } from 'react-router';
-import dateformat from 'dateformat';
 import IBAN from 'iban';
 import bic from 'bic';
-import _ from 'underscore'
+import { isEmpty } from 'underscore'
 import { linkTo } from 'routes/root/routes/Banking/modules/banking';
 import {
   getDebitAccount,
@@ -51,7 +48,7 @@ const UNSUCCESSFUL_TRANSACTION = 'UNSUCCESSFUL_TRANSACTION';
 
 export const getDomesticBanks = () => {
   return (dispatch, getState) => {
-    if (_.isEmpty(getState().transfers.transactionForm.domesticBanks)) {
+    if (isEmpty(getState().transfers.transactionForm.domesticBanks)) {
       return axios({
         method: 'get',
         url: 'http://localhost:26353/api/Bank/GetAllDomesticBanks',

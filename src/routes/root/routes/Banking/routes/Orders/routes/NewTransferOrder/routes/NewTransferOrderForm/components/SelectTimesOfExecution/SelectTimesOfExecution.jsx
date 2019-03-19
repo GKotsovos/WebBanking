@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export const SelectTimesOfExecution = ({ timesOfExecution, language, setTimesOfExecution}) => (
@@ -7,8 +7,8 @@ export const SelectTimesOfExecution = ({ timesOfExecution, language, setTimesOfE
     <label htmlFor="times-of-execution">{localizationText[language].executionsLabel}</label>
     <input
       id="times-of-execution"
-      className={`form-control ${_.isEmpty(timesOfExecution) || timesOfExecution.correct ? "" : "invalid-value"}`}
-      value={_.isEmpty(timesOfExecution) ? '' : timesOfExecution.value}
+      className={`form-control ${isEmpty(timesOfExecution) || timesOfExecution.correct ? "" : "invalid-value"}`}
+      value={isEmpty(timesOfExecution) ? '' : timesOfExecution.value}
       onChange={(e) => setTimesOfExecution(e.target.value)}
      />
   </div>

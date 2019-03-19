@@ -1,6 +1,5 @@
 import axios from 'axios';
 import querystring from 'querystring';
-import _ from 'underscore'
 import { handleRequestException } from 'routes/root/routes/Banking/routes/utils/commonActions';
 
 const RECEIVED_ACCOUNTS = 'RECEIVED_ACCOUNTS';

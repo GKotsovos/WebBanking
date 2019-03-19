@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export const BicInput = ({ bank, language, setCreditBankBIC }) => (
@@ -8,7 +8,7 @@ export const BicInput = ({ bank, language, setCreditBankBIC }) => (
     <label htmlFor="bic">{localizationText[language].bankBic}</label>
     <input
       id="bic"
-      className={`form-control bic-input ${_.isEmpty(bank) || bank.correct ? "" : "invalid-value"}`}
+      className={`form-control bic-input ${isEmpty(bank) || bank.correct ? "" : "invalid-value"}`}
       value={bank.bic || ""}
       placeholder="BIC"
       onChange={(e) => setCreditBankBIC(e.target.value)}

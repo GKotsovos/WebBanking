@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
@@ -38,7 +38,7 @@ class TransferFormLayout extends Component {
       <form className="transfer-form">
         <SelectDebitAccount
           label={localizationText[language].from}
-          debitAccount={!_.isEmpty(transactionForm) ? transactionForm.debitAccount : {}}
+          debitAccount={!isEmpty(transactionForm) ? transactionForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
@@ -47,30 +47,30 @@ class TransferFormLayout extends Component {
           setDebitAccount={setDebitAccount}
         />
         <SelectBankType
-          bankType={!_.isEmpty(transactionForm) ? transactionForm.bankType : {}}
+          bankType={!isEmpty(transactionForm) ? transactionForm.bankType : {}}
           language={language}
           setCreditBankType={setCreditBankType}
         />
         {
-          !_.isEmpty(transactionForm) && transactionForm.bankType.value ? [
+          !isEmpty(transactionForm) && transactionForm.bankType.value ? [
             children,
             <Comments
               key='comments'
-              comments={!_.isEmpty(transactionForm) ? transactionForm.comments : {}}
+              comments={!isEmpty(transactionForm) ? transactionForm.comments : {}}
               language={language}
               setTransferComments={setTransferComments}
             />,
             <SelectTransactionDate
               key='date'
               title={localizationText[language].executionDate}
-              date={!_.isEmpty(transactionForm) ? transactionForm.date : {}}
+              date={!isEmpty(transactionForm) ? transactionForm.date : {}}
               language={language}
               setAsapTransaction={setAsapTransfer}
               setTransactionDate={setTransactionDate}
             />,
             <FormCompletionButtons
               key='completion'
-              shouldProcess={!_.isEmpty(transactionForm) ? transactionForm.shouldProcess : false}
+              shouldProcess={!isEmpty(transactionForm) ? transactionForm.shouldProcess : false}
               language={language}
               clearForm={this.clearForm.bind(this)}
               linkToApprovalForm='/banking/transfers/approval'

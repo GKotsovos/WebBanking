@@ -1,6 +1,6 @@
 import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
 
 export const SelectPaymentOrderEndDate = ({
@@ -13,7 +13,7 @@ export const SelectPaymentOrderEndDate = ({
     <div id="transaction-date">
       <DatePicker
         id="transaction-date-picker"
-        className={`form-control text-right ${_.isEmpty(endDate) || endDate.correct ? "" : "invalid-value"}`}
+        className={`form-control text-right ${isEmpty(endDate) || endDate.correct ? "" : "invalid-value"}`}
         weekStartsOnMonday
         calendarPlacement="top"
         placeholder={localizationText[language].datePlaceholder}
