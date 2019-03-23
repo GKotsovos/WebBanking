@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
 import { isEmpty } from 'underscore';
+import { formatCardNumber } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import localizationText from './localizationText';
 
 export class CustomerCreditCards extends Component {
@@ -39,7 +40,7 @@ export class CustomerCreditCards extends Component {
               }
               value={creditCard.id}
             >
-              {[...creditCard.id].map((num, key) =>  key % 4 == 0 ? ' ' + num : num )}
+              {formatCardNumber(creditCard.id)}
             </option>
           ))
         }

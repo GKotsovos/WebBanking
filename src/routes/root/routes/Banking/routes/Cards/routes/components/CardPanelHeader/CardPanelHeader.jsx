@@ -1,5 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
+import { formatCardNumber } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 
 export const CardPanelHeader = ({ card, type }) => (
   <div className="card-header panel-title panel-heading">
@@ -7,9 +8,7 @@ export const CardPanelHeader = ({ card, type }) => (
       <span>
         ({currencyFormatter.findCurrency(card.currency).symbol}) {type} {card.brand}
       </span>
-      <span>
-        {[...card.id].map(((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num ))}
-      </span>
+      <span>{formatCardNumber(card.id)}</span>
     </h3>
   </div>
 )

@@ -162,3 +162,7 @@ export const getImmediateText = (language) => {
   }
   return immediateText;
 }
+
+export const formatCardNumber = (cardNumber) => {
+  return [...cardNumber].map(((num, key) =>  key % 4 == 0 && key != 0 ? ' ' + num : num ))
+}
