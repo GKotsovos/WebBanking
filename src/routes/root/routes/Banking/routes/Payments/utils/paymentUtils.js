@@ -1,3 +1,5 @@
+import { map } from "underscore";
+
 export const getPayentBank = (paymentMethod) => {
   return paymentMethod.toUpperCase().includes('AGILE') ? 'AGILE BANK' : ''
 }
@@ -37,9 +39,8 @@ export const getPaymentSubCategories = (transactionForm) => {
 export const getAvailablePaymentMethods = (transactionForm) => {
   let payments = [];
   if (transactionForm.shouldSearch) {
-    payments = transactionForm.paymentMethods
-      .map((paymentMethod) => paymentMethod.map(method => method.name))
-      .flatMap()
+    payments = map(transactionForm.paymentMethods, (paymentMethod) => paymentMethod.map(method => method.name))
+      .flatMap(paymentMethod => paymentMethod);
   } else if (transactionForm.availableSubCategories.length > 0) {
     payments = transactionForm.paymentMethods[transactionForm.paymentSelections.category]
        .filter((payment) => payment.subCategory == transactionForm.paymentSelections.subCategory)

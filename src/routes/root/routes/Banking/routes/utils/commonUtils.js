@@ -1,4 +1,5 @@
 import dateformat from 'dateformat';
+import { map } from "underscore";
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
 import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
@@ -128,9 +129,8 @@ export const isValidChargesBeneficiary = (beneficiary) => {
 }
 
 export const findPaymentCharges = (paymentMethods, paymentName) => {
-  return paymentMethods
-    .map((paymentMethod) => paymentMethod.map(method => method))
-    .flatMap()
+  return map(paymentMethods, (paymentMethod) => paymentMethod.map(method => method))
+    .flatMap(paymentMethod => paymentMethod)
     .filter(payment => payment.name == paymentName)[0].charges
 }
 
