@@ -1,0 +1,13 @@
+.card {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include phone {
+    margin: 0 auto 7.5% auto;
+  }
+}

@@ -1,0 +1,14 @@
+.services {
+  &-tabs {
+    margin-bottom: 5%;
+    border-bottom: none;
+  }
+
+  &-tab {
+    min-width: 110px;
+    background-color: $light-blue;
+    color: $black;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

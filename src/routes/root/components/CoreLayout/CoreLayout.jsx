@@ -1,11 +1,10 @@
 import React from 'react'
 import Navbar from '../../containers/NavbarContainer'
 import Footer from '../Footer'
-import './CoreLayout.css'
-import 'styles/core.scss'
+import 'styles/styles.scss'
 
 export const CoreLayout = ({ children }) => (
-  <div id="coreLayout">
+  <div>
     <Navbar />
     <div className='core-layout__viewport'>
       {children}

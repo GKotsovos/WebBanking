@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import BicInput from '../BicInput'
 import CreditAccountInput from 'routes/root/routes/Banking/routes/components/CreditAccountInput';
 import BeneficiaryFullNameInput from 'routes/root/routes/Banking/routes/components/BeneficiaryFullNameInput';

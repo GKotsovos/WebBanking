@@ -1,0 +1,9 @@
+.orders-container {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 100px auto 4%;
+
+  @include phone {
+    margin-top: 0;
+  }
+}

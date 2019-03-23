@@ -1,8 +1,8 @@
+import dateformat from 'dateformat';
+import { map } from "underscore";
 import { getAccountById } from 'routes/root/routes/Banking/routes/Accounts/modules/accounts';
 import { getCreditCardById, getPrepaidCardById } from 'routes/root/routes/Banking/routes/Cards/modules/cards';
 import { getLoanById } from 'routes/root/routes/Banking/routes/Loans/modules/loans';
-import dateformat from 'dateformat';
-import _ from 'underscore';
 
 export const getDebitAccount = (debitAccountType, debitAccountId) => {
   switch (debitAccountType) {
@@ -26,28 +26,16 @@ const findDebitAccount = (debitAccountType, debitAccountId, state) => {
 
   switch (debitAccountType) {
     case "isAccount":
-      debitAccount = _.chain(state.accounts.accounts)
-        .filter((account) => account.id == debitAccountId)
-        .first()
-        .value();
+      debitAccount = state.accounts.accounts.filter((account) => account.id == debitAccountId)[0]
       break;
     case "isLoan":
-      debitAccount = _.chain(state.loans.loans)
-        .filter((loan) => loan.id == debitAccountId)
-        .first()
-        .value();
+      debitAccount = state.loans.loans.filter((loan) => loan.id == debitAccountId)[0]
       break;
     case "isCreditCard":
-      debitAccount = _.chain(state.cards.creditCards)
-        .filter((creditCard) => creditCard.id == debitAccountId)
-        .first()
-        .value();
+      debitAccount = state.cards.creditCards.filter((creditCard) => creditCard.id == debitAccountId)[0]
       break;
     case "isPrepaidCard":
-      debitAccount = _.chain(state.cards.prepaidCards)
-        .filter((prepaidCard) => prepaidCard.id == debitAccountId)
-        .first()
-        .value();
+      debitAccount = state.cards.prepaidCards.filter((prepaidCard) => prepaidCard.id == debitAccountId)[0]
       break;
   }
 
@@ -141,12 +129,9 @@ export const isValidChargesBeneficiary = (beneficiary) => {
 }
 
 export const findPaymentCharges = (paymentMethods, paymentName) => {
-  return _.chain(paymentMethods)
-    .map((paymentMethod) => _.map(paymentMethod, (method) => method))
-    .flatten()
-    .filter(payment => payment.name == paymentName)
-    .first()
-    .value().charges
+  return map(paymentMethods, (paymentMethod) => paymentMethod.map(method => method))
+    .flatMap(paymentMethod => paymentMethod)
+    .filter(payment => payment.name == paymentName)[0].charges
 }
 
 export const findTransferCharges = (beneficiary) => {

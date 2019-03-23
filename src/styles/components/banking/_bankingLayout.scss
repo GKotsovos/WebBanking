@@ -1,0 +1,11 @@
+.banking-layout {
+  min-width: 300px;
+  min-height: 680px;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3),
+              0 6px 40px 0 rgba(0, 0, 0, 0.35);
+  background-color: #E9EFFC;
+
+  @include phone {
+    padding: 0;
+  }
+}

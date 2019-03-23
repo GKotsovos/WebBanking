@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import localizationText from './localizationText';
-import _ from 'underscore';
 
 class ErrorMessageModal extends Component {
   componentDidUpdate() {
@@ -16,20 +15,18 @@ class ErrorMessageModal extends Component {
       <div
         id="errorMessageModal"
         className="modal fade"
-        aria-labelledby="myModalLabel"
         data-backdrop="static"
         data-keyboard="false">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <span id="errorModal" className="modal-title">{localizationText[language].errorTitle}</span>
+              <span className="modal-title">{localizationText[language].errorTitle}</span>
             </div>
             <div className="modal-body">{errorMessage}</div>
             <div className="modal-footer">
               <button
-                id="accept"
                 type="button"
-                className="btn btn-default accept"
+                className="common-button--blue btn"
                 onClick={() => {
                   $('#errorMessageModal').modal('hide');
                   clearErrorMessage();

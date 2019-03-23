@@ -1,0 +1,42 @@
+.home-page {
+  min-height: 680px;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3),
+              0 6px 40px 0 rgba(0, 0, 0, 0.35);
+  background-color: #E9EFFC;
+
+  &__row {
+    min-height: inherit;
+  }
+
+  &__login {
+    margin-top: 7%;
+    padding: 0 1.5% 0 5%;
+
+    @include phone {
+      max-width: 350px;
+      margin: 3% auto 0 auto;
+      padding: 0;
+    }
+  }
+
+  &-panels {
+    margin-top: 5%;
+    padding: 0 5% 0 1.5%;
+
+    @include phone {
+      margin-top: 5%;
+      padding: 0 1.5% 0 1.5%;
+    }
+
+    &__panel-container {
+      padding: 0;
+    }
+
+    &__information-panels {
+      @include phone {
+        margin: 0 auto;
+        max-width: 450px;
+      }
+    }
+  }
+}

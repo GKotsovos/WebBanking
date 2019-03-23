@@ -7,12 +7,11 @@ import {
   initCardTransactionForm
  } from '../../../../../../../../../modules/cards.js'
 import CardPaymentForm from '../components';
-import _ from 'underscore';
 
 const mapStateToProps = (state) => ({
   accounts: state.accounts.accounts,
   loans: state.loans.loans,
-  creditCards: _.filter(state.cards.creditCards, (creditCard) => creditCard.id != state.cards.activeCard.id),
+  creditCards: state.cards.creditCards.filter(creditCard => creditCard.id != state.cards.activeCard.id),
   prepaidCards: state.cards.prepaidCards,
   transactionForm: state.cards.transactionForm,
   language: state.root.language,

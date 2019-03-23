@@ -1,10 +1,9 @@
-import React, { Component, PropTypes }  from 'react';
+import React, { Component }  from 'react';
 import TransactionApprovalHeader from 'routes/root/routes/Banking/routes/components/TransactionApprovalHeader'
 import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/SimpleTransactionApprovalRow'
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
 import localizationText from './localizationText';
-import './PaymentApproval.css';
 
 class PaymentApproval extends Component {
   render() {
@@ -14,22 +13,30 @@ class PaymentApproval extends Component {
       payment
     } = this.props;
 
-    let beneficiary = transactionForm.paymentSelections.paymentMethod;
-    if (transactionForm.paymentSelections.paymentMethod.includes('AGILE')) {
-      beneficiary = 'AGILE BANK'
-    }
+    let beneficiary = "";
+    let paymentCodeTitle = "";
 
-    let paymentCodeTitle = localizationText[language].paymentCode;
-    if (transactionForm.paymentSelections.paymentMethod.includes('ΚΑΡΤΑ')) {
-      paymentCodeTitle = localizationText[language].cardNumber
-    } else if (transactionForm.paymentSelections.paymentMethod.includes('ΔΑΝΕΙΟ')) {
-      paymentCodeTitle = localizationText[language].loanNumber
+    const paymentMethod = transactionForm.paymentSelections.paymentMethod;
+    if (paymentMethod) {
+      if (paymentMethod.includes('AGILE')) {
+        beneficiary = 'AGILE BANK'
+      } else {
+        beneficiary = paymentMethod;
+      }
+
+      if (paymentMethod.includes('ΚΑΡΤΑ')) {
+        paymentCodeTitle = localizationText[language].cardNumber
+      } else if (paymentMethod.includes('ΔΑΝΕΙΟ')) {
+        paymentCodeTitle = localizationText[language].loanNumber
+      } else {
+        paymentCodeTitle = localizationText[language].paymentCode;
+      }
     }
 
     return (
-      <form id="paymentApprovalForm">
+      <form className="payment-approval">
 
-        <div id="paymentApprovalTable" className="form-group">
+        <div className="form-group payment-approval-table">
           <table className="table table-bordered">
             <TransactionApprovalHeader
               title={localizationText[language].paymentDetails}

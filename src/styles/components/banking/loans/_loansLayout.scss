@@ -1,0 +1,9 @@
+.loans-container {
+  max-width: 760px;
+  margin: 100px auto 7% auto;
+  display: block;
+
+  @include phone {
+    margin-top: 0;
+  }
+}

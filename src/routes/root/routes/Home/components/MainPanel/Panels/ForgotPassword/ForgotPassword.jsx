@@ -1,12 +1,11 @@
-import React, { PropTypes } from 'react'
-import FontAwesome from 'react-fontawesome'
+import React  from 'react'
+import ClosePanelButton from 'routes/root/routes/Home/containers/ClosePanelButtonContainer';
 import localizationText from './localizationText';
-import './ForgotPassword.css'
 
-export const ForgotPassword = ({ language, changePanel }) => (
-  <div id="forgotPassword" className="">
-    <FontAwesome className="closePanel" name="window-close-o" onClick={() => changePanel('NEWS')} />
-    <h3 id="forgotTitle">{localizationText[language].forgotPasswordTitle}</h3>
+export const ForgotPassword = ({ language }) => (
+  <div className="forgot-password-panel">
+    <ClosePanelButton />
+    <h3 className="forgot-password-panel__title">{localizationText[language].forgotPasswordTitle}</h3>
     <p>{localizationText[language].forgotPasswordText}</p>
     <ul>
       <li>14587</li>
@@ -15,9 +14,5 @@ export const ForgotPassword = ({ language, changePanel }) => (
     <p>{localizationText[language].visitBank}</p>
   </div>
 )
-
-ForgotPassword.PropTypes = {
-  changePanel: PropTypes.func.isRequired
-};
 
 export default ForgotPassword

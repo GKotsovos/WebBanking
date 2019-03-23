@@ -1,3 +1,3 @@
-import UsefullLinksPanel from './UsefullLinksPanel';
+import UsefulLinksPanel from './UsefulLinksPanel';
 
-export default UsefullLinksPanel;
+export default UsefulLinksPanel;

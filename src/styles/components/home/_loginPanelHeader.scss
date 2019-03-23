@@ -1,0 +1,25 @@
+.login-panel {
+  & &-header {
+    background-color: $secondary-blue;
+    border: none;
+
+    .panel-title {
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      margin: 2%;
+
+      @include not-desktop {
+        margin: 1%;
+      }
+    }
+
+    &__icon {
+      font-size: 35px;
+      color: $white-text;
+      margin-left: 0;
+      margin-right: 5%;
+      text-shadow: 1px 1px 4px $shadow;
+    }
+  }
+}

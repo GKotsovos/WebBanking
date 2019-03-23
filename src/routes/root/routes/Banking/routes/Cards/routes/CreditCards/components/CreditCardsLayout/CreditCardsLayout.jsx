@@ -1,13 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Card from '../../../containers/CardContainer'
-import { browserHistory } from 'react-router'
-import _ from 'underscore';
-import './CreditCardsLayout.css';
+import { isEmpty } from 'underscore';
 
 export const CreditCardsLayout = ({ children, creditCards, activeCard }) => (
   <div role="tabpanel" className="tab-pane" id="credit">
     {
-      _.isEmpty(activeCard) ? _.map(creditCards, (creditCard) => <Card key={creditCard.id} card={creditCard} type="CREDIT"/>) : children
+      isEmpty(activeCard) ? creditCards && creditCards.map(creditCard => <Card key={creditCard.id} card={creditCard} type="CREDIT"/>) : children
     }
   </div>
 )

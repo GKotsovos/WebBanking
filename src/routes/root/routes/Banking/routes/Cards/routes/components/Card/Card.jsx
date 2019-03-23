@@ -1,7 +1,6 @@
 import React from 'react';
 import CardPanelHeader from '../CardPanelHeader';
 import CardPanelBody from '../CardPanelBody';
-import './Card.css';
 
 const paths = {
   DEBIT: '/banking/cards/debitcards/card',
@@ -17,7 +16,7 @@ export const Card = ({
   getCardTransactionHistory,
   linkTo
 }) => (
-  <div className="panel panel-default cardContainer" onClick={() => {
+  <div className="panel panel-default card" onClick={() => {
     setActiveCard(card);
     getCardTransactionHistory(card.id);
     linkTo(paths[type]);

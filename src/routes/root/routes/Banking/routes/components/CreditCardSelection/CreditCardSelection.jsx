@@ -1,9 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import currencyFormatter from 'currency-formatter';
+import React, { Component } from 'react'
 import CustomerCreditCards from '../CustomerCreditCards';
 import CreditCardInput from '../CreditCardInput';
-import _ from 'underscore';
-import './CreditCardSelection.css';
 
 export class CreditCardSelection extends Component {
   render() {

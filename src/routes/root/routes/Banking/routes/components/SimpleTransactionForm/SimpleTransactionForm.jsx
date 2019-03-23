@@ -1,14 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInput';
 import SelectTransactionDate from 'routes/root/routes/Banking/routes/components/SelectTransactionDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import localizationText from './localizationText';
-import './SimpleTransactionForm.css';
 
 class SimpleTransactionForm extends Component {
   componentDidMount() {
-    const { transactionForm } = this.props;
     $('.selectpicker').selectpicker()
   }
 
@@ -37,7 +35,7 @@ class SimpleTransactionForm extends Component {
       linkToApprovalForm,
     } = this.props;
     return (
-      <form className="simpleTransactionForm">
+      <form className="simple-transaction-form">
         <SelectDebitAccount
           label={label}
           debitAccount={debitAccount}

@@ -1,0 +1,46 @@
+.contact-panel {
+  margin: 0 1%;
+  padding: 2%;
+  min-height: 200px;
+  background-color: $light-blue;
+  border: none;
+
+  @include phone {
+    margin: 0.5% 0;
+    font-size: 20px;
+  }
+
+  @include tablet {
+    font-size: 15px;
+  }
+
+  @include desktop {
+    font-size: 20px;
+  }
+
+  &-phone {
+    margin-bottom: 10%;
+
+    &__number {
+      font-size: 1.1em;
+      margin-left: 3%;
+    }
+
+    &__icon {
+      font-size: 1.5em;
+    }
+
+    &__comment {
+      font-size: 0.6em;
+    }
+  }
+
+  &__email {
+    font-size: 0.7em;
+    margin-left: 2.5%;
+  }
+
+  &__envelop-icon {
+    font-size: 1em;
+  }
+}

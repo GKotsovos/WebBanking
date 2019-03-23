@@ -1,0 +1,10 @@
+.login-panel {
+  border:none;
+  box-shadow: none;
+
+  @include phone {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}

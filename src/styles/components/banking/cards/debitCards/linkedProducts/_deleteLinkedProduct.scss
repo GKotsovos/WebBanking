@@ -1,0 +1,10 @@
+.delete-linked-product{
+  &__x-icon {
+    font-size: 20px;
+    color: red;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

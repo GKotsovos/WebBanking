@@ -1,0 +1,25 @@
+.select-way-of-selection {
+  display: flex;
+  align-items: center;
+
+  &-container {
+    margin-bottom: 5px;
+  }
+
+  &__radio-container {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      cursor: default;
+    }
+
+    &:last-of-type {
+      margin-left: 10px;
+    }
+  }
+
+  & &__radio {
+    margin: 0 2px 0 0;
+  }
+}

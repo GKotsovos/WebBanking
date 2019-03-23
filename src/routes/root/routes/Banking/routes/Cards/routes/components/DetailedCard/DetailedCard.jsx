@@ -3,10 +3,9 @@ import CardPanelHeader from '../CardPanelHeader';
 import CardPanelBody from '../CardPanelBody';
 import CardExtraDetails from '../CardExtraDetails';
 import CreditCardExtraDetails from '../CreditCardExtraDetails';
-import './DetailedCard.css';
 
 export const DetailedCard = ({ activeCard, type, language }) => (
-  <div className="panel panel-default detailedCardContainer">
+  <div className="panel panel-default detailed-card">
     <CardPanelHeader
       card={activeCard}
       type={type}

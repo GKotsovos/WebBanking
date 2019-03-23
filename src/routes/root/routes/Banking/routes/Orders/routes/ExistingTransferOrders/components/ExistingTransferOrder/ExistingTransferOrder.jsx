@@ -4,10 +4,9 @@ import currencyFormatter from 'currency-formatter';
 import ExistingOrderTitle from '../../../components/ExistingOrderTitle';
 import CancelOrderButton from '../../../components/CancelOrderButton';
 import localizationText from './localizationText';
-import './ExistingTransferOrder.css';
 
 export const ExistingTransferOrder = ({ transferOrder, language, cancelTransferOrder }) => (
-  <div className="panel panel-default existingOrderContainer">
+  <div className="panel panel-default existing-order-container">
     <ExistingOrderTitle
       orderTitle={transferOrder.customTitle}
       orderTo={transferOrder.creditProductId}
@@ -15,7 +14,7 @@ export const ExistingTransferOrder = ({ transferOrder, language, cancelTransferO
     <div className="panel-body">
       <div className="row">
         <span>
-          <span className="col-xs-6 text-right idOrder">
+          <span className="col-xs-6 text-right existing-transfer-order__debit-product-id">
             {transferOrder.debitProductId}
           </span>
           <span className="col-xs-2 text-right">
@@ -26,18 +25,18 @@ export const ExistingTransferOrder = ({ transferOrder, language, cancelTransferO
             {dateformat(transferOrder.nextExecutionDate, 'dd/mm/yyyy')}
           </span>
         </span>
-        <span className="summary">
+        <span className="common-label">
           <span className="col-xs-6 text-right">{localizationText[language].debitAccount}</span>
           <span className="col-xs-2 text-right">{localizationText[language].amount}</span>
           <span className="col-xs-4 text-right">{localizationText[language].nextExecutionDate}</span>
         </span>
       </div>
-      <div className="row secondRow">
+      <div className="row existing-order__second-row">
         <span>
           <span className="col-xs-6 text-right">{transferOrder.executionFrequency}</span>
           <span className="col-xs-6 text-right">{transferOrder.executionsLeft}</span>
         </span>
-        <span className="summary">
+        <span className="common-label">
           <span className="col-xs-6 text-right">{localizationText[language].executionFrequency}</span>
           <span className="col-xs-6 text-right">{localizationText[language].executionsLeft}</span>
         </span>

@@ -1,8 +1,7 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
-import './Navbar.css'
 
 export const Navbar = ({
   customer,
@@ -11,9 +10,8 @@ export const Navbar = ({
   setLanguage,
   logOut
 }) => (
-  <nav id="navbar" className="navbar navbar-default navbar-fixed-top">
+  <nav className="navbar navbar-default navbar-fixed-top">
     <div className="container">
-
       <div className="navbar-header">
         <button type="button" className="btn-sample navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
           <span className="sr-only">Toggle navigation</span>
@@ -21,18 +19,17 @@ export const Navbar = ({
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
         </button>
-        <a className="navbar-brand" href="javascript:;">
-          <span id="brand" aria-hidden="true">Agile Bank</span>
+        <a className="navbar-brand">
+          <span className="navbar-brand__text" aria-hidden="true">Agile Bank</span>
         </a>
       </div>
       <div className="collapse navbar-collapse">
-        <ul className="nav navbar-nav navbar-right">
+        <ul className="navbar-items nav navbar-nav navbar-right">
           {
-            _.isEmpty(customer) ? [
+            isEmpty(customer) ? [
               <li className={`${language === 'greek' ? 'active' : ''}`}>
                 <a
-                  id="greekLanguage"
-                  href="javascript:;"
+                  className="navbar-button"
                   onClick={() => {
                     setLanguage('greek');
                     $('.collapse').collapse('hide');
@@ -40,31 +37,30 @@ export const Navbar = ({
                   GR
                 </a>
               </li>,
-                <li className={`${language === 'english' ? 'active' : ''}`}>
+              <li className={`${language === 'english' ? 'active' : ''}`}>
                 <a
-                  id="englishLanguage"
-                  href="javascript:;"
+                  className="navbar-button"
                   onClick={() => {
                     setLanguage('english');
                     $('.collapse').collapse('hide')
                   }}>
                   EN
-                </a>
+                </a>s
               </li>
             ] : [
               <li>
-                <a id="customerName" href="javascript:;">
-                  <FontAwesome className="user" name="user-circle"/>{`${customer.firstName} ${customer.lastName}`}
+                <a className="navbar-button">
+                  <FontAwesome className="navbar-items__user-icon" name="user-circle"/>{`${customer.firstName} ${customer.lastName}`}
                 </a>
               </li>,
               <li onClick={() => logOut()}>
-                <a id="logOut" href="javascript:;">
-                  <FontAwesome className="logoff" name="sign-out"/>{localizationText[language].signOut}
+                <a className="navbar-button navbar-button__logout">
+                  <FontAwesome className="navbar-items__logout-icon" name="sign-out"/>{localizationText[language].signOut}
                 </a>
               </li>,
               <li>
-                <a id="counter" >{localizationText[language].timeLeft}<br/>{timeLeftToLogOut}</a>
-              </li>,
+                <a className="navbar-items__counter">{localizationText[language].timeLeft}<br/>{timeLeftToLogOut}</a>
+              </li>
             ]
           }
         </ul>

@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
+import React, { Component } from 'react';
 
 class NewPaymentOrderLayout extends Component {
   componentWillMount() {
-    const { newOrderForm, initNewPaymentOrderForm } = this.props;
+    const { initNewPaymentOrderForm } = this.props;
     $('.selectpicker').selectpicker();
     initNewPaymentOrderForm();
   }

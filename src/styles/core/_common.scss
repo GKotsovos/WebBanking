@@ -1,0 +1,66 @@
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: $light-blue;
+  font-family: 'Roboto', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+label {
+  font-weight: 500;
+}
+
+.invalid-value {
+  border-color: #A94442;
+  box-Shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.vertical-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.common-title {
+  font-size: 14px;
+
+  @include phone {
+    font-size: 12px;
+  }
+
+  @include smallest-supported-screen {
+    font-size: 11px;
+  }
+}
+
+.common-table-header {
+  background-color: $secondary-blue;
+  color: $white-text;
+
+  th {
+    font-weight: 500;
+  }
+}
+
+.common-table-cell {
+  background-color: white;
+
+  &--bold {
+    font-weight: 500;
+  }
+}
+
+.common-label {
+  font-size: 11px;
+}

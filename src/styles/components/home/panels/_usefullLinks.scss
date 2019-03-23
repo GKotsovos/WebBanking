@@ -1,0 +1,13 @@
+.useful-links-panel {
+  min-height: 300px;
+  padding: 4.1%;
+  font-size: 13px;
+  background-color: #D4E0F7;
+  margin-bottom: 3%;
+
+  &__title {
+    @include phone {
+      font-size: 21px;
+    }
+  }
+}

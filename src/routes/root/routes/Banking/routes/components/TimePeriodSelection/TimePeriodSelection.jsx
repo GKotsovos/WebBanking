@@ -1,8 +1,7 @@
-import React from 'react';
-import DatePicker from 'react-bootstrap-date-picker';
-import _ from 'underscore';
-import localizationText from './localizationText';
-import './TimePeriodSelection.css';
+import React from 'react'
+import DatePicker from 'react-bootstrap-date-picker'
+import { isEmpty } from 'underscore'
+import localizationText from './localizationText'
 
 export const TimePeriodSelection = ({
   startDate,
@@ -11,51 +10,41 @@ export const TimePeriodSelection = ({
   language,
   setTransactionHistoryStartDate,
   setTransactionHistoryEndDate,
-  getTransactionHistoryByTimePeriod,
+  getTransactionHistoryByTimePeriod
 }) => (
-  <div className="timePeriodSelectionContainer">
-    <div id="timePeriodGroup" className="row">
-      <div className="col-xs-12">
-
-        <div className="periodSelection col-xs-12 col-sm-4 verticalCenter">
-          <label className="fromPeriodLabel">{localizationText[language].fromTimePeriodLabel}</label>
-          <DatePicker
-            id="timePeriodPicker"
-            className={`text-right ${_.isEmpty(startDate) || startDate.valid ? "" : "notValid"}`}
-            weekStartsOnMonday
-            calendarPlacement="top"
-            placeholder={localizationText[language].datePickerPlaceholder}
-            value={startDate ? startDate.value : ''}
-            onChange={(value, formattedValue) => setTransactionHistoryStartDate(value)}
-          />
-        </div>
-
-        <div className="periodSelection col-sm-offset-1 col-xs-12 col-sm-4 verticalCenter">
-          <label className="untilPeriodLabel">{localizationText[language].untilTimePeriodLabel}</label>
-          <DatePicker
-            id="timePeriodPicker"
-            className={`text-right ${_.isEmpty(endDate) || endDate.valid ? "" : "notValid"}`}
-            weekStartsOnMonday
-            calendarPlacement="top"
-            placeholder={localizationText[language].datePickerPlaceholder}
-            value={endDate ? endDate.value : ''}
-            onChange={(value, formattedValue) => setTransactionHistoryEndDate(value)}
-          />
-        </div>
-
-        <div className="col-sm-offset-1 col-xs-12 col-sm-2 verticalCenter">
-          <button
-            id="searchTransacrion"
-            type="button"
-            className="btn btn-default"
-            disabled={!validSelection}
-            onClick={() => getTransactionHistoryByTimePeriod(startDate.value, endDate.value)}>
-            {localizationText[language].search}
-          </button>
-        </div>
-
-      </div>
+  <div className="time-period-selection">
+    <div className="time-period-selection-date-picker-container">
+      <label className="time-period-selection__label">{localizationText[language].fromTimePeriodLabel}</label>
+      <DatePicker
+        id="time-period-datepicker-start-date"
+        className={`text-right ${isEmpty(startDate) || startDate.valid ? '' : 'invalid-value'}`}
+        weekStartsOnMonday
+        calendarPlacement="top"
+        placeholder={localizationText[language].datePickerPlaceholder}
+        value={startDate ? startDate.value : ''}
+        onChange={(value, formattedValue) => setTransactionHistoryStartDate(value)}
+      />
     </div>
+
+    <div className="time-period-selection-date-picker-container">
+      <label className="time-period-selection__label">{localizationText[language].untilTimePeriodLabel}</label>
+      <DatePicker
+        className={`text-right ${isEmpty(endDate) || endDate.valid ? '' : 'invalid-value'}`}
+        weekStartsOnMonday
+        calendarPlacement="top"
+        placeholder={localizationText[language].datePickerPlaceholder}
+        value={endDate ? endDate.value : ''}
+        onChange={(value, formattedValue) => setTransactionHistoryEndDate(value)}
+      />
+    </div>
+
+    <button
+      type="button"
+      className="common-button--blue btn time-period-selection__search-button"
+      disabled={!validSelection}
+      onClick={() => getTransactionHistoryByTimePeriod(startDate.value, endDate.value)}>
+      {localizationText[language].search}
+    </button>
   </div>
 )
 

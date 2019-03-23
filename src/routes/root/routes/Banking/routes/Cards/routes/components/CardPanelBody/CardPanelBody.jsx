@@ -1,8 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
 import localizationText from './localizationText';
-import './CardPanelBody.css';
 
 export const CardPanelBody = ({ card, type, language }) => (
   <div className="panel-body">
@@ -21,7 +19,7 @@ export const CardPanelBody = ({ card, type, language }) => (
         {card.ledgerBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
       </span>
     </span>
-    <span className="row cardSummary">
+    <span className="row common-label">
       {
         type != 'PREPAID' ?
           <span className="col-xs-3 col-sm-2 text-right">

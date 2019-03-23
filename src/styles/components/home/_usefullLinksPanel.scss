@@ -1,0 +1,40 @@
+.useful-links-panel-content {
+  margin-left: 2%;
+  margin-bottom: 60px;
+  min-height: 200px;
+  background-color: $light-blue;
+  border: none;
+
+  @include phone {
+    font-size: 13px;
+    margin: 1% 0 60px 0;
+    min-height: 100px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__icon {
+    font-size: 40px;
+
+    @include phone {
+      font-size: 35px;
+      margin-top: 5%;
+    }
+  }
+
+  &__text {
+    font-size: 15px;
+    margin-bottom: 15%;
+    margin-top: 5%;
+    user-select : none;
+
+    @include phone {
+      margin-bottom: 10%;
+      margin-top: 5%;
+    }
+  }
+}
+
+

@@ -1,8 +1,6 @@
 import React from 'react';
 import CancelOrderModal from '../CancelOrderModal';
-import _ from 'underscore';
 import localizationText from './localizationText';
-import './CancelOrderButton.css';
 
 export const CancelOrderButton = ({
   orderName,
@@ -12,10 +10,9 @@ export const CancelOrderButton = ({
 }) => (
   <div>
     <button
-      id="orderCancel"
-      className="btn btn-default"
+      className="common-button--red btn cancel-order-button"
       data-toggle="modal"
-      data-target="#cancelOrderModal">
+      data-target={`#cancelOrderModal-${orderId}`}>
       {localizationText[language].delete}
     </button>
     <CancelOrderModal

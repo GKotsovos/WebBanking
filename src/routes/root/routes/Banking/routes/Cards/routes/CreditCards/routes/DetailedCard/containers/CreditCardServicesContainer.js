@@ -12,5 +12,4 @@ const mapActionCreators = {
   initCardTransactionForm: () => initCardTransactionForm(),
 };
 
-
 export default connect(mapStateToProps, mapActionCreators)(CreditCardServicesTabs);

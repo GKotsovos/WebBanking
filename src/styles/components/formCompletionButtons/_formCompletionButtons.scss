@@ -1,0 +1,11 @@
+.form-completion-buttons {
+  display: flex;
+  justify-content: space-between;
+  max-width: 210px;
+  margin: 5% auto 0 auto;
+
+  &__clear-form-button,
+  &__continue-button {
+    width: 102px;
+  }
+}

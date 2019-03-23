@@ -1,0 +1,16 @@
+.transaction-success {
+  padding-bottom: 20px;
+
+  &__icon {
+    color: #00CC00;
+  }
+
+  &__message {
+    margin: 10px 0 25px 0;
+    font-weight: 500;
+  }
+
+  &__complete {
+    min-width: 100px;
+  }
+}

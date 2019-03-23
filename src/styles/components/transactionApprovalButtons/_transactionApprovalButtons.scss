@@ -1,0 +1,11 @@
+.transaction-approval-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 226px;
+  margin: 0 auto;
+
+  &__go-back-button,
+  &__submit-button {
+    width: 110px;
+  }
+}

@@ -1,0 +1,28 @@
+@mixin colorize-states($color, $background) {
+  color: $color !important;
+  background-color: $background !important;
+
+  &:hover,
+  &:active {
+    color: $color !important;
+    background-color: lighten($background, $lighten) !important;
+  }
+}
+
+.common-button {
+  &--blue {
+    @include colorize-states($white-text, $button-blue);
+  }
+
+  &--red {
+    @include colorize-states($white-text, $red);
+  }
+
+  &--yellow {
+    @include colorize-states(#262626, $yellow);
+  }
+
+  &--gray {
+    @include colorize-states($white, $gray);
+  }
+}

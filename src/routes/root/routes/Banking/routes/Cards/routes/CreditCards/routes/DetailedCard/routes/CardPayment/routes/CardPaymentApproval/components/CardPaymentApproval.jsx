@@ -4,11 +4,10 @@ import SimpleTransactionApprovalRow from 'routes/root/routes/Banking/routes/comp
 import MoneyTransactionApprovalRow from 'routes/root/routes/Banking/routes/components/MoneyTransactionApprovalRow'
 import TransactionApprovalButtons from 'routes/root/routes/Banking/routes/components/TransactionApprovalButtons'
 import localizationText from './localizationText';
-import './CardPaymentApproval.css';
 
 export const CardPaymentApproval = ({ transactionForm, language, creditCardPayment }) => (
-  <form id="cardPaymentApprovalForm">
-    <div id="cardPaymentApprovalTable" className="form-group">
+  <form className="card-payment-approval">
+    <div className="form-group">
       <table className="table table-bordered">
         <TransactionApprovalHeader
           title={localizationText[language].paymentDetails}

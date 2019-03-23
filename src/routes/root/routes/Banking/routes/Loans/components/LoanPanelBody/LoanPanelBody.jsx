@@ -1,7 +1,6 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import localizationText from './localizationText';
-import './LoanPanelBody.css';
 
 export const LoanPanelBody = ({ loan, language }) => (
   <div className="panel-body">
@@ -17,7 +16,7 @@ export const LoanPanelBody = ({ loan, language }) => (
           {loan.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(loan.currency).symbol}
         </span>
       </span>
-      <span className="summary">
+      <span className="common-label">
         <span className="col-xs-3 text-right">{localizationText[language].typeOfLoan}</span>
         <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].initialAmount}</span>
         <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].ledgerBalance}</span>

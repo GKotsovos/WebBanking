@@ -1,14 +1,13 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
-import './LoanPanelHeader.css';
 
 export const LoanPanelHeader = ({ loan }) => (
-  <div className="panel-heading loanTitle">
-    <h3 className="panel-title">
-      <span className="titles">
+  <div className="loan-panel-header panel-heading panel-title">
+    <h3 className="loan-panel-header__title panel-title common-title">
+      <span>
         ({currencyFormatter.findCurrency(loan.currency).symbol}) {loan.customTitle}
       </span>
-      <span className="titles loanCode">
+      <span>
         {loan.id}
       </span>
     </h3>

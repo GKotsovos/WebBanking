@@ -10,5 +10,4 @@ const mapActionCreators = {
   linkTo: (route) => linkTo(route)
 };
 
-
 export default connect(null, mapActionCreators)(FormCompletionButtons);

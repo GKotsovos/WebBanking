@@ -1,0 +1,16 @@
+.transaction-failure {
+  padding-bottom: 20px;
+
+  &__icon {
+    color: #FF0000;
+  }
+
+  &__message {
+    margin: 10px 0 25px 0;
+    font-weight: 500;
+  }
+
+  &__return-to-form {
+    min-width: 100px;
+  }
+}

@@ -1,0 +1,10 @@
+.transfer-approval {
+  &-table {
+    margin: 0 auto 3% auto;
+    max-width: 500px;
+
+    @include phone {
+      margin-bottom: 5%;
+    }
+  }
+}

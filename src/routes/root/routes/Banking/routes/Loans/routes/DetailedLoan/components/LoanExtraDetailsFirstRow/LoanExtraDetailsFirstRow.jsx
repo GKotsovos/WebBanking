@@ -2,11 +2,10 @@ import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import dateformat from 'dateformat';
 import localizationText from './localizationText';
-import './LoanExtraDetailsFirstRow.css';
 
 export const LoanExtraDetailsFirstRow = ({ activeLoan, language }) => (
   <ul className="list-group">
-    <li className="cellRow list-group-item">
+    <li className="list-group-item">
       <div className="row">
         <span>
           <span className="col-xs-3 text-right">
@@ -19,7 +18,7 @@ export const LoanExtraDetailsFirstRow = ({ activeLoan, language }) => (
             {dateformat(activeLoan.nextInstallmentDate, 'dd/mm/yyyy')}
           </span>
         </span>
-        <span className="summary">
+        <span className="common-label">
           <span className="col-xs-3 text-right">{localizationText[language].currentInstallment}</span>
           <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].totalDebt}</span>
           <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].installmentDate}</span>

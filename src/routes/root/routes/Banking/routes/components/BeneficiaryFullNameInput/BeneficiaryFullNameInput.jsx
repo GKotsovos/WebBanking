@@ -1,10 +1,10 @@
 import React from 'react'
 import localizationText from './localizationText';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 
 export const BeneficiaryFullNameInput = ({ fullName, language, setCreditFullName}) => (
   <input
-    className={`form-control bottomOfTwoDivs ${_.isEmpty(fullName) || fullName.correct ? "" : "notValid"}`}
+    className={`form-control form-group ${isEmpty(fullName) || fullName.correct ? "" : "invalid-value"}`}
     value={fullName.value ? fullName.value : ""}
     placeholder={localizationText[language].beneficiaryFullNamePlaceholder}
     onChange={(e) => setCreditFullName(e.target.value)}

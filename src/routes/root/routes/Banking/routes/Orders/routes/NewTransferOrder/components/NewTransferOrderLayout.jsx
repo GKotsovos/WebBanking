@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 
 class NewTransferOrderLayout extends Component {
   componentWillMount() {
@@ -8,7 +8,7 @@ class NewTransferOrderLayout extends Component {
 
   render() {
     return (
-      <div className="newOrderContainer">
+      <div>
         {this.props.children}
       </div>
     )

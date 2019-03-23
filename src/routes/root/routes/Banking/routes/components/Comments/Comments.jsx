@@ -1,7 +1,6 @@
 import React from 'react';
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
-import './Comments.css';
 
 export const Comments = ({
   comments,
@@ -9,10 +8,10 @@ export const Comments = ({
   setTransferComments
 }) => (
   <div className="form-group">
-    <label htmlFor="transferComment">{localizationText[language].commentsTitle}</label>
+    <label htmlFor="comment">{localizationText[language].commentsTitle}</label>
     <textarea
-      id="transferComment"
-      className={`form-control ${_.isEmpty(comments) || comments.correct ? "" : "notValid"}`}
+      id="comment"
+      className={`form-control ${isEmpty(comments) || comments.correct ? "" : "invalid-value"}`}
       value={comments ? comments.value : ""}
       onChange={(e) => setTransferComments(e.target.value)}
       rows="3"

@@ -1,10 +1,15 @@
 import React from 'react';
 import currencyFormatter from 'currency-formatter';
 import localizationText from './localizationText';
-import './AccountPanelBody.css';
 
-export const AccountPanelBody = ({ ledgerBalance, currency, overdraft, availableBalance, language }) => (
-  <div className="panel-body">
+export const AccountPanelBody = ({
+  ledgerBalance,
+  currency,
+  overdraft,
+  availableBalance,
+  language
+}) => (
+  <div className="account-panel-body panel-body">
     <div className="row">
       <span>
         <span className="col-xs-3 text-right">
@@ -20,7 +25,7 @@ export const AccountPanelBody = ({ ledgerBalance, currency, overdraft, available
           {currencyFormatter.findCurrency(currency).symbol}
         </span>
       </span>
-      <span className="summary">
+      <span className="account-panel-body__summary">
         <span className="col-xs-3 text-right">{localizationText[language].ledgerBalance}</span>
         <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].overdraft}</span>
         <span className="col-xs-offset-1 col-xs-3 text-right">{localizationText[language].availableBalance}</span>

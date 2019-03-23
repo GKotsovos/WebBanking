@@ -2,10 +2,9 @@ import React from 'react';
 import LoginForm from '../../containers/LoginFormContainer';
 import ForgotPassword from '../../containers/ForgotPasswordContainer';
 import ReturnedError from '../ReturnedError';
-import './LoginPanelBody.css'
 
 export const LoginPanelBody = ({ returnedError, changePanel, authenticate }) => (
-  <div id="loginPanelBody" className="panel-body">
+  <div className="login-panel-body panel-body">
     <LoginForm authenticate={authenticate} />
     <ForgotPassword changePanel={changePanel} />
     <ReturnedError returnedError={returnedError} />

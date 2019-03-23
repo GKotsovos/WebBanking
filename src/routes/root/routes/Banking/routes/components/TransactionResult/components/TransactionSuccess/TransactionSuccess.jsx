@@ -1,17 +1,15 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome'
 import localizationText from './localizationText';
-import './TransactionSuccess.css';
 
 export const TransactionSuccess = ({ linkTo, linkToStart, language, clearTransactionForm }) => (
-  <div className="panel panel-default" id="transactionSuccess">
-    <div id="transactionSuccessPanelBody" className="panel-body text-center">
-      <FontAwesome id="transactionSuccessIcon" name="check" size="3x"/>
-      <p id="transactionSuccessText">{localizationText[language].transactionSuccess}</p>
+  <div className="panel panel-default transaction-success-container">
+    <div className="panel-body text-center transaction-success">
+      <FontAwesome name="check" size="3x" className="transaction-success__icon"/>
+      <p className="transaction-success__message">{localizationText[language].transactionSuccess}</p>
       <button
-        id="finishTransaction"
         type="button"
-        className="btn btn-default"
+        className="common-button--blue btn transaction-success__complete"
         onClick={() => {
           clearTransactionForm();
           linkTo(linkToStart);

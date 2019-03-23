@@ -1,18 +1,16 @@
-import React, { Component, PropTypes } from 'react'
-import currencyFormatter from 'currency-formatter';
-import _ from 'underscore';
+import React, { Component } from 'react'
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
-import './SearchPaymentMethod.css';
 
 export class SearchPaymentMethod extends Component {
   componentDidMount() {
     const { activeMethod } = this.props;
     $('.selectpicker').selectpicker();
-    $('.selectpicker.searchPayment').selectpicker('val', [activeMethod])
+    $('.selectpicker.search-payment-method__dropdown').selectpicker('val', [activeMethod])
   }
 
   componentWillReceiveProps() {
-    setTimeout(() => $(".selectpicker.searchPayment").selectpicker('refresh'), 350);
+    setTimeout(() => $(".selectpicker.search-payment-method__dropdown").selectpicker('refresh'), 350);
   }
 
   render() {
@@ -25,8 +23,7 @@ export class SearchPaymentMethod extends Component {
     return (
       <div className="form-group">
         <select
-          id="searchPayment"
-          className={`selectpicker searchPayment form-control ${_.isEmpty(activeMethod) ? "" : "notValid"}`}
+          className={`selectpicker search-payment-method__dropdown form-control ${isEmpty(activeMethod) ? "" : "invalid-value"}`}
           data-live-search="true"
           title={localizationText[language].selectPaymentTitle}
           onChange={
@@ -34,7 +31,7 @@ export class SearchPaymentMethod extends Component {
           }
         >
         {
-          _.map(availablePaymentMethods, (paymentMethod) => (
+          availablePaymentMethods.map(paymentMethod => (
             <option
               key={paymentMethod}
               value={paymentMethod}

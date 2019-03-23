@@ -3,10 +3,8 @@ import axios from 'axios';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router'
 import { logOutCountDown } from 'routes/root/routes/Banking/modules/banking';
-import _ from 'underscore'
 
 const INIT_LOG_OUT_TIMER = 'INIT_LOG_OUT_TIMER';
-const AUTHENTICATE = 'AUTHENTICATE';
 const AUTHENTICATED = 'AUTHENTICATED';
 const UNAUTHENTICATED = 'UNAUTHENTICATED';
 const CHANGE_PANEL = 'CHANGE_PANEL'
@@ -82,7 +80,7 @@ const ACTION_HANDLERS = {
   UNAUTHENTICATED: (state, action) => {
     let errorMessage = "";
 
-    if (_.has(action.payload.exception.response, "status") &&
+    if (action.payload.exception.response.hasOwnProperty("status") &&
         action.payload.exception.response.status == 401) {
       errorMessage = action.payload.language === "greek" ? "Λάθος ID Χρήστη ή Κωδικός." : "Incorrect User ID or Password";
     } else {

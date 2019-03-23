@@ -1,7 +1,6 @@
-import React, { Component, PropTypes }  from 'react';
-import _ from 'underscore';
+import React, { Component }  from 'react';
+import { isEmpty } from 'underscore';
 import OrderSelect from '../../containers/OrderSelectContainer'
-import './OrdersLayout.css';
 
 class OrdersLayout extends Component {
   componentWillMount() {
@@ -11,7 +10,7 @@ class OrdersLayout extends Component {
       getTransferOrders,
       getPaymentOrders,
     } = this.props;
-    if (_.isEmpty(orderState)) {
+    if (isEmpty(orderState)) {
       initializeOrderState();
       getTransferOrders();
       getPaymentOrders();
@@ -20,7 +19,7 @@ class OrdersLayout extends Component {
 
   render() {
     return (
-      <div role="tabpanel" className="tab-pane ordersContainer" id="orders">
+      <div role="tabpanel" className="tab-pane orders-container" id="orders">
         <OrderSelect />
         {this.props.children}
       </div>

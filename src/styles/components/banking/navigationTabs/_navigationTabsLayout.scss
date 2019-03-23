@@ -1,0 +1,34 @@
+.navigation-tabs {
+  max-width: 678px;
+  margin: 0 auto 5% auto;
+
+  @include phone {
+    margin: 0 auto 5% auto;
+  }
+
+  &__tab {
+    width: 113px;
+    background-color: $light-blue;
+    color: $black;
+    font-size: 14px;
+    font-weight: 500;
+
+    @include phone {
+      width: 200px;
+    }
+  }
+}
+
+.mobile-navigation-tabs__container {
+  display: none;
+
+  @include phone {
+    display: inline;
+  }
+}
+
+.desktop-navigation-tabs__container {
+  @include phone {
+    display: none;
+  }
+}

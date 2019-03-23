@@ -1,0 +1,7 @@
+.transfers-container {
+  margin-top: 100px;
+
+  @include phone {
+    margin-top: 0;
+  }
+}

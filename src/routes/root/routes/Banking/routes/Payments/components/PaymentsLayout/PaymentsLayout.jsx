@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import './PaymentsLayout.css';
+import React, { Component } from 'react';
 
 class PaymentsLayout extends Component {
   componentWillMount() {
@@ -9,7 +8,7 @@ class PaymentsLayout extends Component {
 
   render() {
     return (
-      <div role="tabpanel" className="tab-pane" id="payments">
+      <div role="tabpanel" className="tab-pane payments-container" id="payments">
       {this.props.children}
     </div>
     )

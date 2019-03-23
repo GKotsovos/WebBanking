@@ -1,5 +1,5 @@
 import React, { Component, PropTypes }  from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import SelectDebitAccount from 'routes/root/routes/Banking/routes/components/SelectDebitAccount';
 import SearchPaymentMethod from 'routes/root/routes/Banking/routes/components/SearchPaymentMethod';
 import PaymentCodeSelection from 'routes/root/routes/Banking/routes/components/PaymentCodeSelection';
@@ -7,14 +7,13 @@ import AmountInput from 'routes/root/routes/Banking/routes/components/AmountInpu
 import SelectPaymentOrderEndDate from '../SelectPaymentOrderEndDate';
 import FormCompletionButtons from 'routes/root/routes/Banking/routes/components/FormCompletionButtons';
 import localizationText from './localizationText';
-import './NewPaymentOrderFormLayout.css';
 
 class NewPaymentOrderFormLayout extends Component {
   clearForm() {
-    $('.selectpicker.transactionDebitAccount').selectpicker('val', [''])
-    $('.selectpicker.searchPayment').selectpicker('val', [''])
-    $('.selectpicker.paymentCreditCard').selectpicker('val', [''])
-    $('.selectpicker.paymentLoan').selectpicker('val', [''])
+    $('.selectpicker.select-debit-account__dropdown').selectpicker('val', [''])
+    $('.selectpicker.search-payment-method__dropdown').selectpicker('val', [''])
+    $('.selectpicker.customer-credit-cards__dropdown').selectpicker('val', [''])
+    $('.selectpicker.loan-selection__dropdown').selectpicker('val', [''])
     this.props.initNewPaymentOrderForm();
   }
 
@@ -33,10 +32,10 @@ class NewPaymentOrderFormLayout extends Component {
       setPaymentOrderEndDate,
     } = this.props;
     return (
-      <div className="newOrderForm">
+      <div className="new-order-form">
         <SelectDebitAccount
           label={localizationText[language].debitAccount}
-          debitAccount={!_.isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
+          debitAccount={!isEmpty(newOrderForm) ? newOrderForm.debitAccount : {}}
           accounts={accounts}
           loans={loans}
           creditCards={creditCards}
@@ -51,11 +50,11 @@ class NewPaymentOrderFormLayout extends Component {
           setActivePaymentMethod={setPaymentOrderPaymentMethod}
         />
         {
-          !_.isEmpty(newOrderForm) && newOrderForm.paymentSelections.paymentMethod ? [
+          !isEmpty(newOrderForm) && newOrderForm.paymentSelections.paymentMethod ? [
             <PaymentCodeSelection
               creditCards={creditCards}
               loans={loans}
-              paymentType={_.isEmpty(newOrderForm.paymentSelections) ? {} : newOrderForm.paymentSelections.paymentType}
+              paymentType={isEmpty(newOrderForm.paymentSelections) ? {} : newOrderForm.paymentSelections.paymentType}
               paymentCode={newOrderForm.paymentCode}
               language={language}
               setPaymentCode={setPaymentOrderPaymentCode}
@@ -68,7 +67,7 @@ class NewPaymentOrderFormLayout extends Component {
             <SelectPaymentOrderEndDate
               key='date'
               language={language}
-              endDate={!_.isEmpty(newOrderForm) ? newOrderForm.endDate : {}}
+              endDate={!isEmpty(newOrderForm) ? newOrderForm.endDate : {}}
               setPaymentOrderEndDate={setPaymentOrderEndDate}
             />,
             <FormCompletionButtons

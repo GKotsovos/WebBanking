@@ -1,10 +1,9 @@
 import React from 'react';
 import TransactionSuccess from '../../containers/TransactionSuccessContainer'
 import TransactionFailed from '../../containers/TransactionFailedContainer'
-import './TransactionResultLayout.css';
 
 export const TransactionResultLayout = ({ result, errorMessage, language, linkToStart, clearTransactionForm }) => (
-  <div className="transactionResult" id="transactionResult">
+  <div className="transaction-result">
     {
       result ?
         <TransactionSuccess
@@ -13,7 +12,7 @@ export const TransactionResultLayout = ({ result, errorMessage, language, linkTo
           clearTransactionForm={clearTransactionForm}
          /> :
         <TransactionFailed
-          linkToStart={linkToStart} 
+          linkToStart={linkToStart}
           language={language}
           errorMessage={errorMessage}
         />

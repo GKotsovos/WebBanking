@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
+import React from 'react';
+import { isEmpty } from 'underscore';
 import Account from '../../containers/AccountContainer';
 import DetailedAccount from '../../containers/DetailedAccountContainer';
 import TransactionsHistory from 'routes/root/routes/Banking/routes/components/TransactionsHistory';
-import './AccountsLayout.css';
 
 export const AccountsLayout = ({
   accounts,
@@ -13,10 +12,10 @@ export const AccountsLayout = ({
   setTransactionHistoryEndDate,
   getTransactionHistoryByTimePeriod
 }) => (
-  <div id="accounts" role="tabpanel" className="tab-pane active">
+  <div role="tabpanel" className="accounts-container tab-pane active">
     {
-      _.isEmpty(activeAccount) ?
-        _.map(accounts, (account) => <Account account={account} />)
+      isEmpty(activeAccount) ?
+        accounts && accounts.map(account => <Account account={account} />)
       : [
           <DetailedAccount />,
           <TransactionsHistory

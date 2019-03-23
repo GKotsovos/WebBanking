@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { changePanel } from '../modules/home';
 import NewApplicationPanel from '../components/NewApplicationPanel';
 
 const mapStateToProps = (state) => ({

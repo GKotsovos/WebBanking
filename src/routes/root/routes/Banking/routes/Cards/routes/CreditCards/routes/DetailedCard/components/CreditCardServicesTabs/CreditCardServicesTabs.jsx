@@ -1,12 +1,11 @@
 import React from 'react';
 import localizationText from './localizationText';
-import './CreditCardServicesTabs.css';
 
 export const CreditCardServicesTabs = ({ activeRoute, language, initCardTransactionForm, linkTo }) => (
   <div className="">
-    <ul id="creditCardServicesTabs" className="nav nav-tabs text-center">
+    <ul className="nav nav-tabs text-center services-tabs">
       <li
-        className={`serviceTab ${activeRoute.endsWith('card') ? 'active' : ''}`}
+        className={`services-tab ${activeRoute.endsWith('card') ? 'active' : ''}`}
         onClick={() => linkTo('/banking/cards/creditcards/card')}>
         <a
           href="#cardHistory"
@@ -17,7 +16,7 @@ export const CreditCardServicesTabs = ({ activeRoute, language, initCardTransact
         </a>
       </li>
       <li
-        className={`serviceTab ${activeRoute.includes('card/payment') ? 'active' : ''}`}
+        className={`services-tab ${activeRoute.includes('card/payment') ? 'active' : ''}`}
         onClick={() =>{
           initCardTransactionForm();
           linkTo('/banking/cards/creditcards/card/payment');

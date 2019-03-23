@@ -1,7 +1,5 @@
 import React from 'react'
-import _ from 'underscore';
 import localizationText from './localizationText';
-import './CancelOrderModal.css';
 
 export const CancelOrderModal = ({
   orderName,
@@ -10,9 +8,8 @@ export const CancelOrderModal = ({
   cancelOrder
 }) => (
   <div
-  id="cancelOrderModal"
+    id={`cancelOrderModal-${orderId}`}
     className="modal fade"
-    aria-labelledby="myModalLabel"
     data-backdrop="static"
     data-keyboard="false">
     <div className="modal-dialog">
@@ -23,20 +20,18 @@ export const CancelOrderModal = ({
           </span>
         </div>
         <div className="modal-body">
-          {localizationText[language].cancelOrderText}<span className="strong">«{orderName}»</span>;
+          {localizationText[language].cancelOrderText}<strong>«{orderName}»</strong>;
         </div>
         <div className="modal-footer">
           <button
-            id="cancel"
             type="button"
-            className="btn btn-default"
+            className="common-button--red modal__cancel-button btn"
             data-dismiss="modal">
             {localizationText[language].cancel}
           </button>
           <button
-            id="accept"
             type="button"
-            className="btn btn-default accept"
+            className="common-button--blue btn"
             onClick={() => {
               cancelOrder(orderId);
               $('#cancelOrderModal').modal('hide');

@@ -1,14 +1,12 @@
 import React from 'react'
-import _ from 'underscore';
-import './AmountInput.css';
+import { isEmpty } from 'underscore';
 
 export const AmountInput = ({ title, amount, setTransactionAmount}) => (
-  <div className="form-group bottomOfTwoDivs">
-    <label htmlFor="transactionAmount">{title}</label>
+  <div className="form-group amount-input-container">
+    <label htmlFor="amount-input">{title}</label>
     <input
-      id="transactionAmount"
-      className={`form-control text-right ${_.isEmpty(amount) || amount.correct ? "" : "notValid"}`}
-      value={_.isEmpty(amount) ? '' : amount.value}
+      className={`form-control amount-input text-right ${isEmpty(amount) || amount.correct ? "" : "invalid-value"}`}
+      value={isEmpty(amount) ? '' : amount.value}
       onChange={(e) => setTransactionAmount(e.target.value)}
       placeholder="€"
      />

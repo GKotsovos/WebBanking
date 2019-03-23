@@ -1,0 +1,27 @@
+.time-period-selection {
+  @extend .vertical-align;
+  justify-content: space-between;
+  max-width: 580px;
+  margin: 0 auto 4% auto;
+
+  @include phone {
+    flex-direction: column;
+  }
+
+  &-date-picker-container {
+    @extend .vertical-align;
+
+    @include phone {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__label {
+    margin: 0 5px 0 0;
+  }
+
+  &__search-button {
+    width: 110px;
+  }
+}
+

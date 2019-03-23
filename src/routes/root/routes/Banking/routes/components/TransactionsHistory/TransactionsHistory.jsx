@@ -1,7 +1,6 @@
 import React from 'react';
 import TimePeriodSelection from '../TimePeriodSelection';
 import TransactionsTable from '../TransactionsTable';
-import './TransactionsHistory.css';
 
 export const TransactionsHistory = ({
   transactionHistory,
@@ -11,7 +10,7 @@ export const TransactionsHistory = ({
   setTransactionHistoryEndDate,
   getTransactionHistoryByTimePeriod
  }) => (
-  <div className="transactionsContainer">
+  <div className="transaction-history-container">
     <TimePeriodSelection
       startDate={transactionHistoryTimePeriod ? transactionHistoryTimePeriod.startDate : {}}
       endDate={transactionHistoryTimePeriod ? transactionHistoryTimePeriod.endDate : {}}

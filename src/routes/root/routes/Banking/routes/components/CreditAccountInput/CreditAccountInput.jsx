@@ -1,16 +1,15 @@
 import React from 'react'
-import _ from 'underscore';
+import { isEmpty } from 'underscore';
 import localizationText from './localizationText';
-import './CreditAccountInput.css';
 
 export const CreditAccountInput = ({ showTitle, creditAccount, language, setCreditAccount}) => (
-  <div className="form-group bottomOfTwoDivs">
+  <div className="form-group">
     {
-      showTitle ? <label htmlFor="transferIBAN">{localizationText[language].to}</label> : null
+      showTitle ? <label htmlFor="credit-account-input">{localizationText[language].to}</label> : null
     }
     <input
-      id="transferIBAN"
-      className={`form-control ${_.isEmpty(creditAccount) || creditAccount.correct ? "" : "notValid"}`}
+      id="credit-account-input"
+      className={`form-control ${isEmpty(creditAccount) || creditAccount.correct ? "" : "invalid-value"}`}
       value={creditAccount.value ? creditAccount.value : ""}
       onChange={(e) => setCreditAccount(e.target.value)}
       placeholder="IBAN"

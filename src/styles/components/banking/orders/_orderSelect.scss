@@ -1,0 +1,25 @@
+.select-order {
+  &-container {
+    max-width: 400px;
+    margin: 0 auto 4% auto;
+  }
+
+  &__dropdown-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__dropdown,
+  &__button {
+    display: inline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__button {
+    width: 100px;
+    margin-left: 5%;
+  }
+}

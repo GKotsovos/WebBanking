@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import DetailedCard from '../../../../../containers/DetailedCardContainer'
 import PrepaidCardServicesTabs from '../../containers/PrepaidCardServicesContainer'
 

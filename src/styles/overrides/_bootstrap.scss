@@ -1,0 +1,81 @@
+.row {
+  margin: 0;
+  padding: 0;
+}
+
+[className*='col-'] {
+  padding: 0;
+}
+
+.btn-sample:hover,
+.btn-sample:active:focus,
+.btn-sample:active:active {
+  background-color: $primary-blue !important;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active,
+.navbar-default .navbar-toggle:focus {
+  background-color: $primary-blue;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: $white-text;
+}
+
+.navbar-default .navbar-nav>.active>a:visited {
+  background-color: $primary-blue;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
+  background-color: $active-blue;
+}
+
+.navbar-nav>li>a {
+  @include phone {
+    background-color: $primary-blue;
+  }
+}
+
+.nav-tabs>li>a {
+  border-radius: 0;
+}
+
+.nav-tabs>li>.navigation-tab__link {
+  padding: 3px 15px;
+}
+
+.nav-tabs>li>a:hover,
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:visited,
+.nav-tabs>li.active>a:focus {
+  cursor: pointer;
+  color: black;
+  background-color: #E9EFFC;
+  border-color: $light-blue;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a {
+  color: $black;
+}
+
+.panel-title {
+  text-shadow: 1px 1px 4px $shadow;
+  border: none;
+}
+
+.panel-title,
+.panel-heading.panel-title {
+  background-color: $secondary-blue;
+  color: $white-text;
+}
+.panel .list-group .list-group-item {
+  border-top: 4px solid #E9EFFC;
+}
+
+.table>thead>tr>th {
+  vertical-align: middle;
+}

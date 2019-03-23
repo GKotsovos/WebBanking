@@ -1,0 +1,21 @@
+.transaction-history-table {
+  margin-bottom: 0;
+  width: 100%;
+
+  &-container {
+    max-height: 242px;
+    overflow-y: auto;
+  }
+
+  &__head {
+    font-weight: normal;
+  }
+
+  &__transaction-type--debit {
+    color: red;
+  }
+
+  &__transaction-type--credit {
+    color: green;
+  }
+}

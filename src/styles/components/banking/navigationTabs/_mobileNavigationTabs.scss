@@ -1,0 +1,26 @@
+.mobile-navigation-tabs {
+  margin-top: -75px;
+  z-index: 100;
+  width: 200px;
+  position: absolute;
+  height: 100%;
+  overflow:hidden;
+  background-color: $light-blue;
+  -webkit-transition: width 0.35s ease;
+  -moz-transition: width 0.35s ease;
+  -o-transition: width 0.35s ease;
+  transition: width 0.35s ease;
+
+  &-container {
+    height: inherit;
+  }
+
+  &__burger-button {
+    background: $primary-blue;
+    margin: 10px 0 30px 2px;
+
+    &-icon {
+      color: $white-text;
+    }
+  }
+}

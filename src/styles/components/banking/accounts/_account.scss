@@ -1,0 +1,14 @@
+.account-panel {
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto 4% auto;
+
+  @include phone {
+    margin-bottom: 7.5%;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
