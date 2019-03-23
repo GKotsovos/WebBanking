@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import currencyFormatter from 'currency-formatter';
 import { isEmpty } from 'underscore';
+import { formatCardNumber } from 'routes/root/routes/Banking/routes/utils/commonUtils';
 import localizationText from './localizationText';
 
 export class SelectDebitAccount extends Component {
@@ -67,7 +68,7 @@ export class SelectDebitAccount extends Component {
                   `Credit Card ${creditCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(creditCard.currency).symbol}`
                 }
                 value={creditCard.id}>
-                {[...creditCard.id].map((num, key) =>  key % 4 == 0 ? ' ' + num : num )}
+                {formatCardNumber(creditCard.id)}
               </option>
             ))
           }
@@ -80,7 +81,7 @@ export class SelectDebitAccount extends Component {
                   `Prepaid Card ${prepaidCard.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})} ${currencyFormatter.findCurrency(prepaidCard.currency).symbol}`
                 }
                 value={prepaidCard.id}>
-                {[...prepaidCard.id].map((num, key) =>  key % 4 == 0 ? ' ' + num : num )}
+                {formatCardNumber(prepaidCard.id)}
               </option>
             ))
           }
