@@ -59,7 +59,7 @@ export const getPaymentMethods = () => {
       .then((response) => {
         dispatch({
           type    : SET_PAYMENT_METHODS,
-          payload : response
+          payload : response.data
         })
       })
       .then(() => {
@@ -298,11 +298,6 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-
-  INITIAL_STATE: (state, action) => {
-    return {};
-  },
-
   INIT_PAYMENT_TRANSACTION_FORM: (state, action) => {
     return {
       ...state,
@@ -328,7 +323,7 @@ const ACTION_HANDLERS = {
       ...state,
       transactionForm: {
         ...state.transactionForm,
-        paymentMethods: groupBy(action.payload.data, 'category')
+        paymentMethods: groupBy(action.payload, 'category')
       }
     }
   },

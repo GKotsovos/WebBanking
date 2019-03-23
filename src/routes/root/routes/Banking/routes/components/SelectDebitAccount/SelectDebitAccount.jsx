@@ -11,7 +11,7 @@ export class SelectDebitAccount extends Component {
   }
 
   componentWillReceiveProps() {
-    setTimeout(() => $(".selectpicker.select-debit-account__dropdown").selectpicker('refresh'), 350);
+    setTimeout(() => $(".selectpicker.select-debit-account__dropdown").selectpicker('refresh'));
   }
 
   render() {

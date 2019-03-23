@@ -47,6 +47,10 @@ label {
 .common-table-header {
   background-color: $secondary-blue;
   color: $white-text;
+
+  th {
+    font-weight: 500;
+  }
 }
 
 .common-table-cell {
