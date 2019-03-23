@@ -35,7 +35,7 @@ export class SelectDebitAccount extends Component {
           title={localizationText[language].selectAccountTitle}
           onChange={(e) => setDebitAccount(e.target.value, e.target.options[e.target.options.selectedIndex].dataset.value)}>
           {
-            accounts.map(account => (
+            accounts && accounts.map(account => (
               <option
                 key={account.id}
                 data-value="isAccount"
@@ -47,7 +47,7 @@ export class SelectDebitAccount extends Component {
             ))
           }
           {
-            loans.map(loan => (
+            loans && loans.map(loan => (
               <option
                 key={loan.id}
                 data-value="isLoan"
@@ -59,7 +59,7 @@ export class SelectDebitAccount extends Component {
             ))
           }
           {
-            creditCards.map(creditCard => (
+            creditCards && creditCards.map(creditCard => (
               <option
                 key={creditCard.id}
                 data-value="isCreditCard"
@@ -72,7 +72,7 @@ export class SelectDebitAccount extends Component {
             ))
           }
           {
-            prepaidCards.map(prepaidCard => (
+            prepaidCards && prepaidCards.map(prepaidCard => (
               <option
                 key={prepaidCard.id}
                 data-value="isPrepaidCard"

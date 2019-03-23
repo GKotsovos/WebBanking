@@ -22,7 +22,7 @@ export const TransactionsTable = ({ transactionHistory, language }) => (
       </thead>
       <tbody>
         {
-          transactionHistory.map((transaction, key) => [
+          transactionHistory && transactionHistory.map((transaction, key) => [
             <tr key={key}>
               <td key={key++} className="common-table-cell col-sm-2 text-center">
                 {dateformat(transaction.date, 'dd/mm/yyyy')}

@@ -4,7 +4,7 @@ import ExistingPaymentOrder from '../ExistingPaymentOrder';
 export const ExistingPaymentOrdersLayout = ({ paymentOrders, language, cancelPaymentOrder }) => (
   <div>
     {
-      paymentOrders.map(paymentOrder =>
+      paymentOrders && paymentOrders.map(paymentOrder =>
         <ExistingPaymentOrder
           key={paymentOrder.id}
           paymentOrder={paymentOrder}

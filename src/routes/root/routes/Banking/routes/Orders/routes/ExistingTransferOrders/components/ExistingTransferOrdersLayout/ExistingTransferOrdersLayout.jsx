@@ -4,7 +4,7 @@ import ExistingTransferOrder from '../ExistingTransferOrder';
 export const ExistingTransferOrdersLayout = ({ transferOrders, language, cancelTransferOrder }) => (
   <div>
     {
-      transferOrders.map(transferOrder =>
+      transferOrders && transferOrders.map(transferOrder =>
         <ExistingTransferOrder
           key={transferOrder.id}
           transferOrder={transferOrder}

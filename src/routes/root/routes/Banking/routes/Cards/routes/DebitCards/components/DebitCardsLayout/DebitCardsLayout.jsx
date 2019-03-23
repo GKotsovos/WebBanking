@@ -6,7 +6,7 @@ export const DebitCardsLayout = ({ children, debitCards, activeCard }) => (
   <div role="tabpanel" className="tab-pane active" id="debit">
     {
       isEmpty(activeCard) ?
-        debitCards.map(debitCard => <Card key={debitCard.id} card={debitCard.debitCard} type="DEBIT"/>)
+        debitCards && debitCards.map(debitCard => <Card key={debitCard.id} card={debitCard.debitCard} type="DEBIT"/>)
         : children
     }
   </div>

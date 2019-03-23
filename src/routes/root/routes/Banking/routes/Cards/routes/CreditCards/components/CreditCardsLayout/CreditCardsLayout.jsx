@@ -5,7 +5,7 @@ import { isEmpty } from 'underscore';
 export const CreditCardsLayout = ({ children, creditCards, activeCard }) => (
   <div role="tabpanel" className="tab-pane" id="credit">
     {
-      isEmpty(activeCard) ? creditCards.map(creditCard => <Card key={creditCard.id} card={creditCard} type="CREDIT"/>) : children
+      isEmpty(activeCard) ? creditCards && creditCards.map(creditCard => <Card key={creditCard.id} card={creditCard} type="CREDIT"/>) : children
     }
   </div>
 )

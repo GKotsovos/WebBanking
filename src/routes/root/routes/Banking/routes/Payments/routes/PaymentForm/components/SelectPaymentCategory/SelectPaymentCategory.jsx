@@ -28,7 +28,7 @@ export class SelectPaymentCategory extends Component {
           title={localizationText[language].selectPaymentCategory}
           onChange={(e) => setActivePaymentCategory(e.target.value)}>
           {
-            availableCategories.map(category => (
+            availableCategories && availableCategories.map(category => (
               <option key={category}>
                 {category}
               </option>

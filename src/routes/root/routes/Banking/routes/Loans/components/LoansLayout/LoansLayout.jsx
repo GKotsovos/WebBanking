@@ -6,7 +6,7 @@ export const LoansLayout = ({ children, loans, activeLoan }) => (
   <div role="tabpanel" className="tab-pane loans-container" id="loans">
     {
       isEmpty(activeLoan) ?
-        loans.map(loan => <Loan key={loan.id} loan={loan} />)
+        loans && loans.map(loan => <Loan key={loan.id} loan={loan} />)
         : children
     }
   </div>

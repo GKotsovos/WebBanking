@@ -20,7 +20,7 @@ export const LinkedProductsLayout = ({
       </thead>
       <tbody>
         {
-          [...linkedProducts].map((linkedProduct, key) => linkedProduct ? [
+          linkedProducts && linkedProducts.map((linkedProduct, key) => linkedProduct ? [
             <tr key={key}>
               <td key={key++} className="common-table-cell col-xs-2 text-center">{linkedProduct.type}</td>
               <td key={key++} className="common-table-cell col-xs-4 text-center">{linkedProduct.id}</td>

@@ -15,7 +15,7 @@ export const AccountsLayout = ({
   <div role="tabpanel" className="accounts-container tab-pane active">
     {
       isEmpty(activeAccount) ?
-        accounts.map(account => <Account account={account} />)
+        accounts && accounts.map(account => <Account account={account} />)
       : [
           <DetailedAccount />,
           <TransactionsHistory

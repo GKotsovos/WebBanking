@@ -192,7 +192,8 @@ export const setOrderDebitAccount = (debitAccount, debitAccountType) => {
       type: SET_ORDER_CURRENCY,
       payload: currency,
     });
-    if (getState().orders.activeOrder.type == 'payment') {
+    const activeOrder = getState().orders.activeOrder;
+    if (activeOrder && activeOrder.type == 'payment') {
       dispatch({
         type: VALIDATE_PAYMENT_ORDER_FORM
       });
@@ -905,7 +906,7 @@ const ACTION_HANDLERS = {
       newOrderForm: {
         ...state.newOrderForm,
         paymentMethods: groupBy(action.payload, 'category'),
-        availablePaymentMethods: action.payload.map(paymentMethod => paymentMethod.name)
+        availablePaymentMethods: [...action.payload].map(paymentMethod => paymentMethod.name)
       }
     }
   },

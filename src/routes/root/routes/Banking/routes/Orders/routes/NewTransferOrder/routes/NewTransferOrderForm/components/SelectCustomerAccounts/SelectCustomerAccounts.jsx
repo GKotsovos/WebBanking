@@ -34,7 +34,7 @@ export class SelectCustomerAccounts extends Component {
           }
         >
           {
-            accounts.map(account => (
+            accounts && accounts.map(account => (
               <option
                 key={account.id}
                 data-account-type="isAccount"
