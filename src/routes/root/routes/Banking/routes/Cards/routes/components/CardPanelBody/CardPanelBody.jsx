@@ -7,12 +7,12 @@ export const CardPanelBody = ({ card, type, language }) => (
     <span className="row">
       {
         type != 'PREPAID' ?
-          <span className="col-xs-3 col-sm-2 text-right">
+          <span className="col-xs-3 text-right">
             {card[type == 'DEBIT' ? 'dailyLimit' : 'limit'].toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
           </span>
-          : <span className="col-xs-3 col-sm-2 text-right"></span>
+          : <span className="col-xs-3 text-right"></span>
       }
-      <span className="col-xs-4 col-sm-5 text-right">
+      <span className="col-xs-4 text-right">
         {card.availableBalance.toLocaleString('el-GR', {minimumFractionDigits: 2})}{currencyFormatter.findCurrency(card.currency).symbol}
       </span>
       <span className="col-xs-offset-1 col-xs-4 text-right">
@@ -22,12 +22,12 @@ export const CardPanelBody = ({ card, type, language }) => (
     <span className="row common-label">
       {
         type != 'PREPAID' ?
-          <span className="col-xs-3 col-sm-2 text-right">
+          <span className="col-xs-3 text-right">
             {type == 'DEBIT' ? localizationText[language].dailyLimit : localizationText[language].totalLimit}
           </span>
-          : <span className="col-xs-3 col-sm-2 text-right"></span>
+          : <span className="col-xs-3 text-right"></span>
       }
-      <span className="col-xs-4 col-sm-5 text-right">{localizationText[language].availableLimit}</span>
+      <span className="col-xs-4 text-right">{localizationText[language].availableLimit}</span>
       <span className="col-xs-offset-1 col-xs-4 text-right">{localizationText[language].ledgerBalance}</span>
     </span>
   </div>
