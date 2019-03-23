@@ -8,7 +8,7 @@ export const CancelOrderModal = ({
   cancelOrder
 }) => (
   <div
-  id="cancelOrderModal"
+    id={`cancelOrderModal-${orderId}`}
     className="modal fade"
     data-backdrop="static"
     data-keyboard="false">

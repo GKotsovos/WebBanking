@@ -12,7 +12,7 @@ export const CancelOrderButton = ({
     <button
       className="common-button--red btn cancel-order-button"
       data-toggle="modal"
-      data-target="#cancelOrderModal">
+      data-target={`#cancelOrderModal-${orderId}`}>
       {localizationText[language].delete}
     </button>
     <CancelOrderModal
